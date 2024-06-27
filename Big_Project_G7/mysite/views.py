@@ -55,8 +55,19 @@ def layout4(request):
 def edit_profile_view(request):
     return render(request, 'edit_profile.html')
 
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+@login_required
 def edit_booth_view(request):
-    return render(request, 'edit_booth.html')
+    user_type = request.user.profile.user_type  # 현재 로그인한 사용자의 user_type
+
+    if user_type == '기업회원':
+        return render(request, 'edit_booth.html')  # 기업회원일 경우 edit_booth.html 페이지 접속
+    else:
+        # 일반고객일 경우 페이지 접속 안됨
+        # messages.add_message(request, messages.ERROR, '접근 권한이 없습니다.')
+        return render(request, 'mypage.html')  
 
 def reservation(request):
     return render(request, 'reservation.html')

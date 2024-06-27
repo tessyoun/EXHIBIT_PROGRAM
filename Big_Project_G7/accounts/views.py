@@ -6,6 +6,7 @@ from django.contrib.auth import logout
 from django.conf import settings
 from .forms import SignupForm
 from .models import Profile
+from django.contrib.auth.decorators import login_required
 
 def custom_logout_view(request):
     logout(request)
@@ -20,11 +21,6 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
-            # new_user = Profile(user=user,
-            #                                     user_type=form.cleaned_data.get('user_type'),
-            #                                     name=form.cleaned_data.get('name'),
-            #                                     phone_number=form.cleaned_data.get('phone_number'))
-            # new_user.save()
             if user is not None:
                 auth_login(request, user)
                 return redirect(settings.LOGIN_REDIRECT_URL)
@@ -32,3 +28,13 @@ def signup(request):
         form = SignupForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+@login_required
+def mypage_view(request):
+    user = request.user
+    is_regular = user.group.filter(name='일반고객').exists()
+    is_business = user.groups.filter(name='기업고객').exists()
+    context = {
+        'is_regular' : is_regular,
+        'is_business': is_business,
+    }
+    return render(request, 'mypage.html', context)
