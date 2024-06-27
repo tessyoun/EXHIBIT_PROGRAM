@@ -146,11 +146,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (menuBtn && mobileMenu) {
         menuBtn.addEventListener("click", function() {
-            if (mobileMenu.style.display === "none" || mobileMenu.style.display === "") {
-                mobileMenu.style.display = "block";
-            } else {
-                mobileMenu.style.display = "none";
-            }
+            mobileMenu.classList.toggle("show");
         });
     }
 
@@ -204,7 +200,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 addBotMessage("Sorry, there was an error processing your request.");
             });
         }
-        
 
         function getCookie(name) {
             let cookieValue = null;
@@ -266,37 +261,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (editBoothBtn) {
         editBoothBtn.addEventListener('click', function() {
             window.location.href = "/edit_booth/";
-        });
-    }
-
-    // 예약 기능 코드 추가
-    var decreaseBtn = document.getElementById('decrease');
-    var increaseBtn = document.getElementById('increase');
-    var peopleCount = document.getElementById('people');
-    var timeSlots = document.querySelectorAll('.time-slot');
-
-    if (decreaseBtn && increaseBtn && peopleCount) {
-        decreaseBtn.addEventListener('click', function() {
-            var count = parseInt(peopleCount.innerText);
-            if (count > 0) {
-                peopleCount.innerText = count - 1;
-            }
-        });
-
-        increaseBtn.addEventListener('click', function() {
-            var count = parseInt(peopleCount.innerText);
-            peopleCount.innerText = count + 1;
-        });
-    }
-
-    if (timeSlots) {
-        timeSlots.forEach(function(slot) {
-            slot.addEventListener('click', function() {
-                timeSlots.forEach(function(slot) {
-                    slot.classList.remove('selected');
-                });
-                slot.classList.add('selected');
-            });
         });
     }
 });

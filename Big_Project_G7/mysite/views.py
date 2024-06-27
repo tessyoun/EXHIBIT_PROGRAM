@@ -72,3 +72,5 @@ def edit_booth_view(request):
 def reservation(request):
     return render(request, 'reservation.html')
 
+def confirmation(request):
+    return render(request, 'confirmation.html')

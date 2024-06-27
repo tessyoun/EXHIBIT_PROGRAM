@@ -1,0 +1,58 @@
+/* confirmation.css */
+.confirmation-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.reservation-details {
+    margin: 20px 0;
+}
+
+.reservation-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.detail-title {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.detail-content {
+    font-size: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.cancel-button {
+    font-size: 16px;
+    padding: 5px 10px;
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.edit-button {
+    font-size: 16px;
+    padding: 5px 10px;
+    background-color: #66cc66;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

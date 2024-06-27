@@ -38,3 +38,13 @@
 .time-slot.selected {
     background-color: #0099ff;
 }
+
+#reserve-button {
+    font-size: 24px;
+    padding: 15px 30px;
+    margin-top: 30px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 3px;
+    /* border-color: #3b5998; */
+}
