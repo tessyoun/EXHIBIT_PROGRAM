@@ -1,0 +1,22 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+    <title>{% block title %}회원가입{% endblock %}</title>
+    <meta charset="utf-8">    
+    <link rel="stylesheet" href="{% static 'signup.css' %}">
+    <link rel="stylesheet" href="{% static 'btn.css' %}"> 
+
+</head>
+<body>
+    {% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" class="btn-3d blue" value="회원가입" />
+    </form>
+    {% endblock %}
+</body>
+</html>

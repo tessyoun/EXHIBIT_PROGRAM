@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약하기</title>
+    <link rel="stylesheet" href="{% static 'bass.css' %}" />
+    <link rel="stylesheet" href="{% static 'reservation.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="menu-btn" id="menu-btn">&#9776;</button>
+            <h1>Reservation</h1>
+            <nav class="mobile-menu" id="mobile-menu">
+                <ul>
+                    <li><a href="{% url 'index' %}"><i class="fas fa-home fa-2xl"></i></a></li><br><br>
+                    <li><a href="{% url 'mypage' %}"><i class="fa-solid fa-check fa-xl"> 마이페이지</i></a></li><br>
+                    <li><a href="#"><i class="fa-solid fa-check fa-xl"> 예매 확인</i></a></li><br>
+                    <li><a href="#"><i class="fa-solid fa-check fa-xl"> 예약 확인</i></a></li><br>
+                    <div class="user_option">
+                        {% if not user.is_authenticated %}     
+                          <li><a class="nav-link" href="{% url 'signup' %}"><i class="fa-regular fa-user fa-xl"> Signup</i></a></li><br>   
+                          <li><a class="nav-link" href="{% url 'login' %}?next={{request.path}}"><i class="fa-regular fa-user fa-xl"> Login</i></a></li>
+                        {% else %}
+                          <li><p class="user-name"><span>{{user}}님!</span></p></li>
+                          <form class = "logout-form" method="post" action="{% url 'logout' %}?next={{request.path}}" style="display:inline;">
+                            {% csrf_token %}
+                          <li><button type="submit" class="logout-button" style="background:none; border:none; color:inherit; padding:0; cursor:pointer;">
+                            Logout
+                          </button></li>
+                          </form>
+                        {% endif %}
+                      </div>
+                </ul>
+            </nav>
+        </header>
+        <div class="reservation-container">
+            <h1>예약하기</h1>
+            <div class="people-counter">
+                <button id="decrease">-</button>
+                <div id="people">0</div>
+                <button id="increase">+</button>
+            </div>
+            <div class="time-slots">
+                <div class="time-slot selected">10:00</div>
+                <div class="time-slot">11:00</div>
+                <div class="time-slot">12:00</div>
+                <div class="time-slot">13:00</div>
+                <div class="time-slot">14:00</div>
+                <div class="time-slot">15:00</div>
+                <div class="time-slot">16:00</div>
+                <div class="time-slot">17:00</div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

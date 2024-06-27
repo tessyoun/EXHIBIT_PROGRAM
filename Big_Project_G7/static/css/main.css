@@ -1,0 +1,123 @@
+/* 메인화면 css */
+.main-content {
+    height: 85%;
+    padding: 20px;
+    text-align: center;
+    min-height: 600px;
+    position: relative;
+}
+
+.main-box {
+    background-color: #3B73E9;
+    color: white;
+    padding: 100px 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    min-height: 200px;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.icon {
+    width: 80px;
+    height: 80px;
+    background-color: #75bbdb;
+    border-radius: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-icons {
+    position: absolute;
+    bottom: 0px;
+    right: 10px; 
+    text-align: right;
+}
+
+.chat-icon {
+    background-color: #3B73E9;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    transform: scaleX(-1);
+}
+
+#chat-title{
+    text-align: center;
+    background-color: #90e67b;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+#chat-container {
+    height: 85%;
+    min-height: 500px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+#chat-body {
+    height: 400px;
+    width: 400px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+#options-container {
+    position: relative;
+    padding-bottom: 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#chat-footer {
+    display: flex;
+    gap: 10px;
+    height:50px;
+    font-size: 30px;
+}
+
+#chat-footer input {
+    flex: 1;
+    padding: 5px;
+}
+
+#chat-footer button {
+    padding: 5px 10px;
+}
+
+.message {
+    margin-bottom: 10px;
+}
+
+.user-message {
+    text-align: right;
+    background-color: #d1e7dd;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.bot-message {
+    text-align: left;
+    background-color: #f8d7da;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.timestamp {
+    display: block;
+    font-size: 0.8em;
+    color: #888;
+}
