@@ -53,16 +53,37 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         function getBotResponse(text) {
-            // Simulate a delay for bot response
-            setTimeout(function() {
-                const responses = {
-                    "option1": "Response for option 1.",
-                    "option2": "Response for option 2.",
-                    "option3": "Response for option 3.",
-                    "option4": "Response for option 4."
-                };
-                addBotMessage(responses[text] || "I'm not sure about that.");
-            }, 1000);
+            fetch('/chatgpt/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ question: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                addBotMessage(data.result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addBotMessage("Sorry, there was an error processing your request.");
+            });
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
         }
 
         // Handle option button clicks
