@@ -42,6 +42,14 @@
             </nav>
         </header>
         <div>
+          {% if messages %}
+            <ul> 
+              {% for message in messages%}
+                <li>{{ message }} </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
             <div class="edit_case">
                 <button class="profile" id="edit_profile"><i class="fa-solid fa-circle-user fa-2xl"></i><br><br>회원 정보 수정</button>
                 <button class="booth" id="edit_booth"><i class="fa-solid fa-store fa-2xl"></i><br><br>부스 정보 수정</button>

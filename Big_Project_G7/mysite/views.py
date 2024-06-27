@@ -66,7 +66,7 @@ def edit_booth_view(request):
         return render(request, 'edit_booth.html')  # 기업회원일 경우 edit_booth.html 페이지 접속
     else:
         # 일반고객일 경우 페이지 접속 안됨
-        # messages.add_message(request, messages.ERROR, '접근 권한이 없습니다.')
+        messages.info(request, '접근 권한이 없습니다.') # 메세지 출력
         return render(request, 'mypage.html')  
 
 def reservation(request):

@@ -57,6 +57,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
+from .models import ChatHistory
 
 import json
 
@@ -80,7 +81,8 @@ def chat(request):
         qa = RetrievalQA.from_llm(llm=chat, retriever=retriever, return_source_documents=True)
 
         result = qa(query)
-
+        # 질문, 응답 객체 생성
+        ChatHistory.objects.create(question=query, answer=result["answer"])
         # JSON 응답 반환
         return JsonResponse({'result': result['result']})
 
