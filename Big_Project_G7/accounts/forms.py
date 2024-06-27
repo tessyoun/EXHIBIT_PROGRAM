@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 # from .models import UserProfile
+from django.contrib.auth.models import Group
 from .models import Profile
 from django.contrib.auth.forms import UserCreationForm  
 
@@ -16,14 +17,23 @@ class SignupForm(UserCreationForm):
             'username': '아이디',
         }
 
-    def save(self):
-        user = super().save()
-        Profile.objects.create(user=user,
-                               user_type=self.cleaned_data['user_type'],
+    def save(self, commit=True):
+        user = super().save(commit=True)
+        user_type = self.cleaned_data['user_type']
+        if commit:
+            user.save()
+            Profile.objects.create(user=user,
+                               user_type=user_type,
                                name=self.cleaned_data['name'],
                                phone_number=self.cleaned_data['phone_number'],
                                )
-        return user
+            try:
+                group = Group.objects.get(name=user_type)
+            except Group.DoesNotExist:
+                # 그룹이 없을 경우, 기본 그룹을 설정하거나 예외 처리
+                group = None  # 예외 처리 로직 추가
+            if group:
+                user.groups.add(group)
     
 class RegularUserSignUpForm(forms.ModelForm):
     name = forms.CharField(max_length=100, label='이름')
