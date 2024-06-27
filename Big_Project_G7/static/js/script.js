@@ -112,4 +112,44 @@ document.addEventListener("DOMContentLoaded", function() {
             window.location.href = "/edit_booth/";
         });
     }
+
+    var decreaseBtn = document.getElementById('decrease');
+    var increaseBtn = document.getElementById('increase');
+    var peopleCount = document.getElementById('people');
+    var timeSlots = document.querySelectorAll('.time-slot');
+    var reserveButton = document.getElementById('reserve-button');
+
+    if (decreaseBtn && increaseBtn && peopleCount) {
+        decreaseBtn.addEventListener('click', function() {
+            var count = parseInt(peopleCount.innerText);
+            if (count > 0) {
+                peopleCount.innerText = count - 1;
+            }
+        });
+
+        increaseBtn.addEventListener('click', function() {
+            var count = parseInt(peopleCount.innerText);
+            peopleCount.innerText = count + 1;
+        });
+    }
+
+    if (timeSlots) {
+        timeSlots.forEach(function(slot) {
+            slot.addEventListener('click', function() {
+                timeSlots.forEach(function(slot) {
+                    slot.classList.remove('selected');
+                });
+                slot.classList.add('selected');
+            });
+        });
+    }
+
+    if (reserveButton) {
+        reserveButton.addEventListener('click', function() {
+            var selectedTime = document.querySelector('.time-slot.selected').innerText;
+            var count = peopleCount.innerText;
+            alert(`예약 인원: ${count}\n예약 시간: ${selectedTime}`);
+            // 추후 예약 로직 추가 필요!!
+        });
+    }
 });

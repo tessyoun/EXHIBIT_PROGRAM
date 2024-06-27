@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>예약하기</title>
-    <link rel="stylesheet" href="{% static 'bass.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
     <link rel="stylesheet" href="{% static 'reservation.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
@@ -14,6 +14,7 @@
         <header>
             <button class="menu-btn" id="menu-btn">&#9776;</button>
             <h1>Reservation</h1>
+            <a id="home" href="{% url 'index' %}" ><i class="fas fa-home fa-2xl"> </i></a>
             <nav class="mobile-menu" id="mobile-menu">
                 <ul>
                     <li><a href="{% url 'index' %}"><i class="fas fa-home fa-2xl"></i></a></li><br><br>
@@ -41,7 +42,7 @@
             <h1>예약하기</h1>
             <div class="people-counter">
                 <button id="decrease">-</button>
-                <div id="people">0</div>
+                <div id="people">1</div>
                 <button id="increase">+</button>
             </div>
             <div class="time-slots">
@@ -54,8 +55,9 @@
                 <div class="time-slot">16:00</div>
                 <div class="time-slot">17:00</div>
             </div>
+            <button id="reserve-button">예약하기</button>
         </div>
     </div>
-    <script src="{% static 'script.js' %}"></script>
+    <script src="{% static '/js/script.js' %}"></script>
 </body>
 </html>
