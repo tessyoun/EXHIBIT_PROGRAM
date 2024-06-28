@@ -19,6 +19,7 @@ urlpatterns = [
     path('edit_booth/', views.edit_booth_view, name='edit_booth'),
     path('reservation/', views.reservation, name='reservation'),
     path('confirmation/', views.confirmation, name='confirmation'),
+    path('change_permission/', views.change_permission, name='change_permission'),
 ]
 
 from django.conf import settings
