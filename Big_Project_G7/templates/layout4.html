@@ -13,7 +13,7 @@
             <button class="menu-btn" id="menu-btn">&#9776;</button>
             <h1>Layout4</h1>
             <a id="home" href="{% url 'index' %}" ><i class="fas fa-home fa-2xl"> </i></a>
-            <nav class="mobile-menu" id="mobile-menu">
+            <nav class="mobile-menu" id="mobile-menu"><br><br><br>
                 <ul>
                     {% if not user.is_authenticated %}     
                           <li><a class="nav-link" href="{% url 'signup' %}"><i class="fa-regular fa-user fa-xl"> Signup</i></a></li><br>   

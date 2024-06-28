@@ -126,4 +126,34 @@ document.addEventListener("DOMContentLoaded", function() {
             window.location.href = "/edit_booth/";
         });
     }
+
+
+    //booth click event
+    var modal = document.getElementById("myModal");
+    var closeButton = document.getElementById("close-button");
+
+    function showModal(rectIndex) {
+        document.getElementById("modalText").innerText = "Rectangle " + rectIndex + " clicked!";
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    document.querySelectorAll('.rectangle').forEach(function(rectangle, index) {
+        rectangle.addEventListener('click', function() {
+            showModal(index);
+        });
+    });
+
+    if (closeButton) {
+        closeButton.addEventListener("click", closeModal);
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
 });

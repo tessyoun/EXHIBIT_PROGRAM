@@ -14,9 +14,7 @@
             <h1>Main</h1>
             <a id="home" href="{% url 'index' %}" ><i class="fas fa-home fa-2xl"> </i></a>
             <nav class="mobile-menu" id="mobile-menu">
-                <ul>
-                    <li><a href="{% url 'index' %}"><i class="fas fa-home fa-2xl"></i></a></li><br><br>
-                 
+                <ul><br><br><br>               
                     <div class="user_option">
                         {% if not user.is_authenticated %}     
                           <li><a class="nav-link" href="{% url 'signup' %}"><i class="fa-regular fa-user fa-xl"> Signup</i></a></li><br>   
