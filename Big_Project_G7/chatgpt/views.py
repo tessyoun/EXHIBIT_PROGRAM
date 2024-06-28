@@ -44,13 +44,33 @@ from langchain.chat_models import ChatOpenAI
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
-from .models import ChatHistory
+from .models import ChatHistory, faq_aivle, faq_exhi
+from langchain.schema import Document
 
 import json
 
-# Chroma 데이터베이스 초기화
-embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
-database = Chroma(persist_directory="./database", embedding_function=embeddings)
+# Chroma 데이터베이스 초기화 >> FAQ DB 연결로 대체
+# embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+# database = Chroma(persist_directory="./database", embedding_function=embeddings)
+
+# FAQ DB 연결
+def getFAQdb():
+    aivleQAdf=faq_aivle.objects.all() #에이블스쿨 FAQ
+    exhiQAdf=faq_exhi.objects.all() #전시회장 FAQ
+    
+    embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
+    database = Chroma(persist_directory="./database", embedding_function = embeddings )
+    # 각 행의 데이터를 Document 객체로 변환 
+    doc1 = [Document(page_content=QA.qalist)  for QA in aivleQAdf]
+    doc2 = [Document(page_content=QA.qalist)  for QA in exhiQAdf]
+
+    # 데이터프레임에서 문서 추가
+    database.add_documents(doc1)
+    database.add_documents(doc2)
+    return database
+
+database=getFAQdb()
+
 
 def index(request):
     return render(request, 'gpt/index.html')
