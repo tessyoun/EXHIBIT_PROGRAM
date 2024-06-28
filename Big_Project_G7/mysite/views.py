@@ -3,8 +3,10 @@
 import os
 import cv2
 import numpy as np
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
+from accounts.forms import ProfileForm
+from accounts.models import Profile
 
 def process_image():
     image_path = os.path.join(settings.BASE_DIR, 'static/images/test1.png')
@@ -109,3 +111,19 @@ def confirmation(request):
     else:
         # 일반고객
         return render(request, 'confirmation.html')
+    
+@login_required
+def memberinfo_view(request):
+    user = request.user
+    if not hasattr(user, 'profile'):
+        Profile.objects.create(user=user)
+    
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('mypage')
+    else:
+        form = ProfileForm(instance=user.profile)
+
+    return render(request, 'memberinfo.html', {'form': form})

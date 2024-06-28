@@ -65,3 +65,8 @@ class BusinessUserSignUpForm(forms.ModelForm):
         widgets = {
             'password': forms.PasswordInput(),
         }
+        
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['user_type', 'name', 'phone_number']
