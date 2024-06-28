@@ -45,6 +45,7 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
 from .models import ChatHistory, faq_aivle, faq_exhi
+from .models import exbooth_1st, exbooth_2nd, exbooth_3rd, exbooth_4th
 from langchain.schema import Document
 
 import json
@@ -60,12 +61,25 @@ def getFAQdb():
     
     embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
     database = Chroma(persist_directory="./database", embedding_function = embeddings )
+    
     # 각 행의 데이터를 Document 객체로 변환 
-    doc1 = [Document(page_content=QA.qalist)  for QA in aivleQAdf]
-    doc2 = [Document(page_content=QA.qalist)  for QA in exhiQAdf]
-
-    docs=doc1+doc2
+    doc1 = [Document(page_content=QA.qalist)  for QA in aivleQAdf] # 에이블스쿨
+    doc2 = [Document(page_content=QA.qalist)  for QA in exhiQAdf] # 전시장
+    
+    # 부스 정보 문서
+    exb=[exbooth_1st.objects.all(), exbooth_2nd.objects.all(), exbooth_3rd.objects.all(), exbooth_4th.objects.all()]
+    x=[]
+    for i in range(len(exb)):    
+        x.append([Document(page_content=f"""기업명: "{booth.group}",
+전시회명: "에이블스쿨 {i+1}기 빅프로젝트 전시회",
+부스명: "{booth.bname}",
+BM: {booth.bcat} ,
+설명: {booth.background or ''} {booth.service or ''}""") for booth in exb[i]])
+        
+    bdoc=x[0]+x[1]+x[2]+x[3]
+    
     # 데이터프레임에서 문서 추가
+    docs=doc1+doc2+bdoc
     database.add_documents(docs)
     return database
 
