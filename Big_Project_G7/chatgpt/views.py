@@ -64,8 +64,8 @@ def getFAQdb():
     doc1 = [Document(page_content=QA.qalist)  for QA in aivleQAdf]
     doc2 = [Document(page_content=QA.qalist)  for QA in exhiQAdf]
 
+    docs=doc1+doc2
     # 데이터프레임에서 문서 추가
-    docs=doc1+doc2    
     database.add_documents(docs)
     return database
 
