@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />       
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <title>Image with Clickable Rectangles</title>
     <style>
         .rectangle {
@@ -17,10 +19,10 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div>
         <header>
             <button class="menu-btn" id="menu-btn">&#9776;</button>
-            <h1>Main</h1>
+            <h1>layout1</h1>
             <nav class="mobile-menu" id="mobile-menu">
                 <ul>
                     {% if not user.is_authenticated %}     
@@ -45,14 +47,14 @@
             </nav>
         </header>
     <body>
-        <h1>Welcome to Layout 1</h1>
     <script src="{% static 'script.js' %}"></script>
-    </body>
-</html>
     <div class="image-container">
         <img src="{% static image_path %}" alt="Processed Image">
         {% for i, rect in rectangles %}
-            <div class="rectangle" style="left: {{ rect.0 }}px; top: {{ rect.1 }}px; width: {{ rect.2 }}px; height: {{ rect.3 }}px;" onclick="alert('Rectangle {{ i }} clicked!')"></div>
+            <div class="rectangle" 
+                style="position: absolute; left: {{ rect.left }}px; top: {{ rect.top }}px; width: {{ rect.width }}px; height: {{ rect.height }}px; transform: rotate({{ rect.rotate }}deg);"
+                onclick="alert('Rectangle {{ i }} clicked!')">
+            </div>
         {% endfor %}
     </div>
     <script src="{% static 'js/script.js' %}"></script>
