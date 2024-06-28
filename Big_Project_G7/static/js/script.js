@@ -9,7 +9,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (menuBtn && mobileMenu) {
         menuBtn.addEventListener("click", function() {
-            mobileMenu.classList.toggle("show");
+            if (mobileMenu.style.display === "none" || mobileMenu.style.display === "") {
+                mobileMenu.style.display = "block";
+            } else {
+                mobileMenu.style.display = "none";
+            }
         });
     }
 
