@@ -1,28 +1,20 @@
 <!DOCTYPE html>
 {% load static %}
-<html>
+<html lang="ko">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />       
+    <title>부스 예약 현황</title>
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
+    <link rel="stylesheet" href="{% static 'confirmation_busi.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <title>Image with Clickable Rectangles</title>
-    <style>
-        .rectangle {
-            position: absolute;
-            border: 2px solid red;
-            cursor: pointer;
-        }
-        .image-container {
-            position: relative;
-        }
-    </style>
 </head>
 <body>
-    <div>
+    <div class="container">
         <header>
             <button class="menu-btn" id="menu-btn">&#9776;</button>
-            <h1>layout1</h1>
+            <h1>Confirmation</h1>
+            <a id="home" href="{% url 'index' %}" ><i class="fas fa-home fa-2xl"> </i></a>
             <nav class="mobile-menu" id="mobile-menu">
                 <ul>
                     {% if not user.is_authenticated %}     
@@ -42,19 +34,48 @@
                             </button></li>
                         </form>
                     {% endif %}
+                      </div>
                 </ul>
             </nav>
         </header>
-    <body>
-    <script src="{% static 'script.js' %}"></script>
-    <div class="image-container">
-        <img src="{% static image_path %}" alt="Processed Image">
-        {% for i, rect in rectangles %}
-            <div class="rectangle" 
-                style="position: absolute; left: {{ rect.left }}px; top: {{ rect.top }}px; width: {{ rect.width }}px; height: {{ rect.height }}px; transform: rotate({{ rect.rotate }}deg);"
-                onclick="alert('Rectangle {{ i }} clicked!')">
+        <div class="confirmation-container">
+            <h1>부스 예약 현황</h1>
+            <div class="reservation-details">
+                <div class="reservation-item">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>시간</th>
+                                <th>인원</th>
+                                <th>방문여부</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>오전 9시</td>
+                                <td>5명</td>
+                                <td><button>완료</button></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>오전 10시</td>
+                                <td>10명</td>
+                                <td><button>완료</button></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>오전 11시</td>
+                                <td>8명</td>
+                                <td><button>완료</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 추가 예약 항목은 여기에 계속 추가 -->
             </div>
-        {% endfor %}
+        </div>
     </div>
     <script src="{% static 'js/script.js' %}"></script>
 </body>
