@@ -36,7 +36,18 @@
             </nav>
         </header>
     <body>
-        <h1>Welcome to Layout 2</h1>
+        <h1>배치도 생성</h1>
+        {% if messages %}
+            <ul> 
+                {% for message in messages%}
+                <li>{{ message }} </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action="{% url 'change_permission' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">생성</button>
+        </form>
         <script src="{% static 'js/script.js' %}"></script>
     </body>
 </html>

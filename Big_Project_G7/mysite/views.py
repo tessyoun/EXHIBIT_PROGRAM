@@ -111,7 +111,7 @@ def confirmation(request):
     else:
         # 일반고객
         return render(request, 'confirmation.html')
-    
+
 @login_required
 def memberinfo_view(request):
     user = request.user
@@ -127,3 +127,12 @@ def memberinfo_view(request):
         form = ProfileForm(instance=user.profile)
 
     return render(request, 'memberinfo.html', {'form': form})
+
+# 배치도 생성하면 staff로 권한 바꿈
+def change_permission(request):
+    if request.method == 'POST':
+        user = request.user
+        user.is_staff = True
+        user.save()
+        return render(request, 'layout2.html')
+
