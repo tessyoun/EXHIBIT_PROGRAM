@@ -109,3 +109,13 @@ def confirmation(request):
     else:
         # 일반고객
         return render(request, 'confirmation.html')
+
+# 배치도 생성하면 staff로 권한 바꿈
+def change_permission(request):
+    if request.method == 'POST':
+        user = request.user
+        user.is_staff = True
+        user.save()
+        return render(request, 'layout2.html')
+
+            
