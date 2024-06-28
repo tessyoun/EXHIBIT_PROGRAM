@@ -9,13 +9,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (menuBtn && mobileMenu) {
         menuBtn.addEventListener("click", function() {
-            mobileMenu.classList.toggle("show");
-            menuBtn.classList.toggle("hidden");
-        });
-
-        mobileMenu.addEventListener("click", function() {
-            mobileMenu.classList.toggle("show");
-            menuBtn.classList.toggle("hidden");
+            if (mobileMenu.style.display === "none" || mobileMenu.style.display === "") {
+                mobileMenu.style.display = "block";
+            } else {
+                mobileMenu.style.display = "none";
+            }
         });
     }
 
@@ -131,5 +129,35 @@ document.addEventListener("DOMContentLoaded", function() {
         editBoothBtn.addEventListener('click', function() {
             window.location.href = "/edit_booth/";
         });
+    }
+
+
+    //booth click event
+    var modal = document.getElementById("myModal");
+    var closeButton = document.getElementById("close-button");
+
+    function showModal(rectIndex) {
+        document.getElementById("modalText").innerText = "Rectangle " + rectIndex + " clicked!";
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    document.querySelectorAll('.rectangle').forEach(function(rectangle, index) {
+        rectangle.addEventListener('click', function() {
+            showModal(index);
+        });
+    });
+
+    if (closeButton) {
+        closeButton.addEventListener("click", closeModal);
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
     }
 });
