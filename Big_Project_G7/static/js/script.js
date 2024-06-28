@@ -10,6 +10,12 @@ document.addEventListener("DOMContentLoaded", function() {
     if (menuBtn && mobileMenu) {
         menuBtn.addEventListener("click", function() {
             mobileMenu.classList.toggle("show");
+            menuBtn.classList.toggle("hidden");
+        });
+
+        mobileMenu.addEventListener("click", function() {
+            mobileMenu.classList.toggle("show");
+            menuBtn.classList.toggle("hidden");
         });
     }
 

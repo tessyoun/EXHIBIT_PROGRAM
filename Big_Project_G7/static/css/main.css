@@ -121,3 +121,11 @@
     font-size: 0.8em;
     color: #888;
 }
+
+.show {
+    display: block !important;
+}
+
+.hidden {
+    display: none;
+}
