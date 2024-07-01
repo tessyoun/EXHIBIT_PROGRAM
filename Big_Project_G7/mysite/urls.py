@@ -20,9 +20,10 @@ urlpatterns = [
     path('reservation/', views.reservation, name='reservation'),
     path('confirmation/', views.confirmation, name='confirmation'),
     path('memberinfo/', views.memberinfo_view, name='memberinfo'),
-    path('change_permission/', views.change_permission, name='change_permission'),
+    # path('change_permission/', views.change_permission, name='change_permission'),
     path('program_open/', views.program_open, name='program_open'),
     path('booth_program/', include('booth_program.urls')),
+    path('exhibition/', include('exhibition.urls')),
 ]
 
 from django.conf import settings

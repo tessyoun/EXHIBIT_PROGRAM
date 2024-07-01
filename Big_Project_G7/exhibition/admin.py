@@ -13,3 +13,10 @@ admin.site.register(exbooth_2nd, PostExhibition)
 admin.site.register(exbooth_3rd, PostExhibition)
 admin.site.register(exbooth_4th, PostExhibition)
 admin.site.register(ImageUpload)
+
+class PostExhibition(admin.ModelAdmin):
+    list_display = ['exhibition_name', 'host_id', 'hall']
+    list_display_links = ['exhibition_name']
+    ordering = ['start_date']
+    
+admin.site.register(Exhibition, PostExhibition)

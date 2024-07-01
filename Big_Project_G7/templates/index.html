@@ -45,7 +45,8 @@
             </div>
             <div class="icons">
                 <button class="icon" id="btn1">전시회1</button>
-                <button class="icon" id="btn2">전시회2</button>
+                {% comment %} <button class="icon" id="btn2">전시회2</button> {% endcomment %}
+                <a class="icon" href="{% url 'create_exhibition' %}" id="btn2">전시회2</a>
                 <button class="icon" id="btn3">전시회3</button>
                 <button class="icon" id="btn4">전시회4</button>
             </div> 
