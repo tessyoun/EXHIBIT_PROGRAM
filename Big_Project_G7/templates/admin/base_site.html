@@ -1,0 +1,46 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}My Custom Admin{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_custom.css' %}">
+    <script type="text/javascript" src="{% static 'js/admin_custom.js' %}"></script>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">My Custom Admin</a></h1>
+{% endblock %}
+
+{% block userlinks %}
+<div id="user-tools">
+    {% if user.is_authenticated %}
+        <strong>{{ user.get_username }}</strong>
+        | <a href="{% url 'admin:password_change' %}">비밀번호 변경</a>
+        | <a href="{% url 'logout' %}">로그아웃</a>
+        | <a href="/">사이트 보기</a>
+    {% else %}
+        <a href="{% url 'admin:login' %}">로그인</a>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block content %}
+<nav class="custom-navbar">
+    <div class="custom-navbar-container">
+        <div class="custom-navbar-brand">
+            <a href="{% url 'admin:index' %}">My Custom Admin</a>
+        </div>
+        <ul class="custom-navbar-menu">
+            <li><a href="{% url 'admin:index' %}">Home</a></li>
+            <li><a href="/">Visit Site</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="admin-page-content">
+    {{ block.super }}
+</div>
+{% endblock %}
