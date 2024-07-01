@@ -47,3 +47,13 @@ class exbooth_4th(models.Model):
     class Meta:
         managed = False
         db_table = 'exbooth_4th'
+
+# 전시회 홍보 이미지 업로드
+class ImageUpload(models.Model):
+    title = models.CharField(max_length=50, null=False)
+    image = models.ImageField(upload_to='exhibition/',blank=True)
+    created_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+    
+    def __str__(self):
+        return f'{self.title}'
