@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'chatgpt',
     'accounts',
     'exhibition',
+    'booth_program',
 ]
 
 MIDDLEWARE = [

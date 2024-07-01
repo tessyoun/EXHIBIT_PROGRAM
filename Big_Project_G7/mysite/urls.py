@@ -22,6 +22,7 @@ urlpatterns = [
     path('memberinfo/', views.memberinfo_view, name='memberinfo'),
     path('change_permission/', views.change_permission, name='change_permission'),
     path('program_open/', views.program_open, name='program_open'),
+    path('booth_program/', include('booth_program.urls')),
 ]
 
 from django.conf import settings
