@@ -5,8 +5,10 @@ import cv2
 import numpy as np
 from django.shortcuts import render, redirect
 from django.conf import settings
+from django.core.serializers import serialize
 from accounts.forms import ProfileForm
 from accounts.models import Profile
+from .models import exbooth_1st, exbooth_2nd, exbooth_3rd, exbooth_4th
 
 def process_image():
     image_path = os.path.join(settings.BASE_DIR, 'static/images/test1.png')
@@ -64,7 +66,7 @@ def layout1(request):
 
         left = center_x - (width / 2)
         top = center_y - (height / 2)
-
+        
         rectangles_with_dimensions.append({
             'left': left,
             'top': top,
@@ -73,7 +75,18 @@ def layout1(request):
             'rotate': angle,
         })
 
-    return render(request, 'layout1.html', {'image_path': image_path, 'rectangles': list(enumerate(rectangles_with_dimensions))})
+    booth_1st = serialize('json', exbooth_1st.objects.all())
+    booth_2nd = serialize('json', exbooth_2nd.objects.all())
+    booth_3rd = serialize('json', exbooth_3rd.objects.all())
+    booth_4th = serialize('json', exbooth_4th.objects.all())
+    
+    return render(request, 'layout1.html', {'image_path': image_path, 
+                                            'rectangles': list(enumerate(rectangles_with_dimensions)),
+                                            'booths_1st': booth_1st,
+                                            'booths_2nd': booth_2nd,
+                                            'booths_3rd': booth_3rd,
+                                            'booths_4th': booth_4th,
+                                            })
 
 def layout2(request):
     return render(request, 'layout2.html')

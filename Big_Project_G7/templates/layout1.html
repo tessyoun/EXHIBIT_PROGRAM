@@ -37,11 +37,19 @@
                 </ul>
             </nav>
         </header>
+        <div id="booth-search">                 <!-- 부스 검색 기능 제작중 --> 
+            <input type="text" id="booth-name-input" placeholder="ex)1기 AI 3조">
+            <button id="search-button">Send</button>
+        </div>
         <div class="image-container">
             <img src="{% static image_path %}" alt="Processed Image">
             {% for i, rect in rectangles %}
             <div class="rectangle" 
-                style="left: {{ rect.left }}px; top: {{ rect.top }}px; width: {{ rect.width }}px; height: {{ rect.height }}px; transform: rotate({{ rect.rotate }}deg);">
+                style="left: {{ rect.left }}px;
+                        top: {{ rect.top }}px; width: {{ rect.width }}px;
+                        height: {{ rect.height }}px;
+                        transform: rotate({{ rect.rotate }}deg);"
+                        data-index="{{ i }}">
             </div>
             {% endfor %}
         </div>
@@ -49,13 +57,22 @@
             <div class="modal-content">
                 <span class="close" id="close-button">&times;</span>
                 <img id="modalImage" src="" alt="Modal Image" style="width:50%;">
-                <p id="modalText" style="font-size:30px;"></p>
+                <p id="modalText" style="font-size:auto; height: auto; overflow-y: auto; margin-bottom: 10px;"></p>
             </div>
         </div>
     </div>
     <script>
         const imageBasePath = "{% static 'booth_thumbnail/1/' %}";
+        const boothsJsonString1 = '{{ booths_1st|escapejs }}';
+        const boothsJsonString2 = '{{ booths_2nd|escapejs }}';
+        const boothsJsonString3 = '{{ booths_3rd|escapejs }}';
+        const boothsJsonString4 = '{{ booths_4th|escapejs }}';
+        const booths_1st = JSON.parse(boothsJsonString1);
+        const booths_2nd = JSON.parse(boothsJsonString2);
+        const booths_3rd = JSON.parse(boothsJsonString3);
+        const booths_4th = JSON.parse(boothsJsonString4);
     </script>
+    <script src="{% static 'js/booth.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
