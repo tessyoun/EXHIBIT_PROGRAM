@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 from django.shortcuts import render, redirect
 from django.conf import settings
-from accounts.forms import ProfileForm
+from accounts.forms import ProfileForm, BusinessUserProfileForm
 from accounts.models import Profile
 
 def process_image():
@@ -127,3 +127,26 @@ def memberinfo_view(request):
         form = ProfileForm(instance=user.profile)
 
     return render(request, 'memberinfo.html', {'form': form})
+
+@login_required
+def boothinfo_view(request):
+    user = request.user
+    if not hasattr(user, 'profile'):
+        Profile.objects.create(user=user)
+
+    user_type = user.profile.user_type
+
+    if user_type != '기업회원':
+        messages.info(request, '접근 권한이 없습니다.')
+        return redirect('mypage')
+
+    if request.method == 'POST':
+        form = BusinessUserProfileForm(request.POST, request.FILES, instance=user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '부스 정보가 성공적으로 업데이트되었습니다.')
+            return redirect('boothinfo')
+    else:
+        form = BusinessUserProfileForm(instance=user.profile)
+
+    return render(request, 'boothinfo.html', {'form': form})

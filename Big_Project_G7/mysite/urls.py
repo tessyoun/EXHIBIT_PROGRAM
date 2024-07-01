@@ -20,6 +20,7 @@ urlpatterns = [
     path('reservation/', views.reservation, name='reservation'),
     path('confirmation/', views.confirmation, name='confirmation'),
     path('memberinfo/', views.memberinfo_view, name='memberinfo'),
+    path('boothinfo/', views.boothinfo_view, name='boothinfo'),
 ]
 
 from django.conf import settings

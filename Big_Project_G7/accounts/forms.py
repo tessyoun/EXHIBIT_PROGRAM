@@ -70,3 +70,11 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['user_type', 'name', 'phone_number']
+
+class BusinessUserProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['user_type', 'booth_date_edit', 'booth_pic_edit', 'booth_name_edit']
+        widgets = {
+            'booth_date_edit': forms.DateInput(attrs={'type': 'date'}),
+        }
