@@ -141,14 +141,17 @@ def memberinfo_view(request):
 
     return render(request, 'memberinfo.html', {'form': form})
 
-# 배치도 생성하면 staff로 권한 바꿈
-def change_permission(request):
-    if request.method == 'POST':
-        user = request.user
-        user.is_staff = True
-        user.save()
-        return render(request, 'layout2.html')
+# # 배치도 생성하면 staff로 권한 바꿈
+# def change_permission(request):
+#     if request.method == 'POST':
+#         user = request.user
+#         user.is_staff = True
+#         user.save()
+#         return render(request, 'layout2.html')
 
 # 추후에 기업 회원만 접근 가능하도록 수정 필요
 def program_open(request):
     return render(request, 'program_open.html')
+
+def create_exhibition(request):
+    return render(request, 'exhibition/templates/layout2.html')

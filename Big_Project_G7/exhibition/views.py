@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import exbooth_1st, exbooth_2nd, exbooth_3rd, exbooth_4th
+from django.contrib.auth.decorators import login_required
+from .models import Exhibition
+from .forms import ExhibitionForm
 
 
 def getExhidb(exhi):
@@ -13,3 +16,23 @@ exhi_1st = getExhidb(exbooth_1st)
 exhi_2st = getExhidb(exbooth_2nd)
 exhi_3rd = getExhidb(exbooth_3rd)
 exhi_4th = getExhidb(exbooth_4th)
+
+@login_required
+def create_exhibition(request):
+    if request.method == 'POST':
+        form = ExhibitionForm(request.POST)
+        if form.is_valid():
+            exhibition = form.save(commit=False)
+            exhibition.host_id = request.user.username  # 로그인한 사용자의 아이디를 설정
+            exhibition.save()
+            return redirect('create_exhibition')  
+    else:
+        form = ExhibitionForm()
+    return render(request, 'layout2.html', {'form': form})
+
+def change_perm(request):
+    if request.method == 'POST':
+        user = request.user
+        user.is_staff = True
+        user.save()
+        return redirect('create_exhibition')
