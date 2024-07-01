@@ -136,3 +136,6 @@ def change_permission(request):
         user.save()
         return render(request, 'layout2.html')
 
+# 추후에 기업 회원만 접근 가능하도록 수정 필요
+def program_open(request):
+    return render(request, 'program_open.html')

@@ -21,6 +21,7 @@ urlpatterns = [
     path('confirmation/', views.confirmation, name='confirmation'),
     path('memberinfo/', views.memberinfo_view, name='memberinfo'),
     path('change_permission/', views.change_permission, name='change_permission'),
+    path('program_open/', views.program_open, name='program_open'),
 ]
 
 from django.conf import settings

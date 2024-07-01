@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>부스 오픈</title>
+    <title>프로그램 오픈</title>
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
-    <link rel="stylesheet" href="{% static 'booth_open.css' %}" />
+    <link rel="stylesheet" href="{% static 'program_open.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
     <div class="container">
         <header>
             <button class="menu-btn" id="menu-btn">&#9776;</button>
-            <h1>Booth Open</h1>
+            <h1>Program Open</h1>
             <a id="home" href="{% url 'index' %}" ><i class="fas fa-home fa-2xl"> </i></a>
             <nav class="mobile-menu" id="mobile-menu"><br><br><br>
                 <ul>
@@ -38,15 +38,15 @@
             </nav>
         </header>
         <div class="booth-open-container">
-            <h1>부스 오픈</h1>
-            <form method="post" action="{% url 'booth_open' %}">
+            <h1>프로그램 오픈</h1>
+            <form method="post" action="{% url 'program_open' %}">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="program-name">프로그램 명:</label>
                     <input type="text" id="program-name" name="program_name" required>
                 </div>
                 <div class="form-group">
-                    <label for="booth-description">부스 설명:</label>
+                    <label for="booth-description">프로그램 설명:</label>
                     <textarea id="booth-description" name="booth_description" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
@@ -80,7 +80,7 @@
                     <input type="hidden" id="selected-times" name="selected_times" value="">
                 </div>
                 <div class="button-container">
-                    <button type="submit" class="submit-button">부스 오픈하기</button>
+                    <button type="submit" class="submit-button">프로그램 오픈하기</button>
                 </div>
             </form>
         </div>
