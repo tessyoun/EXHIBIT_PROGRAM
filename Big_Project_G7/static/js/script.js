@@ -130,38 +130,4 @@ document.addEventListener("DOMContentLoaded", function() {
             window.location.href = "/edit_booth/";
         });
     }
-
-
-    //booth click event
-    var modal = document.getElementById("myModal");
-    var closeButton = document.getElementById("close-button");
-    var modalImage = document.getElementById("modalImage");
-    
-    function showModal(rectIndex) {
-        var formattedIndex = rectIndex.toString().padStart(2, '0');
-        var imageName = "1_AI_" + formattedIndex + ".jpg";
-        modalImage.src = imageBasePath + imageName;
-        document.getElementById("modalText").innerText = "Rectangle " + rectIndex + " clicked!";
-        modal.style.display = "block";
-    }
-
-    function closeModal() {
-        modal.style.display = "none";
-    }
-
-    document.querySelectorAll('.rectangle').forEach(function(rectangle, index) {
-        rectangle.addEventListener('click', function() {
-            showModal(index+1);
-        });
-    });
-
-    if (closeButton) {
-        closeButton.addEventListener("click", closeModal);
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            closeModal();
-        }
-    }
 });

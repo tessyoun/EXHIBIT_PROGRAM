@@ -25,6 +25,8 @@
     border: 1px solid #888;
     width: 50%; 
     height: 70%;
+    min-height: 450px;
+    min-width: 300px;
 }
 .close {
     color: #aaa;
@@ -37,4 +39,14 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.blink {
+    animation: blink-animation 0.5s step-end infinite alternate;
+}
+
+@keyframes blink-animation {
+    0% { background-color: rgba(255, 255, 0, 0.5); }
+    50% { background-color: rgba(255, 255, 0, 0); }
+    100% { background-color: rgba(255, 255, 0, 0.5); }
 }
