@@ -12,20 +12,4 @@ class Profile(models.Model):
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='선택')
     name = models.CharField(max_length=100, null=True, blank=True, default='regular')
     phone_number = models.CharField(max_length=20)
-    booth_date_edit = models.DateField(null=True, blank=True)
-    booth_pic_edit = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
-    booth_name_edit = models.CharField(max_length=20, default='boothname')
     
-# class UserProfile(models.Model):
-#     USER_TYPE_CHOICES = (
-#         ('regular', '일반회원'),
-#         ('business', '기업회원'),
-#     )
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
-#     name = models.CharField(max_length=100, null=True, blank=True)
-#     company_name = models.CharField(max_length=100, null=True, blank=True)
-#     phone = models.CharField(max_length=50)
-
-#     def __str__(self):
-#         return self.user.username

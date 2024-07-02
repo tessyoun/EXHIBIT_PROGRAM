@@ -44,7 +44,8 @@
             <h1>회원 정보 수정</h1>
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ user_form.as_p }}
+                {{ profile_form.as_p }}
                 <button type="submit">저장</button>
             </form>
         </div>
