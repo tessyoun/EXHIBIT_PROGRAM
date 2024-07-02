@@ -78,18 +78,17 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    margin-right: 15px;
 }
 
 .sidebar__login__info {
     display: flex;
-    align-items: center;
+    flex-direction: column;
 }
 
-.sidebar__login__user--wrap {
+.sidebar__login__user--wrap, .sidebar__login__info--list {
     display: flex;
-    align-items: center;
-    margin-left: 13px;
-    margin-top: 5px;
+    flex-direction: column;
     text-decoration: none;
 }
 
@@ -101,6 +100,34 @@
 
 .sidebar__login__user--wrap:hover .sidebar__login--btn {
     color: gray;
+}
+
+.sidebar__login__info--list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-name {
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    
+    /* 닉네임이 너무 길면 ...으로 생략 */
+    max-width: 151px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+
+
+.logout-button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    cursor: pointer;
 }
 
 .sidebar__menu--list--wrap {
