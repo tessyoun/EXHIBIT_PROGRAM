@@ -6,7 +6,6 @@ import numpy as np
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core.serializers import serialize
-from accounts.forms import ProfileForm, BusinessUserProfileForm
 from accounts.models import Profile
 from .models import exbooth_1st, exbooth_2nd, exbooth_3rd, exbooth_4th
 
