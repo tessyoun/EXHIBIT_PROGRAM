@@ -7,39 +7,97 @@ document.addEventListener("DOMContentLoaded", function() {
     var modalImage = document.getElementById("modalImage");
     var modalText = document.getElementById("modalText");
     var suggestionsDiv = document.getElementById('suggestions');
+    var categorySelect = document.querySelector('select[name="category"]');
+    var rectangles = document.querySelectorAll('.rectangle');
+    var selectedCategory = '전체'; // 처음 로드 시 '전체' 선택
 
-    nameInput.addEventListener('input', function() {
+    // 카테고리 초기화
+    function populateCategories() {
+        var categories = ['전체'];
+        booths_1st.forEach(function(booth) {
+            var category = booth.fields.bcat;
+            if (!categories.includes(category)) {
+                categories.push(category);
+                var option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categorySelect.appendChild(option);
+            }
+        });
+        
+        // '전체' 카테고리 추가
+        var allOption = document.createElement('option');
+        allOption.value = '전체';
+        allOption.textContent = '전체';
+        categorySelect.insertBefore(allOption, categorySelect.firstChild); // 첫 번째 옵션으로 추가
+    }
+
+    // 사각형 필터링
+    function filterRectangles(category) {
+        rectangles.forEach(function(rectangle, index) {
+            var booth = booths_1st[index];
+            if (booth && (category === '전체' || booth.fields.bcat === category)){
+                rectangle.style.display = 'block';
+            } else {
+                rectangle.style.display = 'none';
+            }
+        });
+    }
+
+    // 부스 제안 필터링
+    function handleInput() {
         const userText = nameInput.value.trim().toLowerCase();
         suggestionsDiv.innerHTML = '';
 
-        if (userText.length > 0) {
-            const filteredBooths = booths_1st.filter(booth =>
-                booth.fields.bname.toLowerCase().includes(userText) ||
-                booth.fields.bcat.toLowerCase().includes(userText)
-            );
+        const filteredBooths = booths_1st.filter(booth => {
+            return (selectedCategory === '전체' || booth.fields.bcat === selectedCategory) && // 선택된 카테고리와 일치
+                   booth.fields.bname.toLowerCase().includes(userText); // 입력된 텍스트 포함
+        });
 
-            filteredBooths.forEach((booth, index) => {
-                const suggestion = document.createElement('div');
-                suggestion.classList.add('suggestion');
-                suggestion.textContent = booth.fields.bname;
-                suggestion.style.top = `${index * 40}px`; // Adjust the height as needed
-                suggestion.addEventListener('click', function() {
-                    nameInput.value = booth.fields.bname;
-                    suggestionsDiv.innerHTML = ''; // Clear suggestions
-                    highlightBooth(booth);
-                });
-                suggestionsDiv.appendChild(suggestion);
+        filteredBooths.forEach((booth, index) => {
+            const suggestion = document.createElement('div');
+            suggestion.classList.add('suggestion');
+            suggestion.textContent = booth.fields.bname;
+            suggestion.style.top = `${index * 40}px`; // 높이 조정
+            suggestion.addEventListener('click', function() {
+                nameInput.value = booth.fields.bname;
+                suggestionsDiv.innerHTML = ''; // 제안 목록 초기화
             });
-        }
+            suggestionsDiv.appendChild(suggestion);
+        });
+        // 입력 요소 클릭 시 제안 목록 보이기
+        nameInput.addEventListener('click', function() {
+            suggestionsDiv.style.display = 'block';
+        });
+
+        // 다른 곳 클릭 시 제안 목록 숨기기
+        document.addEventListener('click', function(event) {
+            if (!nameInput.contains(event.target)) {
+                suggestionsDiv.style.display = 'none';
+            }
+        });
+
+    }
+
+    // 카테고리 선택 시 업데이트
+    categorySelect.addEventListener('change', function() {
+        selectedCategory = categorySelect.value.trim();
+        filterRectangles(selectedCategory);
+        handleInput(); // 카테고리 선택 시에도 제안 목록 업데이트
     });
 
+    // 초기화 코드
+    populateCategories();
+    categorySelect.selectedIndex = 0; // '전체'를 기본 선택값으로 설정
+    filterRectangles(selectedCategory); // 처음 로드 시 전체 부스 표시
+    nameInput.addEventListener('input', handleInput);
     if (searchButton) {
         searchButton.addEventListener('click', function() {
             const userText = nameInput.value.trim().toLowerCase();
             let found = false;
 
             for (let i = 0; i < booths_1st.length; i++) {
-                if (userText === booths_1st[i].fields.bname.toLowerCase() || userText === booths_1st[i].fields.bcat.toLowerCase()) {
+                if (userText === booths_1st[i].fields.bname.toLowerCase()) {
                     found = true;
                     const detectRect = document.querySelector(`.rectangle[data-index='${i}']`);
                     if (detectRect) {

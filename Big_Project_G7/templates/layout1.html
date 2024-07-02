@@ -38,7 +38,9 @@
             </nav>
         </header>
         <div id="booth-search">
-            <input type="text" id="booth-name-input" placeholder="부스이름 or 카테고리">
+            <select id="category" name="category">
+            </select>
+            <input type="text" id="booth-name-input" placeholder="부스이름">
             <button id="search-button">Search</button>
             <div id="suggestions"></div>
         </div>
@@ -57,7 +59,7 @@
         <div class="modal" id="myModal" >
             <div class="modal-content">
                 <span class="close" id="close-button">&times;</span>
-                <img id="modalImage" src="" alt="Modal Image" style="width:50%;">
+                <img id="modalImage" src="" alt="Modal Image" style="width:40%;">
                 <p id="modalText" style="font-size:auto; height: auto; overflow-y: auto; margin-bottom: 10px;"></p>
             </div>
         </div>

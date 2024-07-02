@@ -1,3 +1,10 @@
+#category{
+    padding: 5px;
+    width:10%;
+    height: 40px;
+    font-size: 20px;
+}
+
 #booth-search{
     margin:10px 0px 10px 0px;
     padding:10px;
@@ -25,7 +32,7 @@
 }
 
 .suggestion {
-    left:19%;
+    left:24%;
     position: absolute;
     width: 50%;
     background-color: #f9f9f9;
