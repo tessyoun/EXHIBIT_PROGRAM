@@ -37,9 +37,12 @@
                 </ul>
             </nav>
         </header>
-        <div id="booth-search">                 <!-- 부스 검색 기능 제작중 --> 
-            <input type="text" id="booth-name-input" placeholder="ex)1기 AI 3조">
-            <button id="search-button">Send</button>
+        <div id="booth-search">
+            <select id="category" name="category">
+            </select>
+            <input type="text" id="booth-name-input" placeholder="부스이름">
+            <button id="search-button">Search</button>
+            <div id="suggestions"></div>
         </div>
         <div class="image-container">
             <img src="{% static image_path %}" alt="Processed Image">
@@ -56,7 +59,8 @@
         <div class="modal" id="myModal" >
             <div class="modal-content">
                 <span class="close" id="close-button">&times;</span>
-                <img id="modalImage" src="" alt="Modal Image" style="width:50%;">
+                <img id="modalImage" src="" alt="Modal Image" style="width:40%;">
+                <button id="reservation" data-reservation-url="{% url 'reservation' 'placeholder_booth_id' %}">예약</button>
                 <p id="modalText" style="font-size:auto; height: auto; overflow-y: auto; margin-bottom: 10px;"></p>
             </div>
         </div>
