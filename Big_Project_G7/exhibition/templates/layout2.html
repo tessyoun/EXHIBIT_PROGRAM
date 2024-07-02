@@ -51,6 +51,9 @@
                 {{ form.as_p }}
                 <button type="submit" class="btn-create">배치도 생성</button>
             </form>
+            {% if image_url %}
+                <img src="data:image/png;base64, {{ image_url }}" alt="Generated Image">
+            {% endif %}
             <form action="{% url 'change_perm' %}" method="post" class="form-exhibition" >
                 {% csrf_token %}
                 <button type="submit" class="btn-exhibition">전시 개최</button>

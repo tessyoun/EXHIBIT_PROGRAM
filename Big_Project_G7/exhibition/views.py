@@ -5,11 +5,12 @@ from .models import Exhibition
 from .forms import ExhibitionForm
 from accounts.models import Profile
 from django.core.serializers.json import DjangoJSONEncoder
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import json
 import requests
+import base64
 
-AI_API_URL = 'https://8rgyr184rzf1v9-5000.proxy.runpod.net/generate'
+AI_API_URL = 'https://8rgyr184rzf1v9-8080.proxy.runpod.net/generate'
 
 def getExhidb(exhi):
     exhibition = exhi.objects.all() # 1전시
@@ -40,11 +41,20 @@ def create_exhibition(request):
                     timeout=200
                 )
                 response.raise_for_status()
+                if response.status_code == 200:
+                    image = base64.b64encode(response.content).decode('utf-8')
+                    return render(request, 'layout2.html', {'image_url': image})
+
+                image_response = requests.get(AI_API_URL)
+                image_data = image_response.json().get('image')
+                # image_url = AI_API_URL
+                # return render(request, 'layout2.html', {'image_url': image_url})
+                return render(request, 'layout2.html', {'image_url' : image_data})
             except requests.exceptions.RequestException as E:
                 return JsonResponse({'error': str(E)}, status=500)
             
-            print(response)
-            return redirect('create_exhibition')
+            # print(response.headers)
+            # return redirect('create_exhibition')
         else:
             print(form.errors) # 폼에러 확인
     else:
