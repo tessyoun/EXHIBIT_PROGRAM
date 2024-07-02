@@ -113,8 +113,12 @@ def edit_booth_view(request):
         messages.info(request, '접근 권한이 없습니다.') # 메세지 출력
         return render(request, 'mypage.html')  
 
-def reservation(request):
-    return render(request, 'reservation.html')
+def reservation(request, booth_id):
+    booth = exbooth_1st.objects.get(pk=booth_id)
+    context = {
+        'booth': booth
+    }
+    return render(request, 'reservation.html', context)
 
 def confirmation(request):
     user_type = request.user.profile.user_type  # 현재 로그인한 사용자의 user_type
