@@ -7,6 +7,7 @@ from django.conf import settings
 from .forms import SignupForm
 from .models import Profile
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import ProfileUpdateForm, UserUpdateForm
 
 def custom_logout_view(request):
