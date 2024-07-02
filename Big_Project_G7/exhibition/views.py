@@ -39,3 +39,6 @@ def change_perm(request):
         user.is_staff = True
         user.save()
         return redirect('create_exhibition')
+
+def create_layout():
+    URL = 'https://8rgyr184rzf1v9-5000.proxy.runpod.net/generate'
