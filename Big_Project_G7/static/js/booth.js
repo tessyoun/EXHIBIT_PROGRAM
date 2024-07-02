@@ -6,14 +6,40 @@ document.addEventListener("DOMContentLoaded", function() {
     var closeButton = document.getElementById("close-button");
     var modalImage = document.getElementById("modalImage");
     var modalText = document.getElementById("modalText");
+    var suggestionsDiv = document.getElementById('suggestions');
+
+    nameInput.addEventListener('input', function() {
+        const userText = nameInput.value.trim().toLowerCase();
+        suggestionsDiv.innerHTML = '';
+
+        if (userText.length > 0) {
+            const filteredBooths = booths_1st.filter(booth =>
+                booth.fields.bname.toLowerCase().includes(userText) ||
+                booth.fields.bcat.toLowerCase().includes(userText)
+            );
+
+            filteredBooths.forEach((booth, index) => {
+                const suggestion = document.createElement('div');
+                suggestion.classList.add('suggestion');
+                suggestion.textContent = booth.fields.bname;
+                suggestion.style.top = `${index * 40}px`; // Adjust the height as needed
+                suggestion.addEventListener('click', function() {
+                    nameInput.value = booth.fields.bname;
+                    suggestionsDiv.innerHTML = ''; // Clear suggestions
+                    highlightBooth(booth);
+                });
+                suggestionsDiv.appendChild(suggestion);
+            });
+        }
+    });
 
     if (searchButton) {
         searchButton.addEventListener('click', function() {
-            const userText = nameInput.value.trim();
+            const userText = nameInput.value.trim().toLowerCase();
             let found = false;
-            
+
             for (let i = 0; i < booths_1st.length; i++) {
-                if (userText === booths_1st[i].pk) {                //조 이름으로 검색 말고 카테고리나 부스이름으로 검색 수정 필요
+                if (userText === booths_1st[i].fields.bname.toLowerCase() || userText === booths_1st[i].fields.bcat.toLowerCase()) {
                     found = true;
                     const detectRect = document.querySelector(`.rectangle[data-index='${i}']`);
                     if (detectRect) {
@@ -29,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 alert("No matching booth found.");
             }
         });
-    }  
+    }
 
     //booth click event
 
