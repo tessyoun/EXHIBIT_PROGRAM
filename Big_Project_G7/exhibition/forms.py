@@ -1,5 +1,5 @@
 from django import forms
-from .models import Exhibition
+from .models import *
 
 class ExhibitionForm(forms.ModelForm):
     class Meta:
@@ -21,3 +21,23 @@ class ExhibitionForm(forms.ModelForm):
         if commit:
             exhibition.save()
         return exhibition
+    
+class Exbooth1stForm(forms.ModelForm):
+    class Meta:
+        model = exbooth_1st
+        fields = ['group', 'bname', 'bcat', 'background', 'service']
+
+class Exbooth2ndForm(forms.ModelForm):
+    class Meta:
+        model = exbooth_2nd
+        fields = ['group', 'bname', 'bcat', 'background', 'service']
+
+class Exbooth3rdForm(forms.ModelForm):
+    class Meta:
+        model = exbooth_3rd
+        fields = ['group', 'bname', 'bcat', 'background', 'service']
+
+class Exbooth4thForm(forms.ModelForm):
+    class Meta:
+        model = exbooth_4th
+        fields = ['group', 'bname', 'bcat', 'background', 'service']
