@@ -9,29 +9,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (menuBtn && mobileMenu) {
         menuBtn.addEventListener("click", function() {
-            if (mobileMenu.style.display === "none" || mobileMenu.style.display === "") {
-                mobileMenu.style.display = "block";
-            } else {
-                mobileMenu.style.display = "none";
-            }
+            mobileMenu.style.display = (mobileMenu.style.display === "none" || mobileMenu.style.display === "") ? "block" : "none";
         });
     }
 
     if (chatIcon && chatContainer) {
         chatIcon.addEventListener('click', function() {
             chatContainer.classList.toggle('hidden');
+            if (!chatContainer.classList.contains('hidden') && !chatContainer.dataset.opened) {
+                addBotMessage('안녕하세요! 무엇을 도와드릴까요?');
+                chatContainer.dataset.opened = true;
+            }
         });
     }
 
     if (sendButton && userInput && chatBody) {
-        sendButton.addEventListener('click', function() {
+        sendButton.addEventListener('click', sendMessage);
+
+        userInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
             const userText = userInput.value.trim();
             if (userText) {
                 addUserMessage(userText);
                 userInput.value = '';
                 getBotResponse(userText);
             }
-        });
+        }
 
         function addUserMessage(text) {
             const userMessage = document.createElement('div');
@@ -83,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return cookieValue;
         }
 
-        // Handle option button clicks
         document.querySelectorAll('.option-button').forEach(function(button) {
             button.addEventListener('click', function() {
                 addUserMessage(button.innerText);
@@ -92,14 +100,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Add click event listener for btn1 to navigate to layout.html 
     var btn1 = document.getElementById('btn1');
     var btn2 = document.getElementById('btn2');
     var btn3 = document.getElementById('btn3');
     var btn4 = document.getElementById('btn4');
     var editProfileBtn = document.getElementById('edit_profile');
     var editBoothBtn = document.getElementById('edit_booth');
-    
+
     if (btn1) {
         btn1.addEventListener('click', function() {
             window.location.href = "/layout1/";
@@ -131,8 +138,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-
-    //booth click event
     var modal = document.getElementById("myModal");
     var closeButton = document.getElementById("close-button");
 
