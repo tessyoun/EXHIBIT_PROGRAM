@@ -4,7 +4,12 @@ from django.contrib.auth.decorators import login_required
 from .models import Exhibition
 from .forms import ExhibitionForm
 from accounts.models import Profile
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import JsonResponse
+import json
+import requests
 
+AI_API_URL = 'https://8rgyr184rzf1v9-5000.proxy.runpod.net/generate'
 
 def getExhidb(exhi):
     exhibition = exhi.objects.all() # 1전시
@@ -26,6 +31,19 @@ def create_exhibition(request):
             exhibition = form.save(commit=False)
             exhibition.host_id = request.user.profile.name  # 로그인한 사용자의 아이디를 설정
             exhibition.save()
+            api_data = create_json(form)
+            try:
+                response = requests.post(
+                    AI_API_URL,
+                    data = api_data,
+                    headers={'Content-type':'application/json'},
+                    timeout=200
+                )
+                response.raise_for_status()
+            except requests.exceptions.RequestException as E:
+                return JsonResponse({'error': str(E)}, status=500)
+            
+            print(response)
             return redirect('create_exhibition')
         else:
             print(form.errors) # 폼에러 확인
@@ -39,6 +57,14 @@ def change_perm(request):
         user.is_staff = True
         user.save()
         return redirect('create_exhibition')
-
-def create_layout():
-    URL = 'https://8rgyr184rzf1v9-5000.proxy.runpod.net/generate'
+    
+def create_json(form):
+    form_data = {
+        'exhibition_name': form.cleaned_data['exhibition_name'] ,
+        'hall': form.cleaned_data['hall'] ,
+        'start_date':form.cleaned_data['start_date'] ,
+        'end_date': form.cleaned_data['end_date'] ,
+        'number_of_booths': form.cleaned_data['number_of_booths'] ,
+    }
+    json_data = json.dumps(form_data, cls=DjangoJSONEncoder, ensure_ascii = False)
+    return json_data
