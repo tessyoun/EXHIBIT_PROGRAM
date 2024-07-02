@@ -125,55 +125,9 @@ def confirmation(request):
         # 일반고객
         return render(request, 'confirmation.html')
 
-@login_required
-def memberinfo_view(request):
-    user = request.user
-    if not hasattr(user, 'profile'):
-        Profile.objects.create(user=user)
-    
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=user.profile)
-        if form.is_valid():
-            form.save()
-            return redirect('mypage')
-    else:
-        form = ProfileForm(instance=user.profile)
-
-    return render(request, 'memberinfo.html', {'form': form})
-
-# # 배치도 생성하면 staff로 권한 바꿈
-# def change_permission(request):
-#     if request.method == 'POST':
-#         user = request.user
-#         user.is_staff = True
-#         user.save()
-#         return render(request, 'layout2.html')
-
-# 추후에 기업 회원만 접근 가능하도록 수정 필요
 def program_open(request):
     return render(request, 'program_open.html')
 
 def create_exhibition(request):
     return render(request, 'exhibition/templates/layout2.html')
-@login_required
-def boothinfo_view(request):
-    user = request.user
-    if not hasattr(user, 'profile'):
-        Profile.objects.create(user=user)
 
-    user_type = user.profile.user_type
-
-    if user_type != '기업회원':
-        messages.info(request, '접근 권한이 없습니다.')
-        return redirect('mypage')
-
-    if request.method == 'POST':
-        form = BusinessUserProfileForm(request.POST, request.FILES, instance=user.profile)
-        if form.is_valid():
-            form.save()
-            messages.success(request, '부스 정보가 성공적으로 업데이트되었습니다.')
-            return redirect('boothinfo')
-    else:
-        form = BusinessUserProfileForm(instance=user.profile)
-
-    return render(request, 'boothinfo.html', {'form': form})

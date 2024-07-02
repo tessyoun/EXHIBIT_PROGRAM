@@ -35,46 +35,12 @@ class SignupForm(UserCreationForm):
             if group:
                 user.groups.add(group)
     
-class RegularUserSignUpForm(forms.ModelForm):
-    name = forms.CharField(max_length=100, label='이름')
-    phone = forms.CharField(max_length=20, label='전화번호')
+class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'password', 'email')
-        labels = {
-            'username': '아이디',
-            'password': '비밀번호',
-            'email': '이메일 주소',
-        }
-        widgets = {
-            'password': forms.PasswordInput(),
-        }
+        fields = ['username', 'email']
 
-class BusinessUserSignUpForm(forms.ModelForm):
-    company_name = forms.CharField(max_length=100, label='기업명')
-    phone = forms.CharField(max_length=20, label='전화번호')
-
-    class Meta:
-        model = User
-        fields = ('username', 'password', 'email')
-        labels = {
-            'username': '아이디',
-            'password': '비밀번호',
-            'email': '이메일 주소',
-        }
-        widgets = {
-            'password': forms.PasswordInput(),
-        }
-        
-class ProfileForm(forms.ModelForm):
+class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['user_type', 'name', 'phone_number']
-
-class BusinessUserProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['user_type', 'booth_date_edit', 'booth_pic_edit', 'booth_name_edit']
-        widgets = {
-            'booth_date_edit': forms.DateInput(attrs={'type': 'date'}),
-        }
+        fields = ['name', 'user_type', 'phone_number']
