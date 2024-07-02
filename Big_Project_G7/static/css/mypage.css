@@ -6,7 +6,7 @@
     height: 300px;
 }
 
-#memberinfo{
+#edit_profile{
     text-align: center;
     font-size: 24px;
     width: 50%;
@@ -14,15 +14,7 @@
     margin: 5px;
 }
 
-#boothinfo{
-    text-align: center;
-    font-size: 24px;
-    width:50%;
-    height: 100%;
-    margin: 5px;
-}
-
-#admin_page{
+#edit_booth{
     text-align: center;
     font-size: 24px;
     width:50%;
