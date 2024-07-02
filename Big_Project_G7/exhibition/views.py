@@ -3,6 +3,7 @@ from .models import exbooth_1st, exbooth_2nd, exbooth_3rd, exbooth_4th
 from django.contrib.auth.decorators import login_required
 from .models import Exhibition
 from .forms import ExhibitionForm
+from accounts.models import Profile
 
 
 def getExhidb(exhi):
@@ -23,9 +24,11 @@ def create_exhibition(request):
         form = ExhibitionForm(request.POST)
         if form.is_valid():
             exhibition = form.save(commit=False)
-            exhibition.host_id = request.user.username  # 로그인한 사용자의 아이디를 설정
+            exhibition.host_id = request.user.profile.name  # 로그인한 사용자의 아이디를 설정
             exhibition.save()
-            return redirect('create_exhibition')  
+            return redirect('create_exhibition')
+        else:
+            print(form.errors) # 폼에러 확인
     else:
         form = ExhibitionForm()
     return render(request, 'layout2.html', {'form': form})

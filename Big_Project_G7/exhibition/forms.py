@@ -16,3 +16,8 @@ class ExhibitionForm(forms.ModelForm):
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'}),
         }
+    def save(self, commit=True):
+        exhibition = super().save(commit=False)
+        if commit:
+            exhibition.save()
+        return exhibition
