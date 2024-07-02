@@ -57,3 +57,20 @@ class ImageUpload(models.Model):
     
     def __str__(self):
         return f'{self.title}'
+    
+class Exhibition(models.Model):
+    HALL_TYPE_CHOICES = (
+        ('', '선택'),
+        ('A홀', 'A홀'),
+        ('B홀', 'B홀'),
+        ('C홀', 'C홀')
+    )
+    exhibition_name = models.CharField(primary_key=True, max_length=50)
+    host_id = models.CharField(max_length=50)
+    hall = models.CharField(choices=HALL_TYPE_CHOICES, default='', max_length=50)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    number_of_booths = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f'{self.exhibition_name}'

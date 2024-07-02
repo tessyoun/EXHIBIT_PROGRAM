@@ -7,6 +7,8 @@ from django.conf import settings
 from .forms import SignupForm
 from .models import Profile
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import ProfileUpdateForm, UserUpdateForm
 
 def custom_logout_view(request):
     logout(request)
@@ -38,3 +40,24 @@ def mypage_view(request):
         'is_business': is_business,
     }
     return render(request, 'mypage.html', context)
+
+@login_required
+def update_profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, instance=profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, '프로필이 업데이트되었습니다.')
+            return redirect('index')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=profile)
+    
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+    }
+    return render(request, 'memberinfo.html', context)
