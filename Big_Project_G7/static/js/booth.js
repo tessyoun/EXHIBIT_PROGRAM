@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var suggestionsDiv = document.getElementById('suggestions');
     var categorySelect = document.querySelector('select[name="category"]');
     var rectangles = document.querySelectorAll('.rectangle');
-    var selectedCategory = '전체'; // 처음 로드 시 '전체' 선택
+    var selectedCategory = '전체';
+    const reservationButton = document.getElementById('reservation');
 
     // 카테고리 초기화
     function populateCategories() {
@@ -91,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
     categorySelect.selectedIndex = 0; // '전체'를 기본 선택값으로 설정
     filterRectangles(selectedCategory); // 처음 로드 시 전체 부스 표시
     nameInput.addEventListener('input', handleInput);
+    
     if (searchButton) {
         searchButton.addEventListener('click', function() {
             const userText = nameInput.value.trim().toLowerCase();
@@ -155,7 +157,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         });
-        
+        //예약버튼
+        reservationButton.addEventListener('click', function() {
+            const reservationUrl = reservationButton.getAttribute('data-reservation-url').replace('placeholder_booth_id', booth.pk);
+            window.location.href = reservationUrl;
+        });
     }
 
     function closeModal() {
