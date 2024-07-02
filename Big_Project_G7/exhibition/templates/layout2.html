@@ -44,12 +44,14 @@
                 {% endfor %}
             </ul>
         {% endif %}
-        <table>
-            {{ form.as_table }}
-        </table>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">배치도 생성</button>
+        </form>
         <form action="{% url 'change_perm' %}" method="post">
             {% csrf_token %}
-            <button type="submit">생성</button>
+            <button type="submit">전시 개최</button>
         </form>
         <script src="{% static 'js/script.js' %}"></script>
     </body>
