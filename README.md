@@ -9,3 +9,6 @@ https://fontawesome.com/search
 
 ## Login
   - admin : user / admin123
+
+## 0703 error 'rest_framework'
+-pip install djangorestframework 
