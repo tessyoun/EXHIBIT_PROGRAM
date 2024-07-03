@@ -26,6 +26,7 @@ exhi_2st = getExhidb(exbooth_2nd)
 exhi_3rd = getExhidb(exbooth_3rd)
 exhi_4th = getExhidb(exbooth_4th)
 
+# 전시회 객체 생성
 @login_required
 def create_exhibition(request):
     if request.method == 'POST':
@@ -63,6 +64,7 @@ def create_exhibition(request):
         form = ExhibitionForm()
     return render(request, 'layout2.html', {'form': form})
 
+# 전시회 개최시 권한 바꿈(active>staff)
 def change_perm(request):
     if request.method == 'POST':
         user = request.user
@@ -81,11 +83,11 @@ def create_json(form):
     json_data = json.dumps(form_data, cls=DjangoJSONEncoder, ensure_ascii = False)
     return json_data
 
-
+# 부스 정보 업데이트
 @login_required
 def update_booths(request):
-    user_name = request.user.profile.name  # Assuming 'Profile' model has a 'name' field and is related to User
-
+    user_name = request.user.profile.name
+    # 현재 기업이 운영하는 부스 정보
     booths_1st = exbooth_1st.objects.filter(group=user_name).first()
     booths_2nd = exbooth_2nd.objects.filter(group=user_name).first()
     booths_3rd = exbooth_3rd.objects.filter(group=user_name).first()
