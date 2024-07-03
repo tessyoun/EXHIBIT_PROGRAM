@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return (selectedCategory === '전체' || booth.fields.bcat === selectedCategory) && // 선택된 카테고리와 일치
                    booth.fields.bname.toLowerCase().includes(userText); // 입력된 텍스트 포함
         });
-
+        
         filteredBooths.forEach((booth, index) => {
             const suggestion = document.createElement('div');
             suggestion.classList.add('suggestion');
@@ -118,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     //booth click event
-
     console.log(booths_1st);
     console.log(booths_2nd);
     console.log(booths_3rd);
@@ -169,6 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     document.querySelectorAll('.rectangle').forEach(function(rectangle, index) {
+        rectangle.setAttribute('data-index', index);
         rectangle.addEventListener('click', function() {
             showModal(index + 1);
         });
