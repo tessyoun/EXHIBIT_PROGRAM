@@ -51,8 +51,15 @@
                 {{ form.as_p }}
                 <button type="submit" class="btn-create">배치도 생성</button>
             </form>
-            {% if image_url %}
+            <!-- 단발성 -->
+            <!-- {% if image_url %}
                 <img src="data:image/png;base64, {{ image_url }}" alt="Generated Image">
+            {% endif %} -->
+            <!-- 다발성 -->
+            {% if image_url %}
+                {% for image in image_url %}
+                    <img src="data:image/png;base64, {{ image }}" alt="Generated Image">
+                {% endfor %}
             {% endif %}
             <form action="{% url 'change_perm' %}" method="post" class="form-exhibition" >
                 {% csrf_token %}
