@@ -1,0 +1,16 @@
+{% block content %}
+    <h1>DETAIL</h1>
+    <p>ID : {{profile.user}}</p>
+    <p>이름 : {{profile.name}}</p>
+    <p>전화번호 : {{profile.phone_number}}</p>
+    <p>고객 유형 : {{profile.user_type}}</p>
+
+    <a href="{% url 'info' %}">목록보기</a>
+    <a href="{% url 'edit' profile.pk %}">수정하기</a>
+    <form action="{% url 'delete' profile.pk %}" method="POST">
+        {% csrf_token%}
+        <input type="submit" value="삭제하기">
+    </form>
+    <a href="{% url 'info' %}">[back]</a>
+
+{% endblock content %}

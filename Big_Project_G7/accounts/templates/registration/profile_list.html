@@ -1,0 +1,23 @@
+{% block content %}
+    <table class='profile'>
+        <thead>
+            <tr> 
+                <td><B>id</B></td>
+                <td><B>이름</B></td>
+                <td><B>전화번호</B></td>
+                <td><B>고객유형</B></td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pro in profile %}
+            <tr>
+                {% comment %} <td>{{pro.user}}</td> {% endcomment %}
+                <td><a href="/accounts/{{pro.pk}}">{{pro.user}}</a></td>
+                <td>{{pro.name}}</td>
+                <td>{{pro.phone_number}}</td>
+                <td>{{pro.user_type}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

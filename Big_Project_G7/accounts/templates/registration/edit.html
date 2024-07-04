@@ -1,0 +1,21 @@
+{% block content %}
+    <h1>EDIT</h1>
+    <form action="{% url 'update' profile.pk %}" method="POST">
+        {% csrf_token %}
+        <label for='id'>ID:</label>
+        <input type='text' name='id' value="{{profile.user}}"><br>
+        <label for='name'>이름:</label>
+        <input type='text' name='name' value="{{profile.name}}"><br>
+        <label for='number'>전화번호:</label>
+        <input type='text' name='phone_number' value="{{profile.phone_number}}"><br>
+        <label for='user_type'>고객유형:</label>
+        <select name="user_type" id="user_type">
+            <option value="일반회원" {% if profile.user_type == '일반회원' %}selected{% endif %}>일반회원</option>
+            <option value="기업회원" {% if profile.user_type == '기업회원' %}selected{% endif %}>기업회원</option>
+        </select><br>
+        <input type='submit'>
+    </form>
+    <hr>
+    <a href="{% url 'info' %}">[back]</a>
+
+{% endblock content %}
