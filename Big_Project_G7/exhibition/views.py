@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect
-from .models import exbooth_1st, exbooth_2nd, exbooth_3rd, exbooth_4th
 from django.contrib.auth.decorators import login_required
-from .models import Exhibition
-from .forms import ExhibitionForm
-from accounts.models import Profile
-from .forms import Exbooth1stForm, Exbooth2ndForm, Exbooth3rdForm, Exbooth4thForm
 from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import JsonResponse, HttpResponse
+
+
+from accounts.models import Profile
+
+from .models import Booth_Info
+from .models import Exhibition
+from .forms import ExhibitionForm
+from .forms import BoothForm
+
 import json
 import requests
 import base64
@@ -16,17 +20,8 @@ PORT = 5000
 # AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate/once'
 AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate'
 
-def getExhidb(exhi):
-    exhibition = exhi.objects.all() # 1전시
-    # exhi_2nd = exbooth_2nd.objects.all() # 2전시
-    # exhi_3rd = exbooth_3rd.objects.all() # 3전시
-    # exhi_4th = exbooth_4th.objects.all() # 4전시
-    return exhibition
-
-exhi_1st = getExhidb(exbooth_1st)
-exhi_2st = getExhidb(exbooth_2nd)
-exhi_3rd = getExhidb(exbooth_3rd)
-exhi_4th = getExhidb(exbooth_4th)
+# def getExhidb
+booth_info = Booth_Info.objects.all()
 
 @login_required
 def change_perm(request):
@@ -94,16 +89,17 @@ def create_json(form):
 def update_booths(request):
     user_name = request.user.profile.name
     # 현재 기업이 운영하는 부스 정보
-    booths_1st = exbooth_1st.objects.filter(group=user_name).first()
-    booths_2nd = exbooth_2nd.objects.filter(group=user_name).first()
-    booths_3rd = exbooth_3rd.objects.filter(group=user_name).first()
-    booths_4th = exbooth_4th.objects.filter(group=user_name).first()
+    
+    booths_1st = Booth_Info.objects.filter(company_name=user_name, exhibition_id=1).first()
+    booths_2nd = Booth_Info.objects.filter(company_name=user_name, exhibition_id=2).first()
+    booths_3rd = Booth_Info.objects.filter(company_name=user_name, exhibition_id=3).first()
+    booths_4th = Booth_Info.objects.filter(company_name=user_name, exhibition_id=4).first()
 
     if request.method == 'POST':
-        form1 = Exbooth1stForm(request.POST, instance=booths_1st)
-        form2 = Exbooth2ndForm(request.POST, instance=booths_2nd)
-        form3 = Exbooth3rdForm(request.POST, instance=booths_3rd)
-        form4 = Exbooth4thForm(request.POST, instance=booths_4th)
+        form1 = BoothForm(request.POST, instance=booths_1st)
+        form2 = BoothForm(request.POST, instance=booths_2nd)
+        form3 = BoothForm(request.POST, instance=booths_3rd)
+        form4 = BoothForm(request.POST, instance=booths_4th)
 
         if form1.is_valid() and booths_1st:
             form1.save()
@@ -118,10 +114,10 @@ def update_booths(request):
         return redirect('index')
 
     else:
-        form1 = Exbooth1stForm(instance=booths_1st) if booths_1st else None
-        form2 = Exbooth2ndForm(instance=booths_2nd) if booths_2nd else None
-        form3 = Exbooth3rdForm(instance=booths_3rd) if booths_3rd else None
-        form4 = Exbooth4thForm(instance=booths_4th) if booths_4th else None
+        form1 = BoothForm(instance=booths_1st) if booths_1st else None
+        form2 = BoothForm(instance=booths_2nd) if booths_2nd else None
+        form3 = BoothForm(instance=booths_3rd) if booths_3rd else None
+        form4 = BoothForm(instance=booths_4th) if booths_4th else None
 
     return render(request, 'boothinfo.html', {
         'form1': form1,

@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core.serializers import serialize
 from accounts.models import Profile
-from .models import exbooth_1st, exbooth_2nd, exbooth_3rd, exbooth_4th
+from .models import Booth_Info
 
 def process_image():
     image_path = os.path.join(settings.BASE_DIR, 'static/images/test1.png')
@@ -86,10 +86,10 @@ def layout1(request):
             'rotate': angle,
         })
 
-    booth_1st = serialize('json', exbooth_1st.objects.all())
-    booth_2nd = serialize('json', exbooth_2nd.objects.all())
-    booth_3rd = serialize('json', exbooth_3rd.objects.all())
-    booth_4th = serialize('json', exbooth_4th.objects.all())
+    booth_1st = serialize('json', Booth_Info.objects.filter(exhibition_id=1))
+    booth_2nd = serialize('json', Booth_Info.objects.filter(exhibition_id=2))
+    booth_3rd = serialize('json', Booth_Info.objects.filter(exhibition_id=3))
+    booth_4th = serialize('json', Booth_Info.objects.filter(exhibition_id=4))
     
     return render(request, 'layout1.html', {'image_path': image_path, 
                                             'rectangles': list(enumerate(rectangles_with_dimensions)),
@@ -126,7 +126,7 @@ def edit_booth_view(request):
         return render(request, 'mypage.html')  
 
 def reservation(request, booth_id):
-    booth = exbooth_1st.objects.get(pk=booth_id)
+    booth = Booth_Info.objects.get(pk=booth_id)
     context = {
         'booth': booth
     }

@@ -22,22 +22,8 @@ class ExhibitionForm(forms.ModelForm):
             exhibition.save()
         return exhibition
     
-class Exbooth1stForm(forms.ModelForm):
+    
+class BoothForm(forms.ModelForm):
     class Meta:
-        model = exbooth_1st
-        fields = ['group', 'bname', 'bcat', 'background', 'service']
-
-class Exbooth2ndForm(forms.ModelForm):
-    class Meta:
-        model = exbooth_2nd
-        fields = ['group', 'bname', 'bcat', 'background', 'service']
-
-class Exbooth3rdForm(forms.ModelForm):
-    class Meta:
-        model = exbooth_3rd
-        fields = ['group', 'bname', 'bcat', 'background', 'service']
-
-class Exbooth4thForm(forms.ModelForm):
-    class Meta:
-        model = exbooth_4th
-        fields = ['group', 'bname', 'bcat', 'background', 'service']
+        model = Booth_Info
+        fields = ['booth_id','booth_name','company_id','company_name', 'exhibition_id', 'booth_category', 'background', 'service']

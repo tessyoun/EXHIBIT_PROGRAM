@@ -128,7 +128,7 @@ STATIC_URL = '/static/'
 # root 아래의 static 폴더를 정적파일에 추가
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'booth_thumbnail'),
+    os.path.join(BASE_DIR, 'static/booth_thumbnail'),
 ]
 
 # Default primary key field type
