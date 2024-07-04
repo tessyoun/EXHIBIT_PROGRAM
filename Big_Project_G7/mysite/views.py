@@ -20,8 +20,14 @@ def process_image():
     if image is None:
         print(f"Error: Unable to load the image file at {image_path}.")
         return None, []
+    
+    scale_percent = 100  # 이미지 크기 줄이기 가능 %
+    width = int(image.shape[1] * scale_percent / 100)
+    height = int(image.shape[0] * scale_percent / 100)
+    dim = (width, height)
+    resized_image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
 
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
     edged = cv2.Canny(gray, 50, 100)
 
     contours, _ = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -37,7 +43,7 @@ def process_image():
             rectangles.append((rect, box.tolist()))
 
     processed_image_path = os.path.join(settings.BASE_DIR, 'static/proceeded_images/processed_image.jpg')
-    cv2.imwrite(processed_image_path, image)
+    cv2.imwrite(processed_image_path, resized_image)
 
     return 'proceeded_images/processed_image.jpg', rectangles
 

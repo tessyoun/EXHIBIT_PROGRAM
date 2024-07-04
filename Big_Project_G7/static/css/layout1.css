@@ -1,15 +1,17 @@
 #category{
     padding: 5px;
-    width:10%;
+    width:80px;
     height: 40px;
     font-size: 20px;
 }
 
 #booth-search{
-    margin:10px 0px 10px 0px;
+    position:relative;
+    margin:30px 0px 30px 0px;
     padding:10px;
     gap: 10px;
-    height:30px;
+    height:70px;
+    top:60px;
     font-size: 20px;
     text-align: center;
 }
@@ -74,11 +76,10 @@
 }
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
+    margin:auto;
     padding: 20px;
     border: 1px solid #888;
     width: 50%; 
-    height: 70%;
     min-height: 450px;
     min-width: 300px;
 }
