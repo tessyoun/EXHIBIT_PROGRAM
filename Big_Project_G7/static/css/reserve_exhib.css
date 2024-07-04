@@ -1,0 +1,26 @@
+.title {
+    position: relative;
+    font-size: 24px;
+    text-align: center;
+    flex-grow: 1;
+}
+.container {
+    text-align: center;
+    position: relative;
+    top:100px;
+
+}
+
+.exhibition_icon {
+    background-image: url("../icons/home_icon.png");
+    width: 300px;
+    height: 300px;
+
+    border-radius: 40%;
+    padding: 2px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+#reserve_btn{
+    padding:5px;
+}

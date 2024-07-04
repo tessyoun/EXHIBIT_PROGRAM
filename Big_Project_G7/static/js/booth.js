@@ -183,4 +183,26 @@ document.addEventListener("DOMContentLoaded", function() {
             closeModal();
         }
     }
+
+    const imageContainer = document.querySelector('.image-container');
+    
+    if (imageContainer) {
+        const img = imageContainer.querySelector('img');
+        
+        let lastScrollX = 0;
+        let lastScrollY = 0;
+    
+        imageContainer.addEventListener('scroll', function(event) {
+            const deltaX = imageContainer.scrollLeft - lastScrollX;
+            const deltaY = imageContainer.scrollTop - lastScrollY;
+    
+            lastScrollX = imageContainer.scrollLeft;
+            lastScrollY = imageContainer.scrollTop;
+    
+            img.style.left = `${parseFloat(img.style.left) - deltaX}px`;
+            img.style.top = `${parseFloat(img.style.top) - deltaY}px`;
+        });
+    } else {
+        console.error("Element with class 'image-container' not found.");
+    }
 });

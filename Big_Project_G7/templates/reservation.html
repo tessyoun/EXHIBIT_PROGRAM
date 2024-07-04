@@ -4,62 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>예약하기</title>
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
     <link rel="stylesheet" href="{% static 'reservation.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <title>예약하기</title>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <button class="menu-btn" id="menu-btn">&#9776;</button>
-            <h1>Reservation</h1>
-            <a id="home" href="{% url 'index' %}" ><i class="fas fa-home fa-2xl"> </i></a>
-            <nav class="mobile-menu" id="mobile-menu"><br><br><br>
-                <ul>
-                  {% if not user.is_authenticated %}     
-                  <li><a class="nav-link" href="{% url 'signup' %}"><i class="fa-regular fa-user fa-xl"> Signup</i></a></li><br>   
-                  <li><a class="nav-link" href="{% url 'login' %}?next={{request.path}}"><i class="fa-regular fa-user fa-xl"> Login</i></a></li>
-
-                  {% else %}
-                      <li><p class="user-name"><i class="fa-regular fa-user fa-xl"><span>{{user}}님!</span></i></p></li>
-                      <li><a href="{% url 'mypage' %}"><i class="fa-solid fa-check fa-xl"> 마이페이지</i></a></li><br>    <!-- 로그인시 이용가능하도록 -->
-                      <li><a href="#"><i class="fa-solid fa-check fa-xl"> 예매 확인</i></a></li><br>                      <!-- 로그인시 이용가능하도록 -->
-                      {% comment %} <li><a href="#"><i class="fa-solid fa-check fa-xl"> 예약 확인</i></a></li><br>                      <!-- 로그인시 이용가능하도록 --> {% endcomment %}
-                      <li><a href="{% url 'confirmation' %}"><i class="fa-solid fa-check fa-xl"> 예약 확인</i></a></li><br>                      <!-- confirmation.html로 연결해 둠 -->
-                      <form class = "logout-form" method="post" action="{% url 'logout' %}?next={{request.path}}" style="display:inline;">
-                          {% csrf_token %}
-                          <li><button  type="submit" class="logout-button" style="background:none; border:none; color:inherit; padding:0; cursor:pointer;">
-                              <i class="fa-regular fa-user fa-xl"> Logout </i>
-                          </button></li>
-                      </form>
-                  {% endif %}
-                </ul>
-            </nav>
-        </header>
-        <div class="reservation-container">
-            <h1>예약하기</h1>
-            <div class="booth-info">
-                <p>기업명: {{ booth.pk }}</p>
-                <p>부스명: {{ booth.bname }}</p>
-            </div>
-            <div class="people-counter">
-                <button id="decrease">-</button>
-                <div id="people">1</div>
-                <button id="increase">+</button>
-            </div>
-            <div class="time-slots">
-                <div class="time-slot selected">10:00</div>
-                <div class="time-slot">11:00</div>
-                <div class="time-slot">12:00</div>
-                <div class="time-slot">13:00</div>
-                <div class="time-slot">14:00</div>
-                <div class="time-slot">15:00</div>
-                <div class="time-slot">16:00</div>
-                <div class="time-slot">17:00</div>
-            </div>
-            <button id="reserve-button">예약하기</button>
+    <!-- 헤더 부분 -->
+    <div class="header-sub">      
+        <a class="back-button" href="{% url 'layout1' %}" ><i class="fa-solid fa-arrow-left fa-xl" style="color: #ffffff;"> </i></a>
+        <div class="header__title--wrap">
+            <a href="{% url 'index' %}" ><button class ="header__title icon" style="cursor:pointer;"></button></a>
         </div>
+    </div>
+    <!-- end 헤더 부분 -->
+
+    <div class="reservation-container">
+        <h1>예약하기</h1>
+        <div class="booth-info">
+            <p>기업명: {{ booth.pk }}</p>
+            <p>부스명: {{ booth.bname }}</p>
+        </div>
+        <div class="people-counter">
+            <button id="decrease">-</button>
+            <div id="people">1</div>
+            <button id="increase">+</button>
+        </div>
+        <div class="time-slots">
+            <div class="time-slot selected">10:00</div>
+            <div class="time-slot">11:00</div>
+            <div class="time-slot">12:00</div>
+            <div class="time-slot">13:00</div>
+            <div class="time-slot">14:00</div>
+            <div class="time-slot">15:00</div>
+            <div class="time-slot">16:00</div>
+            <div class="time-slot">17:00</div>
+        </div>
+        <button id="reserve-button">예약하기</button>
     </div>
     <script src="{% static 'js/script.js' %}"></script>
 </body>
