@@ -60,8 +60,8 @@ def mypage(request):
 def reserve_exhib(request):
     return render(request, 'reserve_exhib.html')
     
-def reserve_QR(request):
-    return render(request, 'reserve_QR.html')
+def reveal_QR(request):
+    return render(request, 'reveal_QR.html')
 
 def layout1(request):
     image_path, rectangles = process_image()
