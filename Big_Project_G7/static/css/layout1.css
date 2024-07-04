@@ -1,8 +1,8 @@
 #category{
     padding: 5px;
-    width:90px;
+    width:20%;
     height: 40px;
-    font-size: 20px;
+    font-size: auto;
 }
 
 #booth-search{
@@ -12,7 +12,6 @@
     gap: 10px;
     height:70px;
     top:60px;
-    font-size: 20px;
     text-align: center;
 }
 
@@ -20,12 +19,13 @@
     width: 50%;
     padding: 5px;
     height: 30px;
-    font-size: 20px;
+    font-size: auto;
 }
 
 #booth-search button {
     padding: 8px 10px;
-    font-size: 20px;
+    font-size: auto;
+    width:20%;
 }
 
 #suggestions {
@@ -37,6 +37,7 @@
     left:24%;
     position: absolute;
     width: 50%;
+    height:auto;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     cursor: pointer;
