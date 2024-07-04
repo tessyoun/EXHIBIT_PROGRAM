@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function populateCategories() {
         var categories = ['전체'];
         booths_1st.forEach(function(booth) {
-            var category = booth.fields.bcat;
+            var category = booth.fields.booth_category;
             if (!categories.includes(category)) {
                 categories.push(category);
                 var option = document.createElement('option');
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function filterRectangles(category) {
         rectangles.forEach(function(rectangle, index) {
             var booth = booths_1st[index];
-            if (booth && (category === '전체' || booth.fields.bcat === category)){
+            if (booth && (category === '전체' || booth.fields.booth_category === category)){
                 rectangle.style.display = 'block';
             } else {
                 rectangle.style.display = 'none';
@@ -51,17 +51,17 @@ document.addEventListener("DOMContentLoaded", function() {
         suggestionsDiv.innerHTML = '';
 
         const filteredBooths = booths_1st.filter(booth => {
-            return (selectedCategory === '전체' || booth.fields.bcat === selectedCategory) && // 선택된 카테고리와 일치
-                   booth.fields.bname.toLowerCase().includes(userText); // 입력된 텍스트 포함
+            return (selectedCategory === '전체' || booth.fields.booth_category === selectedCategory) && // 선택된 카테고리와 일치
+                   booth.fields.booth_name.toLowerCase().includes(userText); // 입력된 텍스트 포함
         });
         
         filteredBooths.forEach((booth, index) => {
             const suggestion = document.createElement('div');
             suggestion.classList.add('suggestion');
-            suggestion.textContent = booth.fields.bname;
+            suggestion.textContent = booth.fields.booth_name;
             suggestion.style.top = `${index * 40}px`; // 높이 조정
             suggestion.addEventListener('click', function() {
-                nameInput.value = booth.fields.bname;
+                nameInput.value = booth.fields.booth_name;
                 suggestionsDiv.innerHTML = ''; // 제안 목록 초기화
             });
             suggestionsDiv.appendChild(suggestion);
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let found = false;
 
             for (let i = 0; i < booths_1st.length; i++) {
-                if (userText === booths_1st[i].fields.bname.toLowerCase()) {
+                if (userText === booths_1st[i].fields.booth_name.toLowerCase()) {
                     found = true;
                     const detectRect = document.querySelector(`.rectangle[data-index='${i}']`);
                     if (detectRect) {
@@ -132,9 +132,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function showModal(rectIndex) {
         var booth = booths_1st[rectIndex - 1];
-        var result = booth.pk.slice(5, 8).replace(/[^0-9]/g, ""); //int 부분만 추출( 13조 -> 13 )
+        var result = booth.fields.company_name.slice(5, 8).replace(/[^0-9]/g, ""); //int 부분만 추출( 13조 -> 13 )
         var formattedIndex = result.toString().padStart(2, '0');
-        var imageName = booth.pk[0] + "_" + booth.pk.slice(3,5) + "_" + formattedIndex;
+        var imageName = booth.fields.company_name[0] + "_" + booth.fields.company_name.slice(3,5) + "_" + formattedIndex;
 
         var jpgImageName = imageName + ".jpg";
         var pngImageName = imageName + ".png";
@@ -142,16 +142,16 @@ document.addEventListener("DOMContentLoaded", function() {
         checkImageExists(imageBasePath + jpgImageName, function(exists) {
             if (exists) {
                 modalImage.src = imageBasePath + jpgImageName;
-                modalText.innerText = "기업명: " + booth.pk + "\n부스명: " + booth.fields.bname + "\nBM: " + booth.fields.bcat + "\n설명: " + booth.fields.background + "\n서비스: " + booth.fields.service;
+                modalText.innerText = "기업명: " + booth.fields.company_name + "\n부스명: " + booth.fields.booth_name + "\nBM: " + booth.fields.booth_category + "\n설명: " + booth.fields.background + "\n서비스: " + booth.fields.service;
                 modal.style.display = "block";
             } else {
                 checkImageExists(imageBasePath + pngImageName, function(exists) {
                     if (exists) {
                         modalImage.src = imageBasePath + pngImageName;
-                        modalText.innerText = "기업명: " + booth.pk + "\n부스명: " + booth.fields.bname + "\nBM: " + booth.fields.bcat + "\n설명: " + booth.fields.background + "\n서비스: " + booth.fields.service;
+                        modalText.innerText = "기업명: " + booth.fields.company_name + "\n부스명: " + booth.fields.booth_name + "\nBM: " + booth.fields.booth_category + "\n설명: " + booth.fields.background + "\n서비스: " + booth.fields.service;
                         modal.style.display = "block";
                     } else {
-                        console.error('No image found for booth:', booth.bname);
+                        console.error('No image found for booth:', booth.booth_name);
                     }
                 });
             }

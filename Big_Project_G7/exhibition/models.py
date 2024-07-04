@@ -1,52 +1,19 @@
 from django.db import models
 
-# 부스 1 db.sqlite3
-class exbooth_1st(models.Model):
-    group = models.TextField(db_column='group', primary_key=True,null=False)
-    bname = models.TextField(db_column='bname', blank=True, null=False)
-    bcat = models.TextField(db_column='bcat', blank=True, null=False) 
-    background = models.TextField(db_column='background', blank=True, null=True)
-    service = models.TextField(db_column='service', blank=True, null=True)
+# 전시회 부스 데이터 db.sqlite3
+class Booth_Info(models.Model):
+    booth_id = models.IntegerField(db_column='BoothID', primary_key=True, null=False)
+    booth_name = models.TextField(db_column='BoothName', blank=True, null=True)
+    company_id = models.IntegerField(db_column='CompanyID', blank=True, null=True)
+    company_name = models.TextField(db_column='CompanyName', blank=True, null=True)
+    exhibition_id = models.IntegerField(db_column='ExhibitionID', blank=True, null=True)
+    booth_category = models.TextField(db_column='ExhibitionCategory', blank=True, null=True)
+    background = models.TextField(db_column='BoothDescription1', blank=True, null=True)
+    service = models.TextField(db_column='BoothDescription2', blank=True, null=True)
     
     class Meta:
         managed = False
-        db_table = 'exbooth_1st'
-        
-# 부스 2 db.sqlite3
-class exbooth_2nd(models.Model):
-    group = models.TextField(db_column='group', primary_key=True,null=False)
-    bname = models.TextField(db_column='bname', blank=True, null=False)
-    bcat = models.TextField(db_column='bcat', blank=True, null=False) 
-    background = models.TextField(db_column='background', blank=True, null=True)
-    service = models.TextField(db_column='service', blank=True, null=True)
-    
-    class Meta:
-        managed = False
-        db_table = 'exbooth_2nd'
-        
-# 부스 3 db.sqlite3
-class exbooth_3rd(models.Model):
-    group = models.TextField(db_column='group', primary_key=True,null=False)
-    bname = models.TextField(db_column='bname', blank=True, null=False)
-    bcat = models.TextField(db_column='bcat', blank=True, null=False) 
-    background = models.TextField(db_column='background', blank=True, null=True)
-    service = models.TextField(db_column='service', blank=True, null=True)
-    
-    class Meta:
-        managed = False
-        db_table = 'exbooth_3rd'
-
-# 부스 4 db.sqlite3
-class exbooth_4th(models.Model):
-    group = models.TextField(db_column='group', primary_key=True,null=False)
-    bname = models.TextField(db_column='bname', blank=True, null=False)
-    bcat = models.TextField(db_column='bcat', blank=True, null=False) 
-    background = models.TextField(db_column='background', blank=True, null=True)
-    service = models.TextField(db_column='service', blank=True, null=True)
-    
-    class Meta:
-        managed = False
-        db_table = 'exbooth_4th'
+        db_table = 'Booth_Info'
 
 # 전시회 홍보 이미지 업로드
 class ImageUpload(models.Model):
@@ -74,3 +41,7 @@ class Exhibition(models.Model):
     
     def __str__(self):
         return f'{self.exhibition_name}'
+    
+    class Meta:
+        managed = False
+        db_table = 'exhibition_exhibition'
