@@ -1,3 +1,4 @@
 *.pyc
 *.bin
-database/
+Big_Project_G7/database/chroma.sqlite3
+Big_Project_G7/database/d10d1ed8-3008-42d4-854c-d338c2632d12/index_metadata.pickle

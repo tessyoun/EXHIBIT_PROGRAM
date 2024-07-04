@@ -11,6 +11,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('mypage/', views.mypage, name='mypage'),
+    path('reserve_exhib/', views.reserve_exhib, name='reserve_exhib'),
+    path('reserve_QR/', views.reserve_QR, name='reserve_QR'),
     path('layout1/', views.layout1, name='layout1'),
     path('layout2/', views.layout2, name='layout2'),
     path('layout3/', views.layout3, name='layout3'),

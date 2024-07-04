@@ -51,6 +51,12 @@ def index(request):
 def mypage(request):
     return render(request, 'mypage.html')
 
+def reserve_exhib(request):
+    return render(request, 'reserve_exhib.html')
+    
+def reserve_QR(request):
+    return render(request, 'reserve_QR.html')
+
 def layout1(request):
     image_path, rectangles = process_image()
     if image_path is None:
