@@ -13,8 +13,8 @@ import requests
 import base64
 
 PORT = 5000
-# AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate'
-AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate/test'
+# AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate/once'
+AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate'
 
 def getExhidb(exhi):
     exhibition = exhi.objects.all() # 1전시
@@ -37,48 +37,6 @@ def change_perm(request):
         request.session['data'] = {}
         return redirect('create_exhibition')
     
-# 단발성 
-# @login_required
-# def create_exhibition(request):
-#     if request.method == 'POST':
-#         form = ExhibitionForm(request.POST)
-#         if form.is_valid():
-#             exhibition = form.save(commit=False)
-#             exhibition.host_id = request.user.profile.name  # 로그인한 사용자의 아이디를 설정
-#             exhibition.save()
-#             request.session['data'] = create_json(form)
-#         elif not request.session['data']:
-#             print(form.errors) # 폼에러 확인
-
-#         response, image = get_image_from_server(request.session['data'])
-#         if response.status_code == 200:
-#             return render(request, 'layout2.html', {'image_url': image})
-#         else:
-#             return response
-#     else:
-#         form = ExhibitionForm()
-#     return render(request, 'layout2.html', {'form': form})
-
-# def get_image_from_server(data:json):
-#     try:
-#         response = requests.post(
-#             AI_API_URL,
-#             data = data,
-#             headers={'Content-type':'application/json'},
-#             timeout=200
-#         )
-#         response.raise_for_status()
-
-#         if response.status_code == 200:
-#             image = base64.b64encode(response.content).decode('utf-8')
-#             return response, image
-#         else:
-#             return JsonResponse({'Image generation failed'}, status=500), None
-    
-#     except requests.exceptions.RequestException as E:
-#         return JsonResponse({'error': str(E)}, status=500), None
-
-# 다발성
 @login_required
 def create_exhibition(request):
     if request.method == 'POST':
@@ -117,7 +75,6 @@ def get_image_from_server(data:json):
     
     except requests.exceptions.RequestException as E:
         return JsonResponse({'error': str(E)}, status=500), None
-
 
 def create_json(form):
     form_data = {

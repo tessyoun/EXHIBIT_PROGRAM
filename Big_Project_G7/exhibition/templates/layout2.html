@@ -7,6 +7,39 @@
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
     <link rel="stylesheet" href="{% static 'layout2.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 10px;
+        }
+        .grid-item {
+            text-align: center;
+        }
+    </style>
+    <script>
+        function downloadImage(imageData, fileName) {
+            const link = document.createElement('a');
+            link.href = imageData;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function handleImageClick(event) {
+            const imageData = event.target.src;
+            const fileName = `image_${Date.now()}.png`;
+            downloadImage(imageData, fileName);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.generated-image');
+            images.forEach(image => {
+                image.addEventListener('click', handleImageClick);
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -51,15 +84,14 @@
                 {{ form.as_p }}
                 <button type="submit" class="btn-create">배치도 생성</button>
             </form>
-            <!-- 단발성 -->
-            <!-- {% if image_url %}
-                <img src="data:image/png;base64, {{ image_url }}" alt="Generated Image">
-            {% endif %} -->
-            <!-- 다발성 -->
             {% if image_url %}
-                {% for image in image_url %}
-                    <img src="data:image/png;base64, {{ image }}" alt="Generated Image">
-                {% endfor %}
+                <div class="grid-container">
+                    {% for image in image_url %}
+                        <div class="grid-item">
+                            <img class="generated-image" src="data:image/png;base64, {{ image }}" alt="Generated Image">
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
             <form action="{% url 'change_perm' %}" method="post" class="form-exhibition" >
                 {% csrf_token %}
