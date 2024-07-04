@@ -54,6 +54,10 @@ import json
 # embeddings = OpenAIEmbeddings(model="text-embedding-ada-002")
 # database = Chroma(persist_directory="./database", embedding_function=embeddings)
 
+def index(request):
+    return render(request, 'gpt/index.html')
+
+'''
 # FAQ DB 연결
 def getFAQdb():
     aivleQAdf=faq_aivle.objects.all() #에이블스쿨 FAQ
@@ -84,11 +88,11 @@ BM: {booth.bcat} ,
     return database
 
 database=getFAQdb()
+'''
 
 
-def index(request):
-    return render(request, 'gpt/index.html')
 
+'''
 @csrf_exempt
 def chat(request):
     if request.method == 'POST':
@@ -114,3 +118,4 @@ def chat(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
+'''
