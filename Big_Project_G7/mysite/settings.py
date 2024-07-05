@@ -86,6 +86,25 @@ DATABASES = {
     }
 }
 
+######### MySQL 백엔드를 위한 코드 #########
+'''
+######### MySQL Workbench에서 서버 연결하고 'exhib.sql'을 해당 데이터베이스에서 실행시켜야 함
+######### MySQL 사용 시 USE_TZ 변수도 False로 지정해야 함!! - UTCOFFSET 에러 발생
+'''
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'exhib',
+#         'USER': 'root',
+#         'PASSWORD': 'aivle',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
