@@ -4,33 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1." />  
-    <title>로그인</title>
-    <link rel="stylesheet" href="{% static 'css/bass.css' %}">
-    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <title>로그인</title> 
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="stylesheet" href="{% static 'btn.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
-<body>
-    <!-- 헤더 부분 -->
-    <div class="header-sub">      
-        <a class="back-button" href="{% url 'index' %}" ><i class="fa-solid fa-arrow-left fa-xl" style="color: #ffffff;"> </i></a>
+<body>   
+    <div class = "header--fixed">
+       
         <div class="header__title--wrap">
             <a href="{% url 'index' %}" ><button class ="header__title icon" style="cursor:pointer;"></button></a>
         </div>
+     
     </div>
-    <!-- end 헤더 부분 -->
+    <div class = "login__main--wrap">
+        <form action="" method="post">
+            {% csrf_token %}
+            <table>
+                <tbody>
+                    <tr>
+                        <th><label for="id_username"><img src = "../../../static/icons/id_icon.png" class = "id_img"></label></th>
+                        
+                        <td>
+                        <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" placeholder = "아이디">
+                        </td>
+                    </tr>
 
-    {% block content %}
-    <form action="" method="post">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table}}
-        </table>
-        <input type="submit" class="btn-3d blue" value="로그인">
-        <form action="{% url 'signup' %}" method="get" style="display:inline;">
-            <button type="submit" class="btn-3d blue">회원가입</button>
+                    <tr>
+                        <th><label for="id_password"><img src = "../../../static/icons/pw_icon.png"  class = "pw_img"></label></th>
+                        
+                        <td>
+                            <input type="password" name="password" autocomplete="current-password" required="" id="id_password" placeholder ="비밀번호">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {% if form.non_field_errors %} <!-- css 아직 안함 -->
+                <div class="error-message">
+                    {% for error in form.non_field_errors %}
+                        <p>아이디 또는 비밀번호가 잘못되었습니다.<br>
+                        아이디와 비밀번호를 정확히 입력해주세요.</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <input type="submit" class="btn-3d" value="로그인">
+            <a href="/accounts/signup/" class="signup-btn">회원가입</a>
         </form>
-    </form>
-    {% endblock %}
+    </div>
 </body>
 </html>
+
+
+
+
+

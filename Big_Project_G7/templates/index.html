@@ -87,11 +87,10 @@
         <!-- 중간에 있는 메뉴바 추후에 아이콘 집어넣기-->
         <div class = "main__menu--wrap">
             <div class="main__menu--icons">
-                <button class="main__menu--item" id="btn1">전시회1</button>
-                {% comment %} <button class="icon" id="btn2">전시회2</button> {% endcomment %}
-                <button class="main__menu--item" id="btn2"><a href="{% url 'create_exhibition' %}">전시회2</a></button>
-                <button class="main__menu--item" id="btn3">전시회3</button>
-                <button class="main__menu--item" id="btn4">전시회4</button>
+                <button class="main__menu--item" id="btn1"><span>전시회 목록</span></button> 
+                <button class="main__menu--item" id="btn2"><span>공지사항</span></button> 
+                <button class="main__menu--item" id="btn3"><span>About</span></button> 
+                <button class="main__menu--item" id="btn4"><span>배치도 생성</span></button> 
             </div> 
         </div> 
         
@@ -111,10 +110,10 @@
                 </div>
                 <div id="chatbot--footer">
                     <div id="options-container" class="options">
-                        <button class="option-button">option1</button>
-                        <button class="option-button">option2</button>
-                        <button class="option-button">option3</button>
-                        <button class="option-button">option4</button>
+                        <button class="option-button">AIVEX가 뭐죠?</button>
+                        <button class="option-button">AIVEX의 기능은 무엇인가요?</button>
+                        <button class="option-button">AIVEX의 장점은 무엇인가요?</button>
+                        <button class="option-button">AIVEX는 어떻게 사용할 수 있나요?</button>
                     </div>
                     <div id = "chatbot__text">
                         <textarea id="message--input" placeholder="메세지를 입력해주세요."></textarea>
