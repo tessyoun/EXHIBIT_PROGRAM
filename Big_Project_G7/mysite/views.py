@@ -86,17 +86,11 @@ def layout1(request):
             'rotate': angle,
         })
 
-    booth_1st = serialize('json', Booth_Info.objects.filter(exhibition_id=1))
-    booth_2nd = serialize('json', Booth_Info.objects.filter(exhibition_id=2))
-    booth_3rd = serialize('json', Booth_Info.objects.filter(exhibition_id=3))
-    booth_4th = serialize('json', Booth_Info.objects.filter(exhibition_id=4))
+    booth = serialize('json', Booth_Info.objects.filter(exhibition_id=1))
     
     return render(request, 'layout1.html', {'image_path': image_path, 
                                             'rectangles': list(enumerate(rectangles_with_dimensions)),
-                                            'booths_1st': booth_1st,
-                                            'booths_2nd': booth_2nd,
-                                            'booths_3rd': booth_3rd,
-                                            'booths_4th': booth_4th,
+                                            'booths': booth,
                                             })
 
 def layout2(request):

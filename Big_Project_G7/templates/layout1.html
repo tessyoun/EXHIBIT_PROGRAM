@@ -90,21 +90,17 @@
     <div class="modal" id="myModal" >
         <div class="modal-content">
             <span class="close" id="close-button">&times;</span>
-            <img id="modalImage" src="" alt="Modal Image" style="width:40%;">
-            <button id="reservation" data-reservation-url="{% url 'reservation' 'placeholder_booth_id' %}">예약</button>
-            <p id="modalText" style="font-size:auto; height: auto; overflow-y: auto; margin-bottom: 10px;"></p>
+            <img id="modalImage" src="" alt="Modal Image" style="width:300px">    
+            <p id="modalText"></p>
+            <div id="r-btn">
+                <button class="button" id="reservation" data-reservation-url="{% url 'reservation' 'placeholder_booth_id' %}"><span>예약</span></button>
+            </div>
         </div>
     </div>
     <script>
         const imageBasePath = "{% static 'booth_thumbnail/1/' %}";
-        const boothsJsonString1 = '{{ booths_1st|escapejs }}';
-        const boothsJsonString2 = '{{ booths_2nd|escapejs }}';
-        const boothsJsonString3 = '{{ booths_3rd|escapejs }}';
-        const boothsJsonString4 = '{{ booths_4th|escapejs }}';
-        const booths_1st = JSON.parse(boothsJsonString1);
-        const booths_2nd = JSON.parse(boothsJsonString2);
-        const booths_3rd = JSON.parse(boothsJsonString3);
-        const booths_4th = JSON.parse(boothsJsonString4);
+        const boothsJsonString = '{{ booths|escapejs }}';
+        const booths = JSON.parse(boothsJsonString);
     </script>
     <script src="{% static 'js/booth.js' %}"></script>
     <script src="{% static 'js/uiSidebar.js' %}"></script>

@@ -11,6 +11,9 @@
 .container-update {
     text-align: center;
     padding:20px;
+    display: flex;
+    top:100px;
+    position:relative;
  }
 
 .message-list {

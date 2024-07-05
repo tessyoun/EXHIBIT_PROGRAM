@@ -1,4 +1,10 @@
 /* 마이페이지 css */
+.container{
+    display: flex;
+    top:100px;
+    position:relative;
+}
+
 .edit_case{
     display: flex;
     padding: 10px;
