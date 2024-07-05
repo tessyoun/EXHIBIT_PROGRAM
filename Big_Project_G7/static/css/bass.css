@@ -180,7 +180,7 @@
 
 .chatbot--wrapper {
     position: fixed;
-    right: 10px;  
+    right: 10px;
     bottom: 10px; 
     z-index: 1000; 
 }
@@ -228,45 +228,53 @@
 }
 
 #chatbot__body {
-    height: 350px;
-    width: 320px;
+    height: 300px;
+    width: 100%;
     overflow-y: auto;
-    margin-bottom: 12px;
-    scrollbar-width: none;
+    margin-bottom: 5px;
+    scrollbar-width: thin;
 }
 
 #chatbot__body::-webkit-scrollbar {
-    display: none;
+    display: block;
 }
 
-
-#options-container {
+.options {
     display: flex;
-    justify-content: space-between;
-    width: 90%;
-    padding-bottom: 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    max-height: 50px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
 }
 
 .option-button {
-    border: 1px solid lightgray; 
+    display: block;
+    width: 90%;
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    border: 1px solid lightgray;
     border-radius: 8px;
-    padding: 5px 10px;
     background-color: white;
-    color: black;
-    font-size: 12px;
     cursor: pointer;
 }
 
+.option-button:hover {
+    background-color: #e0e0e0;
+}
+
 #chatbot--footer {
+    /* border-top: 1px solid #ccc; */
+    padding-top: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    border: none; 
-    border-radius: 10px; 
-    outline: none; 
-    width: 320px;
-    margin-bottom: 5px;
 }
 
 #chatbot__text {
@@ -275,11 +283,13 @@
     align-items: center;
     border: none; 
     border-radius: 15px; 
-    outline: none; 
+    outline: none;
     width: 300px;
     background-color: #f0f0f0; 
     z-index: 200;
-    max-height: 54px;
+    margin-top: 10px;
+    padding-top: 5px;
+    max-height: 50px;
 }
 
 #message--input {
@@ -292,9 +302,7 @@
     outline: none;
     padding: 5px;
     resize: none;
-    width: 270px;
     display: flex;
-    height: 30px;
     align-items: center;
     margin-left: 5px;
     width: 80%;
@@ -308,7 +316,6 @@
     width: 30px;
     height: 30px;
     background-image: url("../icons/send_icon.png");
-
     border-radius: 40%;
     padding: 2px;
     margin-right: 5px;
@@ -380,10 +387,11 @@
 .bot-message .timestamp {
     position: absolute;
     bottom: 0;
-    right: 14px; 
+    right: 14px;
     font-size: 12px;
     color: gray;
 }
+
 
 /* 뒤로가기 헤더 */
 body {
