@@ -17,8 +17,6 @@
      
     </div>
 
-    
-
 
     <div class = "login__main--wrap">
         <form action="" method="post">
@@ -46,7 +44,8 @@
             {% if form.non_field_errors %} <!-- css 아직 안함 -->
                 <div class="error-message">
                     {% for error in form.non_field_errors %}
-                        <p>{{ error }}</p>
+                        <p>아이디 또는 비밀번호가 잘못되었습니다.<br>
+                        아이디와 비밀번호를 정확히 입력해주세요.</p>
                     {% endfor %}
                 </div>
             {% endif %}

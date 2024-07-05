@@ -76,7 +76,7 @@ form {
 table {
     border-collapse: collapse;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .id_img {
@@ -125,6 +125,7 @@ table tr td input {
     display: block;
     margin-bottom: 10px;
     height: 45px;
+    margin-top: 5px;
 }
 
 .btn-3d:hover {
@@ -145,4 +146,15 @@ input[type="text"], input[type="password"] {
     color: gray;
     text-decoration: none;
     margin-right: 8px;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
+
+.error-message p{
+    margin: 0;
 }
