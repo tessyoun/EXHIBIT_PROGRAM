@@ -162,18 +162,47 @@
 .main__menu--icons {
     display: flex;
     justify-content: space-around;
+    margin-top: 20px;
 }
 
 .main__menu--item {
-    width: 80px;
-    height: 80px;
-    background-color: #75bbdb;
-    border-radius: 10%;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    outline: none;
+    background-color: transparent !important;
+    cursor: pointer;
 }
 
+.main__menu--item span {
+    display: block;
+    position: absolute;
+    margin-top: 73px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#btn1 {
+    background-image: url('../icons/exhibit_list_icon.png');
+}
+
+#btn2 {
+    background-image: url('../icons/notice_icon.png');
+}
+
+#btn3 {
+    background-image: url('../icons/about_icon.png');
+}
+
+#btn4 {
+    background-image: url('../icons/layout_make_icon.png');
+}
 
 
 /** 챗봇 부분 **/
