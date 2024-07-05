@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 카테고리 초기화
     function populateCategories() {
         var categories = ['전체'];
-        booths_1st.forEach(function(booth) {
+        booths.forEach(function(booth) {
             var category = booth.fields.booth_category;
             if (!categories.includes(category)) {
                 categories.push(category);
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 사각형 필터링
     function filterRectangles(category) {
         rectangles.forEach(function(rectangle, index) {
-            var booth = booths_1st[index];
+            var booth = booths[index];
             if (booth && (category === '전체' || booth.fields.booth_category === category)){
                 rectangle.style.display = 'block';
             } else {
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const userText = nameInput.value.trim().toLowerCase();
         suggestionsDiv.innerHTML = '';
 
-        const filteredBooths = booths_1st.filter(booth => {
+        const filteredBooths = booths.filter(booth => {
             return (selectedCategory === '전체' || booth.fields.booth_category === selectedCategory) && // 선택된 카테고리와 일치
                    booth.fields.booth_name.toLowerCase().includes(userText); // 입력된 텍스트 포함
         });
@@ -98,8 +98,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const userText = nameInput.value.trim().toLowerCase();
             let found = false;
 
-            for (let i = 0; i < booths_1st.length; i++) {
-                if (userText === booths_1st[i].fields.booth_name.toLowerCase()) {
+            for (let i = 0; i < booths.length; i++) {
+                if (userText === booths[i].fields.booth_name.toLowerCase()) {
                     found = true;
                     const detectRect = document.querySelector(`.rectangle[data-index='${i}']`);
                     if (detectRect) {
@@ -118,10 +118,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     //booth click event
-    console.log(booths_1st);
-    console.log(booths_2nd);
-    console.log(booths_3rd);
-    console.log(booths_4th);
+    console.log(booths);
+
     
     function checkImageExists(url, callback) {
         var img = new Image();
@@ -131,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function showModal(rectIndex) {
-        var booth = booths_1st[rectIndex - 1];
+        var booth = booths[rectIndex - 1];
         var result = booth.fields.company_name.slice(5, 8).replace(/[^0-9]/g, ""); //int 부분만 추출( 13조 -> 13 )
         var formattedIndex = result.toString().padStart(2, '0');
         var imageName = booth.fields.company_name[0] + "_" + booth.fields.company_name.slice(3,5) + "_" + formattedIndex;

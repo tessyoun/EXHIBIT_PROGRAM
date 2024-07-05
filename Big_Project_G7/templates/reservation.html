@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
-    <link rel="stylesheet" href="{% static 'reservation.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/reservation.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <title>예약하기</title>
 </head>
@@ -22,26 +22,26 @@
     <div class="reservation-container">
         <h1>예약하기</h1>
         <div class="booth-info">
-            <p>기업명: {{ booth.company_id }}</p>
+            <p>기업명: {{ booth.company_name }}</p>
             <p>부스명: {{ booth.booth_name }}</p>
         </div>
         <div class="people-counter">
-            <button id="decrease">-</button>
+            <button class="pm-btn" id="decrease" aria-label="감소">-</button>
             <div id="people">1</div>
-            <button id="increase">+</button>
+            <button class="pm-btn" id="increase" aria-label="증가">+</button>
         </div>
         <div class="time-slots">
-            <div class="time-slot selected">10:00</div>
-            <div class="time-slot">11:00</div>
-            <div class="time-slot">12:00</div>
-            <div class="time-slot">13:00</div>
-            <div class="time-slot">14:00</div>
-            <div class="time-slot">15:00</div>
-            <div class="time-slot">16:00</div>
-            <div class="time-slot">17:00</div>
+            <div class="time-slot selected" data-time="10:00">10:00</div>
+            <div class="time-slot" data-time="11:00">11:00</div>
+            <div class="time-slot" data-time="12:00">12:00</div>
+            <div class="time-slot" data-time="13:00">13:00</div>
+            <div class="time-slot" data-time="14:00">14:00</div>
+            <div class="time-slot" data-time="15:00">15:00</div>
+            <div class="time-slot" data-time="16:00">16:00</div>
+            <div class="time-slot" data-time="17:00">17:00</div>
         </div>
         <button id="reserve-button">예약하기</button>
     </div>
-    <script src="{% static 'js/script.js' %}"></script>
 </body>
+<script src="{% static 'js/reservation.js' %}"></script>
 </html>
