@@ -2,14 +2,9 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     display: flex;
-    height: 667px;
-    width: 375px;
-    position: absolute; 
-    justify-content: center; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
 }
 
 .icon {
@@ -28,13 +23,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     z-index: 100;
     width: 100%;
-    height: 200px;
-    flex: 1;
+    height: 33vh;
 }
 
 .header__title--wrap {
@@ -63,10 +57,13 @@ body {
 /** 헤더부분 끝 **/
 
 .login__main--wrap {
-    margin-top: 180px;
     display: flex;
     justify-content: center;
-    width: 300px;
+    align-items: center;
+    position: relative;
+    margin-top: 30vh;
+    width: 70vw;
+    max-width: 400px;
 }
 
 form {
@@ -80,19 +77,23 @@ table {
 }
 
 .id_img {
-    width: 24px;
-    height: 32px;
+    width: 26px;
+    height: 34px;
     border: none;
     outline: none;
     margin-top: 3px;
 }
 
 .pw_img {
-    width: 22px;
-    height: 32px;
+    width: 25px;
+    height: 34px;
     border: none;
     outline: none;
     margin-top: 3px;
+}
+
+table tr {
+    height: 65px;
 }
 
 table tr th {
@@ -108,6 +109,8 @@ table tr td input {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    height: 25px;
+    font-size: 15px;
 }
 
 .btn-3d {
@@ -116,7 +119,7 @@ table tr td input {
     border-radius: 15px;
     background-color: #01D1D5;
     color: white;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -139,20 +142,25 @@ input[type="text"], input[type="password"] {
     width: calc(100% - 22px);
 }
 
+.signup_assist {
+    display: flex;
+    font-size: 13px;
+    justify-content: flex-end;
+}
+
 .signup-btn {
-    display: block;
-    text-align: right;
-    font-size: 12px;
+    font-size: 13px;
     color: gray;
     text-decoration: none;
     margin-right: 8px;
+    margin-left: 5px;
 }
 
 .error-message {
     color: red;
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 20px;
-    margin-left: 15px;
+    margin-left: 13px;
 }
 
 .error-message p{

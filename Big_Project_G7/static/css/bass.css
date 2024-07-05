@@ -254,6 +254,11 @@
     height: 35px;
     display: inline-block;
     margin: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    outline: none;
 }
 
 #chatbot__body {
@@ -317,7 +322,6 @@
     background-color: #f0f0f0; 
     z-index: 200;
     margin-top: 10px;
-    padding-top: 5px;
     max-height: 50px;
 }
 
