@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />      
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />     
+    <link rel="stylesheet" href="{% static 'css/layout1.css' %}" />    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        #faq-section {
+            padding-top: 80px;
+            margin-left: 10%;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .faq-item > div {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 10px;
+        }
+
+        .question-summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 5px;
+        }
+    </style>
+    <title>FAQ</title>
+</head>
+<body> 
+    <!-- 헤더 부분 -->
+    <div class="header-sub">
+        <button class= "header__button--menu icon" style="cursor:pointer; opacity:1;"></button>
+        <div class="header__title--wrap">
+            <a href="{% url 'index' %}" ><button class ="header__title icon" style="cursor:pointer;"></button></a>
+        </div>
+        <button class= "for_loc_center icon"></button>
+    </div>
+    <!-- end 헤더 부분 -->
+
+    <!-- FAQ Section -->
+    <div id="faq-section">
+        <h2>FAQ</h2>
+        
+        <div id="customerNav">
+            <a href="javascript:void(0);" onclick="filterCustomer('개인')">개인</a> |
+            <a href="javascript:void(0);" onclick="filterCustomer('기업')">기업</a>
+        </div>
+
+        <div id="categoryNav" style="display: none;"></div>
+        
+        <div>
+            <input type="text" id="searchInput" onkeyup="searchFAQs()" placeholder="Search for questions..">
+            <button onclick="searchFAQs()">Search</button>
+        </div>
+
+        <ul id="faqList">
+            {% for faq in faqs %}
+            <li class="faq-item" data-customer="{{ faq.qacust }}" data-category="{{ faq.qacat }}">
+                <div>
+                    <strong> {{ faq.qacust }} | {{ faq.qacat }} </strong> 
+                </div>
+                <div class="question" onclick="toggleAnswer(this)">
+                    <div class="question-summary">{{ faq.question }}?</div>
+                    <div class="answer" style="display: none;">{{ faq.answer }}</div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- End FAQ Section -->
+
+<script src="{% static 'js/faqlist.js' %}"></script> <!-- FAQ js -->
+<script src="{% static 'js/uiSidebar.js' %}"></script>  <!-- 사이드바 js -->
+</body>
+</html>

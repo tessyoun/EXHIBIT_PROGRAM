@@ -140,3 +140,19 @@ def program_open(request):
 def create_exhibition(request):
     return render(request, 'exhibition/templates/layout2.html')
 
+# FAQ 검색 페이지
+from chatgpt.models import faq_exhi
+def FAQlist(request):
+    faqs = faq_exhi.objects.all()  # Assuming FAQ is your model name
+
+    for faq in faqs:
+        if '?' in faq.qalist:
+            faq.question, faq.answer = faq.qalist.split('?', 1)
+        else:
+            faq.question = faq.qalist
+            faq.answer = ''
+
+    context = {
+        'faqs': faqs,
+    }
+    return render(request, 'FAQ.html', context)

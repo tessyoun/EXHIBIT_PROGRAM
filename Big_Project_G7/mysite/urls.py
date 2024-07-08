@@ -26,6 +26,7 @@ urlpatterns = [
     path('booth_program/', include('booth_program.urls')),
     path('exhibition/', include('exhibition.urls')),
     path('notice/', include('notice.urls')),
+    path('FAQ/', views.FAQlist, name='faq_page'),
 ]
 
 from django.conf import settings
