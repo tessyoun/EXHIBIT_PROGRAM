@@ -96,11 +96,11 @@
                 <a href="#" class="bookmark" id="bookmark-btn"></a> <!-- 계정과 연동 필요 -->
                 <button class="button" id="reservation" data-reservation-url="{% url 'reservation' 'placeholder_booth_id' %}"><span>예약</span></button>
             </div>
-            <div class="bookmark-list" id="bookmark-list">
-                <h3>Bookmarked Booths</h3>
-                <ul id="bookmarkedBooths"></ul>
-            </div>
         </div>
+    </div>
+    <div class="bookmarkfunc">
+        <button class="bookmarkbtn" id="show-bookmarks">북마크 리스트</button>
+        <button class="bookmarkbtn" id="reset-bookmarks">북마크 리셋</button>
     </div>
     <script>
         const imageBasePath = "{% static 'booth_thumbnail/1/' %}";
