@@ -129,3 +129,14 @@
 .hidden {
     display: none;
 }
+
+.user-type {
+    font-size: 14px;  /* Adjust font size if necessary */
+    color: #000;      /* Set color to black */
+    display: block;   /* Ensure it takes the full width */
+    /* margin-bottom: 2px; Add a small margin below for spacing */
+}
+
+.user-name {
+    font-size: 16px;  /* Adjust font size if necessary */
+}

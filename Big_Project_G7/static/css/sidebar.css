@@ -112,7 +112,7 @@
 .user-name {
     font-size: 20px;
     margin-bottom: 5px;
-    margin-top: 10px;
+    margin-top: 5px;
     
     /* 닉네임이 너무 길면 ...으로 생략 */
     max-width: 151px;
@@ -121,7 +121,17 @@
     text-overflow: ellipsis; 
 }
 
+.user-type {
+    font-size: 14px;  /* Adjust font size if necessary */
+    color: #000;      /* Set color to black */
+    display: block;   /* Ensure it takes the full width */
+    margin-top: 0px;
+    margin-bottom: 2px; /* Add a small margin below for spacing */
+}
 
+.user-name {
+    font-size: 16px;  /* Adjust font size if necessary */
+}
 
 .logout-button {
     background: none;
