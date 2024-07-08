@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from accounts.models import Profile
 
 from .models import Booth_Info
-from .models import Exhibition
+from .models import Exhibition_info
 from .forms import ExhibitionForm
 from .forms import BoothForm
 
@@ -129,3 +129,43 @@ def update_booths(request):
         'form3': form3,
         'form4': form4,
     })
+
+# 개최한 부스 리스트 가져오기
+def booth_list(request):
+    current_user_id = request.user.id # user_id
+    exhibition_id = Exhibition_info.objects.filter(host_id=current_user_id).first()
+    
+    if exhibition_id:
+        exhibition_id = exhibition_id.exhibition_id
+        booths = Booth_Info.objects.filter(exhibition_id=exhibition_id).all()
+    else:
+        booths = []
+    return render(request, 'booth_list.html', {'booths':booths})
+
+# 부스 디테일
+def detail(request, pk):
+    booth = Booth_Info.objects.get(booth_id=pk)
+    return render(request, 'detail.html', {'booths':booth})
+
+# 부스 삭제
+def delete(request, pk):
+    booth = Booth_Info.objects.get(booth_id=pk)
+    booth.delete()
+    return redirect('booth_list.html')
+
+# 부스 수정
+def edit(request, pk):
+    booth = Booth_Info.objects.get(booth_id=pk)
+    return render(request, 'edit.html', {'booths':booth})
+
+# 부스 업데이트
+def update(request, pk):
+    booth = Booth_Info.objects.get(booth_id=pk)
+    booth.booth_name = request.POST.get('booth_name')
+    booth.company_name = request.POST.get('company_name')
+    booth.booth_category = request.POST.get('booth_category')
+    booth.background = request.POST.get('background')
+    booth.service = request.POST.get('service')
+    booth.save()
+    return redirect('detail', booth.pk)
+    
