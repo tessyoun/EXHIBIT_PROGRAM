@@ -85,9 +85,10 @@
 .sidebar__login__info {
     display: flex;
     flex-direction: column;
+    margin-top: 5px;
 }
 
-.sidebar__login__user--wrap, .sidebar__login__info--list {
+.sidebar__login__user--wrap {
     display: flex;
     flex-direction: column;
     text-decoration: none;
@@ -103,11 +104,6 @@
     color: gray;
 }
 
-.sidebar__login__info--list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
 
 .user-name {
     font-size: 20px;
@@ -123,14 +119,22 @@
 
 .user-type {
     font-size: 14px;  /* Adjust font size if necessary */
-    color: #000;      /* Set color to black */
+    color: #989898;      /* Set color to black */
     display: block;   /* Ensure it takes the full width */
     margin-top: 0px;
-    margin-bottom: 2px; /* Add a small margin below for spacing */
+    margin-bottom: 1px; /* Add a small margin below for spacing */
 }
 
 .user-name {
     font-size: 16px;  /* Adjust font size if necessary */
+}
+
+.logout-form {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1em;
+    box-sizing: border-box;
 }
 
 .logout-button {

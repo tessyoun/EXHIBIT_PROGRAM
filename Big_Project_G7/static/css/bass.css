@@ -175,11 +175,11 @@
     position: absolute;
     margin-top: 73px;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 #btn1 {
-    background-image: url('../icons/exhibit_list_icon.png');
+    background-image: url('../icons/list_icon.png');
 }
 
 #btn2 {
@@ -187,14 +187,14 @@
 }
 
 #btn3 {
-    background-image: url('../icons/about_icon.png');
+    background-image: url('../icons/info_icon.png');
 }
 
 #btn4 {
-    background-image: url('../icons/layout_make_icon.png');
+    background-image: url('../icons/faq_icon.png');
 }
 #btn5 {
-    background-image: url('../icons/layout_make_icon.png');
+    background-image: url('../icons/pen_icon.png');
 }
 
 

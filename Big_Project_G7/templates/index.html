@@ -84,7 +84,7 @@
             </div>
         </div>
         
-        <!-- 중간에 있는 메뉴바 추후에 아이콘 집어넣기-->
+        <!-- 중간에 있는 메뉴바 -->
         <div class="main__menu--wrap">
             <div class="main__menu--icons">
                 <button class="main__menu--item" id="btn1"><span>전시회 목록</span></button> 
@@ -102,6 +102,7 @@
             </div> 
         </div> 
         
+
         <!-- 챗봇 -->
         <div class="chatbot--wrapper">
             <button class="chatbot__icon icon" id="chatbotToggle"> </button>
@@ -148,22 +149,14 @@
 
                     <div class="sidebar__login__info">
                         {% if not user.is_authenticated %}     
-                            <a href="{% url 'login' %}" class="sidebar__login__user--wrap">
+                            <a href="{% url 'accounts:login' %}" class="sidebar__login__user--wrap">
                                 <p class="sidebar__login--btn"> 로그인을 해주세요. </p>
                             </a>
                         {% else %}
-                            <ul class="sidebar__login__info--list">
-                                <li class="user-item">
-                                    <p class="user-type">{{ user.profile.user_type }}</p> <!-- Display user type here -->
-                                    <p class="user-name"><span>{{user}}님!</span></p>
-                                </li>
-                                <li class="user-item">
-                                    <form class="logout-form" method="post" action="{% url 'logout' %}?next={{request.path}}" >
-                                        {% csrf_token %}
-                                        <button type="submit" class="logout-button">로그아웃</button>
-                                    </form>
-                                </li>
-                            </ul>
+                            <div class = "sidebar__login__user--wrap">
+                            <p class="user-type">{{ user.profile.user_type }}</p> <!-- Display user type here -->
+                            <p class="user-name"><span>{{user}}님!</span></p>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
@@ -171,10 +164,29 @@
 
             <div class="sidebar__menu--wrap">
                 <ul class="sidebar__menu--list--wrap">
-                    <li class="sidebar__menu--list"><a href="{% url 'mypage' %}" class="sidebar__menu--item"> 마이페이지 </a></li>
-                    <li class="sidebar__menu--list"><a href="{% url 'reveal_QR' %}" class="sidebar__menu--item"> 내 예매 확인 </a></li>
-                    <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 내 예약 확인 </a></li>
-                </ul>            
+                    {% if user.is_authenticated %} 
+                        {% if user.profile.user_type == '기업회원' %} 
+                        <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
+                        <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update' %}" class = "sidebar__menu--item"> 부스 정보 수정 </a></li>
+                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 부스 예약 현황 </a></li>
+                        {% else %}
+                        <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
+                        <li class = "sidebar__menu--list"><a href="{% url 'reveal_QR' %}" class = "sidebar__menu--item"> 내 티켓 확인 </a></li>
+                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 내 예약 확인 </a></li>
+                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 북마크 </a></li>
+                        {% endif %}
+                    {% else %}
+                    <span> 로그인 후 서비스 이용 가능 </span>
+                    {% endif %}
+                </ul>    
+                
+                {% if user.is_authenticated %}
+                <form class="logout-form" method="post" action="{% url 'accounts:logout' %}?next={{request.path}}">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-button">로그아웃</button>
+                </form>
+                {% endif %}
+
             </div>
 
         </div>
