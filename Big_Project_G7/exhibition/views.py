@@ -93,42 +93,21 @@ def create_json(form):
 def update_booths(request):
     user_name = request.user.profile.name
     # 현재 기업이 운영하는 부스 정보
-    
-    booths_1st = Booth_Info.objects.filter(company_name=user_name, exhibition_id=1).first()
-    booths_2nd = Booth_Info.objects.filter(company_name=user_name, exhibition_id=2).first()
-    booths_3rd = Booth_Info.objects.filter(company_name=user_name, exhibition_id=3).first()
-    booths_4th = Booth_Info.objects.filter(company_name=user_name, exhibition_id=4).first()
+    booths = Booth_Info.objects.filter(company_name=user_name).first()
 
     if request.method == 'POST':
-        form1 = BoothForm(request.POST, instance=booths_1st)
-        form2 = BoothForm(request.POST, instance=booths_2nd)
-        form3 = BoothForm(request.POST, instance=booths_3rd)
-        form4 = BoothForm(request.POST, instance=booths_4th)
+        form = BoothForm(request.POST, instance=booths)
 
-        if form1.is_valid() and booths_1st:
-            form1.save()
-        if form2.is_valid() and booths_2nd:
-            form2.save()
-        if form3.is_valid() and booths_3rd:
-            form3.save()
-        if form4.is_valid() and booths_4th:
-            form4.save()
+        if form.is_valid() and booths:
+            form.save()
 
         messages.success(request, '부스 정보가 업데이트되었습니다.')
         return redirect('index')
 
     else:
-        form1 = BoothForm(instance=booths_1st) if booths_1st else None
-        form2 = BoothForm(instance=booths_2nd) if booths_2nd else None
-        form3 = BoothForm(instance=booths_3rd) if booths_3rd else None
-        form4 = BoothForm(instance=booths_4th) if booths_4th else None
+        form = BoothForm(instance=booths) if booths else None
 
-    return render(request, 'boothinfo.html', {
-        'form1': form1,
-        'form2': form2,
-        'form3': form3,
-        'form4': form4,
-    })
+    return render(request, 'boothinfo.html', {'form':form})
 
 # 개최한 부스 리스트 가져오기
 def booth_list(request):
