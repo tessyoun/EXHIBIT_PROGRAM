@@ -29,21 +29,8 @@
         {% endif %}
         <form method="post" enctype="multipart/form-data" class="info"> 
             {% csrf_token %}
-            {% if form1 %}
-                <h2>전시 1</h2>
-                {{ form1.as_p }}
-            {% endif %}
-            {% if form2 %}
-                <h2>전시 2</h2>
-                {{ form2.as_p }}
-            {% endif %}
-            {% if form3 %}
-                <h2>전시 3</h2>
-                {{ form3.as_p }}
-            {% endif %}
-            {% if form4 %}
-                <h2>전시 4</h2>
-                {{ form4.as_p }}
+            {% if form %}
+                {{form.as_p}}
             {% endif %}
             <button type="submit">수정</button>
         </form>
