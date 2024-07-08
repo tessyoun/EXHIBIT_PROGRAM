@@ -9,4 +9,5 @@ https://fontawesome.com/search
 
 ## Login
   - admin : user / admin123
+  - 일반유저 : qwer / 1q2w3e4r!
 

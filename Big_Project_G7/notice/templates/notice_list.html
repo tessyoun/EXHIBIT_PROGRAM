@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice</title>
+</head>
+<body>
+    {% block content %}
+    {% csrf_token %}
+    <h1>Notices</h1>
+    <ul>
+    {% for notice in notice_list %}
+        <li>
+            <a href="{% url 'notice:notice_detail' notice.pk %}">{{ notice.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    {% endblock %}
+    {% if user.is_staff %}
+        <a href="{% url 'notice:notice_new' %}">글쓰기</a>
+    {% endif %}
+</body>
+</html>

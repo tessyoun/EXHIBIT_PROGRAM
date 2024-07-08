@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1." />  
+    <title>공지 작성</title>
+</head>
+<body>
+    <h1>작성하기</h1>
+    {% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="작성"/>
+    </form>
+    <a href="{% url 'notice:notice_list' %}">Back to list</a>
+    {% endblock %}
+</body>
+</html>
