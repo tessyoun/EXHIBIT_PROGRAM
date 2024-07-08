@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
      var btn2 = document.getElementById('btn2');
      var btn3 = document.getElementById('btn3');
      var btn4 = document.getElementById('btn4');
+     var btn5 = document.getElementById('btn5');
      var editProfileBtn = document.getElementById('edit_profile');
      var editBoothBtn = document.getElementById('edit_booth');
      
@@ -129,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
      }
      if (btn2) {
          btn2.addEventListener('click', function() {
-             window.location.href = "/layout2/";
+             window.location.href = "/notice/";
          });
      }
      if (btn3) {
@@ -142,6 +143,11 @@ document.addEventListener('DOMContentLoaded', function() {
              window.location.href = "/layout4/";
          });
      }
+     if (btn5) {
+        btn5.addEventListener('click', function() {
+            window.location.href = "/exhibition/create_exhibition/";
+        });
+    }
      if (editProfileBtn) {
          editProfileBtn.addEventListener('click', function() {
              window.location.href = "/edit_profile/";

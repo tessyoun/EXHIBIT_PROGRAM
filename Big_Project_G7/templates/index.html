@@ -89,8 +89,14 @@
             <div class="main__menu--icons">
                 <button class="main__menu--item" id="btn1"><span>전시회 목록</span></button> 
                 <button class="main__menu--item" id="btn2"><span>공지사항</span></button> 
-                <button class="main__menu--item" id="btn3"><span>About</span></button> 
-                <button class="main__menu--item" id="btn4"><span>배치도 생성</span></button> 
+                <button class="main__menu--item" id="btn3"><span>About</span></button>
+                {% if user.is_authenticated %}
+                    {% comment %} {% if user.profile.user_type=='기업회원' %}  {% endcomment %}
+                    <button class="main__menu--item" id="btn5"><span>배치도 생성</span></button>
+                    {% comment %} {% endif %} {% endcomment %}
+                {% else %}
+                    <button class="main__menu--item" id="btn4"><span>FAQ</span></button>
+                {% endif %}
             </div> 
         </div> 
         
