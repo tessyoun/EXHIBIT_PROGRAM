@@ -23,9 +23,9 @@ DROP TABLE IF EXISTS `Booth_Bookmark`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Booth_Bookmark` (
-  `BoothBookmarkID` varchar(0) DEFAULT NULL,
-  `user_id` varchar(0) DEFAULT NULL,
-  `BoothID` varchar(0) DEFAULT NULL
+  `BoothBookmarkID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INTEGER DEFAULT NULL,
+  `BoothID` INTEGER DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -46,14 +46,14 @@ DROP TABLE IF EXISTS `Booth_Info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Booth_Info` (
-  `BoothID` INTEGER DEFAULT NULL,
-  `BoothName` varchar(49) DEFAULT NULL,
-  `CompanyID` INTEGER DEFAULT NULL,
-  `CompanyName` varchar(10) DEFAULT NULL,
-  `ExhibitionID` INTEGER DEFAULT NULL,
-  `ExhibitionCategory` varchar(21) DEFAULT NULL,
-  `BoothDescription1` varchar(151) DEFAULT NULL,
-  `BoothDescription2` varchar(236) DEFAULT NULL
+  `BoothID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `BoothName` varchar(100) DEFAULT NULL,
+  `CompanyID` INTEGER AUTO_INCREMENT,
+  `CompanyName` varchar(100) DEFAULT NULL,
+  `ExhibitionID` INTEGER AUTO_INCREMENT,
+  `ExhibitionCategory` varchar(100) DEFAULT NULL,
+  `BoothDescription1` TEXT DEFAULT NULL,
+  `BoothDescription2` TEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -75,11 +75,11 @@ DROP TABLE IF EXISTS `ChatHistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ChatHistory` (
-  `ChatID` varchar(0) DEFAULT NULL,
-  `ChatTimestamp` varchar(0) DEFAULT NULL,
-  `Inquiry` varchar(0) DEFAULT NULL,
-  `Response` varchar(0) DEFAULT NULL,
-  `user_id` varchar(0) DEFAULT NULL
+  `ChatID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ChatTimestamp` DATETIME NOT NULL,
+  `Inquiry` TEXT DEFAULT NULL,
+  `Response` TEXT DEFAULT NULL,
+  `user_id` varchar(0) DEFAULT NULL -- 나중에 foreign key 수정 필요할듯
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -100,8 +100,8 @@ DROP TABLE IF EXISTS `Exhibition_Hall`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Exhibition_Hall` (
-  `ExhibitionHallID` INTEGER DEFAULT NULL,
-  `HallDescription` varchar(5) DEFAULT NULL
+  `ExhibitionHallID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `HallDescription` TEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -123,13 +123,13 @@ DROP TABLE IF EXISTS `Exhibition_Info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Exhibition_Info` (
-  `ExhibitionID` INTEGER DEFAULT NULL,
-  `ExhibitionName` varchar(16) DEFAULT NULL,
-  `ExhibitionDescription` varchar(0) DEFAULT NULL,
-  `ExhibitionRegistrationDate` varchar(0) DEFAULT NULL,
-  `OrganizationID` varchar(0) DEFAULT NULL,
-  `Hall_ID` INTEGER DEFAULT NULL,
-  `ExhibitionClosedDate` varchar(0) DEFAULT NULL
+  `ExhibitionID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ExhibitionName` varchar(100) NOT NULL,
+  `ExhibitionDescription` TEXT DEFAULT "설명이 없습니다",
+  `ExhibitionRegistrationDate` DATE DEFAULT NULL,
+  `OrganizationID` INTEGER AUTO_INCREMENT,
+  `Hall_ID` INTEGER AUTO_INCREMENT,
+  `ExhibitionClosedDate` DATE DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -151,13 +151,13 @@ DROP TABLE IF EXISTS `Exhibition_Notice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Exhibition_Notice` (
-  `NoticeID` varchar(0) DEFAULT NULL,
-  `AuthorName` varchar(0) DEFAULT NULL,
-  `Title` varchar(0) DEFAULT NULL,
-  `Content` varchar(0) DEFAULT NULL,
-  `Reason` varchar(0) DEFAULT NULL,
-  `RegistrationDate` varchar(0) DEFAULT NULL,
-  `user_id` varchar(0) DEFAULT NULL
+  `NoticeID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `AuthorName` varchar(100) NOT NULL,
+  `Title` varchar(200) NOT NULL,
+  `Content` TEXT NOT NULL,
+  `Reason` TEXT DEFAULT NULL,
+  `RegistrationDate` DATETIME DEFAULT NULL,
+  `user_id` varchar(0) DEFAULT NULL -- 추후 수정 필요
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -178,10 +178,10 @@ DROP TABLE IF EXISTS `Exhibition_Ticket_Info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Exhibition_Ticket_Info` (
-  `TicketID` varchar(0) DEFAULT NULL,
-  `ExhibitionID` varchar(0) DEFAULT NULL,
-  `Audience` varchar(0) DEFAULT NULL,
-  `Price` varchar(0) DEFAULT NULL
+  `TicketID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ExhibitionID` INTEGER AUTO_INCREMENT,
+  `Audience` varchar(200) NOT NULL CHECK("Audience" IN ('Adult', 'Child')),
+  `Price` DECIMAL(10, 2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -202,13 +202,13 @@ DROP TABLE IF EXISTS `Program_Info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Program_Info` (
-  `ProgramID` varchar(0) DEFAULT NULL,
-  `ProgramName` varchar(0) DEFAULT NULL,
-  `ProgramDescription` varchar(0) DEFAULT NULL,
-  `BoothID` varchar(0) DEFAULT NULL,
-  `BoothName` varchar(0) DEFAULT NULL,
-  `CompanyID` varchar(0) DEFAULT NULL,
-  `CompanyName` varchar(0) DEFAULT NULL
+  `ProgramID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ProgramName` varchar(200) NOT NULL,
+  `ProgramDescription` TEXT NOT NULL,
+  `BoothID` INTEGER DEFAULT NULL,
+  `BoothName` varchar(100) DEFAULT NULL,
+  `CompanyID` INTEGER DEFAULT NULL,
+  `CompanyName` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -229,9 +229,9 @@ DROP TABLE IF EXISTS `Program_Reserv_History`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Program_Reserv_History` (
-  `ReservationID` varchar(0) DEFAULT NULL,
-  `user_id` varchar(0) DEFAULT NULL,
-  `ProgramTimeID` varchar(0) DEFAULT NULL
+  `ReservationID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INTEGER DEFAULT NULL, -- 추후 수정 필요
+  `ProgramTimeID` INTEGER DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -252,10 +252,10 @@ DROP TABLE IF EXISTS `Program_Time`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Program_Time` (
-  `ProgramTimeID` varchar(0) DEFAULT NULL,
-  `ProgramID` varchar(0) DEFAULT NULL,
-  `ProgramTime` varchar(0) DEFAULT NULL,
-  `ProgramSeats` varchar(0) DEFAULT NULL
+  `ProgramTimeID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ProgramID` INTEGER NOT NULL,
+  `ProgramTime` DATETIME NOT NULL,
+  `ProgramSeats` INTEGER NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -276,10 +276,10 @@ DROP TABLE IF EXISTS `Ticket_Bought_Info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Ticket_Bought_Info` (
-  `UserTicketID` varchar(0) DEFAULT NULL,
-  `user_id` varchar(0) DEFAULT NULL,
-  `ExhibitionID` varchar(0) DEFAULT NULL,
-  `TicketID` varchar(0) DEFAULT NULL
+  `UserTicketID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INTEGER DEFAULT NULL,
+  `ExhibitionID` INTEGER DEFAULT NULL,
+  `TicketID` INTEGER DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -300,10 +300,10 @@ DROP TABLE IF EXISTS `accounts_profile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `accounts_profile` (
-  `id` INTEGER DEFAULT NULL,
-  `user_type` varchar(4) DEFAULT NULL,
-  `name` varchar(7) DEFAULT NULL,
-  `phone_number` varchar(19) DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_type` varchar(30) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `phone_number` varchar(19) NOT NULL,
   `user_id` INTEGER DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -326,8 +326,8 @@ DROP TABLE IF EXISTS `auth_group`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `auth_group` (
-  `id` varchar(0) DEFAULT NULL,
-  `name` varchar(0) DEFAULT NULL
+  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -348,10 +348,10 @@ DROP TABLE IF EXISTS `auth_permission`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `auth_permission` (
-  `id` INTEGER DEFAULT NULL,
-  `content_type_id` INTEGER DEFAULT NULL,
-  `codename` varchar(18) DEFAULT NULL,
-  `name` varchar(23) DEFAULT NULL
+  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `content_type_id` INTEGER NOT NULL,
+  `codename` varchar(100) NOT NULL,
+  `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -374,15 +374,15 @@ DROP TABLE IF EXISTS `auth_user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `auth_user` (
   `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `password` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
   `last_login` DATETIME DEFAULT NULL,
-  `is_superuser` INTEGER DEFAULT NULL,
-  `username` varchar(150) DEFAULT NULL,
+  `is_superuser` BOOL NOT NULL,
+  `username` varchar(150) NOT NULL UNIQUE,
   `last_name` varchar(150) DEFAULT NULL,
-  `email` varchar(12) DEFAULT NULL,
-  `is_staff` INTEGER DEFAULT NULL,
-  `is_active` INTEGER DEFAULT NULL,
-  `date_joined` DATE DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `is_staff` BOOL NOT NULL,
+  `is_active` BOOL NOT NULL,
+  `date_joined` DATETIME DEFAULT NULL,
   `first_name` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -405,9 +405,9 @@ DROP TABLE IF EXISTS `auth_user_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `auth_user_groups` (
-  `id` varchar(0) DEFAULT NULL,
-  `user_id` varchar(0) DEFAULT NULL,
-  `group_id` varchar(0) DEFAULT NULL
+  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INTEGER DEFAULT NULL,
+  `group_id` INTEGER DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -428,9 +428,9 @@ DROP TABLE IF EXISTS `auth_user_user_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `auth_user_user_permissions` (
-  `id` varchar(0) DEFAULT NULL,
-  `user_id` varchar(0) DEFAULT NULL,
-  `permission_id` varchar(0) DEFAULT NULL
+  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INTEGER DEFAULT NULL,
+  `permission_id` INTEGER DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -451,11 +451,11 @@ DROP TABLE IF EXISTS `chat_faq_aivle`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `chat_faq_aivle` (
-  `qapk` varchar(4) DEFAULT NULL,
-  `qacust` varchar(2) DEFAULT NULL,
-  `qacat` varchar(8) DEFAULT NULL,
-  `qalist` text,
-  `source` varchar(55) DEFAULT NULL
+  `qapk` TEXT DEFAULT NULL,
+  `qacust` TEXT DEFAULT NULL,
+  `qacat` TEXT DEFAULT NULL,
+  `qalist` TEXT,
+  `source` TEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -477,11 +477,11 @@ DROP TABLE IF EXISTS `chat_faq_exhi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `chat_faq_exhi` (
-  `qapk` varchar(4) DEFAULT NULL,
-  `qacust` varchar(6) DEFAULT NULL,
-  `qacat` varchar(5) DEFAULT NULL,
-  `qalist` text,
-  `source` varchar(82) DEFAULT NULL
+  `qapk` TEXT DEFAULT NULL,
+  `qacust` TEXT DEFAULT NULL,
+  `qacat` TEXT DEFAULT NULL,
+  `qalist` TEXT,
+  `source` TEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -503,10 +503,10 @@ DROP TABLE IF EXISTS `chatgpt_chathistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `chatgpt_chathistory` (
-  `id` INTEGER DEFAULT NULL,
-  `question` varchar(24) DEFAULT NULL,
-  `answer` text,
-  `timestamp` varchar(10) DEFAULT NULL
+  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `question` TEXT NOT NULL,
+  `answer` TEXT NOT NULL,
+  `timestamp` DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -528,14 +528,14 @@ DROP TABLE IF EXISTS `django_admin_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `django_admin_log` (
-  `id` INTEGER DEFAULT NULL,
-  `object_id` varchar(8) DEFAULT NULL,
-  `object_repr` varchar(18) DEFAULT NULL,
-  `action_flag` INTEGER DEFAULT NULL,
-  `change_message` varchar(15) DEFAULT NULL,
+  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `object_id` TEXT DEFAULT NULL,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` INTEGER NOT NULL,
+  `change_message` TEXT DEFAULT NULL,
   `content_type_id` INTEGER DEFAULT NULL,
-  `user_id` INTEGER DEFAULT NULL,
-  `action_time` varchar(10) DEFAULT NULL
+  `user_id` INTEGER NOT NULL,
+  `action_time` DATETIME DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -557,9 +557,9 @@ DROP TABLE IF EXISTS `django_content_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `django_content_type` (
-  `id` INTEGER DEFAULT NULL,
-  `app_label` varchar(21) DEFAULT NULL,
-  `model` varchar(11) DEFAULT NULL
+  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -581,10 +581,10 @@ DROP TABLE IF EXISTS `django_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `django_migrations` (
-  `id` INTEGER DEFAULT NULL,
-  `app` varchar(21) DEFAULT NULL,
-  `name` varchar(62) DEFAULT NULL,
-  `applied` varchar(10) DEFAULT NULL
+  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(62) NOT NULL,
+  `applied` DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -606,9 +606,9 @@ DROP TABLE IF EXISTS `django_session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `django_session` (
-  `session_key` varchar(32) DEFAULT NULL,
-  `session_data` text,
-  `expire_date` DATE DEFAULT NULL
+  `session_key` varchar(40) NOT NULL PRIMARY KEY,
+  `session_data` TEXT NOT NULL,
+  `expire_date` DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -630,12 +630,12 @@ DROP TABLE IF EXISTS `exhibition_exhibition`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `exhibition_exhibition` (
-  `exhibition_name` varchar(4) DEFAULT NULL,
-  `host_id` varchar(7) DEFAULT NULL,
-  `start_date` varchar(0) DEFAULT NULL,
-  `end_date` varchar(0) DEFAULT NULL,
-  `number_of_booths` INTEGER DEFAULT NULL,
-  `hall` varchar(2) DEFAULT NULL
+  `exhibition_name` varchar(50) NOT NULL PRIMARY KEY,
+  `host_id` varchar(50) NOT NULL,
+  `start_date` DATE NOT NULL,
+  `end_date` DATE NOT NULL,
+  `number_of_booths` INTEGER NOT NULL,
+  `hall` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -657,11 +657,11 @@ DROP TABLE IF EXISTS `exhibition_imageupload`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `exhibition_imageupload` (
-  `id` varchar(0) DEFAULT NULL,
-  `title` varchar(0) DEFAULT NULL,
-  `image` varchar(0) DEFAULT NULL,
-  `created_at` varchar(0) DEFAULT NULL,
-  `updated_at` varchar(0) DEFAULT NULL
+  `id` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `title` varchar(50) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -682,7 +682,7 @@ DROP TABLE IF EXISTS `sqlite_sequence`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sqlite_sequence` (
-  `name` varchar(22) DEFAULT NULL,
+  `name` varchar(200) DEFAULT NULL,
   `seq` INTEGER DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
