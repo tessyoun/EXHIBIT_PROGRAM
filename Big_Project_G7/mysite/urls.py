@@ -28,6 +28,7 @@ urlpatterns = [
     path('exhibition/', include('exhibition.urls')),
     path('notice/', include('notice.urls')),
     path('FAQ/', views.FAQlist, name='faq_page'),
+    path('reserve/', include('reserve_hall.urls', namespace='reserve_hall')),
 ]
 
 from django.conf import settings

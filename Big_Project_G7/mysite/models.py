@@ -16,8 +16,6 @@ class Booth_Info(models.Model):
         db_table = 'Booth_Info'
         app_label ='mysite'
         
-
-
 # class Bookmarks(models.Model):
 #     bookmark = models.TextField(db_column='BoothBookmarkID', blank=True, null=False)
 #     user_id = models.IntegerField(db_column='user_id', primary_key=True, null=True)

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Reserve {{ hall_name }}</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/layout3.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ hall_name }} 예약</h1>
+        </header>
+        <main>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">예약하기</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
