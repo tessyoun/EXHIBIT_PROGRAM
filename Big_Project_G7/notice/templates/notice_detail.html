@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice</title>
+</head>
+<body>
+    {% block content %}
+    {% csrf_token %}
+    <h1>{{ notice.title }}</h1>
+    <p>{{ notice.content }}</p>
+    <p>Author: {{ notice.author }}</p>
+    <p>Updated at: {{ notice.update_time }}</p>
+    {% if request.user == notice.author %}
+        <a href="{% url 'notice:notice_edit' notice.pk %}">Edit</a>
+        <a href="{% url 'notice:notice_delete' notice.pk %}">Delete</a>
+    {% endif %}
+    <a href="{% url 'notice:notice_list' %}">Back to list</a>
+    {% endblock %}
+</body>
+</html>
