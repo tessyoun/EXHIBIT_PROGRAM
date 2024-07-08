@@ -1,26 +1,34 @@
-{% block content %}
-    <table class='booths'>
-        <thead>
-            <tr> 
-                <td><B>부스명</B></td>
-                <td><B>회사명</B></td>
-                <td><B>부스 카테고리</B></td>
-                <td><B>배경</B></td>
-                <td><B>기능</B></td>
-            </tr>
-        </thead>
-        <tbody>
-        {% for booth in booths %}
-            <tr>
-                {% comment %} <td>{{booth.booth_name}}</td> {% endcomment %}
-                {% comment %} <td><a href="/exhibition/{{booth.pk}}">{{booth.booth_name}}</a></td> {% endcomment %}
-                <td><a href="{% url 'detail' booth.booth_id %}">{{booth.booth_name}}</a></td>
-                <td>{{booth.company_name}}</td>
-                <td>{{booth.booth_category}}</td>
-                <td>{{booth.background}}</td>
-                <td>{{booth.service}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endblock %}
+<html>
+    <head>
+        <title>부스 목록</title>
+    </head>
+    <body>
+        {% block content %}
+            <h1>부스 목록</h1>
+            <table class='booths'>
+                <thead>
+                    <tr> 
+                        <td><B>부스명</B></td>
+                        <td><B>회사명</B></td>
+                        <td><B>부스 카테고리</B></td>
+                        <td><B>배경</B></td>
+                        <td><B>기능</B></td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for booth in booths %}
+                    <tr>
+                        {% comment %} <td>{{booth.booth_name}}</td> {% endcomment %}
+                        {% comment %} <td><a href="/exhibition/{{booth.pk}}">{{booth.booth_name}}</a></td> {% endcomment %}
+                        <td><a href="{% url 'detail' booth.booth_id %}">{{booth.booth_name}}</a></td>
+                        <td>{{booth.company_name}}</td>
+                        <td>{{booth.booth_category}}</td>
+                        <td>{{booth.background}}</td>
+                        <td>{{booth.service}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    </body>
+</html>
