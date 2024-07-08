@@ -16,3 +16,14 @@ class Booth_Info(models.Model):
         db_table = 'Booth_Info'
         app_label ='mysite'
         
+
+
+# class Bookmarks(models.Model):
+#     bookmark = models.TextField(db_column='BoothBookmarkID', blank=True, null=False)
+#     user_id = models.IntegerField(db_column='user_id', primary_key=True, null=True)
+#     booth_id = models.IntegerField(db_column='BoothID', blank=True, null=True)
+    
+#     class Meta:
+#         managed = False
+#         db_table = 'Bookmarks'
+#         app_label ='mysite'

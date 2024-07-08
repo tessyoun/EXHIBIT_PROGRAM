@@ -139,13 +139,21 @@ document.addEventListener("DOMContentLoaded", function() {
         checkImageExists(imageBasePath + jpgImageName, function(exists) {
             if (exists) {
                 modalImage.src = imageBasePath + jpgImageName;
-                modalText.innerText = "기업명: " + booth.fields.company_name + "\n부스명: " + booth.fields.booth_name + "\nBM: " + booth.fields.booth_category + "\n설명: " + booth.fields.background + "\n서비스: " + booth.fields.service;
+                modalText.innerHTML = '<span class="modaltitle">기업명: </span>' + booth.fields.company_name + 
+                                      '<br><span class="modaltitle">부스명: </span>' + booth.fields.booth_name + 
+                                      '<br><span class="modaltitle">BM: </span>' + booth.fields.booth_category + 
+                                      '<br><span class="modaltitle">설명: </span>' + booth.fields.background + 
+                                      '<br><span class="modaltitle">서비스: </span>' + booth.fields.service;
                 modal.style.display = "block";
             } else {
                 checkImageExists(imageBasePath + pngImageName, function(exists) {
                     if (exists) {
                         modalImage.src = imageBasePath + pngImageName;
-                        modalText.innerText = "기업명: " + booth.fields.company_name + "\n부스명: " + booth.fields.booth_name + "\nBM: " + booth.fields.booth_category + "\n설명: " + booth.fields.background + "\n서비스: " + booth.fields.service;
+                        modalText.innerHTML = '<span class="modaltitle">기업명: </span>' + booth.fields.company_name + 
+                                              '<br><span class="modaltitle">부스명: </span>' + booth.fields.booth_name + 
+                                              '<br><span class="modaltitle">BM: </span>' + booth.fields.booth_category + 
+                                              '<br><span class="modaltitle">설명: </span>' + booth.fields.background + 
+                                              '<br><span class="modaltitle">서비스: </span>' + booth.fields.service;
                         modal.style.display = "block";
                     } else {
                         console.error('No image found for booth:', booth.booth_name);
