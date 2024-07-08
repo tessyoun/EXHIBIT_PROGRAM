@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var selectedCategory = '전체';
     const reservationButton = document.getElementById('reservation');
 
+    
+    //booth click event
+    console.log(booths);
+
     // 카테고리 초기화
     function populateCategories() {
         var categories = ['전체'];
@@ -110,17 +114,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     break;
                 }
             }
-
             if (!found) {
                 alert("No matching booth found.");
             }
         });
     }
 
-    //booth click event
-    console.log(booths);
-
-    
     function checkImageExists(url, callback) {
         var img = new Image();
         img.onload = function() { callback(true); };
@@ -140,13 +139,21 @@ document.addEventListener("DOMContentLoaded", function() {
         checkImageExists(imageBasePath + jpgImageName, function(exists) {
             if (exists) {
                 modalImage.src = imageBasePath + jpgImageName;
-                modalText.innerText = "기업명: " + booth.fields.company_name + "\n부스명: " + booth.fields.booth_name + "\nBM: " + booth.fields.booth_category + "\n설명: " + booth.fields.background + "\n서비스: " + booth.fields.service;
+                modalText.innerHTML = '<span class="modaltitle">기업명: </span>' + booth.fields.company_name + 
+                                      '<br><span class="modaltitle">부스명: </span>' + booth.fields.booth_name + 
+                                      '<br><span class="modaltitle">BM: </span>' + booth.fields.booth_category + 
+                                      '<br><span class="modaltitle">설명: </span>' + booth.fields.background + 
+                                      '<br><span class="modaltitle">서비스: </span>' + booth.fields.service;
                 modal.style.display = "block";
             } else {
                 checkImageExists(imageBasePath + pngImageName, function(exists) {
                     if (exists) {
                         modalImage.src = imageBasePath + pngImageName;
-                        modalText.innerText = "기업명: " + booth.fields.company_name + "\n부스명: " + booth.fields.booth_name + "\nBM: " + booth.fields.booth_category + "\n설명: " + booth.fields.background + "\n서비스: " + booth.fields.service;
+                        modalText.innerHTML = '<span class="modaltitle">기업명: </span>' + booth.fields.company_name + 
+                                              '<br><span class="modaltitle">부스명: </span>' + booth.fields.booth_name + 
+                                              '<br><span class="modaltitle">BM: </span>' + booth.fields.booth_category + 
+                                              '<br><span class="modaltitle">설명: </span>' + booth.fields.background + 
+                                              '<br><span class="modaltitle">서비스: </span>' + booth.fields.service;
                         modal.style.display = "block";
                     } else {
                         console.error('No image found for booth:', booth.booth_name);
@@ -163,7 +170,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // 북마크 버튼 클릭 시 처리
         let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
         const bookmarkBtn = document.getElementById('bookmark-btn');
-        bookmarkBtn.innerHTML = bookmarks.includes(booth.fields.company_id) ? '<i class="fa-solid fa-star fa-2x"></i>' : '<i class="fa-regular fa-star fa-2x"></i>';
+        bookmarkBtn.innerHTML = bookmarks.includes(booth.fields.company_id) ? '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"></i>' : '<i class="fa-regular fa-star fa-2x"></i>';
+
         bookmarkBtn.addEventListener('click', function() {
             let boothId = booth.fields.company_id;
             if (bookmarks.includes(boothId)) {
@@ -173,9 +181,32 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 // 북마크 추가
                 bookmarks.push(boothId);
-                bookmarkBtn.innerHTML = '<i class="fa-solid fa-star fa-2x"></i>';
+                bookmarkBtn.innerHTML = '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"></i>';
             }
-            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 로그인 및 db로 저장경로 수정해야할 부분
+            updateBookmarkIcons();
+        });
+    }
+
+    //북마크 표시
+    function updateBookmarkIcons() {
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        rectangles.forEach(function(rectangle, index) {
+            if (!booths[index] || !booths[index].fields) return;
+            const boothId = booths[index].fields.company_id;
+            const existingIcon = rectangle.querySelector('.bookmark-icon');
+            if (bookmarks.includes(boothId)) {
+                if (!existingIcon) {
+                    const starIcon = document.createElement('i');
+                    starIcon.className = 'fa-solid fa-star bookmark-icon';
+                    starIcon.style = 'color: #FFD43B;';
+                    rectangle.appendChild(starIcon);
+                }4
+            } else {
+                if (existingIcon) {
+                    rectangle.removeChild(existingIcon);
+                }
+            }
         });
     }
 
@@ -189,17 +220,20 @@ document.addEventListener("DOMContentLoaded", function() {
             showModal(index + 1);
         });
     });
-
+    
+    // x버튼클릭시 종료
     if (closeButton) {
         closeButton.addEventListener("click", closeModal);
     }
-
+    
+    //바탕화면 클릭시 종료
     window.onclick = function(event) {
         if (event.target === modal) {
             closeModal();
         }
     }
-
+    
+    //배치도 스크롤 
     const imageContainer = document.querySelector('.image-container');
     
     if (imageContainer) {
@@ -225,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 북마크 리스트 버튼 추가
     const listButton = document.getElementById('show-bookmarks');
     listButton.addEventListener('click', function() {
-        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];                // #1 로그인 및 db로 저장경로 수정해야할 부분
         console.log('Bookmarked booths:', bookmarks);
         if (bookmarks.length > 0) {
             let bookmarkNames = booths.filter(booth => bookmarks.includes(booth.fields.company_id)).map(booth => booth.fields.booth_name);
@@ -239,7 +273,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const resetButton = document.getElementById('reset-bookmarks')
     resetButton.addEventListener('click', function() {
         bookmarks = [];
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 로그인 및 db로 저장경로 수정해야할 부분
         alert('북마크 리셋.');
+        updateBookmarkIcons();
     });
+    updateBookmarkIcons();      //북마크 표시
 });

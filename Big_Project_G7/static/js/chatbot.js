@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
      }
      if (btn4) {
          btn4.addEventListener('click', function() {
-             window.location.href = "/layout4/";
+             window.location.href = "/FAQ/";
          });
      }
      if (btn5) {
