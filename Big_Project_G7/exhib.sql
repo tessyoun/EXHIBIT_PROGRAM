@@ -46,14 +46,14 @@ DROP TABLE IF EXISTS `Booth_Info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Booth_Info` (
-  `BoothID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `BoothName` varchar(100) DEFAULT NULL,
-  `CompanyID` INTEGER AUTO_INCREMENT,
-  `CompanyName` varchar(100) DEFAULT NULL,
-  `ExhibitionID` INTEGER AUTO_INCREMENT,
-  `ExhibitionCategory` varchar(100) DEFAULT NULL,
-  `BoothDescription1` TEXT DEFAULT NULL,
-  `BoothDescription2` TEXT DEFAULT NULL
+   `BoothID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   `BoothName` VARCHAR(100) DEFAULT NULL,
+   `CompanyID` INT DEFAULT NULL,
+   `CompanyName` VARCHAR(100) DEFAULT NULL,
+   `ExhibitionID` INT DEFAULT NULL,
+   `ExhibitionCategory` VARCHAR(100) DEFAULT NULL,
+   `BoothDescription1` TEXT DEFAULT NULL,
+   `BoothDescription2` TEXT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -123,13 +123,13 @@ DROP TABLE IF EXISTS `Exhibition_Info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Exhibition_Info` (
-  `ExhibitionID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `ExhibitionName` varchar(100) NOT NULL,
-  `ExhibitionDescription` TEXT DEFAULT "설명이 없습니다",
-  `ExhibitionRegistrationDate` DATE DEFAULT NULL,
-  `OrganizationID` INTEGER AUTO_INCREMENT,
-  `Hall_ID` INTEGER AUTO_INCREMENT,
-  `ExhibitionClosedDate` DATE DEFAULT NULL
+   `ExhibitionID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   `ExhibitionName` VARCHAR(100) NOT NULL,
+   `ExhibitionDescription` TEXT,
+   `ExhibitionRegistrationDate` DATE DEFAULT NULL,
+   `OrganizationID` INT DEFAULT NULL,
+   `Hall_ID` INT DEFAULT NULL,
+   `ExhibitionClosedDate` DATE DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -178,10 +178,10 @@ DROP TABLE IF EXISTS `Exhibition_Ticket_Info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Exhibition_Ticket_Info` (
-  `TicketID` INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `ExhibitionID` INTEGER AUTO_INCREMENT,
-  `Audience` varchar(200) NOT NULL CHECK("Audience" IN ('Adult', 'Child')),
-  `Price` DECIMAL(10, 2) NOT NULL
+   `TicketID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   `ExhibitionID` INT NOT NULL, -- AUTO_INCREMENT 제거
+   `Audience` ENUM('Adult', 'Child') NOT NULL,
+   `Price` DECIMAL(10, 2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
