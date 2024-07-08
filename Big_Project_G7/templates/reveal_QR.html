@@ -20,9 +20,14 @@
     <!-- end 헤더 부분 -->
 
     <div class="container">
-        <p>전시장 1</p>
-        <p>표 확인</p>
-        <img class ="img__QR icon">
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <p>전시장 1</p>
+            <p>표 확인</p>
+            <img class ="img__QR icon">
+        </form>
     </div>
 </body>
 </html>

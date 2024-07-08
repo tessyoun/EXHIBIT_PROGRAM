@@ -159,6 +159,24 @@ document.addEventListener("DOMContentLoaded", function() {
             const reservationUrl = reservationButton.getAttribute('data-reservation-url').replace('placeholder_booth_id', booth.pk);
             window.location.href = reservationUrl;
         });
+        
+        // 북마크 버튼 클릭 시 처리
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        const bookmarkBtn = document.getElementById('bookmark-btn');
+        bookmarkBtn.innerHTML = bookmarks.includes(booth.fields.company_id) ? '<i class="fa-solid fa-star fa-2x"></i>' : '<i class="fa-regular fa-star fa-2x"></i>';
+        bookmarkBtn.addEventListener('click', function() {
+            let boothId = booth.fields.company_id;
+            if (bookmarks.includes(boothId)) {
+                // 북마크 취소
+                bookmarks = bookmarks.filter(id => id !== boothId);
+                bookmarkBtn.innerHTML = '<i class="fa-regular fa-star fa-2x"></i>';
+            } else {
+                // 북마크 추가
+                bookmarks.push(boothId);
+                bookmarkBtn.innerHTML = '<i class="fa-solid fa-star fa-2x"></i>';
+            }
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        });
     }
 
     function closeModal() {
@@ -203,4 +221,25 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
         console.error("Element with class 'image-container' not found.");
     }
+ 
+    // 북마크 리스트 버튼 추가
+    const listButton = document.getElementById('show-bookmarks');
+    listButton.addEventListener('click', function() {
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        console.log('Bookmarked booths:', bookmarks);
+        if (bookmarks.length > 0) {
+            let bookmarkNames = booths.filter(booth => bookmarks.includes(booth.fields.company_id)).map(booth => booth.fields.booth_name);
+            alert('북마크 부스: \n\n' + bookmarkNames.join('\n'));
+        } else {
+            alert('북마크된 부스 없음.');
+        }
+    });
+
+    // 북마크 리셋 버튼 추가
+    const resetButton = document.getElementById('reset-bookmarks')
+    resetButton.addEventListener('click', function() {
+        bookmarks = [];
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        alert('북마크 리셋.');
+    });
 });

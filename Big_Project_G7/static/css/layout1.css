@@ -139,7 +139,15 @@
     margin-top:10px;
     text-align: center;
 }
-
+.bookmarkfunc {
+    margin-top:10px;
+    display: flex;
+    gap: 10px;
+}
+.bookmarkbtn{
+    padding: 8px 10px;
+    font-size: auto;
+}
 /* button css */
 .button {
     display: inline-block;
