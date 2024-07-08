@@ -17,3 +17,4 @@ class PostExhibition(admin.ModelAdmin):
     ordering = ['start_date']
     
 admin.site.register(Exhibition, PostExhibition)
+admin.site.register(Exhibition_info)

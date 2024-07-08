@@ -45,3 +45,26 @@ class Exhibition(models.Model):
     class Meta:
         managed = False
         db_table = 'exhibition_exhibition'
+
+class Exhibition_info(models.Model):
+    HALL_TYPE_CHOICES = (
+        ('', '선택'),
+        ('A홀', 'A홀'),
+        ('B홀', 'B홀'),
+        ('C홀', 'C홀')
+    )
+    exhibition_id = models.AutoField(primary_key=True, db_column='ExhibitionID')
+    exhibition_name = models.CharField(max_length=100, db_column='ExhibitionName')
+    exhibition_description = models.CharField(max_length=100, db_column='ExhibitionDescription')
+    start_date = models.DateField(db_column='ExhibitionRegistrationDate')
+    host_id = models.IntegerField(db_column='OrganizationID', unique=True)
+    hall_id = models.CharField(choices=HALL_TYPE_CHOICES, default='',db_column='Hall_ID', max_length=50)
+    end_date = models.DateField(db_column='ExhibitionClosedDate')
+    
+    class Meta:
+        managed = False
+        db_table = 'Exhibition_info'
+        
+    def __str__(self):
+        return f'{self.exhibition_name}'
+    

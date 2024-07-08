@@ -1,0 +1,20 @@
+{% block content %}
+    <h1>EDIT</h1>
+    <form action="{% url 'update' booths.pk %}" method="POST">
+        {% csrf_token %}
+        <label for='booth_name'>부스명:</label>
+        <input type='text' name='booth_name' value="{{booths.booth_name}}"><br>
+        <label for='company_name'>회사명:</label>
+        <input type='text' name='company_name' value="{{booths.company_name}}"><br>
+        <label for='booth_category'>부스 카테고리:</label>
+        <input type='text' name='booth_category' value="{{booths.booth_category}}"><br>
+        <label for='background'>배경:</label>
+        <input type='text' name='background' value="{{booths.background}}"><br>
+        <label for='service'>기능:</label>
+        <input type='text' name='service' value="{{booths.service}}"><br>
+        <input type='submit'>
+    </form>
+    <hr>
+    <a href="{% url 'info' %}">[back]</a>
+
+{% endblock content %}
