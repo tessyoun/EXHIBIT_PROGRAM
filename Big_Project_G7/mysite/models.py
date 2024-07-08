@@ -15,4 +15,3 @@ class Booth_Info(models.Model):
         managed = False
         db_table = 'Booth_Info'
         app_label ='mysite'
-        

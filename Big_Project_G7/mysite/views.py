@@ -139,4 +139,3 @@ def program_open(request):
 
 def create_exhibition(request):
     return render(request, 'exhibition/templates/layout2.html')
-

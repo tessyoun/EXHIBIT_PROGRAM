@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'exhibition',
     'booth_program',
     'rest_framework',
+    "reserve_hall",
 ]
 
 MIDDLEWARE = [

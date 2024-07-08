@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>예약 성공</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/layout3.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>예약 성공</h1>
+        </header>
+        <main>
+            <p>예약이 성공적으로 완료되었습니다.</p>
+            <a href="{% url 'index' %}">홈으로 돌아가기</a>
+        </main>
+    </div>
+</body>
+</html>

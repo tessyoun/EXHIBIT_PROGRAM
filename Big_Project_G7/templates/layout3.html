@@ -1,42 +1,91 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-<head>        
+<head>
     <title>Django</title>
-    <meta charset="utf-8">    
-    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />         
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/layout3.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
     <div class="container">
         <header>
             <button class="menu-btn" id="menu-btn">&#9776;</button>
-            <h1>Layout3</h1>
-            <a id="home" href="{% url 'index' %}" ><i class="fas fa-home fa-2xl"> </i></a>
-            <nav class="mobile-menu" id="mobile-menu">
-                <ul>
-                    {% if not user.is_authenticated %}     
-                        <li><a class="nav-link" href="{% url 'signup' %}"><i class="fa-regular fa-user fa-xl"> Signup</i></a></li><br>   
-                        <li><a class="nav-link" href="{% url 'login' %}?next={{request.path}}"><i class="fa-regular fa-user fa-xl"> Login</i></a></li>
-    
-                    {% else %}
-                        <li><p class="user-name"><i class="fa-regular fa-user fa-xl"><span>{{user}}님!</span></i></p></li>
-                        <li><a href="{% url 'mypage' %}"><i class="fa-solid fa-check fa-xl"> 마이페이지</i></a></li><br>    <!-- 로그인시 이용가능하도록 -->
-                        <li><a href="#"><i class="fa-solid fa-check fa-xl"> 예매 확인</i></a></li><br>                      <!-- 로그인시 이용가능하도록 -->
-                        {% comment %} <li><a href="#"><i class="fa-solid fa-check fa-xl"> 예약 확인</i></a></li><br>                      <!-- 로그인시 이용가능하도록 --> {% endcomment %}
-                        <li><a href="{% url 'confirmation' %}"><i class="fa-solid fa-check fa-xl"> 예약 확인</i></a></li><br>                      <!-- confirmation.html로 연결해 둠 -->
-                        <form class = "logout-form" method="post" action="{% url 'logout' %}?next={{request.path}}" style="display:inline;">
-                            {% csrf_token %}
-                            <li><button  type="submit" class="logout-button" style="background:none; border:none; color:inherit; padding:0; cursor:pointer;">
-                                <i class="fa-regular fa-user fa-xl"> Logout </i>
-                            </button></li>
-                        </form>
-                    {% endif %}
-                </ul>
-            </nav>
+            <a id="logo" href="{% url 'index' %}"><img src="{% static 'icons/AIVEX_icon_white.png' %}" alt="AIVEX" class="logo"></a>
         </header>
-    <body>
-        <h1>Welcome to Layout 3</h1>
-        <script src="{% static 'js/script.js' %}"></script>
-    </body>
+        <div class="sidebar__backdrop" id="sidebar-backdrop"></div>
+        <nav class="sidebar--wrap" id="mobile-menu">
+            <div class="sidebar__header">
+                <div class="sidebar__header__menu--wrap">
+                    <div class="sidebar__menu--home" id="sidebar-home"></div>
+                </div>
+                <div class="sidebar__header__login--wrap">
+                    <div class="sidebar__login__profile"></div>
+                    <div class="sidebar__login__info">
+                        {% if not user.is_authenticated %}
+                            <a href="{% url 'login' %}?next={{request.path}}" class="sidebar__login--btn">Login</a>
+                        {% else %}
+                            <div class="sidebar__login__user--wrap">
+                                <span class="user-name">{{ user.username }}</span>
+                                <form class="logout-form" method="post" action="{% url 'logout' %}?next={{request.path}}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="logout-button">Logout</button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <ul class="sidebar__menu--list--wrap">
+                <li class="sidebar__menu--list"><a class="sidebar__menu--item" href="{% url 'index' %}">홈</a></li>
+                {% if not user.is_authenticated %}     
+                    <li class="sidebar__menu--list"><a class="sidebar__menu--item" href="{% url 'signup' %}">Signup</a></li>
+                {% else %}
+                    <li class="sidebar__menu--list"><a class="sidebar__menu--item" href="{% url 'mypage' %}">마이페이지</a></li>    
+                    <li class="sidebar__menu--list"><a class="sidebar__menu--item" href="#">예매 확인</a></li>
+                    <li class="sidebar__menu--list"><a class="sidebar__menu--item" href="{% url 'confirmation' %}">예약 확인</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        
+        <main>
+            <h2>시설안내</h2>
+            <div class="facility-guide">
+                <img src="{% static 'images/coex.jpg' %}" alt="facility image">
+                <div class="info">
+                    <h3>Hall A</h3>
+                    <p>1층에 위치한 A홀은 10,368㎡의 면적으로 최대 520개의 부스 설치가 가능하며 접근이 용이한 최적의 전시공간입니다. 친환경 전시시설을 자랑하는 코엑스는 전시장조명을 LED로 교체하여 에너지 절감에 앞장서고 있으며, 콘크리트 바닥은 파이텍스 없이도 전시가 가능하게 하여 전시 폐기물을 최소화시키고 있습니다.</p>
+                    <a href="{% url 'reserve_hall:reserve_hall' 'hall-a' %}"><button class="more-info">더보기 +</button></a>
+
+
+                </div>
+            </div>
+            <br><br>
+            <div class="facility-guide">
+                <img src="{% static 'images/coex.jpg' %}" alt="facility image">
+                <div class="info">
+                    <h3>Hall B</h3>
+                    <p>2층에 위치한 B홀은 9,368㎡의 면적으로 최대 480개의 부스 설치가 가능하며 접근이 용이한 최적의 전시공간입니다. 친환경 전시시설을 자랑하는 코엑스는 전시장조명을 LED로 교체하여 에너지 절감에 앞장서고 있으며, 콘크리트 바닥은 파이텍스 없이도 전시가 가능하게 하여 전시 폐기물을 최소화시키고 있습니다.</p>
+                    <a href="{% url 'reserve_hall:reserve_hall' 'hall-b' %}"><button class="more-info">더보기 +</button></a>
+
+
+                </div>
+            </div>
+            <br><br>
+            <div class="facility-guide">
+                <img src="{% static 'images/coex.jpg' %}" alt="facility image">
+                <div class="info">
+                    <h3>Hall C</h3>
+                    <p>3층에 위치한 C홀은 8,368㎡의 면적으로 최대 370개의 부스 설치가 가능하며 접근이 용이한 최적의 전시공간입니다. 친환경 전시시설을 자랑하는 코엑스는 전시장조명을 LED로 교체하여 에너지 절감에 앞장서고 있으며, 콘크리트 바닥은 파이텍스 없이도 전시가 가능하게 하여 전시 폐기물을 최소화시키고 있습니다.</p>
+                    
+                    <a href="{% url 'reserve_hall:reserve_hall' 'hall-c' %}"><button class="more-info">더보기 +</button></a>
+                    
+
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="{% static 'js/layout3_Sidebar.js' %}"></script>
+</body>
 </html>
