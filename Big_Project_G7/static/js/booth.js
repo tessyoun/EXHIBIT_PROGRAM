@@ -184,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateBookmarkIcons() {
         let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
         rectangles.forEach(function(rectangle, index) {
+            if (!booths[index] || !booths[index].fields) return;
             const boothId = booths[index].fields.company_id;
             const existingIcon = rectangle.querySelector('.bookmark-icon');
             if (bookmarks.includes(boothId)) {
