@@ -17,8 +17,9 @@ class TicketReservationForm(forms.ModelForm):
 
     def save(self, commit=True):
         reservation = super().save(commit=False)
-        exhibition = self.cleaned_data['exhibition_name']
-        reservation.exhibition_id = exhibition.exhibition_id
+        name = self.cleaned_data['exhibition_name']
+        exhibition = Exhibition_info.objects.get(exhibition_name=name)
+        reservation.exhibitionid = exhibition.exhibition_id
         if commit:
             reservation.save()
         return reservation
