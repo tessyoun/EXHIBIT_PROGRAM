@@ -169,6 +169,11 @@
                         <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
                         <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update' %}" class = "sidebar__menu--item"> 부스 정보 수정 </a></li>
                         <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 부스 예약 현황 </a></li>
+                            {% if user.is_superuser %}
+                                <li class = "sidebar__menu--list"><a href='/admin/' class = "sidebar__menu--item">관리자 페이지</a></li>
+                            {% elif user.is_staff %}
+                            <li class = "sidebar__menu--list"><a href='/exhibition/booth_list/'class = "sidebar__menu--item">부스 목록</a></li>
+                            {% endif %}
                         {% else %}
                         <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
                         <li class = "sidebar__menu--list"><a href="{% url 'reveal_QR' %}" class = "sidebar__menu--item"> 내 티켓 확인 </a></li>
