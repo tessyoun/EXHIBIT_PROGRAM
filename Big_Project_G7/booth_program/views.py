@@ -1,61 +1,65 @@
-from django.shortcuts import render, redirect
+# booth_program/views.py
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Booth, Program, Reservation
+from .models import Program
 from .forms import ProgramForm
-from accounts.models import Profile  # Profile 모델을 임포트합니다.
 
 @login_required
 def program_open(request):
+    if not request.user.profile.user_type == '기업회원' and not request.user.is_staff:
+        return redirect('index')
+
     if request.method == 'POST':
-        # 수동으로 name과 description 필드를 추가하여 데이터를 설정합니다.
-        data = request.POST.copy()
-        data['name'] = data['booth_name']
-        data['description'] = data['booth_description']
-
-        # company_name을 수동으로 추가합니다.
-        data['company_name'] = request.user.profile.name
-
-        form = ProgramForm(data)
+        form = ProgramForm(request.POST)
         if form.is_valid():
-            booth_name = form.cleaned_data['booth_name']
-            booth_description = form.cleaned_data['booth_description']
-            company_name = request.user.profile.name  # 기업명을 현재 로그인된 사용자 이름으로 설정
-            selected_times = data.get('selected_times').split(',')
-
-            # 디버그 출력
-            print(f"Booth Name: {booth_name}")
-            print(f"Booth Description: {booth_description}")
-            print(f"Company Name: {company_name}")
-            print(f"Selected Times: {selected_times}")
-
-            # Booth 인스턴스 생성 또는 가져오기
-            booth, created = Booth.objects.get_or_create(name=booth_name, defaults={'description': booth_description, 'company_name': company_name})
-            print(f"Booth Created: {created}, Booth ID: {booth.id}")
-
-            # Program 인스턴스 생성
-            program = Program.objects.create(booth=booth, name=booth_name, description=booth_description)
-            print(f"Program ID: {program.id}")
-
-            # Reservation 인스턴스 생성
-            for time in selected_times:
-                reservation = Reservation.objects.create(user=request.user, program=program, reserved_time=time)
-                print(f"Reservation ID: {reservation.id}, Time: {time}")
+            name = form.cleaned_data['name']
+            description = form.cleaned_data['description']
+            company_name = request.user.profile.name
+            selected_times = request.POST.getlist('selected_times')
+            selected_times = sorted(set(selected_times))
+            print(selected_times)
+            
+            program = Program.objects.create(
+                user=request.user,
+                name=name,
+                description=description,
+                company_name=company_name,
+                selected_times=",".join(selected_times)
+            )
 
             return redirect('index')
         else:
-            # 폼 에러 메시지 출력
-            print("Form is not valid")
+            print("형식이 올바르지 않습니다")
             print(form.errors)
     else:
         form = ProgramForm()
     return render(request, 'program_open.html', {'form': form})
 
 @login_required
-def program_reservation(request):
-    programs = Program.objects.all()
+def program_manage(request):
+    program = get_object_or_404(Program, user=request.user)
+    time_slots = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
+    selected_times = program.selected_times.split(',') if program.selected_times else []
+    
     if request.method == 'POST':
-        program_id = request.POST.get('program_id')
-        reserved_time = request.POST.get('reserved_time')
-        program = Program.objects.get(id=program_id)
-        Reservation.objects.create(user=request.user, program=program, reserved_time=reserved_time)
-        retur
+        if 'edit' in request.POST:
+            form = ProgramForm(request.POST, instance=program)
+            if form.is_valid():
+                program = form.save(commit=False)
+                
+                new_selected_times = request.POST.getlist('selected_times')
+                new_selected_times = sorted(list(set(new_selected_times[1:])))
+                
+                # Update the selected_times field
+                program.selected_times = ",".join(new_selected_times)
+                print(program.selected_times)
+                
+                program.save()
+                return redirect('program_manage')
+        elif 'delete' in request.POST:
+            program.delete()
+            return redirect('index')
+    else:
+        form = ProgramForm(instance=program)
+    
+    return render(request, 'program_manage.html', {'form': form, 'program': program, 'time_slots': time_slots, 'selected_times': selected_times})

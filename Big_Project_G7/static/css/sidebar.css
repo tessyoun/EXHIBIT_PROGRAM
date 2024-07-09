@@ -106,7 +106,6 @@
 
 
 .user-name {
-    font-size: 20px;
     margin-bottom: 5px;
     margin-top: 5px;
     
@@ -117,12 +116,16 @@
     text-overflow: ellipsis; 
 }
 
+.user-name span {
+    font-size: 17px;
+}
+
 .user-type {
-    font-size: 14px;  /* Adjust font size if necessary */
-    color: #989898;      /* Set color to black */
-    display: block;   /* Ensure it takes the full width */
+    font-size: 14px;  
+    color: #989898;     
+    display: block;   
     margin-top: 0px;
-    margin-bottom: 1px; /* Add a small margin below for spacing */
+    margin-bottom: 1px;
 }
 
 .user-name {

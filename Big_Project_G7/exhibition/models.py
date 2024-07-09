@@ -49,9 +49,10 @@ class Exhibition(models.Model):
 class Exhibition_info(models.Model):
     HALL_TYPE_CHOICES = (
         ('', '선택'),
-        ('A홀', 'A홀'),
-        ('B홀', 'B홀'),
-        ('C홀', 'C홀')
+        ('1', 'A홀'),
+        ('2', 'B홀'),
+        ('3', 'C홀'),
+        ('4', 'D홀'),
     )
     exhibition_id = models.AutoField(primary_key=True, db_column='ExhibitionID')
     exhibition_name = models.CharField(max_length=100, db_column='ExhibitionName')
