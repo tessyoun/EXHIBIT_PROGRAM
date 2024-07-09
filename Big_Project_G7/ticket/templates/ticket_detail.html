@@ -20,14 +20,16 @@
     <!-- end 헤더 부분 -->
 
     <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            <p>전시장 1</p>
-            <p>표 확인</p>
-            
-        </form>
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <p>전시장 1</p>
+        <p>표 확인</p>
+        {% if image %}
+            <img src="data:image/png;base64,{{ image }}" alt="Error!!">
+        {% endif %}
+        <br>
+        <a href="{% url 'ticket:ticket_list' %}" ><button class ="header__title icon" style="cursor:pointer;">예매 내역</button></a>
     </div>
 </body>
 </html>

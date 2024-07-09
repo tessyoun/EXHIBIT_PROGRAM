@@ -19,18 +19,18 @@
     </div>
     <!-- end 헤더 부분 -->
     <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            {% if ticket_list %}
-                {% for ticket in ticket_list %}
-                    <li>{{ ticket }}</li>
-                {% endfor %}
-            {% endif %}
-        </form>
-        <form action="{% url 'ticket:buy_ticket' %}" method="post" class="form-exhibition" >
-            {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        {% if ticket_list %}
+            {% for ticket in ticket_list %}
+                <form action="{% url 'ticket:ticket_detail' ticket.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">{{ ticket.name }}</button>
+                </form>
+                <br>
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'ticket:purchase_ticket' %}" class="form-exhibition" >
             <button type="submit" class="btn-exhibition">티켓 구매</button>
         </form>
     </div>
