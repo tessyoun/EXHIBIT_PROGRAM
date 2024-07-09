@@ -11,6 +11,9 @@ from .models import Exhibition_info
 from .forms import ExhibitionForm
 from .forms import BoothForm
 
+from mysite.models import ExhibitionInfo
+from datetime import datetime
+
 import json
 import requests
 
@@ -148,3 +151,23 @@ def update(request, pk):
     booth.save()
     return redirect('detail', booth.pk)
     
+    
+# 전시회 목록 calendar 시작 페이지
+def exhibition_calendar(request):
+    exhibitions = ExhibitionInfo.objects.select_related('Hall_ID').values(
+        'ExhibitionName', 'ExhibitionURL', 'Hall_ID__ExhibitionHallDescription',
+        'ExhibitionRegistrationDate', 'ExhibitionClosedDate'
+    )
+    return render(request, 'exhibition_calendar.html', {'exhibitions': list(exhibitions)})
+
+# 전시회 목록 날짜별 불러오기
+def exhibition_list(request, date=None):
+    date = datetime.strptime(date, "%Y-%m-%d").date()
+    exhibitions = ExhibitionInfo.objects.filter(
+        ExhibitionRegistrationDate__lte=date,
+        ExhibitionClosedDate__gte=date
+    ).select_related('Hall_ID').values(
+        'ExhibitionName', 'ExhibitionURL', 'Hall_ID__ExhibitionHallDescription',
+        'ExhibitionRegistrationDate', 'ExhibitionClosedDate'
+    )
+    return JsonResponse(list(exhibitions), safe=False)
