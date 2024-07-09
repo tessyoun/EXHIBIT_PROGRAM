@@ -35,7 +35,7 @@
 
                     <div class = "sidebar__login__info">
                         {% if not user.is_authenticated %}     
-                            <a href="{% url 'login' %}" class="sidebar__login__user--wrap">
+                            <a href="{% url 'accounts:login' %}" class="sidebar__login__user--wrap">
                                 <p class = "sidebar__login--btn"> 로그인을 해주세요. </p>
                             </a>
                         {% else %} 
@@ -44,7 +44,7 @@
                                     <p class="user-name"><span>{{user}}님!</span></p>
                                 </li>
                                 <li class="user-item">
-                                    <form class = "logout-form" method="post" action="{% url 'logout' %}?next={{request.path}}" >
+                                    <form class = "logout-form" method="post" action="{% url 'accounts:logout' %}?next={{request.path}}" >
                                         {% csrf_token %}
                                         <button  type="submit" class="logout-button">로그아웃</button>
                                     </form>
