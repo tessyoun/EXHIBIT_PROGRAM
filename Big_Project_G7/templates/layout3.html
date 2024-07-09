@@ -6,50 +6,20 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="{% static 'css/layout3.css' %}" />
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <button class="menu-btn" id="menu-btn">&#9776;</button>
-            <a id="logo" href="{% url 'index' %}"><img src="{% static 'icons/AIVEX_icon_white.png' %}" alt="AIVEX" class="logo"></a>
-        </header>
-        <div class="sidebar__backdrop" id="sidebar-backdrop"></div>
-        <nav class="sidebar--wrap" id="mobile-menu">
-            <div class="sidebar__header">
-                <div class="sidebar__header__menu--wrap">
-                    <div class="sidebar__menu--home" id="sidebar-home"></div>
-                </div>
-                <div class="sidebar__header__login--wrap">
-                    <div class="sidebar__login__profile"></div>
-                    <div class="sidebar__login__info">
-                        {% if not user.is_authenticated %}
-                            <a href="{% url 'accounts:login' %}?next={{request.path}}" class="sidebar__login--btn">Login</a>
-                        {% else %}
-                            <div class="sidebar__login__user--wrap">
-                                <span class="user-name">{{ user.username }}</span>
-                                <form class="logout-form" method="post" action="{% url 'accounts:logout' %}?next={{request.path}}" style="display:inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" class="logout-button">Logout</button>
-                                </form>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <ul class="sidebar__menu--list--wrap">
-                <li class="sidebar__menu--list"><a class="sidebar__menu--item" href="{% url 'index' %}">홈</a></li>
-                {% if not user.is_authenticated %}     
-                    <li class="sidebar__menu--list"><a class="sidebar__menu--item" href="{% url 'accounts:signup' %}">Signup</a></li>
-                {% else %}
-                    <li class="sidebar__menu--list"><a class="sidebar__menu--item" href="{% url 'mypage' %}">마이페이지</a></li>    
-                    <li class="sidebar__menu--list"><a class="sidebar__menu--item" href="#">예매 확인</a></li>
-                    <li class="sidebar__menu--list"><a class="sidebar__menu--item" href="{% url 'confirmation' %}">예약 확인</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-        
+    <!-- 헤더 부분 -->
+    <div class="header-sub">      
+        <a class="back-button" href="{% url 'index' %}" ><i class="fa-solid fa-arrow-left fa-xl" style="color: #ffffff;"> </i></a>
+        <div class="header__title--wrap">
+            <a href="{% url 'index' %}" ><button class ="header__title icon" style="cursor:pointer;"></button></a>
+        </div>
+    </div>
+    <!-- end 헤더 부분 -->
         <main>
+            <br><br><br>
             <h2>시설안내</h2>
             <div class="facility-guide">
                 <img src="{% static 'images/coex.jpg' %}" alt="facility image">
