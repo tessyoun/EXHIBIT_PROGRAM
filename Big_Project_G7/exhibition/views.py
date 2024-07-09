@@ -153,21 +153,35 @@ def update(request, pk):
     
     
 # 전시회 목록 calendar 시작 페이지
-def exhibition_calendar(request):
+def exhibition_list(request):
     exhibitions = ExhibitionInfo.objects.select_related('Hall_ID').values(
         'ExhibitionName', 'ExhibitionURL', 'Hall_ID__ExhibitionHallDescription',
-        'ExhibitionRegistrationDate', 'ExhibitionClosedDate'
+        'ExhibitionRegistrationDate', 'ExhibitionClosedDate', 'ExhibitionImageURL'
     )
-    return render(request, 'exhibition_calendar.html', {'exhibitions': list(exhibitions)})
+        
+    exhibitions_list = list(exhibitions)
+    for exhibition in exhibitions_list:
+        exhibition['ExhibitionRegistrationDate'] = exhibition['ExhibitionRegistrationDate'].isoformat()
+        exhibition['ExhibitionClosedDate'] = exhibition['ExhibitionClosedDate'].isoformat()
+    
+    exhibitions_json = json.dumps(exhibitions_list)
+    
+    return render(request, 'exhibition_list.html', {'exhibitions': exhibitions_json})
 
-# 전시회 목록 날짜별 불러오기
-def exhibition_list(request, date=None):
+# # 전시회 목록 날짜별 불러오기
+def exhibition_list_json(request, date=None):
     date = datetime.strptime(date, "%Y-%m-%d").date()
     exhibitions = ExhibitionInfo.objects.filter(
         ExhibitionRegistrationDate__lte=date,
         ExhibitionClosedDate__gte=date
     ).select_related('Hall_ID').values(
         'ExhibitionName', 'ExhibitionURL', 'Hall_ID__ExhibitionHallDescription',
-        'ExhibitionRegistrationDate', 'ExhibitionClosedDate'
+        'ExhibitionRegistrationDate', 'ExhibitionClosedDate', 'ExhibitionImageURL'
     )
-    return JsonResponse(list(exhibitions), safe=False)
+    
+    exhibitions_list = list(exhibitions)
+    for exhibition in exhibitions_list:
+        exhibition['ExhibitionRegistrationDate'] = exhibition['ExhibitionRegistrationDate'].isoformat()
+        exhibition['ExhibitionClosedDate'] = exhibition['ExhibitionClosedDate'].isoformat()
+    
+    return JsonResponse(json.dumps(exhibitions_list), safe=False)

@@ -15,14 +15,15 @@ class Booth_Info(models.Model):
         managed = False
         db_table = 'Booth_Info'
         app_label ='mysite'
-
+        
 # class Bookmarks(models.Model):
-#     user_id = models.IntegerField(db_column='user_id', primary_key=True, null=False)
+#     bookmark = models.TextField(db_column='BoothBookmarkID', blank=True, null=False)
+#     user_id = models.IntegerField(db_column='user_id', primary_key=True, null=True)
 #     booth_id = models.IntegerField(db_column='BoothID', blank=True, null=True)
-
+    
 #     class Meta:
 #         managed = False
-#         db_table = 'booth_bookmark'
+#         db_table = 'Bookmarks'
 #         app_label ='mysite'
 
 #전시회 홀 정보
@@ -48,6 +49,7 @@ class ExhibitionInfo(models.Model):
     Hall_ID = models.ForeignKey(ExhibitionHall, on_delete=models.CASCADE, blank=True, null=True, db_column='Hall_ID')
     ExhibitionClosedDate = models.DateField(blank=True, null=True, db_column='ExhibitionClosedDate')
     ExhibitionURL = models.TextField(blank=True, null=True, db_column='URL')
+    ExhibitionImageURL = models.TextField(max_length=255, blank=True, null=True, db_column='PosterImg') #포스터 이미지
 
     def __str__(self):
         return self.ExhibitionName
@@ -56,4 +58,3 @@ class ExhibitionInfo(models.Model):
         managed = False
         db_table = 'exhibition_info'
         app_label ='mysite'
-
