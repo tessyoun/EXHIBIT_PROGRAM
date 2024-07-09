@@ -1,17 +1,18 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from exhibition.models import Exhibition_info
+from mysite.models import ExhibitionHall
 from .models import TicketBoughtInfo
 from .functions import *
 from .forms import *
 
 import json
 
+# 로그인된 사용자의 티켓 조회
 def get_ticket(userid) -> list:
     ticket_list = TicketBoughtInfo.objects.filter(user_id=userid)
-    print(ticket_list)
     tickets = []
     for ticket in ticket_list:
         name = Exhibition_info.objects.get(exhibition_id=ticket.exhibitionid).exhibition_name
@@ -19,16 +20,24 @@ def get_ticket(userid) -> list:
         tickets.append({'name':name, 'id':int(key)})
     return tickets
 
+# 로그인된 사용자의 티켓 리스트
 @login_required
 def ticket_list(request):
     tickets = get_ticket(request.user.id)
     return render(request, 'check_ticket.html', {'ticket_list':tickets})
 
+# 티켓 세부사항
 @login_required
 def ticket_detail(request, ticket_id):
     if request.method == 'POST':
-        img = generate_QR(json.dumps({'ticket_id':ticket_id}))
-        return render(request, 'ticket_detail.html', {'image':img})
+        ticket = TicketBoughtInfo.objects.get(ticketid=ticket_id)
+        exhibition = Exhibition_info.objects.get(exhibition_id=ticket.exhibitionid)
+        name = exhibition.exhibition_name
+        hall = ExhibitionHall.objects.get(ExhibitionHallID=exhibition.hall_id).ExhibitionHallDescription
+        img = generate_QR(json.dumps({'ticket_id':ticket_id, 'hall':hall, 'name':name}))
+        
+        context = {'image':img, 'ticket_id':int(ticket_id), 'name':name, 'hall':hall}
+        return render(request, 'ticket_detail.html', context)
     else:
         return redirect('ticket:ticket_list')
 
@@ -48,3 +57,11 @@ def purchase_ticket(request):
         form = TicketReservationForm()
 
     return render(request, 'purchase_ticket.html', {'form': form})
+
+@login_required
+def cancel_ticket(request, ticket_id):
+    if request.method == 'POST':
+        TicketBoughtInfo.objects.get(ticketid=ticket_id).delete()
+        return redirect('ticket:ticket_list')
+    else:
+        return redirect('ticket:ticket_list')
