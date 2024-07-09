@@ -166,6 +166,7 @@
                         {% if user.profile.user_type == '기업회원' %} 
                         <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
                         <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update' %}" class = "sidebar__menu--item"> 부스 정보 수정 </a></li>
+                        <li class = "sidebar__menu--list"><a href="{% url 'program_open' %}" class = "sidebar__menu--item"> 프로그램 생성 </a></li>
                         <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 부스 예약 현황 </a></li>
                         <li class = "sidebar__menu--list"><a class = "sidebar__menu--item" id="btn4"> FAQ </a></li>
                             {% if user.is_superuser %}

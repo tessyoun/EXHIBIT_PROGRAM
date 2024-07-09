@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
+from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
     path('confirmation/', views.confirmation, name='confirmation'),
     # path('change_permission/', views.change_permission, name='change_permission'),
     path('program_open/', views.program_open, name='program_open'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('booth_program/', include('booth_program.urls')),
     # path('exhibition/', include('exhibition.urls')),
     path('exhibition/', include(('exhibition.urls', 'exhibition'), namespace='exhibition')),
