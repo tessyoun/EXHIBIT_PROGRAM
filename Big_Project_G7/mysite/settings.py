@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'notice',
     "reserve_hall",
+    'ticket',
 ]
 
 MIDDLEWARE = [

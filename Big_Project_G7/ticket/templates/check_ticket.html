@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1." />    
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />      
+    <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" />    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <title>AIVEX Ticket</title>
+</head>
+<body>
+    <!-- 헤더 부분 -->
+    <div class="header-sub">      
+        <a class="back-button" href="{% url 'index' %}" ><i class="fa-solid fa-arrow-left fa-xl" style="color: #ffffff;"> </i></a>
+        <div class="header__title--wrap">
+            <a href="{% url 'index' %}" ><button class ="header__title icon" style="cursor:pointer;"></button></a>
+        </div>
+    </div>
+    <!-- end 헤더 부분 -->
+    <div class="container">
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        {% if ticket_list %}
+            {% for ticket in ticket_list %}
+                <form action="{% url 'ticket:ticket_detail' ticket.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">{{ ticket.name }}</button>
+                </form>
+                <br>
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'ticket:purchase_ticket' %}" class="form-exhibition" >
+            <button type="submit" class="btn-exhibition">티켓 구매</button>
+        </form>
+    </div>
+</body>
+</html>
