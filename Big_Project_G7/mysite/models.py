@@ -48,6 +48,7 @@ class ExhibitionInfo(models.Model):
     Hall_ID = models.ForeignKey(ExhibitionHall, on_delete=models.CASCADE, blank=True, null=True, db_column='Hall_ID')
     ExhibitionClosedDate = models.DateField(blank=True, null=True, db_column='ExhibitionClosedDate')
     ExhibitionURL = models.TextField(blank=True, null=True, db_column='URL')
+    ExhibitionImageURL = models.TextField(max_length=255, blank=True, null=True, db_column='PosterImg') #포스터 이미지
 
     def __str__(self):
         return self.ExhibitionName
