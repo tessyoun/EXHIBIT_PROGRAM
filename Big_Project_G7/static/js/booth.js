@@ -128,7 +128,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function showModal(rectIndex) {
-        var booth = booths[rectIndex - 1];
+        const booth = booths[rectIndex - 1];
+        const boothId = booth.fields.company_id;
         var result = booth.fields.company_name.slice(5, 8).replace(/[^0-9]/g, ""); //int 부분만 추출( 13조 -> 13 )
         var formattedIndex = result.toString().padStart(2, '0');
         var imageName = booth.fields.company_name[0] + "_" + booth.fields.company_name.slice(3,5) + "_" + formattedIndex;
@@ -161,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         });
+        
         //예약버튼
         reservationButton.addEventListener('click', function() {
             const reservationUrl = reservationButton.getAttribute('data-reservation-url').replace('placeholder_booth_id', booth.pk);
@@ -168,22 +170,21 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         
         // 북마크 버튼 클릭 시 처리
-        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];                     // #1 db로 저장경로 수정해야할 부분
         const bookmarkBtn = document.getElementById('bookmark-btn');
-        bookmarkBtn.innerHTML = bookmarks.includes(booth.fields.company_id) ? '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"></i>' : '<i class="fa-regular fa-star fa-2x"></i>';
+        bookmarkBtn.innerHTML = bookmarks.includes(boothId) ? '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"> </i>' : '<i class="fa-regular fa-star fa-2x"> </i>';
 
         bookmarkBtn.addEventListener('click', function() {
-            let boothId = booth.fields.company_id;
             if (bookmarks.includes(boothId)) {
                 // 북마크 취소
                 bookmarks = bookmarks.filter(id => id !== boothId);
-                bookmarkBtn.innerHTML = '<i class="fa-regular fa-star fa-2x"></i>';
+                bookmarkBtn.innerHTML = '<i class="fa-regular fa-star fa-2x"> </i>';
             } else {
                 // 북마크 추가
                 bookmarks.push(boothId);
-                bookmarkBtn.innerHTML = '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"></i>';
+                bookmarkBtn.innerHTML = '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"> </i>';
             }
-            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 로그인 및 db로 저장경로 수정해야할 부분
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 db로 저장경로 수정해야할 부분
             updateBookmarkIcons();
         });
     }
@@ -259,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 북마크 리스트 버튼 추가
     const listButton = document.getElementById('show-bookmarks');
     listButton.addEventListener('click', function() {
-        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];                // #1 로그인 및 db로 저장경로 수정해야할 부분
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];                // #1 db로 저장경로 수정해야할 부분
         console.log('Bookmarked booths:', bookmarks);
         if (bookmarks.length > 0) {
             let bookmarkNames = booths.filter(booth => bookmarks.includes(booth.fields.company_id)).map(booth => booth.fields.booth_name);
@@ -273,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const resetButton = document.getElementById('reset-bookmarks')
     resetButton.addEventListener('click', function() {
         bookmarks = [];
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 로그인 및 db로 저장경로 수정해야할 부분
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 db로 저장경로 수정해야할 부분
         alert('북마크 리셋.');
         updateBookmarkIcons();
     });
