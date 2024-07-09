@@ -1,20 +1,51 @@
-{% block content %}
-    <h1>EDIT</h1>
-    <form action="{% url 'exhibition:update' booths.pk %}" method="POST">
-        {% csrf_token %}
-        <label for='booth_name'>부스명:</label>
-        <input type='text' name='booth_name' value="{{booths.booth_name}}"><br>
-        <label for='company_name'>회사명:</label>
-        <input type='text' name='company_name' value="{{booths.company_name}}"><br>
-        <label for='booth_category'>부스 카테고리:</label>
-        <input type='text' name='booth_category' value="{{booths.booth_category}}"><br>
-        <label for='background'>배경:</label>
-        <input type='text' name='background' value="{{booths.background}}"><br>
-        <label for='service'>기능:</label>
-        <input type='text' name='service' value="{{booths.service}}"><br>
-        <input type='submit'>
-    </form>
-    <hr>
-    <a href="{% url 'exhibition:booth_list' %}">[back]</a>
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/bass.css' %}" />      
+        <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />     
+        <link rel="stylesheet" href="{% static 'css/layout1.css' %}" />    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <title>부스 수정</title>
+        <style>
+            #booth_edit {
+                padding-top:80px;
+                margin-left:10%;
+            }
 
-{% endblock content %}
+        </style>
+    </head>
+    <body>
+        <div class="header-sub">
+            <button class= "header__button--menu header__button--menu-black icon" style="cursor:pointer; opacity:1;"></button>
+            <div class="header__title--wrap">
+                <a href="{% url 'index' %}" ><button class ="header__title-black icon" style="cursor:pointer;"></button></a>
+            </div>
+            <button class= "for_loc_center icon"></button>
+        </div>
+
+        <div id='booth_edit'>
+            {% block content %}
+                <h3>부스 수정</h3>
+                <form action="{% url 'exhibition:update' booths.pk %}" method="POST">
+                    {% csrf_token %}
+                    <label for='booth_name'>부스명:</label>
+                    <input type='text' name='booth_name' value="{{booths.booth_name}}"><br>
+                    <label for='company_name'>회사명:</label>
+                    <input type='text' name='company_name' value="{{booths.company_name}}"><br>
+                    <label for='booth_category'>카테고리:</label>
+                    <input type='text' name='booth_category' value="{{booths.booth_category}}"><br>
+                    <label for='background'>배경:</label>
+                    <input type='text' name='background' value="{{booths.background}}"><br>
+                    <label for='service'>기능:</label>
+                    <input type='text' name='service' value="{{booths.service}}"><br>
+                    <input type='submit' value="수정">
+                </form>
+                <hr>
+                <a href="{% url 'exhibition:booth_list' %}" style="text-decoration:none;color:black;">[back]</a>
+
+            {% endblock content %}
+    </body>
+</html>

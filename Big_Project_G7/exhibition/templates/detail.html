@@ -1,17 +1,48 @@
-{% block content %}
-    <h1>DETAIL</h1>
-    <p>부스명 : {{booths.booth_name}}</p>
-    <p>회사명 : {{booths.company_name}}</p>
-    <p>부스 카테고리 : {{booths.booth_category}}</p>
-    <p>배경 : {{booths.background}}</p>
-    <p>기능 : {{booths.service}}</p>
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/bass.css' %}" />      
+        <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />     
+        <link rel="stylesheet" href="{% static 'css/layout1.css' %}" />    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <title>{{booths.booth_name}}</title>
+        <style>
+            #booth_detail {
+                padding-top:80px;
+                margin-left:10%;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="header-sub">
+            <button class= "header__button--menu header__button--menu-black icon" style="cursor:pointer; opacity:1;"></button>
+            <div class="header__title--wrap">
+                <a href="{% url 'index' %}" ><button class ="header__title-black icon" style="cursor:pointer;"></button></a>
+            </div>
+            <button class= "for_loc_center icon"></button>
+        </div>
 
-    <a href="{% url 'exhibition:booth_list' %}">목록보기</a>
-    <a href="{% url 'exhibition:edit' booths.pk %}">수정하기</a>
-    <form action="{% url 'exhibition:delete' booths.pk %}" method="POST">
-        {% csrf_token%}
-        <input type="submit" value="삭제하기">
-    </form>
-    <a href="{% url 'exhibition:booth_list' %}">[back]</a>
+        <div id='booth_detail'>
+            {% block content %}
+                <h3>부스 정보</h3>
+                <p>부스명 : {{booths.booth_name}}</p>
+                <p>회사명 : {{booths.company_name}}</p>
+                <p>부스 카테고리 : {{booths.booth_category}}</p>
+                <p>배경 : {{booths.background}}</p>
+                <p>기능 : {{booths.service}}</p>
 
-{% endblock content %}
+                <a href="{% url 'exhibition:booth_list' %}" style="text-decoration:none;color:black;">[목록]</a>
+                <a href="{% url 'exhibition:edit' booths.pk %}" style="text-decoration:none;color:black;">[수정]</a>
+                <form action="{% url 'exhibition:delete' booths.pk %}" method="POST">
+                    {% csrf_token%}
+                    <input type="submit" value="삭제하기">
+                </form>
+                <a href="{% url 'exhibition:booth_list' %}" style="text-decoration:none;color:black;">[back]</a>
+
+            {% endblock content %}
+    </body>
+</html>
