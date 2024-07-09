@@ -153,10 +153,8 @@
                                 <p class="sidebar__login--btn"> 로그인을 해주세요. </p>
                             </a>
                         {% else %}
-                            <div class = "sidebar__login__user--wrap">
-                            <p class="user-type">{{ user.profile.user_type }}</p> <!-- Display user type here -->
+                            <p class="user-type">{{ user.profile.user_type }}</p> 
                             <p class="user-name"><span>{{user}}님!</span></p>
-                            </div>
                         {% endif %}
                     </div>
                 </div>
@@ -169,8 +167,9 @@
                         <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
                         <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update' %}" class = "sidebar__menu--item"> 부스 정보 수정 </a></li>
                         <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 부스 예약 현황 </a></li>
+                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item" id="btn4"> FAQ </a></li>
                             {% if user.is_superuser %}
-                                <li class = "sidebar__menu--list"><a href='/admin/' class = "sidebar__menu--item">관리자 페이지</a></li>
+                            <li class = "sidebar__menu--list"><a href='/admin/' class = "sidebar__menu--item">관리자 페이지</a></li>
                             {% elif user.is_staff %}
                             <li class = "sidebar__menu--list"><a href='/exhibition/booth_list/'class = "sidebar__menu--item">부스 목록</a></li>
                             {% endif %}
