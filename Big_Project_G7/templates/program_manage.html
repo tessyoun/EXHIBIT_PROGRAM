@@ -22,6 +22,16 @@
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <div class="form-group">
+                        <label for="selected_times">오픈할 시간대:</label>
+                        <div class="time-slots">
+                            {% for time in time_slots %}
+                                <label class="time-slot-label">
+                                    <input type="checkbox" name="selected_times" value="{{ time }}" {% if time in selected_times %}checked{% endif %}> {{ time }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
                     <button type="submit" name="edit">프로그램 수정하기</button>
                     <button type="submit" name="delete">프로그램 삭제하기</button>
                 </form>
