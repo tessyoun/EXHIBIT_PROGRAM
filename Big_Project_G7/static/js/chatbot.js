@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
      
      if (btn1) {
          btn1.addEventListener('click', function() {
-             window.location.href = "/layout1/";
+             window.location.href = "/exhibition/";
          });
      }
      if (btn2) {

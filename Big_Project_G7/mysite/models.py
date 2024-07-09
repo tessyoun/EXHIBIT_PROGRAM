@@ -25,3 +25,35 @@ class Booth_Info(models.Model):
 #         managed = False
 #         db_table = 'Bookmarks'
 #         app_label ='mysite'
+
+#전시회 홀 정보
+class ExhibitionHall(models.Model):
+    ExhibitionHallID = models.AutoField(primary_key=True, db_column='ExhibitionHallID')
+    ExhibitionHallDescription = models.CharField(max_length=255, db_column='HallDescription')
+
+    def __str__(self):
+        return self.ExhibitionHallDescription
+
+    class Meta:
+        managed = False
+        db_table = 'exhibition_hall'
+        app_label ='mysite'
+
+# 전시회 정보
+class ExhibitionInfo(models.Model):
+    ExhibitionID = models.AutoField(primary_key=True, db_column='ExhibitionID')
+    ExhibitionName = models.CharField(max_length=255, db_column='ExhibitionName')
+    ExhibitionDescription = models.TextField(blank=True, null=True, db_column='ExhibiionDescription')
+    ExhibitionRegistrationDate = models.DateField(blank=True, null=True, db_column='ExhibitionRegistrationDate')
+    OrganizationID = models.FloatField(blank=True, null=True, db_column='OrganizationID')
+    Hall_ID = models.ForeignKey(ExhibitionHall, on_delete=models.CASCADE, blank=True, null=True, db_column='Hall_ID')
+    ExhibitionClosedDate = models.DateField(blank=True, null=True, db_column='ExhibitionClosedDate')
+    ExhibitionURL = models.TextField(blank=True, null=True, db_column='URL')
+
+    def __str__(self):
+        return self.ExhibitionName
+
+    class Meta:
+        managed = False
+        db_table = 'exhibition_info'
+        app_label ='mysite'
