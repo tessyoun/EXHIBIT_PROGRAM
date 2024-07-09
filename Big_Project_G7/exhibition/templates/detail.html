@@ -6,12 +6,12 @@
     <p>배경 : {{booths.background}}</p>
     <p>기능 : {{booths.service}}</p>
 
-    <a href="{% url 'booth_list' %}">목록보기</a>
-    <a href="{% url 'edit' booths.pk %}">수정하기</a>
-    <form action="{% url 'delete' booths.pk %}" method="POST">
+    <a href="{% url 'exhibition:booth_list' %}">목록보기</a>
+    <a href="{% url 'exhibition:edit' booths.pk %}">수정하기</a>
+    <form action="{% url 'exhibition:delete' booths.pk %}" method="POST">
         {% csrf_token%}
         <input type="submit" value="삭제하기">
     </form>
-    <a href="{% url 'booth_list' %}">[back]</a>
+    <a href="{% url 'exhibition:booth_list' %}">[back]</a>
 
 {% endblock content %}

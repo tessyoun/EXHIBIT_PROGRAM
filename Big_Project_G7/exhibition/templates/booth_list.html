@@ -20,7 +20,7 @@
                     <tr>
                         {% comment %} <td>{{booth.booth_name}}</td> {% endcomment %}
                         {% comment %} <td><a href="/exhibition/{{booth.pk}}">{{booth.booth_name}}</a></td> {% endcomment %}
-                        <td><a href="{% url 'detail' booth.booth_id %}">{{booth.booth_name}}</a></td>
+                        <td><a href="{% url 'exhibition:detail' booth.booth_id %}">{{booth.booth_name}}</a></td>
                         <td>{{booth.company_name}}</td>
                         <td>{{booth.booth_category}}</td>
                         <td>{{booth.background}}</td>

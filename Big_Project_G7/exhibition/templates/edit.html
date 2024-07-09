@@ -1,6 +1,6 @@
 {% block content %}
     <h1>EDIT</h1>
-    <form action="{% url 'update' booths.pk %}" method="POST">
+    <form action="{% url 'exhibition:update' booths.pk %}" method="POST">
         {% csrf_token %}
         <label for='booth_name'>부스명:</label>
         <input type='text' name='booth_name' value="{{booths.booth_name}}"><br>
@@ -15,6 +15,6 @@
         <input type='submit'>
     </form>
     <hr>
-    <a href="{% url 'info' %}">[back]</a>
+    <a href="{% url 'exhibition:booth_list' %}">[back]</a>
 
 {% endblock content %}
