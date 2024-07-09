@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}" />
+    <title>전시회 목록</title>
+    <!-- Include FullCalendar CSS -->
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* 모든 요소를 왼쪽 정렬 */
+      }
+      .exhibitions {
+        width: 92%; /* 전시회 영역 전체 너비 */
+      }
+      .exhibition-card {
+        position: relative;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: inherit;
+        background-size: cover;
+        background-position: center;
+        filter: blur(8px); /* Apply blur effect only to the background image */
+        z-index: -1; /* Push behind content */
+        opacity: 0.6;
+        border-radius: 5px;
+      }
+
+      .exhibition-details {
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        z-index: 1;
+        border-radius: 0 0 5px 5px;
+      }
+      .exhibition-details h3 {
+        margin: 0;
+        font-size: 1.2rem; /* Adjust as needed */
+      }
+      .exhibition-details p {
+        margin: 5px 0;
+      }
+      .header-sub {
+        position: relative;
+        z-index: 1001; /* 헤더가 다른 요소들보다 위에 표시되도록 */
+      }
+      .toggle-calendar-button {
+        margin-left: auto;
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .calendar-container {
+        display: none; /* 기본적으로 숨김 */
+        position: fixed; /* 고정 위치 */
+        top: 12%; /* 상단 여백 */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000; /* 다른 요소들보다 위에 표시 */
+        background-color: #fff;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 60%; /* 달력 컨테이너 너비 */
+        height: 80%; /* 달력 컨테이너 높이 */
+      }
+      #calendar {
+        width: 100%;
+        height: 100%;
+      }
+      .fc-day-today {
+        /* 현 날짜 색변화 표시 */
+        background-color: rgba(252, 247, 182, 1);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 헤더 부분 -->
+    <div class="header-sub">
+      <button
+        class="header__button--menu header__button--menu-black icon"
+        style="cursor: pointer; opacity: 1"
+      ></button>
+      <div class="header__title--wrap">
+        <a href="{% url 'index' %}"
+          ><button
+            class="header__title-black icon"
+            style="cursor: pointer"
+          ></button
+        ></a>
+      </div>
+      <button class="for_loc_center icon"></button>
+    </div>
+    <!-- end 헤더 부분 -->
+
+    <!-- 전시회 부분 -->
+    <div class="exhibitions">
+      <h2>Aivex 전시회 목록</h2>
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+        "
+      >
+        <p id="selected-date">원하는 날짜를 선택해주세요.</p>
+        <div class="toggle-calendar-button" onclick="toggleCalendar()">
+          달력 보기
+        </div>
+      </div>
+
+      <div id="exhibition-list"></div>
+    </div>
+
+    <!-- 전시회 부분 -->
+    <div class="calendar-container" id="calendar-container">
+      <div id="calendar"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
+    <!-- 달력 한국어 -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/locales/ko.js"></script>
+    <!-- js 파일 -->
+    <script src="{% static 'js/exhibition_list.js' %}"></script>
+    <script>
+      renderExhibitionList(`{{ exhibitions | safe }}`);
+    </script>
+  </body>
+</html>
