@@ -28,7 +28,7 @@ def change_perm(request):
         user.is_staff = True
         user.save()
         request.session['data'] = {}
-        return redirect('create_exhibition')
+        return redirect('exhibition:create_exhibition')
     
 # 전시회 객체 생성
 @login_required
