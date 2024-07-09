@@ -23,7 +23,7 @@ function toggleCalendar() {
 }
 
 function fetchExhibitions(selectedDate = '') {
-    var url = selectedDate ? '/exhibition/' + selectedDate + '/' : '/exhibition/';
+    var url = selectedDate ? '/exhibition/list/' + selectedDate + '/' : '/exhibition/list/';
     fetch(url)
         .then(response => {
             if (!response.ok) {
