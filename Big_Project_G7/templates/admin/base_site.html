@@ -18,7 +18,7 @@
     {% if user.is_authenticated %}
         <strong>{{ user.get_username }}</strong>
         | <a href="{% url 'admin:password_change' %}">비밀번호 변경</a>
-        | <a href="{% url 'logout' %}">로그아웃</a>
+        | <a href="{% url 'accounts:logout' %}">로그아웃</a>
         | <a href="/">사이트 보기</a>
     {% else %}
         <a href="{% url 'admin:login' %}">로그인</a>
