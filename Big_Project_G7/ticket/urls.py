@@ -1,8 +1,10 @@
 from django.urls import path
 from .views import *
 
-app_name = 'tickets'
+app_name = 'ticket'
 
 urlpatterns = [
-    path('', reveal_QR, name='reveal_QR'),
+    path('', ticket_list, name='ticket_list'),
+    path('<int:ticket_id>/', ticket_detail, name='ticket_detail'),
+    path('buy/', buy_ticket, name='buy_ticket'),
 ]

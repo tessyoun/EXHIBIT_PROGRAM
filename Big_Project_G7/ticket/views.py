@@ -1,30 +1,26 @@
-import qrcode
-import base64
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
-from io import BytesIO
-from django.shortcuts import render
+from exhibition.models import Exhibition_info
+from .models import TicketBoughtInfo
+from .functions import *
 
-# QR코드 표 생성
-def generate_QR(data):
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
-    qr.add_data(data)
-    qr.make(fit=True)
-    img = qr.make_image(fill_color="black", back_color="white")
-    print('QR Generated!')
-    return img
+@login_required
+def ticket_list(request):
+    print(request.user)
+    # if request.method == 'POST':
+    if request.user:
+        bought_list = TicketBoughtInfo.objects.get(request.user.id)
+        print(bought_list)    
+    return render(request, 'check_ticket.html', {'ticket_list':bought_list})
 
-# 생성된 QR으로 표 예약 확인
-def reveal_QR(request):
-    dump_data = '에이블 1기 빅프로젝트 전시회_user_1명'
-    qr = generate_QR(dump_data)
-    buffer = BytesIO()
-    qr.save(buffer, format='PNG')
-    buffer.seek(0)
-    img = base64.b64encode(buffer.getvalue()).decode()
+@login_required
+def ticket_detail(request, key):
+    if request.method == 'POST':
+        img = generate_QR('test')
+        return render(request, 'ticket_detail.html', {'image':img})
+    return render(request, '')
 
-    return render(request, 'tickets.html', {'image': img})
+@login_required
+def buy_ticket(request):
+    return render(request, 'test.html')

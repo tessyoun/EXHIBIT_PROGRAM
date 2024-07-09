@@ -13,7 +13,7 @@ urlpatterns = [
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('mypage/', views.mypage, name='mypage'),
     path('reserve_exhib/', views.reserve_exhib, name='reserve_exhib'),
-    path('reveal_QR/', views.reveal_QR, name='reveal_QR'),
+    path('ticket/', include('ticket.urls')),
     path('layout1/', views.layout1, name='layout1'),
     path('layout2/', views.layout2, name='layout2'),
     path('layout3/', views.layout3, name='layout3'),
@@ -31,7 +31,6 @@ urlpatterns = [
     path('notice/', include('notice.urls')),
     path('FAQ/', views.FAQlist, name='faq_page'),
     path('reserve/', include('reserve_hall.urls', namespace='reserve_hall')),
-    path('tickets/', include('ticket.urls')),
 ]
 
 from django.conf import settings
