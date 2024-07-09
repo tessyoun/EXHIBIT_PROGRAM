@@ -30,6 +30,13 @@
     margin: 10px;
 }
 
+.header__button--menu-black {
+    width: 40px;
+    height: 44px;
+    background-image: url("../icons/menu_icon_black.png");
+    margin: 10px;
+}
+
 .for_loc_center {
     width: 30px;
     height: 42px;
@@ -47,6 +54,14 @@
     width: 95px;
     height: 32px;    
     background-image: url("../icons/AIVEX_icon_white.png");
+    margin-top: 17px;
+}
+
+.header__title-black{
+    display: inline-block;
+    width: 95px;
+    height: 32px;    
+    background-image: url("../icons/AIVEX_icon_black.png");
     margin-top: 17px;
 }
 
