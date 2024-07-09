@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from .models import Program
 
 class ProgramForm(forms.ModelForm):
@@ -9,9 +10,3 @@ class ProgramForm(forms.ModelForm):
     class Meta:
         model = Program
         fields = ['name', 'description', 'selected_times']
-
-    def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
-        super(ProgramForm, self).__init__(*args, **kwargs)
-        if user:
-            self.fields['company_name'] = forms.CharField(initial=user.profile.name, widget=forms.HiddenInput(), required=False)
