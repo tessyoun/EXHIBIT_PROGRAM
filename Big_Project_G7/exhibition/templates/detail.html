@@ -129,7 +129,7 @@
                             {% endif %}
                         {% else %}
                             <li class="sidebar__menu--list"><a href="{% url 'accounts:update' %}" class="sidebar__menu--item"> 회원 정보 수정 </a></li>
-                            <li class="sidebar__menu--list"><a href="{% url 'reveal_QR' %}" class="sidebar__menu--item"> 내 티켓 확인 </a></li>
+                            <li class="sidebar__menu--list"><a href="{% url 'ticket:ticket_list' %}" class="sidebar__menu--item"> 내 티켓 확인 </a></li>
                             <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 내 예약 확인 </a></li>
                             <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 북마크 </a></li>
                         {% endif %}
