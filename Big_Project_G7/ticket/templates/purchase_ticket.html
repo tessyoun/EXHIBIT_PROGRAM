@@ -19,15 +19,24 @@
     </div>
     <!-- end 헤더 부분 -->
 
+    <!-- <div class="container">
+        {% for exhibition in exhibition_list %}
+            <form action="{% url 'index' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">{{ exhibition.exhibition_name }}</button>
+            </form>
+            <br>
+        {% endfor %}
+        <a href="{% url 'ticket:ticket_list' %}" ><button class ="header__title icon" style="cursor:pointer;">돌아가기</button></a>
+    </div> -->
     <div class="container">
         <form method="post">
             {% csrf_token %}
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            <p>전시장 1</p>
-            <p>표 확인</p>
-            <img class ="img__QR icon">
+            {{ form.as_p }}
+            <button type="submit">예약</button>
+            <br>
         </form>
+        <a href="{% url 'ticket:ticket_list' %}" ><button class ="header__title icon" style="cursor:pointer;">돌아가기</button></a>
     </div>
 </body>
 </html>

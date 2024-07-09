@@ -13,8 +13,6 @@
 </head>
 
 <body>
-<div class="app__size">
-
     <!-- 헤더 부분 -->
     <div class="header--fixed">
         <button class="header__button--menu icon" style="cursor:pointer; opacity:1;"></button>
@@ -179,7 +177,7 @@
                             {% endif %}
                         {% else %}
                             <li class="sidebar__menu--list"><a href="{% url 'accounts:update' %}" class="sidebar__menu--item"> 회원 정보 수정 </a></li>
-                            <li class="sidebar__menu--list"><a href="{% url 'reveal_QR' %}" class="sidebar__menu--item"> 내 티켓 확인 </a></li>
+                            <li class="sidebar__menu--list"><a href="{% url 'ticket:ticket_list' %}" class="sidebar__menu--item"> 내 티켓 확인 </a></li>
                             <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 내 예약 확인 </a></li>
                             <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 북마크 </a></li>
                         {% endif %}
@@ -197,12 +195,9 @@
             </div>
         </div>
     </div>
-</div>
-
     <script src="{% static 'js/chatbot.js' %}"></script>  
     <script src="{% static 'js/uiMain.js' %}"></script>
     <script src="{% static 'js/uiSidebar.js' %}"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>
 </html>

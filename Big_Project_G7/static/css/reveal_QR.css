@@ -16,7 +16,7 @@ p {
 }
 
 .img__QR {
-    background-image: url("../icons/ex_QR.png");
+    /* background-image: url("../icons/ex_QR.png"); */
     width: 300px;
     height: 300px;
 }

@@ -18,15 +18,20 @@
         </div>
     </div>
     <!-- end 헤더 부분 -->
-
     <div class="container">
-        <form method="post">
-            {% csrf_token %}
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            <p>전시장 1</p>
-            <p>표 확인</p>
-            <img class ="img__QR icon">
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        {% if ticket_list %}
+            {% for ticket in ticket_list %}
+                <form action="{% url 'ticket:ticket_detail' ticket.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">{{ ticket.name }}</button>
+                </form>
+                <br>
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'ticket:purchase_ticket' %}" class="form-exhibition" >
+            <button type="submit" class="btn-exhibition">티켓 구매</button>
         </form>
     </div>
 </body>

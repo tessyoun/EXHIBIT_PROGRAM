@@ -149,7 +149,7 @@ def update(request, pk):
     booth.background = request.POST.get('background')
     booth.service = request.POST.get('service')
     booth.save()
-    return redirect('detail', booth.pk)
+    return redirect('exhibition:detail', booth.pk)
     
     
 # 전시회 목록 calendar 시작 페이지
