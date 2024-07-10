@@ -7,7 +7,18 @@
     outline: none;
     background-color: transparent !important; 
 }
-
+.app__size {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+}
 /** 헤더 부분 **/
 .header--fixed {
     display: flex;
