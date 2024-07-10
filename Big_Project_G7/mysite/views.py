@@ -52,7 +52,8 @@ def login_view(request):
     return render(request, 'login.html')
 
 def index(request):
-    return render(request, 'index.html')
+    booth = serialize('json', Booth_Info.objects.filter(exhibition_id=1))
+    return render(request, 'index.html', {'booths': booth,})
 
 def mypage(request):
     return render(request, 'mypage.html')
