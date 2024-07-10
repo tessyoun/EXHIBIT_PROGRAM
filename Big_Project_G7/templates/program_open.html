@@ -6,103 +6,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로그램 오픈</title>
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
-    <link rel="stylesheet" href="{% static 'program_open.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/program_open.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
-    <div class="container">
-        <header>
-            <button class="menu-btn" id="menu-btn">&#9776;</button>
-            <h1>Program Open</h1>
-            <a id="home" href="{% url 'index' %}"><i class="fas fa-home fa-2xl"> </i></a>
-            <nav class="mobile-menu" id="mobile-menu"><br><br><br>
-                <ul>
-                    {% if not user.is_authenticated %}
-                        <li><a class="nav-link" href="{% url 'signup' %}"><i class="fa-regular fa-user fa-xl"> Signup</i></a></li><br>
-                        <li><a class="nav-link" href="{% url 'login' %}?next={{request.path}}"><i class="fa-regular fa-user fa-xl"> Login</i></a></li>
-                    {% else %}
-                        <li><p class="user-name"><i class="fa-regular fa-user fa-xl"><span>{{user}}님!</span></i></p></li>
-                        <li><a href="{% url 'mypage' %}"><i class="fa-solid fa-check fa-xl"> 마이페이지</i></a></li><br>
-                        <li><a href="#"><i class="fa-solid fa-check fa-xl"> 예매 확인</i></a></li><br>
-                        <li><a href="{% url 'confirmation' %}"><i class="fa-solid fa-check fa-xl"> 예약 확인</i></a></li><br>
-                        <form class="logout-form" method="post" action="{% url 'logout' %}?next={{request.path}}" style="display:inline;">
-                            {% csrf_token %}
-                            <li><button type="submit" class="logout-button" style="background:none; border:none; color:inherit; padding:0; cursor:pointer;">
-                                <i class="fa-regular fa-user fa-xl"> Logout </i>
-                            </button></li>
-                        </form>
-                    {% endif %}
-                </ul>
-            </nav>
-        </header>
-        <div class="booth-open-container">
-            <h1>프로그램 오픈</h1>
-            <form method="post" action="{% url 'program_open' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="name">프로그램 명:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">프로그램 설명:</label>
-                    <textarea id="description" name="description" rows="4" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>오픈할 시간대:</label>
-                    <div class="time-slots">
-                        <label class="time-slot-label">
-                            <input type="checkbox" class="time-slot" value="10:00"> 10:00
-                        </label>
-                        <label class="time-slot-label">
-                            <input type="checkbox" class="time-slot" value="11:00"> 11:00
-                        </label>
-                        <label class="time-slot-label">
-                            <input type="checkbox" class="time-slot" value="12:00"> 12:00
-                        </label>
-                        <label class="time-slot-label">
-                            <input type="checkbox" class="time-slot" value="13:00"> 13:00
-                        </label>
-                        <label class="time-slot-label">
-                            <input type="checkbox" class="time-slot" value="14:00"> 14:00
-                        </label>
-                        <label class="time-slot-label">
-                            <input type="checkbox" class="time-slot" value="15:00"> 15:00
-                        </label>
-                        <label class="time-slot-label">
-                            <input type="checkbox" class="time-slot" value="16:00"> 16:00
-                        </label>
-                        <label class="time-slot-label">
-                            <input type="checkbox" class="time-slot" value="17:00"> 17:00
-                        </label>
+    <div class="app__size">
+        <div class="header--fixed">
+            <button class="header__button--menu icon" id="menu-btn" style="cursor:pointer; opacity:1;"></button>
+            <div class="header__title--wrap">
+                <a href="{% url 'index' %}"><button class="header__title icon" style="cursor:pointer;"></button></a>
+            </div>
+            <button class="for_loc_center icon"></button>
+        </div>
+        <div class="body--wrap">
+            <div class="content-wrap">
+                <h1 class="title">프로그램 오픈</h1>
+                <form method="post" action="{% url 'program_open' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">프로그램 명:</label>
+                        <input type="text" id="name" name="name" required>
                     </div>
-                    <input type="hidden" id="selected-times" name="selected_times" value="">
+                    <div class="form-group">
+                        <label for="description">프로그램 설명:</label>
+                        <textarea id="description" name="description" rows="6" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>오픈할 시간대:</label>
+                        <div class="time-slots">
+                            <label class="time-slot-label">
+                                <input type="checkbox" class="time-slot" value="10:00"> 10:00
+                            </label>
+                            <label class="time-slot-label">
+                                <input type="checkbox" class="time-slot" value="11:00"> 11:00
+                            </label>
+                            <label class="time-slot-label">
+                                <input type="checkbox" class="time-slot" value="12:00"> 12:00
+                            </label>
+                            <label class="time-slot-label">
+                                <input type="checkbox" class="time-slot" value="13:00"> 13:00
+                            </label>
+                            <label class="time-slot-label">
+                                <input type="checkbox" class="time-slot" value="14:00"> 14:00
+                            </label>
+                            <label class="time-slot-label">
+                                <input type="checkbox" class="time-slot" value="15:00"> 15:00
+                            </label>
+                            <label class="time-slot-label">
+                                <input type="checkbox" class="time-slot" value="16:00"> 16:00
+                            </label>
+                            <label class="time-slot-label">
+                                <input type="checkbox" class="time-slot" value="17:00"> 17:00
+                            </label>
+                        </div>
+                        <input type="hidden" id="selected-times" name="selected_times" value="">
+                    </div>
+                    <div class="button-container">
+                        <button type="submit" class="submit-button">프로그램 오픈하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="sidebar" data-role="side-bar">
+            <div class="sidebar__backdrop"></div>
+            <div class="sidebar--wrap">
+                <div class="sidebar__header">
+                    <div class="sidebar__header__menu--wrap">
+                        <button class="sidebar__menu--home icon"></button>
+                    </div>
+                    <div class="sidebar__header__login--wrap">
+                        <div class="sidebar__login__profile"></div>
+                        <div class="sidebar__login__info">
+                            {% if not user.is_authenticated %}
+                                <a href="{% url 'accounts:login' %}" class="sidebar__login__user--wrap">
+                                    <p class="sidebar__login--btn"> 로그인을 해주세요. </p>
+                                </a>
+                            {% else %}
+                                <div class="sidebar__login__user--wrap">
+                                    <p class="user-type">{{ user.profile.user_type }}</p>
+                                    <p class="user-name"><span>{{ user }}님!</span></p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-                <div class="button-container">
-                    <button type="submit" class="submit-button">프로그램 오픈하기</button>
+                <div class="sidebar__menu--wrap">
+                    <ul class="sidebar__menu--list--wrap">
+                        {% if user.is_authenticated %}
+                            {% if user.profile.user_type == '기업회원' %}
+                            <li class="sidebar__menu--list"><a href="{% url 'accounts:update' %}" class="sidebar__menu--item"> 회원 정보 수정 </a></li>
+                            <li class="sidebar__menu--list"><a href="{% url 'exhibition:update' %}" class="sidebar__menu--item"> 부스 정보 수정 </a></li>
+                            <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 부스 예약 현황 </a></li>
+                            {% else %}
+                            <li class="sidebar__menu--list"><a href="{% url 'accounts:update' %}" class="sidebar__menu--item"> 회원 정보 수정 </a></li>
+                            <li class="sidebar__menu--list"><a href="{% url 'reveal_QR' %}" class="sidebar__menu--item"> 내 티켓 확인 </a></li>
+                            <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 내 예약 확인 </a></li>
+                            <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 북마크 </a></li>
+                            {% endif %}
+                        {% else %}
+                        <span> 로그인 후 서비스 이용 가능 </span>
+                        {% endif %}
+                    </ul>
+                    {% if user.is_authenticated %}
+                    <form class="logout-form" method="post" action="{% url 'accounts:logout' %}?next={{ request.path }}">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-button">로그아웃</button>
+                    </form>
+                    {% endif %}
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-    <script src="{% static 'js/script.js' %}"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var selectedTimes = [];
-
-            document.querySelectorAll(".time-slot").forEach(function(slot) {
-                slot.addEventListener("change", function() {
-                    var time = slot.value;
-                    if (slot.checked) {
-                        if (!selectedTimes.includes(time)) {
-                            selectedTimes.push(time);
-                        }
-                    } else {
-                        selectedTimes = selectedTimes.filter(function(t) { return t !== time; });
-                    }
-                    document.getElementById("selected-times").value = selectedTimes.join(",");
-                    console.log("Selected times:", selectedTimes);
-                });
-            });
-        });
-    </script>
+    <script src="{% static 'js/program_open.js' %}"></script>
 </body>
 </html>
