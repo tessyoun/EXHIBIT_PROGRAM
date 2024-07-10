@@ -131,74 +131,69 @@
         </div>
         <div class="sidebar__menu--wrap">
           <ul class="sidebar__menu--list--wrap">
-            {% if user.is_authenticated %} {% if user.profile.user_type ==
-            '기업회원' %}
-            <li class="sidebar__menu--list">
-              <a href="{% url 'accounts:update' %}" class="sidebar__menu--item">
-                회원 정보 수정
-              </a>
-            </li>
-            <li class="sidebar__menu--list">
-              <a
-                href="{% url 'exhibition:update' %}"
-                class="sidebar__menu--item"
-              >
-                부스 정보 수정
-              </a>
-            </li>
-            {% if not user.programs.exists %}
-            <li class="sidebar__menu--list">
-              <a href="{% url 'program_open' %}" class="sidebar__menu--item">
-                프로그램 생성
-              </a>
-            </li>
+            {% if user.is_authenticated %} 
+              {% if user.profile.user_type == '기업회원' %}
+                <li class="sidebar__menu--list">
+                  <a href="{% url 'accounts:update' %}" class="sidebar__menu--item">
+                    회원 정보 수정
+                  </a>
+                </li>
+                <li class="sidebar__menu--list">
+                  <a href="{% url 'exhibition:update' %}" class="sidebar__menu--item">
+                    부스 정보 수정
+                  </a>
+                </li>
+                {% if not user.programs.exists %}
+                  <li class="sidebar__menu--list">
+                    <a href="{% url 'program_open' %}" class="sidebar__menu--item">
+                      프로그램 생성
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="sidebar__menu--list">
+                    <a href="{% url 'program_manage' %}" class="sidebar__menu--item">
+                      프로그램 관리
+                    </a>
+                  </li>
+                {% endif %}
+                <li class="sidebar__menu--list">
+                  <a class="sidebar__menu--item"> 부스 예약 현황 </a>
+                </li>
+                <li class="sidebar__menu--list">
+                  <a class="sidebar__menu--item" id="btn4"> FAQ </a>
+                </li>
+                  {% if user.is_superuser %}
+                    <li class="sidebar__menu--list">
+                      <a href="/admin/" class="sidebar__menu--item">관리자 페이지</a>
+                    </li>
+                  {% elif user.is_staff %}
+                    <li class="sidebar__menu--list">
+                      <a href="/exhibition/booth_list/" class="sidebar__menu--item">
+                        부스 목록</a>
+                    </li>
+                  {% endif %} 
+              {% else %}
+                <li class="sidebar__menu--list">
+                  <a href="{% url 'accounts:update' %}" class="sidebar__menu--item">
+                    회원 정보 수정
+                  </a>
+                </li>
+                <li class="sidebar__menu--list">
+                  <a href="{% url 'ticket:ticket_list' %}" class="sidebar__menu--item">
+                    내 티켓 확인
+                  </a>
+                </li>
+                <li class="sidebar__menu--list">
+                  <a class="sidebar__menu--item"> 내 예약 확인 </a>
+                </li>
+                <li class="sidebar__menu--list">
+                  <a class="sidebar__menu--item"> 북마크 </a>
+                </li>
+              {% endif %}
             {% else %}
-            <li class="sidebar__menu--list">
-              <a href="{% url 'program_manage' %}" class="sidebar__menu--item">
-                프로그램 관리
-              </a>
-            </li>
+              <span> 로그인 후 서비스 이용 가능 </span>
             {% endif %}
-            <li class="sidebar__menu--list">
-              <a class="sidebar__menu--item"> 부스 예약 현황 </a>
-            </li>
-            <li class="sidebar__menu--list">
-              <a class="sidebar__menu--item" id="btn4"> FAQ </a>
-            </li>
-            {% if user.is_superuser %}
-            <li class="sidebar__menu--list">
-              <a href="/admin/" class="sidebar__menu--item">관리자 페이지</a>
-            </li>
-            {% elif user.is_staff %}
-            <li class="sidebar__menu--list">
-              <a href="/exhibition/booth_list/" class="sidebar__menu--item"
-                >부스 목록</a
-              >
-            </li>
-            {% endif %} {% else %}
-            <li class="sidebar__menu--list">
-              <a href="{% url 'accounts:update' %}" class="sidebar__menu--item">
-                회원 정보 수정
-              </a>
-            </li>
-            <li class="sidebar__menu--list">
-              <a
-                href="{% url 'ticket:ticket_list' %}"
-                class="sidebar__menu--item"
-              >
-                내 티켓 확인
-              </a>
-            </li>
-            <li class="sidebar__menu--list">
-              <a class="sidebar__menu--item"> 내 예약 확인 </a>
-            </li>
-            <li class="sidebar__menu--list">
-              <a class="sidebar__menu--item"> 북마크 </a>
-            </li>
-            {% endif %} {% else %}
-            <span> 로그인 후 서비스 이용 가능 </span>
-            {% endif %}
-          </ul>
+            </ul>
 
           {% if user.is_authenticated %}
           <form
