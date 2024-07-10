@@ -37,7 +37,7 @@ function renderExhibitionList(exhibitionsData) {
       const exhibitionCard = document.createElement("div");
       exhibitionCard.className = "exhibition-card";
       exhibitionCard.onclick = function () {
-        location.href = `{{ window.location.origin }}/${exhibition.ExhibitionURL}`;
+        location.href = `${window.location.origin}/${exhibition.ExhibitionURL}`;
       };
       exhibitionCard.innerHTML = `
                           <div class="background-image" style="background-image: url('/static/${exhibition.ExhibitionImageURL}');"></div>
