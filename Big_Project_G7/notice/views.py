@@ -6,7 +6,7 @@ from .models import Notice
 from .forms import NoticeForm
 
 def notice_list(request):
-    notice_list = Notice.objects.all()
+    notice_list = Notice.objects.all().order_by("-update_time")
     return render(request, 'notice_list.html', {'notice_list' : notice_list})
 
 def notice_detail(request, pk):
