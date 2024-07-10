@@ -133,7 +133,6 @@
         </div>
         <!-- end 본문 부분 -->
     
-    
         <!-- 사이드바 부분 -->
         <div class="sidebar" data-role="side-bar">
             <div class="sidebar__backdrop"></div>
@@ -180,7 +179,7 @@
                                 <li class="sidebar__menu--list"><a href="{% url 'accounts:update' %}" class="sidebar__menu--item"> 회원 정보 수정 </a></li>
                                 <li class="sidebar__menu--list"><a href="{% url 'ticket:ticket_list' %}" class="sidebar__menu--item"> 내 티켓 확인 </a></li>
                                 <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 내 예약 확인 </a></li>
-                                <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 북마크 </a></li>
+                                <li class="sidebar__menu--list"><a id="personal-bookmarks" class="sidebar__menu--item"> 북마크 </a></li>
                             {% endif %}
                         {% else %}
                             <span> 로그인 후 서비스 이용 가능 </span>
@@ -197,6 +196,10 @@
             </div>
         </div>
     </div>
+    <script>
+        const boothsJsonString = '{{ booths|escapejs }}';
+        const booths = JSON.parse(boothsJsonString);
+    </script>
     <script src="{% static 'js/chatbot.js' %}"></script>  
     <script src="{% static 'js/uiMain.js' %}"></script>
     <script src="{% static 'js/uiSidebar.js' %}"></script>
