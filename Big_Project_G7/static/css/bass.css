@@ -1,4 +1,16 @@
 /* 메뉴바 css (대부분 파일에 적용)*/
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background-color: #fff;
+}
+
+
 .icon {
     background-size: contain;
     background-repeat: no-repeat;
@@ -7,8 +19,8 @@
     outline: none;
     background-color: transparent !important; 
 }
+
 .app__size {
-    font-family: Arial, sans-serif;
     margin: 0;
     display: flex;
     height: 100%;
@@ -42,6 +54,7 @@
     height: 44px;
     background-image: url("../icons/menu_icon_black.png");
     margin: 10px;
+    margin-top: 17px;
 }
 
 .for_loc_center {
@@ -171,6 +184,11 @@
 
 
 /** 본문 메뉴 부분 **/
+.main__menu--wrap {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .main__menu--icons {
     display: flex;
     justify-content: space-around;
@@ -178,8 +196,8 @@
 }
 
 .main__menu--item {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -443,15 +461,6 @@
 
 
 /* 뒤로가기 헤더 */
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-}
 
 .header-sub {
     position: absolute;
@@ -460,9 +469,7 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 50px;
-    padding:10px 0px 20px 0px;
-    background-color: rgb(151, 151, 151);
+    height: 60px;
 }
 
 .back-button {

@@ -1,0 +1,134 @@
+
+
+#faq-section {
+    margin-top: 130px;
+    width: 80%;
+}
+
+
+.search-section {
+    border-bottom: solid 3px #c9c9c9;
+    margin-bottom: 40px;
+    display: flex;
+
+}
+
+.search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    float: left;
+}
+
+#searchInput {
+    border: none;
+    outline: none;
+    font-size: 22px;
+    padding: 10px;
+    margin-left: 5px;
+}
+
+#searchInput::placeholder {
+    color: #c9c9c9;
+    font-size: 20px;
+}
+
+.faq-first-tag {
+    display: flex;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.first-tag-item {
+    width: 35%;
+    background-color: #c9c9c9;
+    margin-right: 3px;
+    border-radius: 5px;
+}
+
+.first-tag-item a{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+}
+
+.first-tag-item a span {
+    font-size: 19px; 
+    color: black;
+}
+
+.first-tag-item a.on {
+    background-color: white;
+    border-top: 4px solid #01D1D5;
+    border-radius: 5px;
+} 
+
+.first-tag-item a.on span {
+    color: #01D1D5;
+}
+
+#categoryNav {
+    display: none;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
+}
+
+#categoryNav a {
+    font-size: 17px;
+    text-decoration: none;
+    color: black;
+}
+
+#categoryNav a.active {
+    color: #01D1D5; 
+}
+
+.accordion-item {
+    border: none;
+}
+
+.accordion-item.is_faq:not(:first-child) {
+    border-top: 1px solid #d8d8d8;
+}
+
+.accordion-item.is_faq {
+    border-bottom: 1px solid #d8d8d8; 
+}
+
+.accordion-button[aria-expanded="true"] {
+    background-color: rgb(1, 209, 213, 0.3); 
+    color: #339a9b;
+}
+
+.accordion-button[aria-expanded="true"]::after {
+    color: #339a9b;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.faq-item > div {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.question-summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+}
+
+.answer {
+    display: none;
+    margin-top: 5px;
+}
