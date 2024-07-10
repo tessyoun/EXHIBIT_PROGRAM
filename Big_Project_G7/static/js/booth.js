@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         
         // 북마크 버튼 클릭 시 처리
-        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];                     // #1 db로 저장경로 수정해야할 부분
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || []; 
         const bookmarkBtn = document.getElementById('bookmark-btn');
         bookmarkBtn.innerHTML = bookmarks.includes(boothId) ? '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"> </i>' : '<i class="fa-regular fa-star fa-2x"> </i>';
 
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 bookmarks.push(boothId);
                 bookmarkBtn.innerHTML = '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"> </i>';
             }
-            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 db로 저장경로 수정해야할 부분
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
             updateBookmarkIcons();
         });
     }
@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 북마크 리스트 버튼 추가
     const listButton = document.getElementById('show-bookmarks');
     listButton.addEventListener('click', function() {
-        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];                // #1 db로 저장경로 수정해야할 부분
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
         console.log('Bookmarked booths:', bookmarks);
         if (bookmarks.length > 0) {
             let bookmarkNames = booths.filter(booth => bookmarks.includes(booth.fields.company_id)).map(booth => booth.fields.booth_name);
@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const resetButton = document.getElementById('reset-bookmarks')
     resetButton.addEventListener('click', function() {
         bookmarks = [];
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 db로 저장경로 수정해야할 부분
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
         alert('북마크 리셋.');
         updateBookmarkIcons();
     });

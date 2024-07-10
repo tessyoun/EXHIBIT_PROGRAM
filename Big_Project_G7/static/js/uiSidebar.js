@@ -21,4 +21,15 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 300); 
         });
     }
+    //북마크
+    const listButton = document.getElementById('personal-bookmarks');
+    listButton.addEventListener('click', function() {
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        if (bookmarks.length > 0) {
+            let bookmarkNames = booths.filter(booth => bookmarks.includes(booth.fields.company_id)).map(booth => booth.fields.booth_name);
+            alert('북마크 부스: \n\n' + bookmarkNames.join('\n'));
+        } else {
+            alert('북마크된 부스 없음.');
+        }
+    });
 });
