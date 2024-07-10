@@ -80,8 +80,7 @@
           </div>
           <div class="sidebar__menu--wrap">
             <ul class="sidebar__menu--list--wrap">
-              {% if user.is_authenticated %} {% if user.profile.user_type ==
-              '기업회원' %}
+              {% if user.is_authenticated %} {% if user.profile.user_type == '기업회원' %}
               <li class="sidebar__menu--list">
                 <a
                   href="{% url 'accounts:update' %}"
@@ -124,7 +123,9 @@
               <li class="sidebar__menu--list">
                 <a class="sidebar__menu--item"> 북마크 </a>
               </li>
-              {% endif %} {% else %}
+              {% endif %} 
+
+              {% else %}
               <span> 로그인 후 서비스 이용 가능 </span>
               {% endif %}
             </ul>
