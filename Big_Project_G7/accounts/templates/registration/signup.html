@@ -19,6 +19,7 @@
     </div>
     <!-- end 헤더 부분 -->
 
+    {% block content %}
     <form action="" method="post">
         {% csrf_token %}
         <table><tbody>
@@ -41,11 +42,11 @@
                 <td>
                     <ul class="user_type_list">
                         <li class="radio_item">
-                            <input type="radio" id="user_type1" name="user_type" value="일반회원" required>
+                            <input type="radio" name="user_type" value="일반회원" required id="id_user_type">
                             <label for="user_type1">일반회원</label>
                         </li>
                         <li class="radio_item">
-                            <input type="radio" id="user_type2" name="user_type" value="기업회원" required>
+                            <input type="radio" name="user_type" value="기업회원" required id ="id_user_type">
                             <label for="user_type2">기업회원</label>
                         </li>
                     </ul>
@@ -112,6 +113,7 @@
 
         <input type="submit" class="btn-3d blue" value="회원가입">
     </form> 
+    {% endblock %}
 
     <script src="{% static 'js/signup.js' %}"></script>  
 </body>
