@@ -27,23 +27,22 @@
     <!-- end 헤더 부분 -->
 
     <div class="container">
-      {{ user_form.as_p }} {{ profile_form.as_p }} {% if image %} {% csrf_token
-      %}
-      <p>{{ name }}</p>
-      <p>{{ hall }}</p>
-      <img src="data:image/png;base64,{{ image }}" alt="Error!!" />
-      <br />
+      {{ user_form.as_p }}
+      {{ profile_form.as_p }}
+      {% if image %}
+        <p>{{ name }}</p>
+        <p>{{ hall }}</p>
+        <img src="data:image/png;base64,{{ image }}" alt="Error!!" />
+        <br/>
       {% endif %}
       <form action="{% url 'ticket:cancel_ticket' ticket_id %}" method="post">
         {% csrf_token %}
         <button type="submit">예매 취소</button>
       </form>
-      <br />
-      <a href="{% url 'ticket:ticket_list' %}"
-        ><button class="header__title icon" style="cursor: pointer">
-          예매 내역
-        </button></a
-      >
+      <br/>
+      <a href="{% url 'ticket:ticket_list' %}">
+        <button class="header__title icon" style="cursor: pointer">예매 내역</button>
+      </a>
     </div>
   </body>
 </html>
