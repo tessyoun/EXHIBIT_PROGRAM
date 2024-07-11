@@ -20,6 +20,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 sidebarWrap.classList.remove('visible');
             }, 300); 
         });
+
+        // 바깥에 검은 영역 클릭 시에도 닫힘
+        sidebarBackdrop.addEventListener('click', function() {
+            sidebarBackdrop.classList.remove('visible');
+            sidebarWrap.classList.remove('slide-in');
+            setTimeout(function() {
+                sidebarWrap.classList.remove('visible');
+            }, 300); 
+        });
     }
     //북마크
     const listButton = document.getElementById('personal-bookmarks');
