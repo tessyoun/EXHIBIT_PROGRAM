@@ -78,8 +78,8 @@ def getFAQdb():
     
     # 부스 정보 문서
     bdoc = [Document(page_content=f"""기업 "{booth.company_name}이"
-            <에이블 {booth.exhibition_id}기 빅프로젝트 전시회>에 참여했으며,
-            부스명은 "{booth.booth_name}"입니다.
+            <에이블 {booth.exhibition_id}기 빅프로젝트 전시회>에 부스로 참여했으며,
+            {booth.company_name}의 부스 이름은 "{booth.booth_name}"입니다.
             {booth.company_name} 기업의 부스 카테고리는 {booth.booth_category}에 해당하며,
             서비스를 제공하게 된 배경은 다음과 같습니다.
             {booth.background or ''}. 
@@ -117,7 +117,7 @@ def chat(request):
         
         # chatgpt API 및 lang chain을 사용을 위한 선언
         chat = ChatOpenAI(model="gpt-3.5-turbo")
-        k = 10
+        k = 15
         retriever = database.as_retriever(search_kwargs={"k": k})
         qa = ConversationalRetrievalChain.from_llm(llm=chat, retriever=retriever, memory=memory, return_source_documents=True, output_key="answer")
 
