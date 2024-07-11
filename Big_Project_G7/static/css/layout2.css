@@ -1,0 +1,79 @@
+
+.container-create {
+    width: 80vw;
+    padding: 0;
+    margin-top: 100px;
+}
+
+.layout_create_title {
+    margin-bottom: 15px;
+}
+
+.form-create {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-create p {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 20px;
+}
+
+.form-create label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form-create input[type="text"],
+.form-create input[type="date"],
+.form-create input[type="number"],
+.form-create select {
+    box-sizing: border-box;
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    height: 35px; 
+}
+
+.form-create input[type="text"]:focus,
+.form-create input[type="date"]:focus,
+.form-create input[type="number"]:focus,
+.form-create select:focus {
+    border-bottom: 1px solid #38B8B2;
+    box-shadow: 0 1px 0 0 #38B8B2;
+    outline: none;
+}
+
+.form-create input, .form-create select {
+    width: 100%; 
+    max-width: 100%; 
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.btn-create {
+    margin-top: 40px;
+    font-size: 16px;
+    width: 80vw;
+}
+
+.form-create .btn-create, .form-exhibition .btn-exhibition {
+    display: block;
+    padding: 10px;
+    background-color: #38B8B2;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.form-create .btn-create:hover, .form-exhibition .btn-exhibition:hover {
+    background-color:#008589;
+}

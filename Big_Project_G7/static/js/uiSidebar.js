@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     var menuButton = document.querySelector('.header__button--menu');
     var sidebarBackdrop = document.querySelector('.sidebar__backdrop');
-    var sidebarWrap = document.querySelector('.sidebar--wrap');
-    var homeButton = document.querySelector('.sidebar__menu--home');   
+    var sidebarWrap = document.querySelector('.sidebar--wrap');  
     
     var accordionItems = document.querySelectorAll('.accordion-flush .accordion-item');
     
@@ -10,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
         item.style.display = 'block'; // 'block' 으로 변경하여 보이게 설정
     });
 
-    if (menuButton && sidebarBackdrop && sidebarWrap && homeButton) {
+    if (menuButton && sidebarBackdrop && sidebarWrap) {
         menuButton.addEventListener('click', function() {
             sidebarBackdrop.classList.add('visible');
             sidebarWrap.classList.add('visible');
@@ -19,18 +18,10 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 0); 
         });
 
-        homeButton.addEventListener('click', function() {
-            sidebarBackdrop.classList.remove('visible');
-            sidebarWrap.classList.remove('slide-in');
-            setTimeout(function() {
-                sidebarWrap.classList.remove('visible');
-            }, 300); 
-        });
-
         sidebarBackdrop.addEventListener('click', function() {
-            sidebarBackdrop.classList.remove('visible');
             sidebarWrap.classList.remove('slide-in');
             setTimeout(function() {
+                sidebarBackdrop.classList.remove('visible');
                 sidebarWrap.classList.remove('visible');
             }, 300); 
         });

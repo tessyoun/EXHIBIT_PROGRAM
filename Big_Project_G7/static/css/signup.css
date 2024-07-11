@@ -118,8 +118,8 @@ table tr td {
 }
 
 .user_type_list .radio_item input[type="radio"]:checked + label {
-    border: 1px solid #01D1D5;
-    color: #01D1D5;               
+    border: 1px solid #38B8B2;
+    color: #38B8B2;               
 }
 
 input[type="submit"], .btn-3d {
@@ -127,7 +127,7 @@ input[type="submit"], .btn-3d {
     padding: 15px;
     border: none;
     border-radius: 5px;
-    background-color: #01D1D5;
+    background-color: #38B8B2;
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -140,7 +140,7 @@ input[type="submit"], .btn-3d {
 }
 
 input[type="submit"]:hover, .btn-3d:hover {
-    background-color: #008589;
+    background-color: #309994;
 }
 
 input[type="text"], input[type="password"], input[type="email"] {
@@ -180,7 +180,3 @@ input[type="text"], input[type="password"], input[type="email"] {
     margin: 0;       
     padding: 0;    
 }    
-
-td.input-container input:focus {
-    border-color: #01D1D5; /* 포커스 시 테두리 색상 */
-}

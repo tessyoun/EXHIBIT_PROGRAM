@@ -117,7 +117,7 @@ table tr td input {
     width: 100%;
     border: none;
     border-radius: 15px;
-    background-color: #01D1D5;
+    background-color: #38B8B2;
     color: white;
     font-size: 17px;
     font-weight: bold;
@@ -132,7 +132,7 @@ table tr td input {
 }
 
 .btn-3d:hover {
-    background-color: #008589;
+    background-color: #309994;
 }
 
 input[type="text"], input[type="password"] {
