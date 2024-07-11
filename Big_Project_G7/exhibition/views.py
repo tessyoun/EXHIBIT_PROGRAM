@@ -44,6 +44,7 @@ def create_exhibition(request):
             return render(request, 'layout2.html', {'image_url': images})
         else:
             return response
+
     if request.method == 'POST':
         if request.user.is_staff:
             if request.session['data']:
@@ -54,6 +55,7 @@ def create_exhibition(request):
                     exhibition = form.save(commit=False)
                     exhibition.host_id = request.user.profile.name  # 로그인한 사용자의 아이디를 설정
                     exhibition.save()
+                    request.session['data'] = {}
                     request.session['data'] = create_json(form)
                     return render_image(request.session['data'])
                 else:
