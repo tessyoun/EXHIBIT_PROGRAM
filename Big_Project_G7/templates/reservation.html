@@ -1,3 +1,4 @@
+<!-- reservation.html -->
 <!DOCTYPE html>
 {% load static %}
 <html lang="ko">
@@ -42,6 +43,8 @@
         </div>
         <button id="reserve-button">예약하기</button>
     </div>
+
+    {% csrf_token %}
 </body>
 <script src="{% static 'js/reservation.js' %}"></script>
 </html>

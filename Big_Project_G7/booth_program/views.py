@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Program
+from .models import Program, BoothProgramReservation, ReservationTime
 from .forms import ProgramForm
 from django.contrib import messages
 from exhibition.models import Booth_Info
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required
 def program_open(request):
@@ -85,3 +86,26 @@ def check_program(request, company_name):
         booth = get_object_or_404(Booth_Info, company_name=company_name)
         return JsonResponse({'exists': True, 'booth_id': booth.booth_id})
     return JsonResponse({'exists': False})
+
+@csrf_exempt
+def submit_reservation(request):
+    if request.method == 'POST':
+        user_name = request.POST.get('user_name')
+        program_name = request.POST.get('program_name')
+        num_of_people = int(request.POST.get('num_of_people'))
+        reserved_time = request.POST.get('reserved_time')
+
+        reservation = BoothProgramReservation.objects.create(
+            user_name=user_name,
+            program_name=program_name,
+            num_of_people=num_of_people
+        )
+
+        ReservationTime.objects.create(
+            reservation_id=reservation.id,
+            reserved_time=reserved_time
+        )
+
+        return JsonResponse({'status': 'success', 'message': 'Reservation completed successfully'})
+
+    return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
