@@ -45,14 +45,14 @@ body {
 .header__button--menu {
     width: 40px;
     height: 44px;
-    background-image: url("../icons/menu_icon.png");
+    background-image: url("/static/icons/menu_icon.png");
     margin: 10px;
 }
 
 .header__button--menu-black {
     width: 40px;
     height: 44px;
-    background-image: url("../icons/menu_icon_black.png");
+    background-image: url("/static/icons/menu_icon_black.png");
     margin: 10px;
     margin-top: 17px;
 }
