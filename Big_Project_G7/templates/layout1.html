@@ -1,3 +1,4 @@
+{% comment %} layout1.html {% endcomment %}
 <!DOCTYPE html>
 {% load static %}
 <html>
@@ -52,9 +53,9 @@
                             <li class="sidebar__menu--list"><a href="{% url 'accounts:update' %}" class="sidebar__menu--item"> 회원 정보 수정 </a></li>
                             <li class="sidebar__menu--list"><a href="{% url 'exhibition:update' %}" class="sidebar__menu--item"> 부스 정보 수정 </a></li>
                             {% if not user.programs.exists %}
-                                <li class="sidebar__menu--list"><a href="{% url 'program_open' %}" class="sidebar__menu--item"> 프로그램 생성 </a></li>
+                                <li class="sidebar__menu--list"><a href="{% url 'booth_program:program_open' %}" class="sidebar__menu--item"> 프로그램 생성 </a></li>
                             {% else %}
-                                <li class="sidebar__menu--list"><a href="{% url 'program_manage' %}" class="sidebar__menu--item"> 프로그램 관리 </a></li>
+                                <li class="sidebar__menu--list"><a href="{% url 'booth_program:program_manage' %}" class="sidebar__menu--item"> 프로그램 관리 </a></li>
                             {% endif %}
                             <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 부스 예약 현황 </a></li>
                             <li class="sidebar__menu--list"><a class="sidebar__menu--item" id="btn4"> FAQ </a></li>
@@ -106,10 +107,10 @@
         </div>
         {% endfor %}
     </div>
-    <div class="modal" id="myModal" >
+    <div class="modal" id="myModal">
         <div class="modal-content">
             <span class="close" id="close-button">&times;</span>
-            <img id="modalImage" src="" alt="Modal Image" style="width:300px">    
+            <img id="modalImage" src="" alt="Modal Image" style="width:300px">
             <p id="modalText"></p>
             {% if not user.is_authenticated %}
             <div id="r-btn">
@@ -119,7 +120,7 @@
             {% else %}
             <div id="r-btn">
                 <a href="#" class="bookmark" id="bookmark-btn"> </a><br>
-                <a class="button" id="reservation" data-reservation-url="{% url 'reservation' 'placeholder_booth_id' %}"><span>예약</span></a>
+                <a class="button" id="reservation"><span>예약</span></a>
             </div>
             {% endif %}
         </div>
@@ -137,5 +138,3 @@
     <script src="{% static 'js/uiSidebar.js' %}"></script>
 </body>
 </html>
-
-

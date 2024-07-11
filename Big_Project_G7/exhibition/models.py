@@ -1,3 +1,4 @@
+# exhibition/models.py
 from django.db import models
 
 # 전시회 부스 데이터 db.sqlite3

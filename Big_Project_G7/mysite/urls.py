@@ -27,8 +27,13 @@ urlpatterns = [
     # path('change_permission/', views.change_permission, name='change_permission'),
     path('program_open/', views.program_open, name='program_open'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('booth_program/', include('booth_program.urls')),
-    # path('exhibition/', include('exhibition.urls')),
+    
+    # original
+    # path('booth_program/', include('booth_program.urls')),
+    
+    # added
+    path('booth_program/', include(('booth_program.urls', 'booth_program'), namespace='booth_program')),
+    
     path('exhibition/', include(('exhibition.urls', 'exhibition'), namespace='exhibition')),
     path('notice/', include('notice.urls')),
     path('FAQ/', views.FAQlist, name='faq_page'),
