@@ -113,49 +113,4 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
-     // Add click event listener for btn1 to navigate to layout.html 
-     var btn1 = document.getElementById('btn1');
-     var btn2 = document.getElementById('btn2');
-     var btn3 = document.getElementById('btn3');
-     var btn4 = document.getElementById('btn4');
-     var btn5 = document.getElementById('btn5');
-     var editProfileBtn = document.getElementById('edit_profile');
-     var editBoothBtn = document.getElementById('edit_booth');
-     
-     if (btn1) {
-         btn1.addEventListener('click', function() {
-             window.location.href = "/exhibition/list/";
-         });
-     }
-     if (btn2) {
-         btn2.addEventListener('click', function() {
-             window.location.href = "/notice/";
-         });
-     }
-     if (btn3) {
-         btn3.addEventListener('click', function() {
-             window.location.href = "/layout3/";
-         });
-     }
-     if (btn4) {
-         btn4.addEventListener('click', function() {
-             window.location.href = "/FAQ/";
-         });
-     }
-     if (btn5) {
-        btn5.addEventListener('click', function() {
-            window.location.href = "/exhibition/create_exhibition/";
-        });
-    }
-     if (editProfileBtn) {
-         editProfileBtn.addEventListener('click', function() {
-             window.location.href = "/edit_profile/";
-         });
-     }
-     if (editBoothBtn) {
-         editBoothBtn.addEventListener('click', function() {
-             window.location.href = "/edit_booth/";
-         });
-     }
 });

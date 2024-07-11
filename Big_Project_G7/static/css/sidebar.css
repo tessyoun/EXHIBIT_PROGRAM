@@ -31,7 +31,7 @@
     position: fixed;
     top: 0;
     left: 0; 
-    width: 72%; 
+    width: 300px; 
     height: 100%;
     background: white;
     z-index: 1020;
@@ -65,6 +65,8 @@
 }
 
 .sidebar__header__login--wrap {
+    display: flex;
+    align-items: center;
     position: relative;
     padding: 14px 18px 22px;
 }
@@ -98,6 +100,7 @@
     font-size: 17px;
     color: black;
     font-weight: bold;
+    margin: 0;
 }
 
 .sidebar__login__user--wrap:hover .sidebar__login--btn {
@@ -129,7 +132,7 @@
 }
 
 .user-name {
-    font-size: 16px;  /* Adjust font size if necessary */
+    font-size: 17px;  
 }
 
 .logout-form {
@@ -148,23 +151,67 @@
     cursor: pointer;
 }
 
+/** 사이드바 수정 **/
+
+.sidebar__menu--wrap {
+    margin-top: 20px;
+
+}
+
+.accordion-button {
+    padding-left: 25px;
+    font-size: 17px;
+    border: none;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: rgb(1, 209, 213, 0.3);
+    color: #339a9b;
+}
+
+.accordion-button::after {
+    display: none;
+}
+
+.accordion-item {
+    border-bottom: none;
+}
+
+.accordion-button:not(.collapsed) {
+    box-shadow: none;
+}
+
+.no-login-info {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #a1a1a1;
+    width: 60%;
+}
+
 .sidebar__menu--list--wrap {
     list-style-type: none;
-    padding-left: 20px;
-    padding-top: 20px;
+    padding-left: 0;
 }
 
 .sidebar__menu--list {
-    margin-bottom: 25px;
+    padding: 5px;
+    padding-left: 20px;
 }
 
 .sidebar__menu--item {
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     text-decoration: none;
     color: black;
 }
 
 .sidebar__menu--item:hover {
-    color: gray; 
+    color:#339a9b;
 }
