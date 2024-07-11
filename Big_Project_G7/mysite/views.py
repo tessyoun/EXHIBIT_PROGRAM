@@ -97,8 +97,8 @@ def layout1(request):
 def layout2(request):
     return render(request, 'layout2.html')
 
-def layout3(request):
-    return render(request, 'layout3.html')
+def aivexhall(request):
+    return render(request, 'aivexhall.html')
 
 def layout4(request):
     return render(request, 'layout4.html')
