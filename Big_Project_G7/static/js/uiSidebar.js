@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
-        var observer = new MutationObserver(function(mutationsList, observer) {
-            var menuButton = document.querySelector('.header__button--menu');
-            var sidebarBackdrop = document.querySelector('.sidebar__backdrop');
-            var sidebarWrap = document.querySelector('.sidebar--wrap');
-            var homeButton = document.querySelector('.sidebar__menu--home');
-
-            console.log('Menu Button:', menuButton);
-console.log('Sidebar Backdrop:', sidebarBackdrop);
-console.log('Sidebar Wrap:', sidebarWrap);
-console.log('Home Button:', homeButton);
+    var menuButton = document.querySelector('.header__button--menu');
+    var sidebarBackdrop = document.querySelector('.sidebar__backdrop');
+    var sidebarWrap = document.querySelector('.sidebar--wrap');
+    var homeButton = document.querySelector('.sidebar__menu--home');   
+    
+    var accordionItems = document.querySelectorAll('.accordion-item');
+    
+    accordionItems.forEach(function(item) {
+        item.style.display = 'block'; // 'block' 으로 변경하여 보이게 설정
+    });
 
     if (menuButton && sidebarBackdrop && sidebarWrap && homeButton) {
         menuButton.addEventListener('click', function() {
@@ -53,6 +53,4 @@ console.log('Home Button:', homeButton);
     // } else {
     //     console.error('Personal bookmarks button not found.');
     // }
-});
-observer.observe(document.body, { childList: true, subtree: true });
 });
