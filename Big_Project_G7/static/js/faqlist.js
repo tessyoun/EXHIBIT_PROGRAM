@@ -1,7 +1,7 @@
 let currentCustomer = '개인';
 let currentCategory = null;
 
-const faqItems = document.querySelectorAll('.accordion-item');
+const faqItems = document.querySelectorAll('#accordionExample .accordion-item');
 const categoryNav = document.getElementById('categoryNav');
 
 const categories = {
