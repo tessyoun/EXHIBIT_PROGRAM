@@ -24,14 +24,15 @@ AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate
 booth_info = Booth_Info.objects.all()
 
 # 전시회 개최시 권한 바꿈(active>staff)
-@login_required
-def change_perm(request):
-    if request.method == 'POST':
-        user = request.user
-        user.is_staff = True
-        user.save()
-        request.session['data'] = {}
-        return redirect('exhibition:create_exhibition')
+# @login_required
+# def change_perm(request):
+#     if request.method == 'POST':
+#         user = request.user
+#         user.is_staff = True
+#         user.save()
+#         request.session['data'] = {}
+#         return redirect('exhibition:create_exhibition')
+    
     
 # 전시회 객체 생성
 @login_required
@@ -43,23 +44,27 @@ def create_exhibition(request):
             return render(request, 'layout2.html', {'image_url': images})
         else:
             return response
-        
+
     if request.method == 'POST':
-        if request.session['data']:
-           return render_image(request.session['data'])
-        else:
-            form = ExhibitionForm(request.POST)
-            if form.is_valid():
-                exhibition = form.save(commit=False)
-                exhibition.host_id = request.user.profile.name  # 로그인한 사용자의 아이디를 설정
-                exhibition.save()
-                request.session['data'] = create_json(form)
-                return render_image(request.session['data'])
+        if request.user.is_staff:
+            if request.session['data']:
+               return render_image(request.session['data'])
             else:
-                print(form.errors) # 폼에러 확인
+                form = ExhibitionForm(request.POST)
+                if form.is_valid():
+                    exhibition = form.save(commit=False)
+                    exhibition.host_id = request.user.profile.name  # 로그인한 사용자의 아이디를 설정
+                    exhibition.save()
+                    request.session['data'] = {}
+                    request.session['data'] = create_json(form)
+                    return render_image(request.session['data'])
+                else:
+                    print(form.errors) # 폼에러 확인
+        else:
+            return render(request, 'layout2.html', {'error':True})
     else:
         form = ExhibitionForm()
-    return render(request, 'layout2.html', {'form': form})
+    return render(request, 'layout2.html', {'form': form, 'error':False})
 
 # get generated Image from AI Server
 def get_image_from_server(data:json):
