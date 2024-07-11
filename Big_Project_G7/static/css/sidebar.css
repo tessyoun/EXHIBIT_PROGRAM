@@ -31,7 +31,7 @@
     position: fixed;
     top: 0;
     left: 0; 
-    width: 300px; 
+    width: 260px; 
     height: 100%;
     background: white;
     z-index: 1020;
@@ -68,7 +68,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    padding: 14px 18px 22px;
+    padding: 28px 20px 28px;
 }
 
 .sidebar__login__profile {
@@ -85,8 +85,6 @@
 }
 
 .sidebar__login__info {
-    display: flex;
-    flex-direction: column;
     margin-top: 5px;
 }
 
@@ -109,46 +107,43 @@
 
 
 .user-name {
-    margin-bottom: 5px;
-    margin-top: 5px;
-    
+    margin: 0;
+    font-size: 18px;  
+    font-weight: 600;
     /* 닉네임이 너무 길면 ...으로 생략 */
-    max-width: 151px;
+    max-width: 140px;
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis; 
 }
 
-.user-name span {
-    font-size: 17px;
-}
-
 .user-type {
     font-size: 14px;  
+    font-weight: 300;
     color: #989898;     
-    display: block;   
-    margin-top: 0px;
-    margin-bottom: 1px;
-}
-
-.user-name {
-    font-size: 17px;  
+    display: block;  
+    margin: 0; 
 }
 
 .logout-form {
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 1em;
+    padding-left: 25px;
+    padding-bottom: 10px;
+    padding-top: 10px;
     box-sizing: border-box;
+    background-color: #fafafa;
+    border-top: 1px solid #ededed;
 }
 
 .logout-button {
     background: none;
     border: none;
-    color: inherit;
+    color: #989898;
     padding: 0;
     cursor: pointer;
+    font-size: 14px;
 }
 
 /** 사이드바 수정 **/
@@ -158,19 +153,32 @@
 
 }
 
+.accordion-header {
+    margin-left: 6px;
+    margin-right: 6px;
+    border-radius: 10px;
+}
+
 .accordion-button {
-    padding-left: 25px;
     font-size: 17px;
     border: none;
+    transition: background-color 0.3s ease;
+    padding: 13px 19px 13px 19px;
+}
+
+.accordion-button.for_sidebar {
+    border-radius: 20px !important;
 }
 
 .accordion-button:focus {
     box-shadow: none;
 }
 
-.accordion-button:not(.collapsed) {
+.accordion-button.for_sidebar:not(.collapsed) {
     background-color: rgb(1, 209, 213, 0.3);
     color: #339a9b;
+    box-shadow: none;
+    border-radius: 20px !important;
 }
 
 .accordion-button::after {
@@ -214,4 +222,14 @@
 
 .sidebar__menu--item:hover {
     color:#339a9b;
+}
+
+
+
+/* 미디어 쿼리 */
+@media (min-width: 576px) { 
+    
+    .sidebar--wrap {
+        width: 320px;
+    }
 }

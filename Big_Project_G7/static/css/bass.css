@@ -266,10 +266,11 @@ body {
     position: fixed;
     right: 20px;
     bottom: 80px; 
-    width: 90%;
-    max-width: 500px;
-    height: 70%;
-    max-height:700px;
+    width: 25%;
+    min-width: 370px;
+    height: 75%;
+    min-height: 600px;
+    max-height:750px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 20px;
@@ -280,6 +281,11 @@ body {
 #chatbot__title {
     display: flex;
     align-items: center;
+}
+
+#chatbot__title h4 {
+    margin: 0;
+    font-size: 21px;
 }
 
 .chatbot__header__profile {
@@ -298,12 +304,11 @@ body {
 }
 
 #chatbot__body {
-    height: 50%;
+    height: 55%;
     width: 100%;
     overflow-y: auto;
     padding: 0px;
     margin-bottom: 5px;
-    scrollbar-width: thin;
 }
 
 #chatbot__body::-webkit-scrollbar {
@@ -341,6 +346,7 @@ body {
 #chatbot--footer {
     /* border-top: 1px solid #ccc; */
     padding-top: 5px;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -352,11 +358,12 @@ body {
     border: none; 
     border-radius: 15px; 
     outline: none;
-    width: 100%;
+    width: 97%;
     background-color: #f0f0f0; 
     z-index: 200;
     margin-bottom: 10px;
-    max-height: 50px;
+    margin-top: 7px;
+    height: 44px;
 }
 
 #message--input {
@@ -367,16 +374,18 @@ body {
     border: none;
     border-radius: 10px; 
     outline: none;
-    padding: 5px;
     resize: none;
     display: flex;
     align-items: center;
-    margin-left: 5px;
+    margin-left: 10px;
     width: 80%;
+    height: 30px;
+    padding: 0;
 }
 
 #message--input::placeholder {
     font-size: 16px;
+    line-height: 30px;
 }
 
 #send-button {
@@ -478,4 +487,31 @@ body {
     font-size: 18px;
     text-decoration: none;
     padding: 5px 10px;
+}
+
+
+
+/* 미디어쿼리 */
+
+/* 태블릿 */
+@media (min-width: 768px){
+    .swiper--container {
+        height: 500px;
+    }
+
+    .poster__image {
+        width: 250px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .main__menu--item {
+        width: 45px;
+        height: 45px;
+    }
+
+    .main__menu--item span {
+        font-size: 15px;
+        margin-top: 80px;
+    }
 }
