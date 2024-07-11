@@ -6,13 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
-
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
 
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />      
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
@@ -21,15 +15,42 @@
     <title>자주 묻는 질문</title>
 </head>
 <body> 
-    <!-- 헤더 부분 -->
-    <div class="header-sub">
-        <button class= "header__button--menu header__button--menu-black icon" style="cursor:pointer; opacity:1;"></button>
-        <div class="header__title--wrap">
-            <a href="{% url 'index' %}" ><button class ="header__title-black icon" style="cursor:pointer;"></button></a>
-        </div>
-        <button class= "for_loc_center icon"></button>
-    </div>
-    <!-- end 헤더 부분 -->
+    <!-- 헤더/사이드바 -->
+    <div data-include-path="{% static 'base/header.html' %}"></div>
+    <div data-include-path="{% static 'base/sidebar.html' %}"></div>
+    <!-- end 헤더/사이드바 -->
+    <!-- html header, sidebar 상속 -->
+    <script>
+        window.addEventListener('load', function() {
+            var allElements = document.getElementsByTagName('*');
+            Array.prototype.forEach.call(allElements, function(el) {
+                var includePath = el.getAttribute('data-include-path');
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // 서버에서 받아온 HTML을 해당 요소의 innerHTML로 설정
+                        document.getElementById('includedContent').innerHTML = this.responseText;
+                        
+                        // 추가된 HTML 안의 버튼에 이벤트 리스너 추가
+                        var includedElement = document.querySelector('[data-include-path="' + includePath + '"]');
+                        if (includedElement) {
+                            var buttons = includedElement.querySelectorAll('.included-button');
+                            buttons.forEach(function(button) {
+                                button.addEventListener('click', function() {
+                                    alert('Button clicked in included content!');
+                                    // 클릭된 버튼에 대한 동작 추가
+                                });
+                            });
+                        }
+                        xhttp.open('GET', includePath, true);
+                    xhttp.send();
+                    }
+                };
+                    
+                });
+            });
+    </script>
 
     <!-- FAQ Section -->
     <div id="faq-section">
@@ -50,25 +71,7 @@
                 </li>
             </ul>
 
-            <div id="categoryNav">
-              
-            </div>
-            
-            
-
-            {% comment %} <ul id="faqList">
-                {% for faq in faqs %}
-                <li class="faq-item" data-customer="{{ faq.qacust }}" data-category="{{ faq.qacat }}">
-                    <div>
-                        <strong> {{ faq.qacat }} </strong> 
-                    </div>
-                    <div class="question" onclick="toggleAnswer(this)">
-                        <div class="question-summary">{{ faq.question }}?</div>
-                        <div class="answer" style="display: none;">{{ faq.answer }}</div>
-                    </div>
-                </li>
-                {% endfor %}
-            </ul> {% endcomment %}
+            <div id="categoryNav"></div>
 
             <div class="accordion" id="accordionExample">
                 {% for faq in faqs %}
@@ -92,230 +95,15 @@
     <!-- End FAQ Section -->
 
 
-    <!-- 사이드바 -->
-    <div class="sidebar" data-role="side-bar">
-        <div class="sidebar__backdrop"></div>
-        <div class="sidebar--wrap">
-            <div class="sidebar__header">
-                <div class="sidebar__header__menu--wrap">
-                    <button class="sidebar__menu--home icon"></button>
-                </div>
-
-                <div class="sidebar__header__login--wrap">
-                    <div class="sidebar__login__profile"></div>
-
-                    <div class="sidebar__login__info">
-                        {% if not user.is_authenticated %}     
-                            <a href="{% url 'accounts:login' %}" class="sidebar__login__user--wrap">
-                                <p class="sidebar__login--btn"> 로그인을 해주세요. </p>
-                            </a>
-                        {% else %}
-                            <p class="user-type">{{ user.profile.user_type }}</p>
-                            <p class="user-name">{{user}}님!</p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
 
 
-
-            <!-- 새로운 사이드바 메뉴 accordion accordion-flush부터 권한별 메뉴-->
-            <!-- url 매핑은 다 안됐음 -->
-            <div class="sidebar__menu--wrap">
-                {% if user.is_authenticated %} 
-                    {% if user.is_superuser %}
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                마이페이지
-                                </button>
-                            </h2>
-                            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <ul class="sidebar__menu--list--wrap">
-                                    <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                전시회 관리
-                                </button>
-                            </h2>
-                            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <ul class="sidebar__menu--list--wrap">
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 전시회 정보 수정 </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 부스 목록 </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 배치도 생성 </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                AIVEX
-                                </button>
-                            </h2>
-                            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <ul class="sidebar__menu--list--wrap">
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 공지사항 </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> About </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> Hall info </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> FAQ </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% elif user.profile.user_type == '기업회원' %} 
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                        <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                            마이페이지
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <ul class="sidebar__menu--list--wrap">
-                                <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
-                                <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update' %}" class = "sidebar__menu--item"> 부스 정보 수정 </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                            프로그램
-                            </button>
-                        </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <ul class="sidebar__menu--list--wrap">
-                                    <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 예약 현황 </a></li>
-                                    <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 프로그램 생성/관리 </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                            AIVEX
-                            </button>
-                        </h2>
-                        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <ul class="sidebar__menu--list--wrap">
-                                    <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 공지사항 </a></li>
-                                    <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> About </a></li>
-                                    <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> Hall info </a></li>
-                                    <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> FAQ </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    {% else %}
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                마이페이지
-                                </button>
-                            </h2>
-                            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <ul class="sidebar__menu--list--wrap">
-                                    <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
-                                    <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 내 예약 확인 </a></li>
-                                    <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 북마크 확인 </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                표
-                                </button>
-                            </h2>
-                            <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <ul class="sidebar__menu--list--wrap">
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 티켓 구매 </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 내 티켓 확인 </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                AIVEX
-                                </button>
-                            </h2>
-                            <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <ul class="sidebar__menu--list--wrap">
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 공지사항 </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> About </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> Hall info </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> FAQ </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                {% else %}
-                    <div class="accordion accordion-flush" id="accordionFlushExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                AIVEX
-                                </button>
-                            </h2>
-                            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    <ul class="sidebar__menu--list--wrap">
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 공지사항 </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> About </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> Hall info </a></li>
-                                        <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> FAQ </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div><span class="no-login-info">로그인을 하시면<br>더 많은 서비스를 <br>이용하실 수 있습니다.</span></div>
-                {% endif %}
-            </div>
-
-
-            {% if user.is_authenticated %}
-                <form class="logout-form" method="post" action="{% url 'accounts:logout' %}?next={{request.path}}">
-                    {% csrf_token %}
-                    <button type="submit" class="logout-button">로그아웃</button>
-                </form>
-            {% endif %}
-        </div>
-    </div>
-    <!-- end 사이드바 -->
 
 <script src="{% static 'js/faqlist.js' %}"></script> <!-- FAQ js -->
-<script src="{% static 'js/uiSidebar.js' %}"></script>  <!-- 사이드바 js -->
-<script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-      crossorigin="anonymous"
-    ></script>
+<script src="{% static 'js/uiSidebar.js' %}"></script> <!-- sidebar js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+    crossorigin="anonymous"></script>
+
+
 </body>
 </html>
