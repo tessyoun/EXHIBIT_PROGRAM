@@ -1,91 +1,17 @@
+{% extends "base_layout.html" %}
 {% comment %} layout1.html {% endcomment %}
-<!DOCTYPE html>
 {% load static %}
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />      
-    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />     
-    <link rel="stylesheet" href="{% static 'css/layout1.css' %}" />    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <title>Image with Clickable Rectangles</title>
-</head>
-<body> 
-    <!-- 헤더 부분 -->
-    <div class="header-sub">
-        <button class= "header__button--menu header__button--menu-black icon" style="cursor:pointer; opacity:1;"></button>
-        <div class="header__title--wrap">
-            <a href="{% url 'index' %}" ><button class ="header__title-black icon" style="cursor:pointer;"></button></a>
-        </div>
-        <button class= "for_loc_center icon"></button>
-    </div>
-    <!-- end 헤더 부분 -->
 
-    <!-- 사이드바 부분 -->
-    <div class="sidebar" data-role="side-bar">
-        <div class="sidebar__backdrop"></div>
-        <div class="sidebar--wrap">
-            <div class="sidebar__header">
-                <div class="sidebar__header__menu--wrap">
-                    <button class="sidebar__menu--home icon"></button>
-                </div>
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/layout1.css' %}" />   
+{% endblock %}
 
-                <div class="sidebar__header__login--wrap">
-                    <div class="sidebar__login__profile"></div>
+{% block title %} 
+    Image with Clickable Rectangles
+{% endblock %}
 
-                    <div class="sidebar__login__info">
-                        {% if not user.is_authenticated %}     
-                            <a href="{% url 'accounts:login' %}" class="sidebar__login__user--wrap">
-                                <p class="sidebar__login--btn"> 로그인을 해주세요. </p>
-                            </a>
-                        {% else %}
-                            <p class="user-type">{{ user.profile.user_type }}</p> 
-                            <p class="user-name"><span>{{user}}님!</span></p>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="sidebar__menu--wrap">
-                <ul class="sidebar__menu--list--wrap">
-                    {% if user.is_authenticated %}
-                        {% if user.profile.user_type == '기업회원' %}
-                            <li class="sidebar__menu--list"><a href="{% url 'accounts:update' %}" class="sidebar__menu--item"> 회원 정보 수정 </a></li>
-                            <li class="sidebar__menu--list"><a href="{% url 'exhibition:update' %}" class="sidebar__menu--item"> 부스 정보 수정 </a></li>
-                            {% if not user.programs.exists %}
-                                <li class="sidebar__menu--list"><a href="{% url 'booth_program:program_open' %}" class="sidebar__menu--item"> 프로그램 생성 </a></li>
-                            {% else %}
-                                <li class="sidebar__menu--list"><a href="{% url 'booth_program:program_manage' %}" class="sidebar__menu--item"> 프로그램 관리 </a></li>
-                            {% endif %}
-                            <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 부스 예약 현황 </a></li>
-                            <li class="sidebar__menu--list"><a class="sidebar__menu--item" id="btn4"> FAQ </a></li>
-                            {% if user.is_superuser %}
-                                <li class="sidebar__menu--list"><a href='/admin/' class="sidebar__menu--item">관리자 페이지</a></li>
-                            {% elif user.is_staff %}
-                                <li class="sidebar__menu--list"><a href='/exhibition/booth_list/' class="sidebar__menu--item">부스 목록</a></li>
-                            {% endif %}
-                        {% else %}
-                            <li class="sidebar__menu--list"><a href="{% url 'accounts:update' %}" class="sidebar__menu--item"> 회원 정보 수정 </a></li>
-                            <li class="sidebar__menu--list"><a href="{% url 'ticket:ticket_list' %}" class="sidebar__menu--item"> 내 티켓 확인 </a></li>
-                            <li class="sidebar__menu--list"><a class="sidebar__menu--item"> 내 예약 확인 </a></li>
-                            <li class="sidebar__menu--list"><a id="personal-bookmarks" class="sidebar__menu--item"> 북마크 </a></li>
-                        {% endif %}
-                    {% else %}
-                        <span> 로그인 후 서비스 이용 가능 </span>
-                    {% endif %}
-                </ul>
-            
-                {% if user.is_authenticated %}
-                <form class="logout-form" method="post" action="{% url 'accounts:logout' %}?next={{request.path}}">
-                    {% csrf_token %}
-                    <button type="submit" class="logout-button">로그아웃</button>
-                </form>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    <!-- end 사이드바 부분 -->
-
+<!-- main body code -->>
+{% block main_content %}
     <div id="booth-search">
         <div>
             <select id="category" name="category">
@@ -129,12 +55,13 @@
         <button class="bookmarkbtn" id="show-bookmarks">북마크 리스트</button>
         <button class="bookmarkbtn" id="reset-bookmarks">북마크 리셋</button>
     </div>
+    {% endblock %}
+
+{% block scripts %}
     <script>
         const imageBasePath = "{% static 'booth_thumbnail/1/' %}";
         const boothsJsonString = '{{ booths|escapejs }}';
         const booths = JSON.parse(boothsJsonString);
     </script>
     <script src="{% static 'js/booth.js' %}"></script>
-    <script src="{% static 'js/uiSidebar.js' %}"></script>
-</body>
-</html>
+{% endblock %}

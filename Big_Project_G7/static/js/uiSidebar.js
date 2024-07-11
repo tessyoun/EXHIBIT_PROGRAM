@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var sidebarBackdrop = document.querySelector('.sidebar__backdrop');
     var sidebarWrap = document.querySelector('.sidebar--wrap');  
     
-    var accordionItems = document.querySelectorAll('.accordion-item');
+    var accordionItems = document.querySelectorAll('.accordion-flush .accordion-item');
     
     accordionItems.forEach(function(item) {
         item.style.display = 'block'; // 'block' 으로 변경하여 보이게 설정

@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     if (btn3) {
         btn3.addEventListener('click', function() {
-            window.location.href = "/layout3/";
+            window.location.href = "/aivex/hall/";
         });
     }
     if (btn4) {

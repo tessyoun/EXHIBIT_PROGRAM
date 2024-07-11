@@ -1,23 +1,15 @@
-<!DOCTYPE html>
+{% extends "base_layout.html" %}
 {% load static %}
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1." />    
-    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />      
-    <link rel="stylesheet" href="{% static 'css/reserve_exhib.css' %}" />    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <title>AIVEX Ticket</title>
-</head>
-<body>
-    <!-- 헤더 부분 -->
-    <div class="header-sub">      
-        <a class="back-button" href="{% url 'index' %}" ><i class="fa-solid fa-arrow-left fa-xl" style="color: #ffffff;"> </i></a>
-        <div class="header__title--wrap">
-            <a href="{% url 'index' %}" ><button class ="header__title icon" style="cursor:pointer;"></button></a>
-        </div>
-    </div>
-    <!-- end 헤더 부분 -->
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
+{% endblock %}
+
+{% block title %}
+AIVEX Ticket
+{% endblock %}
+    
+{% block main_content %} 
 
     <div class="container">
         <img class= "poster__image" src="../static/icons/1기_전시포스터.jpg">  <!--db에서 읽어와 전시회 기수 ,정보 읽어옴-->
@@ -27,5 +19,4 @@
         </div>
         <button id="reserve_btn">예약하기</button>
     </div>
-</body>
-</html>
+{% endblock %}
