@@ -5,28 +5,36 @@ const faqItems = document.querySelectorAll('.accordion-item');
 const categoryNav = document.getElementById('categoryNav');
 
 const categories = {
-    '개인': ['관람', '예약', '주차', '기타'],
-    '기업': ['참가', '부스 설비', '주차', '기타']
+    '개인': ['전체', '관람', '예약', '주차', '기타'],
+    '기업': ['전체', '참가', '부스 설비', '주차', '기타']
 };
 
-function filterCustomer(customer) {
+function filterCustomer(customer, element) {
     currentCustomer = customer;
     currentCategory = null;
     updateCategoryNav();
-    showFAQs();
+    updateFAQs();
 
     var items = document.querySelectorAll('.first-tag-item a');
     items.forEach(function(item) {
         item.classList.remove('on');
     });
+
+    if (element) {
+        element.classList.add('on');
+    }
 }
 
-function filterCategory(category) {
-    currentCategory = category;
-    showFAQs();
+function filterCategory(category,element) {
+    currentCategory = category === '전체' ? null : category;
+    updateFAQs();
 
     const links = document.querySelectorAll('#categoryNav a');
     links.forEach(link => link.classList.remove('active'));
+
+    if (element) {
+        element.classList.add('active');
+    }
 }
 
 function updateCategoryNav() {
@@ -36,11 +44,16 @@ function updateCategoryNav() {
     categoryNav.innerHTML = catLinks;
 }
 
-function showFAQs() {
+function updateFAQs() {
+    const input = document.getElementById('searchInput').value.toUpperCase();
     faqItems.forEach(item => {
+        const questionButton = item.querySelector('.accordion-button');
+        const questionText = questionButton.innerText.toUpperCase();
         const customerMatch = item.getAttribute('data-customer') === currentCustomer;
         const categoryMatch = !currentCategory || item.getAttribute('data-category') === currentCategory;
-        if (customerMatch && categoryMatch) {
+        const searchMatch = questionText.indexOf(input) > -1;
+
+        if (customerMatch && categoryMatch && searchMatch) {
             item.style.display = 'block';
         } else {
             item.style.display = 'none';
@@ -49,17 +62,7 @@ function showFAQs() {
 }
 
 function searchFAQs() {
-    const input = document.getElementById('searchInput').value.toUpperCase();
-    faqItems.forEach(item => {
-        const question = item.querySelector('.question-summary').innerText.toUpperCase();
-        const customerMatch = item.getAttribute('data-customer') === currentCustomer;
-        const categoryMatch = !currentCategory || item.getAttribute('data-category') === currentCategory;
-        if (question.indexOf(input) > -1 && customerMatch && categoryMatch) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
+    updateFAQs();
 }
 
 
@@ -72,4 +75,7 @@ function toggleAnswer(element) {
     }
 }
 
-filterCustomer(currentCustomer);
+const defaultCustomerButton = document.querySelector('.first-tag-item a');
+if (defaultCustomerButton) {
+    filterCustomer(currentCustomer, defaultCustomerButton);
+}
