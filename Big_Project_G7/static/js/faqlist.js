@@ -9,7 +9,7 @@ const categories = {
     '기업': ['참가', '부스 설비', '주차', '기타']
 };
 
-function filterCustomer(customer, element) {
+function filterCustomer(customer) {
     currentCustomer = customer;
     currentCategory = null;
     updateCategoryNav();
@@ -19,8 +19,6 @@ function filterCustomer(customer, element) {
     items.forEach(function(item) {
         item.classList.remove('on');
     });
-
-    element.classList.add('on');
 }
 
 function filterCategory(category) {
@@ -29,12 +27,9 @@ function filterCategory(category) {
 
     const links = document.querySelectorAll('#categoryNav a');
     links.forEach(link => link.classList.remove('active'));
-
-    element.classList.add('active');
 }
 
 function updateCategoryNav() {
-    const categoryNav = document.getElementById('categoryNav');
     categoryNav.innerHTML = '';
     categoryNav.style.display = 'block';
     const catLinks = categories[currentCustomer].map(cat => `<a href="javascript:void(0);" onclick="filterCategory('${cat}', this)">${cat}</a>`).join(' | ');
@@ -42,7 +37,6 @@ function updateCategoryNav() {
 }
 
 function showFAQs() {
-    const faqItems = document.querySelectorAll('.accordian-item');
     faqItems.forEach(item => {
         const customerMatch = item.getAttribute('data-customer') === currentCustomer;
         const categoryMatch = !currentCategory || item.getAttribute('data-category') === currentCategory;
@@ -58,13 +52,16 @@ function searchFAQs() {
     const input = document.getElementById('searchInput').value.toUpperCase();
     faqItems.forEach(item => {
         const question = item.querySelector('.question-summary').innerText.toUpperCase();
-        if (question.indexOf(input) > -1 && item.getAttribute('data-customer') === currentCustomer && (!currentCategory || item.getAttribute('data-category') === currentCategory)) {
+        const customerMatch = item.getAttribute('data-customer') === currentCustomer;
+        const categoryMatch = !currentCategory || item.getAttribute('data-category') === currentCategory;
+        if (question.indexOf(input) > -1 && customerMatch && categoryMatch) {
             item.style.display = 'block';
         } else {
             item.style.display = 'none';
         }
     });
 }
+
 
 function toggleAnswer(element) {
     const answerDiv = element.querySelector('.answer');
