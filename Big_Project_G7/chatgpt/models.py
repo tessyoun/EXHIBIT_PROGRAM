@@ -49,3 +49,32 @@ class Booth_Info(models.Model):
     class Meta:
         managed = False
         db_table = 'Booth_Info'
+        
+class Exhibition_info(models.Model):
+    HALL_TYPE_CHOICES = (
+        ('', '선택'),
+        ('1', 'A홀'),
+        ('2', 'B홀'),
+        ('3', 'C홀'),
+        ('4', 'D홀'),
+    )
+    exhibition_id = models.AutoField(primary_key=True, db_column='ExhibitionID')
+    exhibition_name = models.CharField(max_length=100, db_column='ExhibitionName')
+    exhibition_description = models.CharField(max_length=100, db_column='ExhibitionDescription')
+    start_date = models.DateField(db_column='ExhibitionRegistrationDate')
+    host_id = models.IntegerField(db_column='OrganizationID', unique=True)
+    hall_id = models.CharField(choices=HALL_TYPE_CHOICES, default='',db_column='Hall_ID', max_length=50)
+    end_date = models.DateField(db_column='ExhibitionClosedDate')
+    
+    class Meta:
+        managed = False
+        db_table = 'Exhibition_info'
+        
+class DjangoSession(models.Model):
+    session_key = models.CharField(primary_key=True, max_length=40)
+    session_data = models.TextField()
+    expire_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_session'
