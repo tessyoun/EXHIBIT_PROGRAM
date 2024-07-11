@@ -33,7 +33,7 @@
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <button class="accordion-button for_sidebar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                             마이페이지
                             </button>
                         </h2>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <button class="accordion-button for_sidebar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                             전시회 관리
                             </button>
                         </h2>
@@ -66,7 +66,7 @@
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <button class="accordion-button for_sidebar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                         마이페이지
                         </button>
                     </h2>
@@ -74,22 +74,22 @@
                         <div class="accordion-body">
                             <ul class="sidebar__menu--list--wrap">
                             <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
-                            <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update' %}" class = "sidebar__menu--item"> 부스 정보 수정 </a></li>
+                            <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update_booths' %}" class = "sidebar__menu--item"> 부스 정보 수정 </a></li>
                             </ul>
                         </div>
                     </div>
                     </div>
                     <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        <button class="accordion-button for_sidebar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                         프로그램
                         </button>
                     </h2>
                     <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                             <ul class="sidebar__menu--list--wrap">
-                                <li class = "sidebar__menu--list"><a href="{% url 'booth_program:check_program' %}"> 예약 현황 </a></li>
-                                <li class = "sidebar__menu--list"><a href="{% url 'booth_program:program_manage' %}" class = "sidebar__menu--item"> 프로그램 생성/관리 </a></li>
+                                <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 예약 현황 </a></li>
+                                <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 프로그램 생성/관리 </a></li>
                             </ul>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <button class="accordion-button for_sidebar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                             마이페이지
                             </button>
                         </h2>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <button class="accordion-button for_sidebar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
                             표
                             </button>
                         </h2>
@@ -135,7 +135,7 @@
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            <button class="accordion-button for_sidebar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                             AIVEX
                             </button>
                         </h2>
