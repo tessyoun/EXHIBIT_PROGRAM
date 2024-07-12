@@ -17,6 +17,9 @@ urlpatterns = [
     path('ticket/', include('ticket.urls')),
     path('exhibition/', include(('exhibition.urls', 'exhibition'), namespace='exhibition')),
 
+    #sidebar book mark
+    path('get_booth_info/', views.get_booth_info, name='get_booth_info'),
+
     # 1기 전시회
     path('layout1/', views.layout1, name='layout1'),
 
