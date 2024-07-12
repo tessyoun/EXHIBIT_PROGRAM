@@ -4,7 +4,7 @@ from .models import *
 class ExhibitionForm(forms.ModelForm):
     class Meta:
         model = Exhibition
-        fields = ['exhibition_name', 'hall', 'start_date', 'end_date', 'number_of_booths']
+        fields = ['exhibition_name', 'hall', 'start_date', 'end_date', 'number_of_booths', 'layout']
         labels = {
             'exhibition_name': '전시회명',
             'hall': '전시장',
@@ -15,7 +15,9 @@ class ExhibitionForm(forms.ModelForm):
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'}),
+            'layout': forms.HiddenInput(),
         }
+
     def save(self, commit=True):
         exhibition = super().save(commit=False)
         if commit:

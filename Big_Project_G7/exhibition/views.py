@@ -33,7 +33,16 @@ booth_info = Booth_Info.objects.all()
 #         request.session['data'] = {}
 #         return redirect('exhibition:create_exhibition')
     
-    
+def save_layout(request):
+    if request.method == 'POST':
+        form = ExhibitionForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = ExhibitionForm()
+    return render(request, 'layout2.html', {'form':form})
+
 # 전시회 객체 생성
 @login_required
 def create_exhibition(request):
