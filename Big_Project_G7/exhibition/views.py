@@ -47,7 +47,7 @@ def save_layout(request):
 # 이미지 파일 저장 후 경로 반환
 def save_image_to_fileserver(img_data, img_name):
     image = base64.b64decode(img_data)
-    img_path = os.path.join(MEDIA_ROOT, img_name+'png')
+    img_path = os.path.join(MEDIA_ROOT, img_name+'.png')
 
     with open(img_path, 'wb') as f:
         f.write(image)
@@ -74,6 +74,7 @@ def create_exhibition(request):
                 if form.is_valid():
                     exhibition = form.save(commit=False)
                     exhibition.host_id = request.user.profile.name  # 로그인한 사용자의 아이디를 설정
+                    exhibition.layout = '/'
                     exhibition.save()
                     request.session['data'] = create_json(form)
                     return render_image(request.session['data'])

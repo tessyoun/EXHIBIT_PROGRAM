@@ -28,11 +28,11 @@ urlpatterns = [
     path('program_open/', views.program_open, name='program_open'),
 
     
-    #aivex/info
+    #AIVEX/info
     path('notice/', include('notice.urls')),
     path('FAQ/', views.FAQlist, name='faq_page'),
-    path('aivex/about/', views.about, name='aivexabout'), # aivex/about/
-    path('aivex/hall/', views.aivexhall, name='aivexhall'), #former aivexhall, 홀 정보
+    path('AIVEX/about/', views.about, name='aivexabout'), # AIVEX/about/
+    path('AIVEX/hall/', views.aivexhall, name='aivexhall'), #former aivexhall, 홀 정보
 
     
     # etc
