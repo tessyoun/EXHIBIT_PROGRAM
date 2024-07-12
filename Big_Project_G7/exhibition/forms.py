@@ -26,4 +26,4 @@ class ExhibitionForm(forms.ModelForm):
 class BoothForm(forms.ModelForm):
     class Meta:
         model = Booth_Info
-        fields = ['booth_id','booth_name','company_id','company_name', 'exhibition_id', 'booth_category', 'background', 'service']
+        fields = ['booth_name','booth_category', 'background', 'service']

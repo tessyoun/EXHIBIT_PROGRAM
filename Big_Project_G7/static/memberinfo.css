@@ -1,48 +1,55 @@
 .container-update {
-    display: flex;
-    top:100px;
-    position:relative;
-    text-align: center;
-    padding: 20px;
-    margin-left:10%;
-    margin-right:10%;
+    width: 80vw;
+    padding: 0;
+    margin-top: 100px;
 }
 
-form {
+.form-update {
     display: flex;
     flex-direction: column;
     margin-top:10%;
 }
 
-form button.save {
-    padding: 10px 20px;
-    background-color: #01D1D5;
+.form-update  div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 20px;
+}
+
+
+.save {
+    display: block;
+    padding: 10px;
+    background-color: #38B8B2;
     color: #fff;
     border: none;
+    border-radius: 15px;
     cursor: pointer;
-    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 form button.save:hover {
     background-color: #008589;
 }
 
-.container-update form p {
-    margin-bottom: 10px;
-}
-
-.container-update form label {
-    display: block;
-    text-align: left;
-    margin-bottom: 5px;
-}
-
-.container-update form input[type="text"]{
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.form-update label {
+    font-weight: bold;
     font-size: 14px;
+}
+
+.form-update input[type="text"],
+.form-update select {
+    box-sizing: border-box;
+    padding: 5px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    height: 35px; 
 }
 
 .container-update form textarea {
