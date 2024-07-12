@@ -22,26 +22,18 @@ AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate
 
 # def getExhidb
 booth_info = Booth_Info.objects.all()
-
-# 전시회 개최시 권한 바꿈(active>staff)
-# @login_required
-# def change_perm(request):
-#     if request.method == 'POST':
-#         user = request.user
-#         user.is_staff = True
-#         user.save()
-#         request.session['data'] = {}
-#         return redirect('exhibition:create_exhibition')
     
-def save_layout(request):
+def save_image(request):
     if request.method == 'POST':
-        form = ExhibitionForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
+        image_data = request.POST.get('image_data')
+        try:
+            new_image = ExhibitionForm(layout=image_data)
+            new_image.save()
+            return JsonResponse({'message': '이미지가 성공적으로 저장되었습니다.'})
+        except Exception as e:
+            return JsonResponse({'message': '이미지 저장 중 오류가 발생했습니다.', 'error': str(e)}, status=500)
     else:
-        form = ExhibitionForm()
-    return render(request, 'layout2.html', {'form':form})
+        return JsonResponse({'message': 'POST 요청이 아닙니다.'}, status=400)
 
 # 전시회 객체 생성
 @login_required
@@ -56,20 +48,27 @@ def create_exhibition(request):
 
     if request.method == 'POST':
         if request.user.is_staff:
+            print(0)
             if request.session['data']:
+               print(2)
                return render_image(request.session['data'])
             else:
+                print('01')
                 form = ExhibitionForm(request.POST)
                 if form.is_valid():
+                    print('02')
                     exhibition = form.save(commit=False)
                     exhibition.host_id = request.user.profile.name  # 로그인한 사용자의 아이디를 설정
                     exhibition.save()
+                    print(1)
                     request.session['data'] = {}
+                    print('11')
                     request.session['data'] = create_json(form)
                     return render_image(request.session['data'])
                 else:
                     print(form.errors) # 폼에러 확인
         else:
+            print(3)
             return render(request, 'layout2.html', {'error':True})
     else:
         form = ExhibitionForm()
