@@ -42,6 +42,9 @@ urlpatterns = [
     path('edit_booth/', views.edit_booth_view, name='edit_booth'), #template x
     path('layout5/', views.create_exhibition, name='layout5'), #template x
     
+    path('program_choice/', views.program_choice, name='program_choice'),
+    # path('program_manage/', views.program_manage, name='program_manage'),
+    # path('programs/', include('programs.urls')),
 ]
 
 from django.conf import settings

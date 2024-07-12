@@ -162,3 +162,9 @@ def FAQlist(request):
         'faqs': faqs,
     }
     return render(request, 'FAQ.html', context)
+
+def program_choice(request):
+    return render(request, 'program_choice.html')
+
+def program_manage(request):
+    return render(request, 'program_manage.html')
