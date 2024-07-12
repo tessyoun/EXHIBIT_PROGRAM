@@ -82,16 +82,21 @@
             function sendImageToServer(imageData) {
                 $.ajax({
                     type: 'POST',
-                    url: "/exhibition/save_image/",
+                    url: "{% url 'exhibition:save_layout' %}",
                     data: {
                         image_data: imageData,
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     success: function(response) {
-                        alert('이미지가 성공적으로 전송되었습니다.');
+                        if (response.img_path) {
+                            alert('이미지가 성공적으로 저장되었습니다.');
+                            window.location.href = "{% url 'index' %}";
+                        } else {
+                            alert('이미지 전송에 실패하였습니다.');
+                        }
                     },
-                    error: function(error) {
-                        alert('이미지 전송에 실패하였습니다.');
+                    error: function(xhr, status, error) {
+                        alert('AJAX 요청 실패: ' + error);
                     }
                 });
             }

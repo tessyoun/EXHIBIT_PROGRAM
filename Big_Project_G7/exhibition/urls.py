@@ -14,5 +14,5 @@ urlpatterns = [
     path('<int:pk>/delete/', views.delete, name='delete'),
     path('<int:pk>/edit/', views.edit, name='edit'),
     path('<int:pk>/update/', views.update, name='update'),
-    path('save_image/', views.save_image, name='save_image' ),
+    path('save_layout/', views.save_layout, name='save_layout'),
 ]

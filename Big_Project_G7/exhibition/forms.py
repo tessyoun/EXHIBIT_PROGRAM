@@ -15,8 +15,11 @@ class ExhibitionForm(forms.ModelForm):
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'}),
-            'layout': forms.HiddenInput(),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(ExhibitionForm, self).__init__(*args, **kwargs)
+        self.fields['layout'].widget = forms.HiddenInput()
 
     def save(self, commit=True):
         exhibition = super().save(commit=False)
