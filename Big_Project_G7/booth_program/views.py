@@ -1,12 +1,12 @@
+# booth_program/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Program, BoothProgramReservation, ReservationTime
-from .forms import ProgramForm
-from django.contrib import messages
-from exhibition.models import Booth_Info
+from .forms import ProgramForm, ReservationForm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .forms import ReservationForm
+from django.contrib import messages
+from exhibition.models import Booth_Info
 
 @login_required
 def program_open(request):
@@ -21,7 +21,7 @@ def program_open(request):
             company_name = request.user.profile.name
             selected_times = request.POST.getlist('selected_times')
             selected_times = sorted(set(selected_times))
-            
+
             program = Program.objects.create(
                 user=request.user,
                 name=name,
@@ -56,14 +56,15 @@ def program_manage(request):
                 program.selected_times = ",".join(new_selected_times)
                 
                 program.save()
-                return redirect('program_manage')
+                return redirect('booth_program:program_manage')
         elif 'delete' in request.POST:
             program.delete()
             return redirect('index')
     else:
         form = ProgramForm(instance=program)
     
-    return render(request, 'program_manage.html', {'form': form, 'program': program, 'time_slots': time_slots, 'selected_times': selected_times})
+    return render(request, 'booth_program/program_manage.html', {'form': form, 'program': program, 'time_slots': time_slots, 'selected_times': selected_times})
+
 
 @login_required
 def reserve_booth(request, booth_id):
@@ -113,7 +114,7 @@ def submit_reservation(request):
 def reservation_check(request):
     user_name = request.user.username
     reservations = BoothProgramReservation.objects.filter(user_name=user_name)
-    return render(request, 'reservation_check.html', {'reservations': reservations})
+    return render(request, 'booth_program/reservation_check.html', {'reservations': reservations})
 
 @login_required
 def delete_reservation(request, reservation_id):
@@ -136,3 +137,7 @@ def edit_reservation(request, reservation_id):
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
+
+@login_required
+def program_choice(request):
+    return render(request, 'program_choice.html')
