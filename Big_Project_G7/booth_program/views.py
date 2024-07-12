@@ -88,9 +88,10 @@ def check_program(request, company_name):
     return JsonResponse({'exists': False})
 
 @csrf_exempt
+@login_required
 def submit_reservation(request):
     if request.method == 'POST':
-        user_name = request.POST.get('user_name')
+        user_name = request.user.username  # Use the currently logged-in user's username
         program_name = request.POST.get('program_name')
         num_of_people = int(request.POST.get('num_of_people'))
         reserved_time = request.POST.get('reserved_time')
@@ -102,10 +103,17 @@ def submit_reservation(request):
         )
 
         ReservationTime.objects.create(
-            reservation_id=reservation.id,
+            reservation=reservation,
             reserved_time=reserved_time
         )
 
         return JsonResponse({'status': 'success', 'message': 'Reservation completed successfully'})
 
     return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
+
+
+@login_required
+def reservation_check(request):
+    user_name = request.user.username
+    reservations = BoothProgramReservation.objects.filter(user_name=user_name)
+    return render(request, 'reservation_check.html', {'reservations': reservations})
