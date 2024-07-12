@@ -33,6 +33,9 @@ urlpatterns = [
     path('notice/', include('notice.urls')),
     path('FAQ/', views.FAQlist, name='faq_page'),
     path('reserve/', include('reserve_hall.urls', namespace='reserve_hall')),
+    path('program_choice/', views.program_choice, name='program_choice'),
+    # path('program_manage/', views.program_manage, name='program_manage'),
+    # path('programs/', include('programs.urls')),
 ]
 
 from django.conf import settings

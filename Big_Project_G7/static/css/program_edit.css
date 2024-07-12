@@ -113,10 +113,10 @@
     margin-top: 20px;
 }
 
-.submit-button {
+.submit-button,
+.delete-button {
     font-size: 16px;
     padding: 10px 20px;
-    background-color: #66cc66;
     color: white;
     border: none;
     border-radius: 5px;
@@ -124,8 +124,20 @@
     margin: 5px;
 }
 
+.submit-button {
+    background-color: #66cc66;
+}
+
 .submit-button:hover {
     background-color: #55aa55;
+}
+
+.delete-button {
+    background-color: #ff6666;
+}
+
+.delete-button:hover {
+    background-color: #cc5555;
 }
 
 @media (max-width: 768px) {
@@ -144,7 +156,8 @@
         padding: 6px;
     }
 
-    .submit-button {
+    .submit-button,
+    .delete-button {
         padding: 8px;
     }
 }
@@ -170,7 +183,8 @@
         font-size: 0.9em;
     }
 
-    .submit-button {
+    .submit-button,
+    .delete-button {
         padding: 6px;
         font-size: 0.9em;
     }

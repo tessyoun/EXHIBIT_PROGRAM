@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프로그램 오픈</title>
+    <title>프로그램 생성/관리</title>
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/program_open.css' %}" />
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/program_choice.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
@@ -21,51 +21,11 @@
         </div>
         <div class="body--wrap">
             <div class="content-wrap">
-                <h1 class="title">프로그램 오픈</h1>
-                <form method="post" action="{% url 'program_open' %}">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="name">프로그램 명:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">프로그램 설명:</label>
-                        <textarea id="description" name="description" rows="6" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>오픈할 시간대:</label>
-                        <div class="time-slots">
-                            <label class="time-slot-label">
-                                <input type="checkbox" class="time-slot" value="10:00"> 10:00
-                            </label>
-                            <label class="time-slot-label">
-                                <input type="checkbox" class="time-slot" value="11:00"> 11:00
-                            </label>
-                            <label class="time-slot-label">
-                                <input type="checkbox" class="time-slot" value="12:00"> 12:00
-                            </label>
-                            <label class="time-slot-label">
-                                <input type="checkbox" class="time-slot" value="13:00"> 13:00
-                            </label>
-                            <label class="time-slot-label">
-                                <input type="checkbox" class="time-slot" value="14:00"> 14:00
-                            </label>
-                            <label class="time-slot-label">
-                                <input type="checkbox" class="time-slot" value="15:00"> 15:00
-                            </label>
-                            <label class="time-slot-label">
-                                <input type="checkbox" class="time-slot" value="16:00"> 16:00
-                            </label>
-                            <label class="time-slot-label">
-                                <input type="checkbox" class="time-slot" value="17:00"> 17:00
-                            </label>
-                        </div>
-                        <input type="hidden" id="selected-times" name="selected_times" value="">
-                    </div>
-                    <div class="button-container">
-                        <button type="submit" class="submit-button">프로그램 오픈하기</button>
-                    </div>
-                </form>
+                <h1 class="title">프로그램 생성/관리</h1>
+                <div class="button-container">
+                    <a href="{% url 'program_open' %}" class="manage-button">프로그램 생성</a>
+                    <a href="{% url 'program_manage' %}" class="manage-button">프로그램 관리</a>
+                </div>
             </div>
         </div>
         <div class="sidebar" data-role="side-bar">
@@ -118,6 +78,6 @@
             </div>
         </div>
     </div>
-    <script src="{% static 'js/program_open.js' %}"></script>
+    <script src="{% static 'js/uiSidebar.js' %}"></script>
 </body>
 </html>
