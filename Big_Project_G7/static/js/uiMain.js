@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
      }
      if (btn3) {
          btn3.addEventListener('click', function() {
-             window.location.href = "/aivex/about/";
+             window.location.href = "/AIVEX/about/";
          });
      }
      if (btn4) {
