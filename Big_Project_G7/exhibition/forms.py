@@ -37,7 +37,7 @@ class BoothForm(forms.ModelForm):
 class ExhibForm(forms.ModelForm):
     class Meta:
         model = Exhibition_info
-        fields = ['exhibition_name','exhibition_description', 'start_date', 'end_date', 'host_id']
+        fields = ['exhibition_name','exhibition_description', 'start_date', 'end_date']
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'}),
