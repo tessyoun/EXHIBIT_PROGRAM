@@ -2,13 +2,14 @@ document.addEventListener("DOMContentLoaded", function() {
     var searchButton = document.getElementById('search-button');
     var nameInput = document.getElementById('booth-name-input');
     var modal = document.getElementById("myModal");
-    var closeButton = document.getElementById("close-button");
+    var closeButton = document.getElementsByClassName("close");
     var modalImage = document.getElementById("modalImage");
     var modalText = document.getElementById("modalText");
     var suggestionsDiv = document.getElementById('suggestions');
     var categorySelect = document.querySelector('select[name="category"]');
     var rectangles = document.querySelectorAll('.rectangle');
     var selectedCategory = '전체';
+    var bookmarkModal = document.getElementById("bookmarkModal");
     const reservationButton = document.getElementById('reservation');
 
 
@@ -218,27 +219,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    //창 닫기 기능
-    function closeModal() {
-        modal.style.display = "none";
-    }
-
-    document.querySelectorAll('.rectangle').forEach(function(rectangle, index) {
-        rectangle.setAttribute('data-index', index);
-        rectangle.addEventListener('click', function() {
-            showModal(index);
-        });
-    });
-
-    if (closeButton) {
-        closeButton.addEventListener("click", closeModal);
-    }
-
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            closeModal();
-        }
-    }
 
 
     //스크롤기능
@@ -264,19 +244,35 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     //북마크 리스트
-    const listButton = document.getElementById('show-bookmarks');
-    listButton.addEventListener('click', function() {
+    function updateBookmarkModal() {
         let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
-        console.log('Bookmarked booths:', bookmarks);
         if (bookmarks.length > 0) {
             let bookmarkNames = booths.filter(booth => bookmarks.includes(booth.pk)).map(booth => booth.fields.booth_name);
-            alert('북마크 부스: \n\n' + bookmarkNames.join('\n'));
+            let modalBody = document.getElementById('bookmarkList');
+            modalBody.innerHTML = ''; // Clear previous content
+            
+            bookmarkNames.forEach(function(bookmark) {
+                let li = document.createElement('li');
+                li.textContent = bookmark;
+                modalBody.appendChild(li);
+            });
+
+            // Show modal
+            bookmarkModal.style.display = 'block';
         } else {
             alert('북마크된 부스 없음.');
         }
-    });
+    }
 
-    //북마크 삭제
+    // Event listener for showing bookmarks in modal
+    const showBookmarksButton = document.getElementById('show-bookmarks');
+    if (showBookmarksButton) {
+        showBookmarksButton.addEventListener('click', function() {
+            updateBookmarkModal();
+        });
+    }
+
+    // 북마크 리셋
     const resetButton = document.getElementById('reset-bookmarks');
     resetButton.addEventListener('click', function() {
         bookmarks = [];
@@ -284,6 +280,32 @@ document.addEventListener("DOMContentLoaded", function() {
         alert('북마크 리셋.');
         updateBookmarkIcons();
     });
+    
+    //창 닫기 기능
+    function closeModal() {
+        modal.style.display = "none";
+        bookmarkModal.style.display = "none";
+    }
+
+    document.querySelectorAll('.rectangle').forEach(function(rectangle, index) {
+        rectangle.setAttribute('data-index', index);
+        rectangle.addEventListener('click', function() {
+            showModal(index);
+        });
+    });
+
+    Array.from(closeButton).forEach(function(button) {
+        button.addEventListener("click", closeModal);
+    });
+
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+        else if(event.target === bookmarkModal) {
+            closeModal();
+        }
+    }
 
     updateBookmarkIcons();
 });
