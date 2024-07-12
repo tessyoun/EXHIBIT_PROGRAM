@@ -6,6 +6,7 @@ from django.contrib import messages
 from exhibition.models import Booth_Info
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from .forms import ReservationForm
 
 @login_required
 def program_open(request):
@@ -74,9 +75,6 @@ def reserve_booth(request, booth_id):
         messages.error(request, '기업에서 프로그램을 생성하지 않았습니다.')
         return redirect('layout1')
 
-    # Proceed with reservation logic
-    # Assuming you have a reservation model and form
-    # reservation = Reservation.objects.create(user=request.user, booth=booth, program=program)
     messages.success(request, '예약이 완료되었습니다.')
     return redirect('reservation', booth_id=booth_id)
 
@@ -91,7 +89,7 @@ def check_program(request, company_name):
 @login_required
 def submit_reservation(request):
     if request.method == 'POST':
-        user_name = request.user.username  # Use the currently logged-in user's username
+        user_name = request.user.username
         program_name = request.POST.get('program_name')
         num_of_people = int(request.POST.get('num_of_people'))
         reserved_time = request.POST.get('reserved_time')
@@ -111,9 +109,30 @@ def submit_reservation(request):
 
     return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
 
-
 @login_required
 def reservation_check(request):
     user_name = request.user.username
     reservations = BoothProgramReservation.objects.filter(user_name=user_name)
     return render(request, 'reservation_check.html', {'reservations': reservations})
+
+@login_required
+def delete_reservation(request, reservation_id):
+    reservation = get_object_or_404(BoothProgramReservation, id=reservation_id, user_name=request.user.username)
+    reservation.delete()
+    return redirect('booth_program:reservation_check')
+
+@login_required
+@csrf_exempt
+def edit_reservation(request, reservation_id):
+    reservation = get_object_or_404(BoothProgramReservation, id=reservation_id, user_name=request.user.username)
+    if request.method == 'POST':
+        num_of_people = request.POST.get('num_of_people')
+        reserved_time = request.POST.get('reserved_time')
+
+        reservation.num_of_people = num_of_people
+        reservation.reservationtime_set.update(reserved_time=reserved_time)
+        reservation.save()
+
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})

@@ -1,3 +1,4 @@
+# booth_program/urls.py
 from django.urls import path
 from . import views
 
@@ -9,4 +10,7 @@ urlpatterns = [
     path('reserve/<int:booth_id>/', views.reserve_booth, name='reserve_booth'),
     path('check_program/<str:company_name>/', views.check_program, name='check_program'),
     path('submit_reservation/', views.submit_reservation, name='submit_reservation'),
+    path('reservation_check/', views.reservation_check, name='reservation_check'),
+    path('reservation_check/delete/<int:reservation_id>/', views.delete_reservation, name='delete_reservation'),
+    path('reservation_check/edit/<int:reservation_id>/', views.edit_reservation, name='edit_reservation'),
 ]
