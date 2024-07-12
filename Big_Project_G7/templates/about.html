@@ -1,0 +1,49 @@
+{% extends "base_layout.html" %}
+{% load static %}
+
+    {% block title %} About{% endblock %}
+    {% block styles %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}" />
+    {% endblock %}
+
+{% block main_content %}
+        <main>
+            <br><br><br>
+            <h3>About AIVEX</h3>
+            <div class="facility-guide">
+                <img src="{% static 'icons/AIVEX_icon_black.png' %}" alt="aivex image">
+                <div class="info">
+                    <p>AIVEX는 동북 아시아 대표 전시장이자 동아시아 산업교류의 메카로 발돋움하고 있으며, 대한민국을 전시∙컨벤션 강국으로 이끌어 나가고 있습니다. </p>
+                </div>
+            </div>
+            <br><br>
+            <div class="facility-guide">
+                <div class="info">
+                    {% comment %} <h3>차별점</h3> {% endcomment %}
+                    <div class="content">
+                        <h5> 전시회 기획 </h5>
+                        <p> 전시회 개최를 위한 부스 배치도 자동 생성  </p>
+                    </div>
+                    <div class="content">
+                        <h5> 프로그램 관리 시스템 </h5>
+                        <p> 프로그램 예약관리를 통한 효율적인 부스 운영  </p>
+                    </div>
+                    <div class="content">
+                        <h5> 챗봇 서비스 </h5>
+                        <p>   </p>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="facility-guide">
+                <div class="info">
+                    <h5>오시는 길</h5>
+                    <p>주소 : 경기도 성남시 분당구 불정로 90 (정자동) </p>
+                    <p>대표전화 : 031-123-9876 </p>
+                </div>
+            </div>
+            <br><br>
+            
+        </main>
+    </div>
+{% endblock %}

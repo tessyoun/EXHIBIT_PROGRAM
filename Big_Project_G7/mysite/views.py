@@ -99,6 +99,9 @@ def layout1(request):
 def layout2(request):
     return render(request, 'layout2.html')
 
+def about(request):
+    return render(request, 'about.html')
+
 def aivexhall(request):
     return render(request, 'aivexhall.html')
 
