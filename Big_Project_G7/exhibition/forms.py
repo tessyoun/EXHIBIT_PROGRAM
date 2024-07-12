@@ -27,8 +27,18 @@ class ExhibitionForm(forms.ModelForm):
             exhibition.save()
         return exhibition
     
-    
+# 부스 정보 폼
 class BoothForm(forms.ModelForm):
     class Meta:
         model = Booth_Info
         fields = ['booth_name','booth_category', 'background', 'service']
+        
+# 전시회 정보 폼
+class ExhibForm(forms.ModelForm):
+    class Meta:
+        model = Exhibition_info
+        fields = ['exhibition_name','exhibition_description', 'start_date', 'end_date', 'host_id']
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
+        }
