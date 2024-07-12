@@ -52,12 +52,6 @@
     <div class="container-create">
         <h2 class = "layout_create_title">배치도 생성</h2>
 
-        {% comment %} <form action="" method="post" class="form-create">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn-create">배치도 생성</button>
-        </form> {% endcomment %}
-
         {% if image_url %}
             <div class="grid-container">
                 {% for image in image_url %}
@@ -110,7 +104,10 @@
                 <label for="id_layout">배치도 저장 경로</label>
                 <input type="text" name="layout" maxlength="100" required="" value="/" id="id_exhibition_name">
             </p>
-
+                <button class="btn btn-primary" type="button" disabled>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    생성중...
+                    </button>
                 <button type="submit" class="btn-create">생성</button>
             
         </form>
