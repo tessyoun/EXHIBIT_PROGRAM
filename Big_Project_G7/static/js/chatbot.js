@@ -23,6 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var userInput = document.getElementById('message--input');
     var chatBody = document.getElementById('chatbot__body');
 
+    // Handle option button clicks
+    document.querySelectorAll('.option-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            document.getElementById('options-container').style.display = 'none';
+            addUserMessage(button.innerText);
+            getBotResponse(button.innerText);
+        });
+    });
+    
     if (sendButton && userInput && chatBody) {
         sendButton.addEventListener('click', function() {
             sendMessage();
@@ -105,12 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return cookieValue;
         }
 
-         // Handle option button clicks
-         document.querySelectorAll('.option-button').forEach(function(button) {
-            button.addEventListener('click', function() {
-                addUserMessage(button.innerText);
-                getBotResponse(button.innerText);
-            });
-        });
+         
     }
 });
