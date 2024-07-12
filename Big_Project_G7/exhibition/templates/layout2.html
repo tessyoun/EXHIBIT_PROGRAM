@@ -18,6 +18,25 @@
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
     <link rel="stylesheet" href="{% static 'css/layout2.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 5px;
+        }
+        .grid-item {
+            text-align: center;
+            overflow: hidden;
+        }
+        .grid-item img {
+            max-width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
     <!-- 헤더 부분 -->
@@ -39,6 +58,22 @@
             <button type="submit" class="btn-create">배치도 생성</button>
         </form> {% endcomment %}
 
+        {% if image_url %}
+            <div class="grid-container">
+                {% for image in image_url %}
+                    <div class="grid-item" id="image-selection">
+                        <img onclick="sendImageToServer('{{ image }}')" class="generated-image" src="data:image/png;base64, {{ image }}">
+                    </div>
+                {% endfor %}
+            </div>
+            <form action="" method="post" class="form-create">
+                {% csrf_token %}
+                <button type="submit" class="btn-create">생성</button>
+            </form>
+            
+        {% endif %}
+
+        {% if not image_url %}
         <form action="" method="post" class="form-create">
             {% csrf_token %}
             <p>
@@ -70,24 +105,21 @@
                 <label for="id_number_of_booths">부스 개수</label>
                 <input type="number" name="number_of_booths" placeholder="부스 개수" required="" id="id_number_of_booths">
             </p>
-           
+            
+            <p hidden>
+                <label for="id_layout">배치도 저장 경로</label>
+                <input type="text" name="layout" maxlength="100" required="" value="/" id="id_exhibition_name">
+            </p>
 
                 <button type="submit" class="btn-create">생성</button>
             
         </form>
-
-        {% if image_url %}
-            <div class="grid-container">
-                {% for image in image_url %}
-                    <div class="grid-item">
-                        <img class="generated-image" src="data:image/png;base64, {{ image }}" alt="Generated Image">
-                    </div>
-                {% endfor %}
-            </div>
         {% endif %}
+
         {% if error %}
             <p>권한이 없습니다. 관리자에게 문의하세요.</p>
         {% endif %}
+        </div>
 
     </div>
 
@@ -303,14 +335,40 @@
             {% endif %}
         </div>
     </div>
-
+    <script>
+        function sendImageToServer(imageData) {
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'exhibition:save_layout' %}",
+                data: {
+                    image_data: imageData,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.img_path) {
+                        alert('이미지가 성공적으로 저장되었습니다.');
+                        window.location.href = "{% url 'index' %}";
+                    } else {
+                        alert('이미지 전송에 실패하였습니다.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('AJAX 요청 실패: ' + error);
+                }
+            });
+        }
+        $(document).ready(function() {
+            $('#generated-image').click(function() {
+                var imageData = $(this).attr('src');
+                sendImageToServer(imageData);
+            });
+        });
+    </script>
     <script src="{% static 'js/uiSidebar.js' %}"></script>
-    <script src="{% static 'js/create_layout.js' %}"></script>
-
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
       crossorigin="anonymous"
-    ></script>
+    ></script>   
 </body>
 </html>

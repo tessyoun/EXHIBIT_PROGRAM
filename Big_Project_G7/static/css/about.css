@@ -11,7 +11,7 @@ body {
 
 /* 컨테이너 */
 .container {
-    width: 100%;
+    width: 80%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -29,10 +29,6 @@ header {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
-    color: white;
-}
-
 .menu-btn {
     font-size: 24px;
     background: none;
@@ -48,18 +44,12 @@ header h1 {
 
 /* 본문 */
 main {
-    width: 100%;
+    width: 80%;
     padding: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-h2 {
-    font-size: 36px;
-    color: #000;
-    margin-bottom: 20px;
 }
 
 .facility-guide {
@@ -72,18 +62,13 @@ h2 {
 }
 
 .facility-guide img {
-    width: 50%;
+    width: 40%;
     height: auto;
     margin-right: 20px;
 }
 
 .facility-guide .info {
     flex: 1;
-}
-
-.facility-guide .info h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
 }
 
 .facility-guide .info p {
@@ -97,6 +82,18 @@ h2 {
     color: #fff;
     border: none;
     cursor: pointer;
+}
+
+/* 컨텐츠 레이아웃 */
+.info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.content {
+    width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 /* 반응형 디자인 */
@@ -117,6 +114,9 @@ h2 {
     }
 
     .facility-guide .info {
+        width: 100%;
+    }
+    .content {
         width: 100%;
     }
 }

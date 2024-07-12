@@ -4,10 +4,8 @@ from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import JsonResponse
 
-from accounts.models import Profile
-
 from .models import Booth_Info
-from .models import Exhibition_info
+from .models import Exhibition_info, Exhibition
 from .forms import ExhibitionForm
 from .forms import BoothForm
 
@@ -16,6 +14,9 @@ from datetime import datetime
 
 import json
 import requests
+import os
+import base64
+from mysite.settings import MEDIA_ROOT
 
 PORT = 5000
 AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate'
@@ -23,20 +24,39 @@ AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate
 # def getExhidb
 booth_info = Booth_Info.objects.all()
 
-# 전시회 개최시 권한 바꿈(active>staff)
-# @login_required
-# def change_perm(request):
-#     if request.method == 'POST':
-#         user = request.user
-#         user.is_staff = True
-#         user.save()
-#         request.session['data'] = {}
-#         return redirect('exhibition:create_exhibition')
-    
-    
+# 이미지 경로 DB에 저장
+@login_required
+def save_layout(request):
+    if request.method == 'POST':
+        image_data = request.POST.get('image_data')
+        
+        if 'data' in request.session:
+            formdata = json.loads(request.session['data'])
+            img_path = save_image_to_fileserver(image_data, formdata['exhibition_name'])
+            if img_path:
+                formdata['layout'] = img_path
+                target = Exhibition.objects.get(exhibition_name=formdata['exhibition_name'])
+                target.layout = img_path
+                target.save()
+                return JsonResponse({'img_path':img_path})
+            else:
+                return JsonResponse({'error': 'Failed to save image'}, status=500)
+        else:
+            return JsonResponse({'error': 'Failed to save image'}, status=500)
+
+# 이미지 파일 저장 후 경로 반환
+def save_image_to_fileserver(img_data, img_name):
+    image = base64.b64decode(img_data)
+    img_path = os.path.join(MEDIA_ROOT, img_name+'.png')
+
+    with open(img_path, 'wb') as f:
+        f.write(image)
+    return img_path
+
 # 전시회 객체 생성
 @login_required
 def create_exhibition(request):
+
     # render generated image
     def render_image(session_data):
         response, images = get_image_from_server(session_data)
@@ -47,15 +67,15 @@ def create_exhibition(request):
 
     if request.method == 'POST':
         if request.user.is_staff:
-            if request.session['data']:
+            if 'data' in request.session and request.session['data']:
                return render_image(request.session['data'])
             else:
                 form = ExhibitionForm(request.POST)
                 if form.is_valid():
                     exhibition = form.save(commit=False)
                     exhibition.host_id = request.user.profile.name  # 로그인한 사용자의 아이디를 설정
+                    exhibition.layout = '/'
                     exhibition.save()
-                    request.session['data'] = {}
                     request.session['data'] = create_json(form)
                     return render_image(request.session['data'])
                 else:

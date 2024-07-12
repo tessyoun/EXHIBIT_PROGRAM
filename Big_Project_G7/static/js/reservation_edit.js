@@ -39,13 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const reservedTime = document.getElementById('reserved_time').value;
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-        console.log("Submitting edit form");
-        console.log(`Reservation ID: ${currentReservationId}`);
-        console.log(`Program Name: ${programName}`);
-        console.log(`Number of People: ${numOfPeople}`);
-        console.log(`Reserved Time: ${reservedTime}`);
-
-        fetch(`/booth_program/edit_reservation/${currentReservationId}/`, {
+        fetch(`/booth_program/reservation_check/edit/${currentReservationId}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
