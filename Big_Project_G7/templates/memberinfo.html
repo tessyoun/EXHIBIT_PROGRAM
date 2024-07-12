@@ -22,13 +22,7 @@
     <!--end header/sidebar-->
 
     <div class='container-update'>
-        {% comment %} <form method="post">
-            {% csrf_token %}
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            <button type="submit" class="save">저장</button>
-        </form> {% endcomment %}
-        <form method="post">
+        <form method="post" class="form-update">
             {% csrf_token %}
             <div>
                 <label for="{{ user_form.username.id_for_label }}">아이디</label>

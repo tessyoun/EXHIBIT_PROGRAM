@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1." />  
     <title>부스 정보 수정</title>
+    <link rel="stylesheet" href="{% static 'boothinfo.css' %}">
+
     <!--header/sidebar-->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
@@ -20,19 +22,33 @@
     <!--end header/sidebar-->
 
     <div class='container-update'>
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        <form method="post" enctype="multipart/form-data" class="info"> 
-            {% csrf_token %}
+        <form method="post" enctype="multipart/form-data" class="booth-update"> 
+            <!--개최한 부스가 있으면-->
             {% if form %}
-                {{form.as_p}}
+                {% csrf_token %}
+            {% comment %} {{form.as_p}} {% endcomment %}
+                <div class="booth_name">
+                    <label for="booth_name">부스명</label>
+                    {{form.booth_name }}
+                </div>
+                <div class="booth_cat">
+                    <label for="booth_category">카테고리</label>
+                    {{form.booth_category }}
+                </div> 
+                <div class="background">
+                    <label for="booth_background">배경</label>
+                    {{form.background }}
+                </div> 
+                <div class="service">
+                    <label for="booth_service">기능</label>
+                    {{form.service }}
+                </div> 
+                <button type="submit" class="save">수정</button>
+            
+            {% else %}
+                <p> 운영하는 부스가 없습니다. </p>
             {% endif %}
-            <button type="submit">수정</button>
+            
         </form>
     </div>
 
