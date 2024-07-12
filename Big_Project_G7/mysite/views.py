@@ -85,6 +85,8 @@ def layout1(request):
             'width': width,
             'height': height,
             'rotate': angle,
+            'center_x' : center_x,
+            'center_y' : center_y,
         })
 
     booth = serialize('json', Booth_Info.objects.filter(exhibition_id=1))
