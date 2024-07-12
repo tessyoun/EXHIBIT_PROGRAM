@@ -12,51 +12,53 @@
 
 <!-- main body code -->
 {% block main_content %}
-    <div id="booth-search">
-        <div>
-            <select id="category" name="category">
-            </select>
-            <input type="text" id="booth-name-input" placeholder="부스이름">
-            <button id="search-button">Search</button>
-        </div>
-        <div id="suggestions"></div>
-    </div>
-    <div class="image-container">
-        <img src="{% static image_path %}" alt="Processed Image">
-        {% for i, rect in rectangles %}
-        <div class="rectangle" 
-            style="left: {{ rect.left }}px;
-                    top: {{ rect.top }}px; width: {{ rect.width }}px;
-                    height: {{ rect.height }}px;
-                    transform: rotate({{ rect.rotate }}deg);"
-                    data-index="{{ i }}">
-        </div>
-        {% endfor %}
-    </div>
-    <div class="modal" id="myModal">
-        <div class="modal-content">
-            <span class="close" id="close-button">&times;</span>
-            <img id="modalImage" src="" alt="Modal Image" style="width:300px">
-            <p id="modalText"></p>
-            {% if not user.is_authenticated %}
-            <div id="r-btn">
-                <a href="{% url 'accounts:login' %}" class="bookmark"><i class="fa-regular fa-star fa-2x"> </i></a><br>
-                <a href="{% url 'accounts:login' %}" class="button" id="reservation"><span>예약</span></a>
+    <div class="body--wrap">
+        <div id="booth-search">
+            <div>
+                <select id="category" name="category">
+                </select>
+                <input type="text" id="booth-name-input" placeholder="부스이름">
+                <button id="search-button">Search</button>
             </div>
-            {% else %}
-            <div id="r-btn">
-                <a href="#" class="bookmark" id="bookmark-btn"> </a><br>
-                <a class="button" id="reservation"><span>예약</span></a>
-            </div>
-            {% endif %}
+            <div id="suggestions"></div>
         </div>
-    </div>
-    <div class="bookmarkfunc">
-        <button class="bookmarkbtn" id="show-bookmarks">북마크 리스트</button>
-        <button class="bookmarkbtn" id="reset-bookmarks">북마크 리셋</button>
+        <div class="image-container">
+            <img src="{% static image_path %}" alt="Processed Image">
+            {% for i, rect in rectangles %}
+            <div class="rectangle" 
+                style="left: {{ rect.left }}px;
+                        top: {{ rect.top }}px; width: {{ rect.width }}px;
+                        height: {{ rect.height }}px;
+                        transform: rotate({{ rect.rotate }}deg);"
+                        data-index="{{ i }}">
+            </div>
+            {% endfor %}
+        </div>
+        <div class="modal" id="myModal">
+            <div class="modal-content">
+                <span class="close" id="close-button">&times;</span>
+                <img id="modalImage" src="" alt="Modal Image" style="width:300px">
+                <p id="modalText"></p>
+                {% if not user.is_authenticated %}
+                <div id="r-btn">
+                    <a href="{% url 'accounts:login' %}" class="bookmark"><i class="fa-regular fa-star fa-2x"> </i></a><br>
+                    <a href="{% url 'accounts:login' %}" class="button" id="reservation"><span>예약</span></a>
+                </div>
+                {% else %}
+                <div id="r-btn">
+                    <a href="#" class="bookmark" id="bookmark-btn"><i class="fa-regular fa-star fa-2x"> </i></a><br>
+                    <a class="button" id="reservation"><span>예약</span></a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="bookmarkfunc">
+            <button class="bookmarkbtn" id="show-bookmarks">북마크 리스트</button>
+            <button class="bookmarkbtn" id="reset-bookmarks">북마크 리셋</button>
+        </div>
     </div>
     {% endblock %}
-
+    
 {% block scripts %}
     <script>
         const imageBasePath = "{% static 'booth_thumbnail/1/' %}";
@@ -64,4 +66,5 @@
         const booths = JSON.parse(boothsJsonString);
     </script>
     <script src="{% static 'js/booth.js' %}"></script>
+    <script src="{% static 'js/mapping.js' %}"></script>
 {% endblock %}

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 {% load static %}
 <html>
 
@@ -40,7 +40,7 @@
                 <div class="black--layered"></div>
                 <div class="swiper--wrapper">       
                     <div class="exhibit__content">
-                        <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                        <a href="{% url 'layout1' %}" class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
                             <img class="poster__image" src="../static/icons/1기_전시포스터.jpg">
                         </a>
                         <div class="exhibit__about">
@@ -280,7 +280,6 @@
                                         <ul class="sidebar__menu--list--wrap">
                                         <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
                                         <li class="sidebar__menu--list"><a href="{% url 'booth_program:reservation_check' %}" class="sidebar__menu--item"> 내 예약 확인 </a></li>
-
                                         <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 북마크 확인 </a></li>
                                         </ul>
                                     </div>
@@ -353,6 +352,166 @@
                 {% endif %}
             </div>
         </div>
+    </div>
+    <script>
+        const boothsJsonString = '{{ booths|escapejs }}';
+        const booths = JSON.parse(boothsJsonString);
+    </script>
+    <script src="{% static 'js/chatbot.js' %}"></script>  
+    <script src="{% static 'js/uiMain.js' %}"></script>
+    <script src="{% static 'js/uiSidebar.js' %}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>        
+    <title>[7조]AIVEX</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1." />   
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />   
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+    <div class="app__size">
+        <!-- 헤더 부분 -->
+        <div class="header--fixed">
+            <button class="header__button--menu icon" style="cursor:pointer; opacity:1;"></button>
+            <div class="header__title--wrap">
+                <a href="{% url 'index' %}" ><button class="header__title icon" style="cursor:pointer;"></button></a>
+            </div>
+            <button class="for_loc_center icon"></button>
+        </div>
+        <!-- end 헤더 부분 -->
+    
+        <!-- 본문 부분 -->
+        <div class="body--wrap">
+            <div class="swiper--container">
+                <div class="blurred--background"></div>
+                <div class="black--layered"></div>
+                <div class="swiper--wrapper">       
+                    <div class="exhibit__content">
+                        <a href="{% url 'layout1' %}" class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                            <img class="poster__image" src="../static/icons/1기_전시포스터.jpg">
+                        </a>
+                        <div class="exhibit__about">
+                            <div class="exhibit__title"> 에이블 1기 빅프로젝트 전시회 </div>
+                            <div class="exhibit__date"> 2024.08.10 ~ 2024.08.12 </div>
+                        </div>
+                    </div>
+    
+                    <div class="exhibit__content">
+                        <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                            <img class="poster__image" src="../static/icons/2기_전시포스터.jpg">
+                        </a>
+                        <div class="exhibit__about">
+                            <div class="exhibit__title"> 에이블 2기 빅프로젝트 전시회 </div>
+                            <div class="exhibit__date"> 2024.08.13 ~ 2024.08.15 </div>
+                        </div>
+                    </div>
+    
+                    <div class="exhibit__content">
+                        <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                            <img class="poster__image" src="../static/icons/3기_전시포스터.jpg">
+                        </a>
+                        <div class="exhibit__about">
+                            <div class="exhibit__title"> 에이블 3기 빅프로젝트 전시회 </div>
+                            <div class="exhibit__date"> 2024.08.18 ~ 2024.08.20 </div>
+                        </div>
+                    </div>
+    
+                    <div class="exhibit__content">
+                        <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                            <img class="poster__image" src="../static/icons/4기_전시포스터.jpg">
+                        </a>
+                        <div class="exhibit__about">
+                            <div class="exhibit__title"> 에이블 4기 빅프로젝트 전시회 </div>
+                            <div class="exhibit__date"> 2024.08.21 ~ 2024.08.23 </div>
+                        </div>
+                    </div>
+    
+                    <div class="exhibit__content">
+                        <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                            <img class="poster__image" src="../static/icons/1기_전시포스터.jpg">
+                        </a>
+                        <div class="exhibit__about">
+                            <div class="exhibit__title"> 에이블 1기 빅프로젝트 전시회 </div>
+                            <div class="exhibit__date"> 2024.08.10 ~ 2024.08.12 </div>
+                        </div>
+                    </div>                
+    
+                </div>
+            </div>
+            
+            <!-- 중간에 있는 메뉴바 -->
+            <div class="main__menu--wrap">
+                <div class="main__menu--icons">
+                    <button class="main__menu--item" id="btn1"><span>전시회 목록</span></button> 
+                    <button class="main__menu--item" id="btn2"><span>공지사항</span></button> 
+                    <button class="main__menu--item" id="btn3"><span>About</span></button>
+                    <button class="main__menu--item" id="btn4"><span>FAQ</span></button>
+                    {% if user.is_authenticated %}
+                        {% if user.profile.user_type == '기업회원' %} 
+                            <button class="main__menu--item" id="btn5"><span>배치도 생성</span></button>
+                        {% endif %}
+                    {% endif %}
+                </div> 
+            </div> 
+            
+    
+            <!-- 챗봇 -->
+            <div class="chatbot--wrapper">
+                <button class="chatbot__icon icon" id="chatbotToggle"> </button>
+                <div class="chatbot__window" id="chatbotWindow">
+                    <div id="chatbot__title">
+                        <span><img class="chatbot__header__profile"></span>
+                        <h4 style="display: inline-block; vertical-align: middle;">AIVEX</h4>
+                    </div>
+                    <div id="chatbot__body">
+                        <div class="message bot-message">
+                            <img class="bot-profile">
+                            <div class="message-content">안녕하세요! 무엇을 도와드릴까요?</div>
+                        </div>
+                    </div>
+                    <div id="chatbot--footer">
+                        <div id="options-container" class="options">
+                            <button class="option-button">AIVEX가 뭐죠?</button>
+                            <button class="option-button">AIVEX의 기능은 무엇인가요?</button>
+                            <button class="option-button">AIVEX의 장점은 무엇인가요?</button>
+                            <button class="option-button">AIVEX는 어떻게 사용할 수 있나요?</button>
+                        </div>
+                        <div id="chatbot__text">
+                            <textarea id="message--input" placeholder="메세지를 입력해주세요."></textarea>
+                            <button id="send-button" class="icon"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end 본문 부분 -->
+    
+        <!-- 사이드바 -->
+        {% include 'base/sidebar.html' %}
     </div>
     <script>
         const boothsJsonString = '{{ booths|escapejs }}';

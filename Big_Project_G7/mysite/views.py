@@ -85,6 +85,8 @@ def layout1(request):
             'width': width,
             'height': height,
             'rotate': angle,
+            'center_x' : center_x,
+            'center_y' : center_y,
         })
 
     booth = serialize('json', Booth_Info.objects.filter(exhibition_id=1))
@@ -96,6 +98,9 @@ def layout1(request):
 
 def layout2(request):
     return render(request, 'layout2.html')
+
+def about(request):
+    return render(request, 'about.html')
 
 def aivexhall(request):
     return render(request, 'aivexhall.html')
