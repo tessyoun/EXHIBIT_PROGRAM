@@ -152,6 +152,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
         reservationButton.removeEventListener('click', handleReservation);
         reservationButton.addEventListener('click', handleReservation);
+               // 북마크 버튼 클릭 시 처리
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];                     // #1 db로 저장경로 수정해야할 부분
+        const bookmarkBtn = document.getElementById('bookmark-btn');
+        bookmarkBtn.innerHTML = bookmarks.includes(boothId) ? '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"> </i>' : '<i class="fa-regular fa-star fa-2x"> </i>';
+
+        bookmarkBtn.addEventListener('click', function() {
+            if (bookmarks.includes(boothId)) {
+                // 북마크 취소
+                bookmarks = bookmarks.filter(id => id !== boothId);
+                bookmarkBtn.innerHTML = '<i class="fa-regular fa-star fa-2x"> </i>';
+            } else {
+                // 북마크 추가
+                bookmarks.push(boothId);
+                bookmarkBtn.innerHTML = '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"> </i>';
+            }
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 db로 저장경로 수정해야할 부분
+            updateBookmarkIcons();
+        });
     }
 
     //예약기능
@@ -176,6 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('No company name found');
         }
     }
+    
 
     //북마크 업데이트
     function updateBookmarkIcons() {
