@@ -57,7 +57,7 @@
 .program-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 }
 
 .program-item {
@@ -70,21 +70,68 @@
 .program-item h2 {
     font-size: 1.5em;
     margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+}
+
+.program-description {
+    margin-bottom: 10px;
+}
+
+.program-description p {
+    margin: 0;
+    padding: 10px;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.program-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+    color: #555;
+}
+
+.no-programs {
+    text-align: center;
+    font-size: 1.2em;
+    color: #777;
+    margin-top: 20px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 10px;
 }
 
 .manage-button {
-    font-size: 14px;
-    padding: 5px 10px;
-    background-color: #66cc66;
-    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    text-decoration: none;
     cursor: pointer;
+    margin: 5px;
 }
 
-.manage-button:hover {
-    background-color: #55aa55;
+.submit-button {
+    background: #28a745;
+    color: white;
+}
+
+.submit-button:hover {
+    background: #218838; /* 어두운 초록색 */
+}
+
+.delete-button {
+    background-color: #ff6666;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #cc5555; /* 어두운 빨간색 */
 }
 
 .sidebar__menu--wrap {
@@ -130,4 +177,55 @@
 
 .logout-button:hover {
     background-color: #cc5555;
+}
+
+@media (max-width: 768px) {
+    .content-wrap {
+        padding: 15px;
+        width: calc(100% - 30px);
+    }
+
+    .title {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+
+    .program-item h2 {
+        font-size: 1.2em;
+    }
+
+    .manage-button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-wrap {
+        padding: 10px;
+        width: calc(100% - 20px);
+    }
+
+    .title {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+
+    .program-item h2 {
+        font-size: 1em;
+    }
+
+    .program-item p {
+        font-size: 0.9em;
+    }
+
+    .program-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .manage-button {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
 }

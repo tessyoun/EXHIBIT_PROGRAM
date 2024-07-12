@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로그램 관리</title>
-    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/program_manage.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}">
+    <link rel="stylesheet" href="{% static 'css/program_manage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="app__size">
@@ -23,15 +23,30 @@
             <div class="content-wrap">
                 <h1 class="title">프로그램 관리</h1>
                 <div class="program-list">
-                    {% for program in programs %}
-                    <div class="program-item">
-                        <h2>{{ program.name }}</h2>
-                        <p>{{ program.description }}</p>
-                        <p>시간대: {{ program.selected_times }}</p>
-                        <p>작성자: {{ program.company_name }}</p>
-                        <a href="{% url 'program_edit' program.id %}" class="manage-button">수정/삭제</a>
-                    </div>
-                    {% endfor %}
+                    {% if programs %}
+                        {% for program in programs %}
+                        <div class="program-item">
+                            <h2>{{ program.name }}</h2>
+                            <div class="program-description">
+                                <p>{{ program.description }}</p>
+                            </div>
+                            <div class="program-footer">
+                                <p><b>오픈 시간:</b> {{ program.selected_times|default_if_none:"없음" }}</p>
+                                <p><b>부스 운영자:</b> {{ program.company_name }}</p>
+                            </div>
+                            <div class="button-container">
+                                <form method="post" action="{% url 'booth_program:program_manage' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="program_id" value="{{ program.id }}">
+                                    <button type="submit" name="edit" class="manage-button submit-button">수정하기</button>
+                                    <button type="submit" name="delete" class="manage-button delete-button">삭제하기</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-programs">생성한 프로그램이 없습니다.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

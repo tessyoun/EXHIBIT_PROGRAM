@@ -1,3 +1,4 @@
+<!-- booth_program/templates/program_open.html -->
 <!DOCTYPE html>
 {% load static %}
 <html lang="ko">
@@ -22,7 +23,7 @@
         <div class="body--wrap">
             <div class="content-wrap">
                 <h1 class="title">프로그램 오픈</h1>
-                <form method="post" action="{% url 'program_open' %}" onsubmit="return validateForm()">
+                <form method="post" action="{% url 'booth_program:program_open' %}" onsubmit="return validateForm()">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="id_name">프로그램 명:</label>
@@ -60,7 +61,7 @@
                                 <input type="checkbox" class="time-slot" value="17:00"> 17:00
                             </label>
                         </div>
-                        {{ form.selected_times }}
+                        <input type="hidden" id="id_selected_times" name="selected_times">
                     </div>
                     <div class="button-container">
                         <button type="submit" class="submit-button">프로그램 오픈하기</button>
@@ -136,13 +137,13 @@
                 alert("오픈할 시간대를 선택해주세요.");
                 return false;
             }
-            if (checkboxes.length > 1) {
-                alert("시간대는 하나만 선택할 수 있습니다.");
-                return false;
-            }
 
+            const selectedTimes = Array.from(checkboxes).map(checkbox => checkbox.value);
             const selectedTimesInput = document.getElementById('id_selected_times');
-            selectedTimesInput.value = Array.from(checkboxes).map(checkbox => checkbox.value).join(',');
+            selectedTimesInput.value = selectedTimes.join(',');
+
+            console.log("Selected Times:", selectedTimes);
+            console.log("Hidden Input Value:", selectedTimesInput.value);
 
             return true;
         }

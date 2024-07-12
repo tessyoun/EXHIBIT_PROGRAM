@@ -19,52 +19,69 @@ def program_open(request):
             name = form.cleaned_data['name']
             description = form.cleaned_data['description']
             company_name = request.user.profile.name
-            selected_times = request.POST.getlist('selected_times')
-            selected_times = sorted(set(selected_times))
+            selected_times = form.cleaned_data['selected_times']
+
+            print(f"Name: {name}, Description: {description}, Company: {company_name}, Selected Times: {selected_times}")
+
+            selected_times_list = sorted(set(selected_times.split(',')))
 
             program = Program.objects.create(
                 user=request.user,
                 name=name,
                 description=description,
                 company_name=company_name,
-                selected_times=",".join(selected_times)
+                selected_times=",".join(selected_times_list)
             )
 
-            return redirect('index')
+            return redirect('booth_program:program_choice')
         else:
-            print("형식이 올바르지 않습니다")
+            print("Form is not valid")
             print(form.errors)
     else:
         form = ProgramForm()
     return render(request, 'program_open.html', {'form': form})
 
+
 @login_required
 def program_manage(request):
-    program = get_object_or_404(Program, user=request.user)
+    programs = Program.objects.filter(user=request.user)
+    
+    if request.method == 'POST':
+        if 'edit' in request.POST:
+            program_id = request.POST.get('program_id')
+            return redirect('booth_program:program_edit', program_id=program_id)
+        elif 'delete' in request.POST:
+            program_id = request.POST.get('program_id')
+            program = get_object_or_404(Program, id=program_id, user=request.user)
+            program.delete()
+            return redirect('index')
+    else:
+        form = ProgramForm()
+
+    return render(request, 'program_manage.html', {'form': form, 'programs': programs})
+
+@login_required
+def program_edit(request, program_id):
+    program = get_object_or_404(Program, id=program_id, user=request.user)
     time_slots = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
     selected_times = program.selected_times.split(',') if program.selected_times else []
     
     if request.method == 'POST':
-        if 'edit' in request.POST:
-            form = ProgramForm(request.POST, instance=program)
-            if form.is_valid():
-                program = form.save(commit=False)
-                
-                new_selected_times = request.POST.getlist('selected_times')
-                new_selected_times = sorted(list(set(new_selected_times[1:])))
-                
-                program.selected_times = ",".join(new_selected_times)
-                
-                program.save()
-                return redirect('booth_program:program_manage')
+        form = ProgramForm(request.POST, instance=program)
+        if form.is_valid():
+            program = form.save(commit=False)
+            new_selected_times = request.POST.get('selected_times', '')
+            new_selected_times_list = sorted(list(set(new_selected_times.split(','))))
+            program.selected_times = ",".join(new_selected_times_list)
+            program.save()
+            return redirect('booth_program:program_manage')
         elif 'delete' in request.POST:
             program.delete()
-            return redirect('index')
+            return redirect('booth_program:program_manage')
     else:
         form = ProgramForm(instance=program)
     
-    return render(request, 'booth_program/program_manage.html', {'form': form, 'program': program, 'time_slots': time_slots, 'selected_times': selected_times})
-
+    return render(request, 'program_edit.html', {'form': form, 'time_slots': time_slots, 'selected_times': selected_times})
 
 @login_required
 def reserve_booth(request, booth_id):
@@ -114,7 +131,7 @@ def submit_reservation(request):
 def reservation_check(request):
     user_name = request.user.username
     reservations = BoothProgramReservation.objects.filter(user_name=user_name)
-    return render(request, 'booth_program/reservation_check.html', {'reservations': reservations})
+    return render(request, 'reservation_check.html', {'reservations': reservations})
 
 @login_required
 def delete_reservation(request, reservation_id):

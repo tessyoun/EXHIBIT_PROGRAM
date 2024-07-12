@@ -99,12 +99,17 @@
     text-align: center;
 }
 
-.time-slot-label input[type="checkbox"] {
-    margin-left: 10px;
+.time-slot {
+    width: 100%;
+    text-align: center;
 }
 
 .time-slot-label:hover {
     background-color: #e0e0e0;
+}
+
+.time-slot-label .selected {
+    font-weight: bold;
 }
 
 .button-container {
@@ -122,6 +127,14 @@
     border-radius: 5px;
     cursor: pointer;
     margin: 5px;
+}
+
+.delete-button {
+    background-color: #ff6666; /* Red background for delete button */
+}
+
+.delete-button:hover {
+    background-color: #cc5555; /* Darker red background for delete button on hover */
 }
 
 .submit-button:hover {
