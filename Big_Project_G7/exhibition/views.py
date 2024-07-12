@@ -5,7 +5,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.http import JsonResponse
 
 from .models import Booth_Info
-from .models import Exhibition_info
+from .models import Exhibition_info, Exhibition
 from .forms import ExhibitionForm
 from .forms import BoothForm
 
@@ -27,33 +27,27 @@ booth_info = Booth_Info.objects.all()
 # 이미지 경로 DB에 저장
 @login_required
 def save_layout(request):
-    form = ExhibitionForm()
     if request.method == 'POST':
         image_data = request.POST.get('image_data')
         
         if 'data' in request.session:
             formdata = json.loads(request.session['data'])
             img_path = save_image_to_fileserver(image_data, formdata['exhibition_name'])
-            print(img_path)
             if img_path:
-                print(0)
                 formdata['layout'] = img_path
-                print(formdata)
-                print(type(formdata))
-                # if exhibition.is_valid():
-                #     exhibition.save()
-                #     print(1)
-                    # return JsonResponse({'img_path': img_path})
+                target = Exhibition.objects.get(exhibition_name=formdata['exhibition_name'])
+                target.layout = img_path
+                target.save()
+                return JsonResponse({'img_path':img_path})
+            else:
+                return JsonResponse({'error': 'Failed to save image'}, status=500)
         else:
             return JsonResponse({'error': 'Failed to save image'}, status=500)
-
 
 # 이미지 파일 저장 후 경로 반환
 def save_image_to_fileserver(img_data, img_name):
     image = base64.b64decode(img_data)
-    img_name += '.png'
-    img_path = os.path.join(MEDIA_ROOT, img_name)
-    print(img_path)
+    img_path = os.path.join(MEDIA_ROOT, img_name+'png')
 
     with open(img_path, 'wb') as f:
         f.write(image)
@@ -64,7 +58,7 @@ def save_image_to_fileserver(img_data, img_name):
 def create_exhibition(request):
 
     # render generated image
-    def render_image(session_data)
+    def render_image(session_data):
         response, images = get_image_from_server(session_data)
         if response.status_code == 200:
             return render(request, 'layout2.html', {'image_url': images})
