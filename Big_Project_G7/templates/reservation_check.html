@@ -1,0 +1,93 @@
+{% extends "base_layout.html" %}
+{% load static %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/reservation_check.css' %}" />
+  <style>
+    .reservation-check-container {
+      text-align: center;
+      margin-top: 100px;  /* Adjust the margin to avoid overlapping */
+    }
+    .reservation-table {
+      margin: 0 auto;
+    }
+  </style>
+{% endblock %}
+
+{% block title %} 내 예약 확인 {% endblock %}
+
+{% block main_content %}
+<div class="reservation-check-container">
+  <h1>내 예약 확인</h1>
+  {% if reservations.exists %}
+    <table class="reservation-table">
+      <thead>
+        <tr>
+          <th>프로그램 이름</th>
+          <th>예약 인원</th>
+          <th>예약 시간</th>
+          <th>행동</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for reservation in reservations %}
+          <tr>
+            <td>{{ reservation.program_name }}</td>
+            <td>{{ reservation.num_of_people }}</td>
+            <td>{{ reservation.reservationtime_set.first.reserved_time }}</td>
+            <td>
+              <button class="edit-button" data-reservation-id="{{ reservation.id }}">예약 수정</button>
+              <form method="post" action="{% url 'booth_program:delete_reservation' reservation.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">예약 취소</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>예약 항목이 없습니다.</p>
+  {% endif %}
+</div>
+
+<div id="edit-modal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>예약 수정</h2>
+    <form id="edit-form">
+      <label for="program_name">프로그램 이름:</label>
+      <input type="text" id="program_name" name="program_name" readonly><br><br>
+      <label for="num_of_people">예약 인원:</label>
+      <select id="num_of_people" name="num_of_people">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select><br><br>
+      <label for="reserved_time">예약 시간:</label>
+      <select id="reserved_time" name="reserved_time">
+        <option value="10:00">10:00</option>
+        <option value="11:00">11:00</option>
+        <option value="12:00">12:00</option>
+        <option value="13:00">13:00</option>
+        <option value="14:00">14:00</option>
+        <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+      </select><br><br>
+      <button type="submit">수정하기</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/reservation_edit.js' %}"></script>
+{% endblock %}
