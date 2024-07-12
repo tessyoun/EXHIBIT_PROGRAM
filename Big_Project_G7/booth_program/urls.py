@@ -1,4 +1,3 @@
-# booth_program/urls.py
 from django.urls import path
 from . import views
 
@@ -16,3 +15,4 @@ urlpatterns = [
     path('reservation_check/edit/<int:reservation_id>/', views.edit_reservation, name='edit_reservation'),
     path('program_choice/', views.program_choice, name='program_choice'),
 ]
+

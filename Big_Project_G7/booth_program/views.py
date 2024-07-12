@@ -1,4 +1,3 @@
-# booth_program/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Program, BoothProgramReservation, ReservationTime
@@ -65,7 +64,7 @@ def program_edit(request, program_id):
     program = get_object_or_404(Program, id=program_id, user=request.user)
     time_slots = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
     selected_times = program.selected_times.split(',') if program.selected_times else []
-    
+
     if request.method == 'POST':
         form = ProgramForm(request.POST, instance=program)
         if form.is_valid():

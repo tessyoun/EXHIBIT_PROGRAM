@@ -17,6 +17,9 @@ urlpatterns = [
     path('ticket/', include('ticket.urls')),
     path('exhibition/', include(('exhibition.urls', 'exhibition'), namespace='exhibition')),
 
+    #sidebar book mark
+    path('get_booth_info/', views.get_booth_info, name='get_booth_info'),
+
     # 1기 전시회
     path('layout1/', views.layout1, name='layout1'),
 
@@ -42,6 +45,9 @@ urlpatterns = [
     path('edit_booth/', views.edit_booth_view, name='edit_booth'), #template x
     path('layout5/', views.create_exhibition, name='layout5'), #template x
     
+    path('program_choice/', views.program_choice, name='program_choice'),
+    # path('program_manage/', views.program_manage, name='program_manage'),
+    # path('programs/', include('programs.urls')),
 ]
 
 from django.conf import settings

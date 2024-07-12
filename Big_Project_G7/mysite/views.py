@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core.serializers import serialize
 from accounts.models import Profile
 from .models import Booth_Info
+from django.http import JsonResponse
 
 def process_image():
     image_path = os.path.join(settings.BASE_DIR, 'static/images/test1.png')
@@ -96,6 +97,10 @@ def layout1(request):
                                             'booths': booth,
                                             })
 
+def get_booth_info(request):
+    booths = serialize('json', Booth_Info.objects.filter(exhibition_id=1))
+    return JsonResponse(booths, safe=False)
+
 def layout2(request):
     return render(request, 'layout2.html')
 
@@ -162,3 +167,9 @@ def FAQlist(request):
         'faqs': faqs,
     }
     return render(request, 'FAQ.html', context)
+
+def program_choice(request):
+    return render(request, 'program_choice.html')
+
+def program_manage(request):
+    return render(request, 'program_manage.html')

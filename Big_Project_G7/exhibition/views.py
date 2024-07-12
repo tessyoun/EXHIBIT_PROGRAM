@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from .models import Booth_Info
 from .models import Exhibition_info, Exhibition
 from .forms import ExhibitionForm
-from .forms import BoothForm
+from .forms import BoothForm, ExhibForm
 
 from mysite.models import ExhibitionInfo
 from datetime import datetime
@@ -122,19 +122,14 @@ def update_booths(request):
     user_name = request.user.profile.name
     # 현재 기업이 운영하는 부스 정보
     booths = Booth_Info.objects.filter(company_name=user_name).first()
-
     if request.method == 'POST':
         form = BoothForm(request.POST, instance=booths)
-
         if form.is_valid() and booths:
             form.save()
-
         messages.success(request, '부스 정보가 업데이트되었습니다.')
         return redirect('index')
-
     else:
         form = BoothForm(instance=booths) if booths else None
-
     return render(request, 'boothinfo.html', {'form':form})
 
 # 개최한 부스 리스트 가져오기
@@ -210,3 +205,18 @@ def exhibition_list_json(request, date=None):
         exhibition['ExhibitionClosedDate'] = exhibition['ExhibitionClosedDate'].isoformat()
     
     return JsonResponse(json.dumps(exhibitions_list), safe=False)
+
+@login_required
+def update_exhibition(request):
+    user_id = request.user.id
+    # 현재 기업이 운영하는 전시회
+    exhi = Exhibition_info.objects.filter(host_id=user_id).first()
+    if request.method == 'POST':
+        exhi_form = ExhibForm(request.POST, instance=exhi)
+        if exhi_form.is_valid():
+            exhi_form.save()
+        return redirect('index')
+    else:
+        exhi_form = ExhibForm(instance=exhi)
+
+    return render(request, 'exhibinfo.html', {'exhi_form':exhi_form})
