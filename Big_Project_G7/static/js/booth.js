@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var selectedCategory = '전체';
     const reservationButton = document.getElementById('reservation');
 
+
     function populateCategories() {
         var categories = ['전체'];
         booths.forEach(function(booth) {
@@ -114,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
         img.src = url;
     }
 
+    //창 생성
     function showModal(rectIndex) {
         const booth = booths[rectIndex];
         const boothId = booth.pk;
@@ -150,8 +152,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
         reservationButton.removeEventListener('click', handleReservation);
         reservationButton.addEventListener('click', handleReservation);
+               // 북마크 버튼 클릭 시 처리
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];                     // #1 db로 저장경로 수정해야할 부분
+        const bookmarkBtn = document.getElementById('bookmark-btn');
+        bookmarkBtn.innerHTML = bookmarks.includes(boothId) ? '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"> </i>' : '<i class="fa-regular fa-star fa-2x"> </i>';
+
+        bookmarkBtn.addEventListener('click', function() {
+            if (bookmarks.includes(boothId)) {
+                // 북마크 취소
+                bookmarks = bookmarks.filter(id => id !== boothId);
+                bookmarkBtn.innerHTML = '<i class="fa-regular fa-star fa-2x"> </i>';
+            } else {
+                // 북마크 추가
+                bookmarks.push(boothId);
+                bookmarkBtn.innerHTML = '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"> </i>';
+            }
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 db로 저장경로 수정해야할 부분
+            updateBookmarkIcons();
+        });
     }
 
+    //예약기능
     function handleReservation(event) {
         event.preventDefault();
         const companyName = encodeURIComponent(modalText.innerText.split('기업명: ')[1].split('\n')[0]);
@@ -173,7 +194,9 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('No company name found');
         }
     }
+    
 
+    //북마크 업데이트
     function updateBookmarkIcons() {
         let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
         rectangles.forEach(function(rectangle, index) {
@@ -195,6 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    //창 닫기 기능
     function closeModal() {
         modal.style.display = "none";
     }
@@ -216,8 +240,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    const imageContainer = document.querySelector('.image-container');
 
+    //스크롤기능
+    const imageContainer = document.querySelector('.image-container');
     if (imageContainer) {
         const img = imageContainer.querySelector('img');
 
@@ -238,6 +263,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("Element with class 'image-container' not found.");
     }
 
+    //북마크 리스트
     const listButton = document.getElementById('show-bookmarks');
     listButton.addEventListener('click', function() {
         let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
@@ -250,6 +276,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    //북마크 삭제
     const resetButton = document.getElementById('reset-bookmarks');
     resetButton.addEventListener('click', function() {
         bookmarks = [];
