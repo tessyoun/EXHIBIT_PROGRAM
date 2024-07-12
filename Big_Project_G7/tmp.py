@@ -97,6 +97,49 @@ class BoothInfo(models.Model):
         db_table = 'booth_info'
 
 
+class BoothProgramBoothprogramreservation(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user_name = models.CharField(max_length=100)
+    program_name = models.CharField(max_length=200)
+    num_of_people = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'booth_program_boothprogramreservation'
+
+
+class BoothProgramProgram(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    company_name = models.CharField(max_length=100)
+    selected_times = models.CharField(max_length=255)
+    user_id = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'booth_program_program'
+
+
+class BoothProgramReservation(models.Model):
+    user_name = models.CharField(max_length=100)
+    program_name = models.CharField(max_length=200)
+    num_of_people = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'booth_program_reservation'
+
+
+class BoothProgramReservationtime(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    reserved_time = models.CharField(max_length=100)
+    reservation = models.ForeignKey(BoothProgramBoothprogramreservation, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'booth_program_reservationtime'
+
+
 class ChatFaqAivle(models.Model):
     qapk = models.TextField(blank=True, null=True)
     qacust = models.TextField(blank=True, null=True)
@@ -115,6 +158,7 @@ class ChatFaqExhi(models.Model):
     qacat = models.TextField(blank=True, null=True)
     qalist = models.TextField(blank=True, null=True)
     source = models.TextField(blank=True, null=True)
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -193,6 +237,7 @@ class ExhibitionExhibition(models.Model):
     end_date = models.DateField()
     number_of_booths = models.IntegerField()
     hall = models.CharField(max_length=50)
+    layout = models.CharField(max_length=100)
 
     class Meta:
         managed = False
@@ -225,9 +270,10 @@ class ExhibitionInfo(models.Model):
     exhibitiondescription = models.TextField(db_column='ExhibitionDescription', blank=True, null=True)  # Field name made lowercase.
     exhibitionregistrationdate = models.DateField(db_column='ExhibitionRegistrationDate', blank=True, null=True)  # Field name made lowercase.
     organizationid = models.IntegerField(db_column='OrganizationID', blank=True, null=True)  # Field name made lowercase.
-    hall_id = models.IntegerField(db_column='Hall_ID', blank=True, null=True)  # Field name made lowercase.
+    hall = models.ForeignKey(ExhibitionHall, models.DO_NOTHING, db_column='Hall_ID', blank=True, null=True)  # Field name made lowercase.
     exhibitioncloseddate = models.DateField(db_column='ExhibitionClosedDate', blank=True, null=True)  # Field name made lowercase.
     url = models.CharField(db_column='URL', max_length=25, blank=True, null=True)  # Field name made lowercase.
+    posterimg = models.CharField(db_column='PosterImg', max_length=255, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -305,6 +351,26 @@ class ProgramTime(models.Model):
     class Meta:
         managed = False
         db_table = 'program_time'
+
+
+class ProgramsProgram(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    open_times = models.CharField(max_length=200)
+
+    class Meta:
+        managed = False
+        db_table = 'programs_program'
+
+
+class ReservationTimes(models.Model):
+    reservation = models.ForeignKey(BoothProgramReservation, models.DO_NOTHING, blank=True, null=True)
+    reserved_time = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'reservation_times'
 
 
 class ReserveHallReservationHall(models.Model):

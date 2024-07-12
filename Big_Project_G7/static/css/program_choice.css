@@ -1,0 +1,122 @@
+.app__size {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header--fixed {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 50px;
+    background-color: #333;
+    padding-bottom: 10px;
+}
+
+.header__button--menu,
+.header__title,
+.for_loc_center {
+    filter: brightness(0) invert(1);
+}
+
+.header__title--wrap {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.body--wrap {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.content-wrap {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    margin-top: 10px;
+}
+
+.title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.manage-button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #66cc66;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.manage-button:hover {
+    background-color: #55aa55;
+}
+
+.sidebar__menu--wrap {
+    padding: 15px;
+}
+
+.sidebar__menu--list--wrap {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar__menu--list {
+    margin-bottom: 10px;
+}
+
+.sidebar__menu--item {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    display: block;
+}
+
+.sidebar__menu--item:hover {
+    background-color: #f0f0f0;
+}
+
+.logout-form {
+    margin-top: 20px;
+}
+
+.logout-button {
+    font-size: 16px;
+    padding: 10px;
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.logout-button:hover {
+    background-color: #cc5555;
+}

@@ -104,6 +104,9 @@ def get_booth_info(request):
 def layout2(request):
     return render(request, 'layout2.html')
 
+def about(request):
+    return render(request, 'about.html')
+
 def aivexhall(request):
     return render(request, 'aivexhall.html')
 
@@ -164,3 +167,9 @@ def FAQlist(request):
         'faqs': faqs,
     }
     return render(request, 'FAQ.html', context)
+
+def program_choice(request):
+    return render(request, 'program_choice.html')
+
+def program_manage(request):
+    return render(request, 'program_manage.html')

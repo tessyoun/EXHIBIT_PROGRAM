@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-CSRFToken': csrfToken
             },
             body: new URLSearchParams({
-                'user_name': boothCompanyName,
                 'program_name': boothName,
                 'num_of_people': people,
                 'reserved_time': selectedTime
@@ -49,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.status === 'success') {
                 alert('예약 완료! 시간: ' + selectedTime + ', 인원수: ' + people);
+                window.location.href = '/booth_program/reservation_check/';
             } else {
                 alert('예약 실패: ' + data.message);
             }

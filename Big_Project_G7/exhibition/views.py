@@ -4,18 +4,19 @@ from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import JsonResponse
 
-from accounts.models import Profile
-
 from .models import Booth_Info
-from .models import Exhibition_info
+from .models import Exhibition_info, Exhibition
 from .forms import ExhibitionForm
-from .forms import BoothForm
+from .forms import BoothForm, ExhibForm
 
 from mysite.models import ExhibitionInfo
 from datetime import datetime
 
 import json
 import requests
+import os
+import base64
+from mysite.settings import MEDIA_ROOT
 
 PORT = 5000
 AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate'
@@ -23,20 +24,39 @@ AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate
 # def getExhidb
 booth_info = Booth_Info.objects.all()
 
-# 전시회 개최시 권한 바꿈(active>staff)
-# @login_required
-# def change_perm(request):
-#     if request.method == 'POST':
-#         user = request.user
-#         user.is_staff = True
-#         user.save()
-#         request.session['data'] = {}
-#         return redirect('exhibition:create_exhibition')
-    
-    
+# 이미지 경로 DB에 저장
+@login_required
+def save_layout(request):
+    if request.method == 'POST':
+        image_data = request.POST.get('image_data')
+        
+        if 'data' in request.session:
+            formdata = json.loads(request.session['data'])
+            img_path = save_image_to_fileserver(image_data, formdata['exhibition_name'])
+            if img_path:
+                formdata['layout'] = img_path
+                target = Exhibition.objects.get(exhibition_name=formdata['exhibition_name'])
+                target.layout = img_path
+                target.save()
+                return JsonResponse({'img_path':img_path})
+            else:
+                return JsonResponse({'error': 'Failed to save image'}, status=500)
+        else:
+            return JsonResponse({'error': 'Failed to save image'}, status=500)
+
+# 이미지 파일 저장 후 경로 반환
+def save_image_to_fileserver(img_data, img_name):
+    image = base64.b64decode(img_data)
+    img_path = os.path.join(MEDIA_ROOT, img_name+'.png')
+
+    with open(img_path, 'wb') as f:
+        f.write(image)
+    return img_path
+
 # 전시회 객체 생성
 @login_required
 def create_exhibition(request):
+
     # render generated image
     def render_image(session_data):
         response, images = get_image_from_server(session_data)
@@ -47,15 +67,15 @@ def create_exhibition(request):
 
     if request.method == 'POST':
         if request.user.is_staff:
-            if request.session['data']:
+            if 'data' in request.session and request.session['data']:
                return render_image(request.session['data'])
             else:
                 form = ExhibitionForm(request.POST)
                 if form.is_valid():
                     exhibition = form.save(commit=False)
                     exhibition.host_id = request.user.profile.name  # 로그인한 사용자의 아이디를 설정
+                    exhibition.layout = '/'
                     exhibition.save()
-                    request.session['data'] = {}
                     request.session['data'] = create_json(form)
                     return render_image(request.session['data'])
                 else:
@@ -102,19 +122,14 @@ def update_booths(request):
     user_name = request.user.profile.name
     # 현재 기업이 운영하는 부스 정보
     booths = Booth_Info.objects.filter(company_name=user_name).first()
-
     if request.method == 'POST':
         form = BoothForm(request.POST, instance=booths)
-
         if form.is_valid() and booths:
             form.save()
-
         messages.success(request, '부스 정보가 업데이트되었습니다.')
         return redirect('index')
-
     else:
         form = BoothForm(instance=booths) if booths else None
-
     return render(request, 'boothinfo.html', {'form':form})
 
 # 개최한 부스 리스트 가져오기
@@ -190,3 +205,18 @@ def exhibition_list_json(request, date=None):
         exhibition['ExhibitionClosedDate'] = exhibition['ExhibitionClosedDate'].isoformat()
     
     return JsonResponse(json.dumps(exhibitions_list), safe=False)
+
+@login_required
+def update_exhibition(request):
+    user_id = request.user.id
+    # 현재 기업이 운영하는 전시회
+    exhi = Exhibition_info.objects.filter(host_id=user_id).first()
+    if request.method == 'POST':
+        exhi_form = ExhibForm(request.POST, instance=exhi)
+        if exhi_form.is_valid():
+            exhi_form.save()
+        return redirect('index')
+    else:
+        exhi_form = ExhibForm(instance=exhi)
+
+    return render(request, 'exhibinfo.html', {'exhi_form':exhi_form})

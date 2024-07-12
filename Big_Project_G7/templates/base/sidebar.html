@@ -13,10 +13,6 @@
     <div class="sidebar__backdrop"></div>
     <div class="sidebar--wrap">
         <div class="sidebar__header">
-            <div class="sidebar__header__menu--wrap">
-                <button class="sidebar__menu--home icon"></button>
-            </div>
-
             <div class="sidebar__header__login--wrap">
                 <div class="sidebar__login__profile"></div>
 
@@ -64,7 +60,40 @@
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <ul class="sidebar__menu--list--wrap">
-                                    <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 전시회 정보 수정 </a></li>
+                                    <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update_exhibition' %}" class = "sidebar__menu--item"> 전시회 정보 수정 </a></li>
+                                    <li class = "sidebar__menu--list"><a href="{% url 'exhibition:booth_list' %}" class = "sidebar__menu--item"> 부스 목록 </a></li>
+                                    <li class = "sidebar__menu--list"><a href="{% url 'exhibition:create_exhibition' %}"class = "sidebar__menu--item"> 배치도 생성 </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% elif user.is_staff %}
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button for_sidebar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            마이페이지
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ul class="sidebar__menu--list--wrap">
+                                <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button for_sidebar collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            전시회 관리
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <ul class="sidebar__menu--list--wrap">
+                                    <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update_exhibition' %}" class = "sidebar__menu--item"> 전시회 정보 수정 </a></li>
                                     <li class = "sidebar__menu--list"><a href="{% url 'exhibition:booth_list' %}" class = "sidebar__menu--item"> 부스 목록 </a></li>
                                     <li class = "sidebar__menu--list"><a href="{% url 'exhibition:create_exhibition' %}"class = "sidebar__menu--item"> 배치도 생성 </a></li>
                                 </ul>
@@ -84,7 +113,7 @@
                         <div class="accordion-body">
                             <ul class="sidebar__menu--list--wrap">
                             <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
-                            <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update_booths' %}" class = "sidebar__menu--item"> 부스 정보 수정 </a></li>
+                            <li class = "sidebar__menu--list"><a href="{% url 'exhibition:update' %}" class = "sidebar__menu--item"> 부스 정보 수정 </a></li>
                             </ul>
                         </div>
                     </div>
@@ -99,7 +128,7 @@
                         <div class="accordion-body">
                             <ul class="sidebar__menu--list--wrap">
                                 <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 예약 현황 </a></li>
-                                <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 프로그램 생성/관리 </a></li>
+                                <li class = "sidebar__menu--list"><a href="{% url 'booth_program:program_choice' %}" class = "sidebar__menu--item"> 프로그램 생성/관리 </a></li>
                             </ul>
                         </div>
                     </div>
@@ -117,8 +146,9 @@
                             <div class="accordion-body">
                                 <ul class="sidebar__menu--list--wrap">
                                 <li class = "sidebar__menu--list"><a href="{% url 'accounts:update' %}" class = "sidebar__menu--item"> 회원 정보 수정 </a></li>
-                                <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> 내 예약 확인 </a></li>
+                                <li class="sidebar__menu--list"><a href="{% url 'booth_program:reservation_check' %}" class="sidebar__menu--item"> 내 예약 확인 </a></li>
                                 <li class = "sidebar__menu--list"><a class = "sidebar__menu--item" id="bookMlist"> 북마크 확인 </a></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -153,7 +183,7 @@
                             <div class="accordion-body">
                                 <ul class="sidebar__menu--list--wrap">
                                     <li class = "sidebar__menu--list"><a href="{% url 'notice:notice_list' %}" class = "sidebar__menu--item"> 공지사항 </a></li>
-                                    <li class = "sidebar__menu--list"><a class = "sidebar__menu--item"> About </a></li>
+                                    <li class = "sidebar__menu--list"><a href="{% url 'aivexabout' %}" class = "sidebar__menu--item"> About </a></li>
                                     <li class = "sidebar__menu--list"><a href="{% url 'aivexhall' %}" class = "sidebar__menu--item"> Hall info </a></li>
                                     <li class = "sidebar__menu--list"><a href="{% url 'faq_page' %}" class = "sidebar__menu--item"> FAQ </a></li>
                                 </ul>

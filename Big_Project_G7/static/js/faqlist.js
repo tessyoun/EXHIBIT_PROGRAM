@@ -6,7 +6,7 @@ const categoryNav = document.getElementById('categoryNav');
 
 const categories = {
     '개인': ['전체', '관람', '예약', '주차', '기타'],
-    '기업': ['전체', '참가', '부스 설비', '주차', '기타']
+    '기업': ['전체', '참가', '부스 설비', '주차', '주최', '기타']
 };
 
 function filterCustomer(customer, element) {

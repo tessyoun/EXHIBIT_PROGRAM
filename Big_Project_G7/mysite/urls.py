@@ -31,11 +31,11 @@ urlpatterns = [
     path('program_open/', views.program_open, name='program_open'),
 
     
-    #aivex/info
+    #AIVEX/info
     path('notice/', include('notice.urls')),
     path('FAQ/', views.FAQlist, name='faq_page'),
-    # aivex/about/ 페이지 필요
-    path('aivex/hall/', views.aivexhall, name='aivexhall'), #former aivexhall, 홀 정보
+    path('AIVEX/about/', views.about, name='aivexabout'), # AIVEX/about/
+    path('AIVEX/hall/', views.aivexhall, name='aivexhall'), #former aivexhall, 홀 정보
 
     
     # etc
@@ -45,6 +45,9 @@ urlpatterns = [
     path('edit_booth/', views.edit_booth_view, name='edit_booth'), #template x
     path('layout5/', views.create_exhibition, name='layout5'), #template x
     
+    path('program_choice/', views.program_choice, name='program_choice'),
+    # path('program_manage/', views.program_manage, name='program_manage'),
+    # path('programs/', include('programs.urls')),
 ]
 
 from django.conf import settings

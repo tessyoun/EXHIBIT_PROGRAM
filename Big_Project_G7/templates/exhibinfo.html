@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1." />  
-    <title>회원 정보 수정</title>
-    <link rel="stylesheet" href="{% static 'memberinfo.css' %}">
+    <title>전시회 정보 수정</title>
+    <link rel="stylesheet" href="{% static 'exhibinfo.css' %}">
 
     <!--header/sidebar-->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
@@ -22,26 +22,26 @@
     <!--end header/sidebar-->
 
     <div class='container-update'>
-        <form method="post" class="form-update">
+        <form method="post" enctype="multipart/form-data" class="booth-update"> 
             {% csrf_token %}
-            <div>
-                <label for="{{ user_form.username.id_for_label }}">아이디</label>
-                {{ user_form.username }}
+            <div class="exhib_name">
+                <label for="exhib_name">전시명</label>
+                {{exhi_form.exhibition_name}}
             </div>
-            <div>
-                <label for="{{ profile_form.name.id_for_label }}">이름</label>
-                {{ profile_form.name }}
-            </div>
-            <div>
-                <label for="{{ profile_form.user_type.id_for_label }}">고객 유형</label>
-                {{ profile_form.user_type }}
-            </div>
-            <div>
-                <label for="{{ profile_form.phone_number.id_for_label }}">전화번호</label>
-                {{ profile_form.phone_number }}
-            </div>
-            
-            <button type="submit" class="save">저장</button>
+            <div class="exhib_description">
+                <label for="exhib_description">전시 내용</label>
+                {{exhi_form.exhibition_description }}
+            </div> 
+            <div class="start_date">
+                <label for="start_date">시작날짜</label>
+                {% comment %} <input type="date" name="start_date" required="" id="id_start_date" value="{{ exhi_form.start_date|date:'Y-m-d' }}"> {% endcomment %}
+                {{exhi_form.start_date }}
+            </div> 
+            <div class="end_date">
+                <label for="end_date">종료날짜</label>
+                {{exhi_form.end_date }}
+            </div> 
+            <button type="submit" class="save">수정</button>
         </form>
     </div>
 
