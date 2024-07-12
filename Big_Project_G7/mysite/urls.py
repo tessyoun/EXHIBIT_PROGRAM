@@ -31,7 +31,7 @@ urlpatterns = [
     #aivex/info
     path('notice/', include('notice.urls')),
     path('FAQ/', views.FAQlist, name='faq_page'),
-    # aivex/about/ 페이지 필요
+    path('aivex/about/', views.about, name='aivexabout'), # aivex/about/
     path('aivex/hall/', views.aivexhall, name='aivexhall'), #former aivexhall, 홀 정보
 
     
