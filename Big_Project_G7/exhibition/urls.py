@@ -14,4 +14,5 @@ urlpatterns = [
     path('<int:pk>/edit/', views.edit, name='edit'),
     path('<int:pk>/update/', views.update, name='update'),
     path('save_layout/', views.save_layout, name='save_layout'),
+    path('update_exhibition/', views.update_exhibition, name='update_exhibition'),
 ]
