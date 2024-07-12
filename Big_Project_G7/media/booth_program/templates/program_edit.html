@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프로그램 생성/관리</title>
-    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/program_choice.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <title>프로그램 수정</title>
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}">
+    <link rel="stylesheet" href="{% static 'css/program_edit.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="app__size">
@@ -21,11 +21,33 @@
         </div>
         <div class="body--wrap">
             <div class="content-wrap">
-                <h1 class="title">프로그램 생성/관리</h1>
-                <div class="button-container">
-                    <a href="{% url 'booth_program:program_open' %}" class="manage-button">프로그램 생성</a>
-                    <a href="{% url 'booth_program:program_manage' %}" class="manage-button">프로그램 관리</a>
-                </div>
+                <h1 class="title">프로그램 수정</h1>
+                <form method="post" onsubmit="return validateForm()">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_name">프로그램 명:</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_description">프로그램 설명:</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="form-group">
+                        <label>오픈할 시간대:</label>
+                        <div class="time-slots">
+                            {% for time in time_slots %}
+                            <label class="time-slot-label">
+                                <input type="checkbox" class="time-slot" value="{{ time }}" {% if time in selected_times %}checked{% endif %}> {{ time }}
+                            </label>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" id="id_selected_times" name="selected_times">
+                    </div>
+                    <div class="button-container">
+                        <button type="submit" name="edit" class="submit-button">프로그램 수정하기</button>
+                        <button type="submit" name="delete" class="submit-button delete-button">프로그램 삭제하기</button>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="sidebar" data-role="side-bar">
@@ -79,5 +101,33 @@
         </div>
     </div>
     <script src="{% static 'js/uiSidebar.js' %}"></script>
+    <script>
+        function validateForm() {
+            const name = document.getElementById('id_name').value;
+            const description = document.getElementById('id_description').value;
+            const checkboxes = document.querySelectorAll('input.time-slot:checked');
+            if (!name) {
+                alert("프로그램 명을 입력해주세요.");
+                return false;
+            }
+            if (!description) {
+                alert("프로그램 설명을 입력해주세요.");
+                return false;
+            }
+            if (checkboxes.length === 0) {
+                alert("오픈할 시간대를 선택해주세요.");
+                return false;
+            }
+
+            const selectedTimes = Array.from(checkboxes).map(checkbox => checkbox.value);
+            const selectedTimesInput = document.getElementById('id_selected_times');
+            selectedTimesInput.value = selectedTimes.join(',');
+
+            console.log("Selected Times:", selectedTimes);
+            console.log("Hidden Input Value:", selectedTimesInput.value);
+
+            return true;
+        }
+    </script>
 </body>
 </html>
