@@ -77,16 +77,26 @@ table tr td {
     align-items: center;
     border: 1px solid rgb(190, 190, 190);
     border-radius: 7px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.info-input:focus-within {
+    border-color: #38b8b2; 
 }
 
 .info-input-icon {
     margin-right: 5px;
     margin-left: 10px;
     width: 25px;
+    transition: border-color 0.3s ease-in-out;
 }
 
 .info-input-icon i {
     font-size: 20px;
+}
+
+.info-input:focus-within .info-input-icon:not(#pw-info-icon) i {
+    color: #38b8b2 !important;
 }
 
 .user_type_list {

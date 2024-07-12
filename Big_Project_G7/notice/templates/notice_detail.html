@@ -5,37 +5,39 @@
   <link rel="stylesheet" href="{% static 'css/notice_list.css' %}" />
 {% endblock %}
 
-{% block title %} Notice Detail
+{% block title %} 
+    {{ notice.title }}
 {% endblock %}
 
 {% block main_content %}
-<div class="body--wrap">
-  <div class="content-wrap">
-          <div class="notice-card">
-            <div class="notice-header">
-              <h1>{{ notice.title }}</h1>
-              <div class="notice-meta">
+<div class="notice--wrap">
+
+    <div class="notice-detail-card">
+        <div class="notice-header">
+            <h1>{{ notice.title }}</h1>
+            <div class="notice-meta">
+                <p>{{ notice.update_time|date:"Y-m-d"}}</p>
                 <p>작성자: {{ notice.author }}</p>
-                <p>작성일: {{ notice.update_time }}</p>
-              </div>
             </div>
-            <div class="notice-content">
-              <p>{{ notice.content }}</p>
-            </div>
-            <div class="notice-actions">
-              {% if request.user == notice.author %}
-              <a class="btn" href="{% url 'notice:notice_edit' notice.pk %}"
-                >Edit</a
-              >
-              <a class="btn" href="{% url 'notice:notice_delete' notice.pk %}"
-                >Delete</a
-              >
-              {% endif %}
-              <a class="btn" href="{% url 'notice:notice_list' %}"
-                >Back to list</a
-              >
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
+
+    {% if request.user == notice.author %}
+        <div class="notice-actions">
+            <a href="{% url 'notice:notice_edit' notice.pk %}">수정</a>
+            <a href="{% url 'notice:notice_delete' notice.pk %}">삭제</a>
+        </div>
+    {% endif %}
+
+    <div class="notice-content">
+        <p>{{ notice.content }}</p>
+    </div>
+
+
+    <div class="notice-footer">
+        <a class="back_to_list" href="{% url 'notice:notice_list' %}">
+            목록보기
+        </a>
+    </div>
+</div>
 {% endblock %}

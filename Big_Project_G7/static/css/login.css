@@ -76,20 +76,12 @@ table {
     margin-bottom: 10px;
 }
 
-.id_img {
-    width: 26px;
-    height: 34px;
-    border: none;
-    outline: none;
-    margin-top: 3px;
+.id_icon {
+    font-size: 26px;
 }
 
-.pw_img {
-    width: 25px;
-    height: 34px;
-    border: none;
-    outline: none;
-    margin-top: 3px;
+.pw_icon {
+    font-size: 26px;
 }
 
 table tr {
@@ -140,6 +132,13 @@ input[type="text"], input[type="password"] {
     padding: 10px;
     border-radius: 5px;
     width: calc(100% - 22px);
+    transition: border-color 0.3s ease-in-out;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    outline: none;
+    border: 2px solid #38b8b2 !important; 
+    border-radius: 5px;
 }
 
 .signup_assist {

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block styles %}
-  <link rel="stylesheet" href="{% static 'css/notice_list.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/notice_list.css' %}" />
 {% endblock %}
 
 {% block title %}  
@@ -10,27 +10,37 @@
 {% endblock %}
 
 {% block main_content %}
-<div class="body--wrap">
-  <div class="content-wrap">
-          <h1 class="title">Notices</h1>
-          <ul class="notice-list">
-            {% for notice in notice_list %}
-            <li class="notice-item">
-              <a href="{% url 'notice:notice_detail' notice.pk %}">
-                <div class="notice-card2">
-                  <h2>{{ notice.title }}</h2>
-                  <p>
-                    작성자: {{ notice.author }} | 작성일: {{ notice.update_time|date:"Y-m-d" }}
-                  </p>
+  <div class="notice--wrap">
+    <h2 class ="notice_title">공지사항</h2>
+    {% if user.is_staff %}
+        <a href="{% url 'notice:notice_new' %}" class="write-btn">글쓰기</a>
+    {% endif %}
+
+    <div class="content-wrap">
+      <ul class="notice-list">
+        {% for notice in notice_list %}
+          <li class="notice-item {% if forloop.first %}first-item{% endif %}">
+            <a href="{% url 'notice:notice_detail' notice.pk %}">
+              <div class="notice-card">
+                <div class="notice-card-text">
+                    <h2>
+                        {{ notice.title }}
+                        {% comment %} {% if notice.update_time >= now|add_days:-2 %}
+                        <i class="fa-solid fa-n" style="color: #2dd4d7;"></i>
+                        {% endif %} {% endcomment %}
+                    </h2>
+                    <p>
+                        {{ notice.update_time|date:"Y-m-d" }}
+                    </p>
                 </div>
-              </a>
-            </li>
-            {% endfor %}
-          </ul>
-          {% if user.is_staff %}
-          <a href="{% url 'notice:notice_new' %}" class="write-btn">글쓰기</a>
-          {% endif %}
-      </div>
+
+                <i class="fa-solid fa-chevron-right icon-right"></i>
+              </div>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      
     </div>
   </div>
 {% endblock %}
