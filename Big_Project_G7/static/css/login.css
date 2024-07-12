@@ -98,10 +98,10 @@ table tr td {
 
 table tr td input {
     width: 100%;
-    padding: 10px;
+    padding: 8px 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    height: 25px;
+    height: 22px;
     font-size: 15px;
 }
 
@@ -129,7 +129,6 @@ table tr td input {
 
 input[type="text"], input[type="password"] {
     border: 1px solid #ccc;
-    padding: 10px;
     border-radius: 5px;
     width: calc(100% - 22px);
     transition: border-color 0.3s ease-in-out;
