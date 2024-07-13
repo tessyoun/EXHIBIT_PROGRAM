@@ -5,34 +5,44 @@
   <link rel="stylesheet" href="{% static 'css/notice_list.css' %}" />
 {% endblock %}
 
-{% block title %}  공지 작성
+{% block title %}  
+  공지 작성
 {% endblock %}
 
 {% block main_content %}
-<div class="body--wrap">
-  <div class="content-wrap">
-        <div class="form-container">
-          <h1>작성하기</h1>
-          {% block content %}
-          <form action="" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-              <label for="title">Title:</label>
-              {{ form.title }}
-            </div>
-            <div class="form-group">
-              <label for="content">Content:</label>
-              {{ form.content }}
-            </div>
-            <div class="form-group">
-              <input type="submit" value="작성" class="submit-button" />
-            </div>
-          </form>
-          <a href="{% url 'notice:notice_list' %}" class="back-to-list"
-            >Back to list</a
-          >
-          {% endblock %}
+
+<div class="notice-write--wrap">
+    <div class="notice-write-container">
+        {% comment %} <div class = "notice-write-header">
+            <h2> 글쓰기 </h2>
+        </div> {% endcomment %}
+        {% block content %}
+        <form action="" method="post">
+        {% csrf_token %}
+        <div class="notice_write_submit--wrap pc">
+            <h2> 글쓰기 </h2>
+            <input type="submit" value="작성" class="submit-button" />
         </div>
-      </div>
+
+        <div class = notice--wrap-pc>
+        <div class="notice_write_title--wrap">      
+            <input class="notice_write_title" type="text" name="title" maxlength="200" required="" id="id_title" placeholder ="제목">
+        </div>
+
+        <div class="notice_write_content--wrap">
+            {% comment %} <label for="content">Content:</label> {% endcomment %}
+            <textarea class="notice_write_content" name="content" cols="40" rows="10" required="" id="id_content" placeholder ="글을 작성하세요."></textarea>
+        </div>
+        </div>
+        <div class="notice_write_submit--wrap mobile">
+            <input type="submit" value="작성" class="submit-button" />
+        </div>
+        </form>
+        {% comment %} <a href="{% url 'notice:notice_list' %}" class="back-to-list"
+        >Back to list</a
+        > {% endcomment %}
+        {% endblock %}
     </div>
-    {% endblock %}
+</div>
+
+{% endblock %}
