@@ -34,12 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (sendButton && userInput && chatBody) {
         sendButton.addEventListener('click', function() {
+            document.getElementById('options-container').style.display = 'none';
             sendMessage();
         });
 
         userInput.addEventListener('keydown', function(event) {
             if (event.key === 'Enter' && !event.shiftKey) {
                 event.preventDefault(); 
+                document.getElementById('options-container').style.display = 'none';
                 sendMessage();
             }
         });
@@ -98,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 addBotMessage("Sorry, there was an error processing your request.");
             });
         }
-
+        
         function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {

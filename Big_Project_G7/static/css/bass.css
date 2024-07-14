@@ -267,8 +267,8 @@ body {
     right: 20px;
     bottom: 80px; 
     width: 90%;
-    max-width: 600px;
-    height: 75%;
+    max-width: 430px;
+    height: 78%;
     max-height:800px;
     background-color: white;
     border: 1px solid #ccc;
@@ -303,26 +303,24 @@ body {
 }
 
 #chatbot__body {
-    height: 60%;
+    height: calc(100% - 135px);
     width: 100%;
     overflow-y: auto;
     padding: 0px;
     margin-bottom: 5px;
+    position: relative;
 }
 
-#chatbot__body::-webkit-scrollbar {
+/* #chatbot__body::-webkit-scrollbar {
     display: block;
-}
+} */
 
-.user-message #options-container {
-    padding: 10px;
-    border-radius: 10px;
-    margin-left: 50px;
+#options-container {
+    right: 10px;
+    width: 253px;
     margin-right: 10px;
-    width:60%;
+    bottom: 0;
     position: absolute;
-    bottom: 0; /* bot-message 아래에 위치하도록 설정 */
-    
 }
 
 .options {
@@ -334,19 +332,21 @@ body {
 }
 
 .option-button {
-    padding: 10px;
-    margin-left: 10%;
-    margin-right: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
     font-size: 14px;
     letter-spacing: 0.5px;
-    border: 1px solid lightgray;
-    border-radius: 8px;
+    border: 1px solid #333;
+    border-radius: 15px;
     background-color: white;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
 .option-button:hover {
-    background-color: #e0e0e0;
+    background-color: #01D1D5;
+    border-color: #01D1D5;
+    transform: scale(0.95);
 }
 
 #chatbot--footer {
@@ -354,7 +354,7 @@ body {
     right: 20px;
     bottom: 80px;
     width: 90%;
-    max-width: 600px;
+    max-width: 430px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -417,8 +417,6 @@ body {
     margin-bottom: 10px;
 }
 
-
-
 .bot-message .bot-profile {
     background-image: url("../icons/AIVEX_icon_black.png");
     border-radius: 50%;
@@ -446,8 +444,13 @@ body {
     display: inline-block;
 }
 
-.user-message {
-    float: right; 
+.user-message  {
+    padding: 0px;
+    border-radius: 10px;
+    float: right;
+    position: relative;
+    bottom: 0; /* bot-message 아래에 위치하도록 설정 */
+    margin-bottom: 20px;
 }
 
 .user-message .message-content {
@@ -458,6 +461,7 @@ body {
     display: inline-block;
     margin-left: 50px;
     margin-right: 10px;
+    box-sizing: border-box;
 }
 
 .user-message .timestamp {
@@ -475,6 +479,7 @@ body {
     font-size: 12px;
     color: gray;
 }
+
 
 
 /* 뒤로가기 헤더 */

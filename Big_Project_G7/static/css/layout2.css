@@ -1,12 +1,12 @@
 
 .container-create {
-    width: 80vw;
+    width: 93%;
     padding: 0;
-    margin-top: 100px;
+    margin-top: 90px;
 }
 
 .layout_create_title {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-create {
@@ -45,7 +45,6 @@
 .form-create input[type="number"]:focus,
 .form-create select:focus {
     border-bottom: 1px solid #38B8B2;
-    box-shadow: 0 1px 0 0 #38B8B2;
     outline: none;
 }
 
@@ -58,7 +57,7 @@
 .btn-create {
     margin-top: 40px;
     font-size: 16px;
-    width: 80vw;
+    width: 100%;
 }
 
 .form-create .btn-create, .form-exhibition .btn-exhibition {
@@ -71,9 +70,26 @@
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .form-create .btn-create:hover, .form-exhibition .btn-exhibition:hover {
-    background-color:#008589;
+    background-color:#33999bcd;
+    transform: scale(0.95);
+}
+
+
+
+
+
+@media (min-width: 992px) {
+    .container-create {
+        width: 70%;
+    }
+
+    .layout_create_title {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #333;
+    }
 }
