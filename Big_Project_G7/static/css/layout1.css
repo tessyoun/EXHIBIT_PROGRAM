@@ -254,7 +254,6 @@
 
 /* Styling the form elements */
 #route-form form {
-    display: flex;
     flex-direction: column;
     align-items: center;
     gap:5px;
@@ -279,6 +278,9 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+#route-form div {
+    padding-top:10px;
+}
 /* Button styles */
 #route-form button {
     display:inline;

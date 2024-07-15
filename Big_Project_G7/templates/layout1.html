@@ -34,9 +34,8 @@
                         data-center-x="{{ rect.center_x }}"
                         data-center-y="{{ rect.center_y }}">
             </div>
-            <div class="lines-container"></div>
             {% endfor %}
-            
+            <div class="lines-container"></div>   
         </div>
         <div class="modal" id="myModal">
             <div class="modal-content">
@@ -85,18 +84,16 @@
 
     <!-- 경로 입력 -->
     <div id="route-form">
-        <form>
-            <label for="start_booth">Start Booth:</label>
-            <select id="start_booth" name="start_booth">
-            </select>
-            <label for="end_booth">End Booth:</label>
-            <select id="end_booth" name="end_booth">
-            </select>
-            <div>
-                <button id="draw-line-button">Find Route</button>
-                <button id="erase-route">Erase Route</button>
-            </div>
-        </form>
+        <label for="start_booth">Start Booth:</label>
+        <select id="start_booth" name="start_booth">
+        </select>
+        <label for="end_booth">End Booth:</label>
+        <select id="end_booth" name="end_booth">
+        </select>
+        <div>
+            <button id="draw-line-button">Find Route</button>
+            <button id="erase-route">Erase Route</button>
+        </div>
     </div>
 {% endblock %}
     
