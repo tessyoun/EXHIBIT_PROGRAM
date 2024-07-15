@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function() {
     fetch(boothUrl)
         .then(response => response.json())
         .then(data => {
-            console.log(data); // Check if data is correctly received
             const boothlist = JSON.parse(data);
             
             const sidebarShowBookmarksButton = document.getElementById('bookMlist');
