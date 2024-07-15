@@ -43,10 +43,10 @@ def notice_edit(request, pk):
             notice = form.save(commit=False)
             
             # 삭제 처리
-            if request.POST.get('delete_file'):
-                if notice.upload_files:
-                    notice.upload_files.delete()
-                    notice.upload_files = None
+            if request.POST.get('delete_file') and notice.upload_files:
+                notice.upload_files.delete()
+                notice.upload_files = None
+                notice.file_name = None
             if 'upload_files' in request.FILES:
                 notice.filename = request.FILES['upload_files'].name
                 notice.upload_files = request.FILES['upload_files']
