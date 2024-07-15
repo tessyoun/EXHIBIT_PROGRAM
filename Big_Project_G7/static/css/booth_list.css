@@ -1,0 +1,247 @@
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+#booth_list {
+    margin-top: 90px;
+    width: 100%;
+}
+
+.booth-list--title{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+}
+
+#boothList, #booth_detail--wrap {
+    display: flex;
+    flex-direction:column;
+    width: 100%;
+    margin-top: 20px;
+    overflow-x: hidden;
+    list-style-type: none;
+    padding: 0;
+}
+
+.booth-item {
+    border-bottom:1px solid gray;
+    padding:15px 0px;
+}
+
+.booth-item.first-item{
+    border-top:2px solid gray;
+}
+
+.booth{
+    width: 93%;
+    margin: 0 auto;
+}
+
+.booth-name {
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+}
+
+.booth-edit{
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.booth-edit-link {
+    text-decoration: none;
+    color: #333;
+}
+
+.booth-edit-link:hover {
+    color: #38B8B2; 
+}
+
+/* 부스디테일 */
+#booth_detail {
+    width: 93%;
+    padding: 0;
+    margin-top: 90px;
+}
+
+#booth_detail--wrap{
+    margin-top: 10px;
+}
+
+#booth_detail--wrap p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+.booth_info_title{
+    padding-bottom: 8px;
+    border-bottom: 2px solid #333;
+}
+
+#booth_detail--btn{
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+}
+
+#loc__right a {
+    display: inline-block;
+    margin-right: 10px;
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 8px 28px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    transition: transform 0.32 ease;
+    height: 39px;
+}
+
+#loc__right a:hover {
+    background-color: #38B8B2;
+    border-color: #38B8B2;
+    color: white;
+    transform: scale(0.95);
+}
+
+.back--btn{
+    display: inline-block;
+    color: #333;
+    text-decoration: none;
+    font-size: 17px;
+    padding: 8px 0px;
+    border: none;
+    height: 39px;
+}
+
+.back--btn:hover{
+    color: #38B8B2;
+}
+
+#booth_detail input[type="submit"] {
+    padding: 8px 12px;
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    cursor: pointer;
+    height: 39px;
+    transition: transform 0.3s ease;
+}
+
+#booth_detail input[type="submit"]:hover {
+    background-color: #ff3333;
+    transform: scale(0.95);
+}
+
+#loc__right{
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+
+@media (min-width: 768px){
+    #booth_list, #booth_detail{
+        width: 75%;
+    }
+    
+}
+
+
+
+@media (min-width: 992px) {
+
+    #booth_list, #booth_detail{
+        width: 70%;
+        margin-top: 110px;
+    }
+
+
+    .booth-list--title{
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        font-size: 27px;
+        font-weight: 700;
+        margin-bottom: 50px;
+
+    }
+
+    .booth_info_title{
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        font-size: 27px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        border-bottom: none;
+    }
+
+    .boothList--wrap{
+        height: 100%;
+        width: 100%;
+    }
+
+    .booth-item.first-item{
+        border-top: none;
+    }
+
+    #booth_detail--content{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+    }
+
+    #booth_detail--wrap{
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        height: 100%;
+        margin: 0;
+    }
+
+    #booth_detail--wrap p {
+        font-size: 18px;
+        margin-bottom: 18px;
+    }
+
+    #booth_detail--wrap p strong{
+        font-size: 19px;
+    }
+
+    #booth_detail--btn{
+        width: 90%;
+        margin-top: 20px;
+    }
+
+    .back--btn{
+        display: inline-block;
+        font-size: 18px;
+        height: 39px;
+    }
+
+    #loc__right a {
+        font-size: 17px;
+        height: 42px;
+    }
+
+    #booth_detail input[type="submit"] {
+        font-size: 17px;
+        height: 42px;
+    }
+}

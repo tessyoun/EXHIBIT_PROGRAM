@@ -76,12 +76,12 @@
         <div class="form-create--wrap">
         <form action="" method="post" class="form-create" id="createForm">
             {% csrf_token %}
-            <p>
+            <div>
                 <label for="id_exhibition_name">전시회 명</label>
                 <input type="text" name="exhibition_name" maxlength="50" required="" id="id_exhibition_name" placeholder="전시회 명">
-            </p>
+            </div>
 
-            <p>
+            <div>
                 <label for="id_hall">전시장</label>
                 <select name="hall" required="" id="id_hall">
                     <option value="" selected="">선택</option>
@@ -90,27 +90,27 @@
                     <option value="C홀">C홀</option>
                     <option value="D홀">D홀</option>
                 </select> 
-            </p>
+            </div>
 
-            <p>
+            <div>
                 <label for="id_start_date">전시 시작 날짜</label>
                 <input type="date" name="start_date" required="" id="id_start_date">
-            </p>
+            </div>
 
-            <p>
+            <div>
                 <label for="id_end_date">전시 종료 날짜</label>
                 <input type="date" name="end_date" required="" id="id_end_date">
-            </p>
+            </div>
 
-            <p>
+            <div>
                 <label for="id_number_of_booths">부스 개수</label>
                 <input type="number" name="number_of_booths" placeholder="부스 개수" required="" id="id_number_of_booths">
-            </p>
+            </div>
             
-            <p hidden>
+            <div hidden>
                 <label for="id_layout">배치도 저장 경로</label>
                 <input type="text" name="layout" maxlength="100" required="" value="/" id="id_exhibition_name">
-            </p>
+            </div>
                 
             <button class="btn-create" type="submit">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

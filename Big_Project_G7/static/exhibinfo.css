@@ -1,5 +1,5 @@
 .container-update {
-    width: 80vw;
+    width: 93%;
     padding: 0;
     margin-top: 100px;
  }
@@ -7,7 +7,7 @@
 .booth-update {
     display: flex;
     flex-direction: column;
-    margin-top:10%;
+    margin-top: 20px;
 }
 
 .booth-update  div {
@@ -18,6 +18,7 @@
 }
 
 .save {
+    margin-top: 40px;
     display: block;
     padding: 10px;
     background-color: #38B8B2;
@@ -27,36 +28,122 @@
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 form button.save:hover {
-    background-color: #008589;
+    background-color:#33999bcd;
+    transform: scale(0.95);
 }
 
 .booth-update label {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 15px;
 }
 
-/* .booth-update input[type="text"] {
+.booth-update input[type="text"],
+.booth-update input[type="date"]{
     box-sizing: border-box;
     padding: 5px;
     border: none;
+    outline: none;
     border-bottom: 1px solid #ccc;
     border-radius: 0;
     font-size: 16px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color 0.3s ease;
     height: 35px; 
-} */
+}
 
-.container-update form textarea {
-    width: 100%;
-    height: 50px;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    resize: vertical; 
+.booth-update input[type="text"]:focus,
+.booth-update input[type="date"]:focus{
+    border-bottom: 1px solid #38B8B2;
+}
+
+
+@media (min-width: 768px) {
+    .container-update {
+        width: 75%;
+    }
+}
+
+@media (min-width: 992px) {
+    .container-update {
+        width: 70%;
+        margin-top: 110px;
+    }
+
+    .exhibit_update_title {
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        font-size: 27px;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
+
+    .exhibit_update--wrap {
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        align-items: center;
+        display: flex;
+        height: 100%;
+    }
+
+    .booth-update{
+        width: 400px;
+        margin: 0 auto;
+        padding: 15px 0;
+    }
+
+    .booth-update div {
+        flex-direction: row;
+        margin-bottom: 25px;
+        align-items: center;
+    }
+    
+    .booth-update label {
+        width: 56px;
+    }
+
+    .booth-update input[type="text"],
+    .booth-update input[type="date"]{
+        box-sizing: border-box;
+        padding: 5px 17px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        height: 35px; 
+        background-color: #f5f5f5;
+        margin-left: 15px;
+    }
+
+    .booth-update input[type="text"]{
+        width: 330px;
+    }
+
+    .booth-update input[type="text"]:focus,
+    .booth-update input[type="date"]:focus{
+        border-bottom: none;
+    }
+
+    .save {
+        margin: 0 auto;
+        margin-top: 40px;
+        display: block;
+        padding: 5px 10px;
+        background-color: #38B8B2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: 500;
+        transition: transform 0.3s ease;
+        width: 100px;
+    }
+
+    .save:hover {
+        background-color:#33999bcd;
+        transform: scale(0.95);
+    }
 }

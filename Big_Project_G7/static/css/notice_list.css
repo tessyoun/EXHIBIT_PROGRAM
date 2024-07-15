@@ -102,7 +102,7 @@
 }
 
 .write-btn:hover {
-    color: #339a9b;
+    color: #38B8B2;
     transform: scale(1.02); 
 }
 
@@ -149,7 +149,7 @@
 .notice-actions a:hover{
     border: none;
     outline: none;
-    color: #339a9b;
+    color: #38B8B2;
     text-decoration: none;
 }
 
@@ -158,10 +158,6 @@
     margin: 0 auto;
     margin-bottom: 50px;
     margin-top: 40px;
-}
-.upload_files {
-    padding: 10px;
-    font-size: 14px;
 }
 
 .notice-footer {
@@ -179,8 +175,8 @@
 }
 
 .back_to_list:hover {
-    border-color: #339a9b;
-    color: #339a9b;
+    border-color: #38B8B2;
+    color: #38B8B2;
     transform: scale(1.2);
 }
 
@@ -225,7 +221,7 @@
 
 .notice_write_content--wrap {
     width: 100%;
-    height: calc(85vh - 260px);
+    height: calc(100vh - 210px);
     margin-bottom: 10px;
 }
 
@@ -249,7 +245,7 @@
 
 .notice_write_submit--wrap input {
     width: 100%;
-    background-color: #339a9b;
+    background-color: #38B8B2;
     color: white;
     border: none;
     font-size: 18px;
@@ -264,7 +260,12 @@
 }
 
 
-
+@media (min-width: 768px){
+    .notice--wrap{
+        width: 75%;
+    }
+    
+}
 
 @media (min-width: 992px) {
     .notice--wrap {
@@ -374,6 +375,8 @@
 
     .notice_write_submit--wrap input:hover{
         background-color: white;
-        color: #339a9b;
+        color: #38B8B2;
     }
+
+    
 }
