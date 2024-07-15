@@ -3,6 +3,7 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
+    <link rel="stylesheet" href="{% static 'css/layout2.css' %}" />
 {% endblock %}
 
 {% block title %}
@@ -10,24 +11,28 @@ AIVEX Ticket
 {% endblock %}
     
 {% block main_content %}
-
-    <!-- <div class="container">
-        {% for exhibition in exhibition_list %}
-            <form action="{% url 'index' %}" method="post">
-                {% csrf_token %}
-                <button type="submit">{{ exhibition.exhibition_name }}</button>
-            </form>
-            <br>
-        {% endfor %}
-        <a href="{% url 'ticket:ticket_list' %}" ><button class ="header__title icon" style="cursor:pointer;">돌아가기</button></a>
-    </div> -->
     <div class="container">
-        <form method="post">
+        <form method="post" class="form-create">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">예약</button>
+            <div class="form-group">
+                <label for="{{ form.exhibition_name.id_for_label }}">{{ form.exhibition_name.label }}</label>
+                {{ form.exhibition_name }}
+            </div>
             <br>
+            <div class="form-group">
+                <label for="{{ form.adult.id_for_label }}">{{ form.adult.label }}</label>
+                {{ form.adult }}
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="{{ form.child.id_for_label }}">{{ form.child.label }}</label>
+                {{ form.child }}
+            </div>
+            <br>
+            <small>10인 이상 단체 예매는 주최측으로 연락 주시기 바랍니다.</small>
+            <button class="btn-create" type="submit">예약</button>
         </form>
         <a href="{% url 'ticket:ticket_list' %}" ><button class ="header__title icon" style="cursor:pointer;">돌아가기</button></a>
     </div>
+    
 {% endblock %}
