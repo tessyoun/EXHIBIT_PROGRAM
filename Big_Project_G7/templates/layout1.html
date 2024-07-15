@@ -38,6 +38,7 @@
             <div class="modal-content">
                 <div class="top_button">
                     <span class="close" id="close-button">&times;</span>
+                    <p id="modalText0"></p>
                     {% if not user.is_authenticated %}
                         <a href="{% url 'accounts:login' %}" class="bookmark"><i class="fa-regular fa-star fa-2x"> </i></a><br>
                     {% else %}
@@ -45,8 +46,10 @@
                     {% endif %}
                 </div>
 
+                <p id="modalText1"></p>
                 <img id="modalImage" src="" alt="Modal Image" style="width:100%; max-width:300px;">
-                <p id="modalText"></p>
+                
+                <p id="modalText2"></p>
                 
                 {% if not user.is_authenticated %}
                 <div id="r-btn">
