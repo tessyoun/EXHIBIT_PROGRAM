@@ -12,7 +12,138 @@
         <a href="/" ><button class ="header__title-black icon" style="cursor:pointer;"></button></a>
     </div>
 
-    <div>
-        {% comment %} 부트스트랩 드롭다운 사용해서 메뉴바 만들기 {% endcomment %}
+    <div class="BMmodal" id="bookMModal">
+        <div class="BMmodal-content">
+            <span class="BMclose">&times;</span>
+            <div class="modal-header">
+                <h5 class="modal-title">북마크 리스트</h5>
+            </div>
+            <div class="modal-body" id="bookmarkli"></div>
+        </div>
     </div>
+
+    <div class ="header-menu-pc">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              AIVEX
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="{% url 'notice:notice_list' %}">공지사항</a></li>
+              <li><a class="dropdown-item" href="{% url 'aivexabout' %}">About</a></li>
+              <li><a class="dropdown-item" href="{% url 'aivexhall' %}">Hall Info</a></li>
+              <li><a class="dropdown-item" href="{% url 'faq_page' %}">FAQ</a></li>
+            </ul>
+        </div>
+
+        {% if user.is_authenticated %} 
+            {% if user.is_superuser %}
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                전시회 관리
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{% url 'exhibition:update_exhibition' %}">전시회 정보 수정</a></li>
+                <li><a class="dropdown-item" href="{% url 'exhibition:booth_list' %}">부스 목록</a></li>
+                <li><a class="dropdown-item" href="{% url 'exhibition:create_exhibition' %}">배치도 생성</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                마이페이지
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{% url 'accounts:update' %}">회원 정보 수정</a></li>
+                </ul>
+            </div>
+
+            {% elif user.is_staff %}
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                전시회 관리
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{% url 'exhibition:update_exhibition' %}">전시회 정보 수정</a></li>
+                <li><a class="dropdown-item" href="{% url 'exhibition:booth_list' %}">부스 목록</a></li>
+                <li><a class="dropdown-item" href="{% url 'exhibition:create_exhibition' %}">배치도 생성</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                마이페이지
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{% url 'accounts:update' %}">회원 정보 수정</a></li>
+                </ul>
+            </div>
+
+            {% elif user.profile.user_type == '기업회원' %} 
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                프로그램
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="">예약 현황</a></li>
+                <li><a class="dropdown-item" href="{% url 'booth_program:program_choice' %}">프로그램 생성/관리</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                마이페이지
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{% url 'accounts:update' %}">회원 정보 수정</a></li>
+                <li><a class="dropdown-item" href="{% url 'exhibition:update' %}">부스 정보 수정</a></li>
+                </ul>
+            </div>
+
+            {% else %}
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                티켓
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{% url 'ticket:purchase_ticket' %}">티켓 구매</a></li>
+                <li><a class="dropdown-item" href="{% url 'ticket:ticket_list' %}">내 티켓 확인</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                마이페이지
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{% url 'accounts:update' %}">회원 정보 수정</a></li>
+                <li><a class="dropdown-item" href="{% url 'booth_program:reservation_check' %}">내 예약 확인</a></li>
+                <li><a class="dropdown-item" id="bookMlist">북마크 확인</a></li>
+                </ul>
+            </div>
+
+            {% endif %}
+
+        {% else %}
+        {% comment %} <span style="font-size:14px; color:#b5b5b5; margin-left:10px; font-weight:300;">
+            로그인 후, 다른 서비스 사용 가능</span> {% endcomment %}
+        {% endif %}
+
+    </div>
+
+    <div class="header-menu-login">
+        {% if not user.is_authenticated %}     
+
+            <a href="{% url 'accounts:login' %}" class="sidebar__login__user--wrap">
+                <p class="sidebar__login--btn-pc"> 로그인 </p>
+            </a>
+        {% else %}
+            
+            <p class="user-name-pc">{{user}}님!</p>
+            <form class="logout-form-pc" method="post" action="{% url 'accounts:logout' %}?next={{request.path}}">
+                {% csrf_token %}
+                <button type="submit" class="logout-button-pc">로그아웃</button>
+            </form>
+        {% endif %}
+    </div>
+
 </div>
