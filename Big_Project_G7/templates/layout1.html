@@ -30,9 +30,13 @@
                         top: {{ rect.top }}px; width: {{ rect.width }}px;
                         height: {{ rect.height }}px;
                         transform: rotate({{ rect.rotate }}deg);"
-                        data-index="{{ i }}">
+                        data-index="{{ i }}"
+                        data-center-x="{{ rect.center_x }}"
+                        data-center-y="{{ rect.center_y }}">
             </div>
+            <div class="lines-container"></div>
             {% endfor %}
+            
         </div>
         <div class="modal" id="myModal">
             <div class="modal-content">
@@ -78,7 +82,20 @@
             <button class="bookmarkbtn" id="reset-bookmarks">북마크 리셋</button>
         </div>
     </div>
-    {% endblock %}
+
+    <!-- 경로 입력 -->
+    <div id="route-form">
+        <form>
+            <label for="start_booth">Start Booth:</label>
+            <select id="start_booth" name="start_booth">
+            </select>
+            <label for="end_booth">End Booth:</label>
+            <select id="end_booth" name="end_booth">
+            </select>
+            <button id="draw-line-button">Find Route</button>
+        </form>
+    </div>
+{% endblock %}
     
 {% block scripts %}
     <script>
@@ -87,5 +104,4 @@
         const booths = JSON.parse(boothsJsonString);
     </script>
     <script src="{% static 'js/booth.js' %}"></script>
-    <script src="{% static 'js/mapping.js' %}"></script>
 {% endblock %}

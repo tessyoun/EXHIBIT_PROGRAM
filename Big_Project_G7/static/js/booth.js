@@ -211,7 +211,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
-
     //북마크 업데이트
     function updateBookmarkIcons() {
         let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
@@ -232,9 +231,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         });
+        populateBookmarkOptions();
     }
-
-
 
     //스크롤기능
     const imageContainer = document.querySelector('.image-container');
@@ -294,6 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
         alert('북마크 리셋.');
         updateBookmarkIcons();
+        clearLines();
     });
     
     //창 닫기 기능
@@ -323,4 +322,91 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     updateBookmarkIcons();
+
+
+    //경로 그리기
+    const linesContainer = document.querySelector('.lines-container');
+
+    function clearLines() {
+        linesContainer.innerHTML = ''; // Clear lines by removing all child elements
+    }
+
+    function drawLinesBetweenBooths() {
+        const startBoothId = document.getElementById('start_booth').value.trim();
+        const endBoothId = document.getElementById('end_booth').value.trim();
+    
+        if (startBoothId === endBoothId) {
+            alert('같은 부스를 선택하실 수 없습니다.');
+            return; 
+        }
+
+        clearLines();
+    
+        linesContainer.innerHTML = ''; // Clear previous lines
+
+        const startBooth = document.querySelector(`.rectangle[data-index='${startBoothId -1}']`);
+        const endBooth = document.querySelector(`.rectangle[data-index='${endBoothId -1}']`);
+
+        const startX = parseFloat(startBooth.dataset.centerX); 
+        const startY = parseFloat(startBooth.dataset.centerY); 
+        const endX = parseFloat(endBooth.dataset.centerX);  
+        const endY = parseFloat(endBooth.dataset.centerY);   
+    
+        drawLine(startX, startY, endX, endY);
+        startBooth.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function drawLine(startX, startY, endX, endY) {
+        const line = document.createElement('div');
+        line.classList.add('line');
+
+        const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+        const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+
+        line.style.width = `${length}px`;
+        line.style.height = '2px';
+        line.style.left = `${startX}px`;
+        line.style.top = `${startY}px`;
+        line.style.position = 'absolute';
+        line.style.transformOrigin = '0 0';
+        line.style.transform = `rotate(${angle}deg)`;
+        line.style.backgroundColor = 'black';
+    
+        linesContainer.appendChild(line);
+    }
+    
+    //북마크 옵션 생성
+    function populateBookmarkOptions() {
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+
+        const startbookmarkSelect = document.getElementById('start_booth');
+        const endbookmarkSelect = document.getElementById('end_booth');
+        startbookmarkSelect.innerHTML = ''; // Clear previous options
+        endbookmarkSelect.innerHTML = ''; // Clear previous options
+
+        // Create an option for each bookmarked booth
+        bookmarks.forEach(boothId => {
+            const booth = booths.find(b => b.pk === boothId);
+            if (booth) {
+                const optionStart = document.createElement('option');
+                const optionEnd = document.createElement('option');
+                optionStart.value = booth.pk;
+                optionStart.textContent = booth.fields.booth_name; // Adjust as per your booth data
+                optionEnd.value = booth.pk;
+                optionEnd.textContent = booth.fields.booth_name; // Adjust as per your booth data
+                startbookmarkSelect.appendChild(optionStart);
+                endbookmarkSelect.appendChild(optionEnd);
+            }
+        });
+    }
+    
+    const drawLineButton = document.getElementById('draw-line-button');
+    if (drawLineButton) {
+        drawLineButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission if inside a form
+            drawLinesBetweenBooths();
+
+            console.log('draw line!')
+        });
+    }
 });
