@@ -1,0 +1,60 @@
+{% extends "base_layout.html" %}
+{% load static %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/notice_list.css' %}" />
+{% endblock %}
+
+{% block title %}  
+  공지 수정
+{% endblock %}
+
+{% block main_content %}
+
+<div class="notice-write--wrap">
+    <div class="notice-write-container">
+        {% comment %} <div class = "notice-write-header">
+            <h2> 글쓰기 </h2>
+        </div> {% endcomment %}
+        {% block content %}
+        <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="notice_write_submit--wrap pc">
+            <h2> 글쓰기 </h2>
+            <input type="submit" value="작성" class="submit-button" />
+        </div>
+
+        <div class = notice--wrap-pc>
+        <div class="notice_write_title--wrap">
+            <input class="notice_write_title" type="text" name="title" maxlength="200" required="" id="id_title" value ="{{form.title.value}}" >
+        </div>
+
+        <div class="notice_write_content--wrap">
+            {% comment %} <label for="content">Content:</label> {% endcomment %}
+            <textarea class="notice_write_content" name="content" cols="40" rows="10" required="" id="id_content" >{{ form.content.value}}</textarea>
+        </div>
+        <div class="upload_files">
+            {% comment %} {{ form.upload_files }}<br> {% endcomment %}
+            {% if form.upload_files.value %}
+                <label for="id_delete">삭제 </label>
+                <input type="checkbox" name="delete_file" id="id_delete">
+                <a href="{{ form.upload_files.value.url }}">{{ form.filename.value }}</a><br>
+            {% endif %}
+    
+            <!-- 새 파일 업로드 -->
+            <input type="file" name="upload_files" id="id_upload_files">
+    
+        </div>
+        </div>
+        <div class="notice_write_submit--wrap mobile">
+            <input type="submit" value="수정" class="submit-button" />
+        </div>
+        </form>
+        {% comment %} <a href="{% url 'notice:notice_list' %}" class="back-to-list"
+        >Back to list</a
+        > {% endcomment %}
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
