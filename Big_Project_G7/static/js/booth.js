@@ -404,12 +404,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const eraseLineButton = document.getElementById('erase-route');
 
     if (drawLineButton) {
-        drawLineButton.addEventListener('click', function() {
+        drawLineButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission if inside a form
             drawLinesBetweenBooths();
+
+            console.log('draw line!')
         });
     }
-
-    if (eraseLineButton) {
+    else if (eraseLineButton) {
         eraseLineButton.addEventListener('click', function() {     
             clearLines();
         });
