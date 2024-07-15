@@ -134,7 +134,7 @@ form button.save:hover {
     }
 
     .form-update input[type="text"]:focus{
-        display: none;
+        border-bottom: none;
     }
 
     .save {
