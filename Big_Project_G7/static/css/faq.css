@@ -146,6 +146,16 @@
     #faq-section {
         width:75%;
     }
+
+    .faq_title {
+        margin: 0;
+        padding: 0;
+    }
+
+    .search-section {
+        width: 100%;
+    }
+    
 }
 
 @media (min-width: 992px) { 
