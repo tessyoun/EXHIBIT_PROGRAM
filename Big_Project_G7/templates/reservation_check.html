@@ -1,3 +1,4 @@
+<!-- templates/reservation_check.html -->
 {% extends "base_layout.html" %}
 {% load static %}
 
@@ -10,6 +11,32 @@
     }
     .reservation-table {
       margin: 0 auto;
+    }
+    .submit-button {
+      background: #28a745;
+      color: white;
+      font-size: 16px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    .submit-button:hover {
+      background: #218838; /* Darker green */
+    }
+    .delete-button {
+      background-color: #ff6666;
+      color: white;
+      font-size: 16px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    .delete-button:hover {
+      background-color: #cc5555; /* Darker red */
     }
   </style>
 {% endblock %}
@@ -36,10 +63,10 @@
             <td>{{ reservation.num_of_people }}</td>
             <td>{{ reservation.reservationtime_set.first.reserved_time }}</td>
             <td>
-              <button class="edit-button" data-reservation-id="{{ reservation.id }}">예약 수정</button>
+              <button class="submit-button edit-button" data-reservation-id="{{ reservation.id }}">예약 수정</button>
               <form method="post" action="{% url 'booth_program:delete_reservation' reservation.id %}" style="display:inline;">
                 {% csrf_token %}
-                <button type="submit">예약 취소</button>
+                <button type="submit" class="delete-button">예약 취소</button>
               </form>
             </td>
           </tr>
@@ -82,7 +109,7 @@
         <option value="16:00">16:00</option>
         <option value="17:00">17:00</option>
       </select><br><br>
-      <button type="submit">수정하기</button>
+      <button type="submit" class="submit-button">수정하기</button>
     </form>
   </div>
 </div>

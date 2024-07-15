@@ -111,12 +111,12 @@
 }
 
 .accordion-button[aria-expanded="true"] {
-    background-color: rgb(1, 209, 213, 0.3); 
-    color: #339a9b;
+    background-color: rgba(0, 184, 187, 0.3); 
+    color: #2d8789;
 }
 
 .accordion-button[aria-expanded="true"]::after {
-    color: #339a9b;
+    color: #2d8789;
 }
 
 .faq-item {
@@ -142,16 +142,38 @@
     margin-top: 5px;
 }
 
-@media (min-width: 992px) { 
+@media (min-width: 768px){
     #faq-section {
-        width: 70%;
+        width:75%;
     }
 
     .faq_title {
+        margin: 0;
+        padding: 0;
+    }
+
+    .search-section {
         width: 100%;
+    }
+    
+}
+
+@media (min-width: 992px) { 
+    #faq-section {
+        width: 70%;
+        margin-top: 110px;
+    }
+
+    .faq_title {
+        color: #fff;
+        font-size: 27px;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
     }
     
     .search-section {
         width: 100%;
+        margin-top: 40px;
     }
 } 
