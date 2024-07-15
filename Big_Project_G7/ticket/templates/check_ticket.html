@@ -26,6 +26,7 @@ AIVEX Ticket
                 {% endfor %}
             {% endif %}
             <form action="{% url 'ticket:purchase_ticket' %}" class="form-create" method="post">
+                {% csrf_token %}
                 <button type="submit" class="btn-create btn btn-primary">티켓 구매</button>
             </form>
         </div>
