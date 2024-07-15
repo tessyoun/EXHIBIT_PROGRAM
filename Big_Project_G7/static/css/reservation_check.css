@@ -1,3 +1,4 @@
+/* static/css/reservation_check.css */
 .reservation-container {
     margin-top: 100px; /* Adjust this value as needed */
 }
@@ -14,10 +15,31 @@ th, td {
     text-align: center;
 }
 
-.edit-button, .delete-button {
+.manage-button {
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    color: blue;
-    text-decoration: underline;
+    margin: 5px;
+}
+
+.submit-button {
+    background: #28a745;
+    color: white;
+}
+
+.submit-button:hover {
+    background: #218838; /* Darker green */
+}
+
+.delete-button {
+    background-color: #ff6666;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #cc5555; /* Darker red */
 }
 
 .modal {
