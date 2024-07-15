@@ -159,6 +159,10 @@
     margin-bottom: 50px;
     margin-top: 40px;
 }
+.upload_files {
+    padding: 10px;
+    font-size: 14px;
+}
 
 .notice-footer {
     display: flex;
