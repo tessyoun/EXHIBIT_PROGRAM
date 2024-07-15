@@ -47,7 +47,6 @@ def ticket_detail(request, ticket_id):
         img = generate_QR(ticket_data)
         
         context['image'] = img
-        print(context)
         return render(request, 'ticket_detail.html', context)
     else:
         return redirect('ticket:ticket_list')
