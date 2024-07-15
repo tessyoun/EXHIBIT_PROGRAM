@@ -105,7 +105,25 @@ def layout2(request):
     return render(request, 'layout2.html')
 
 def about(request):
-    return render(request, 'about.html')
+    items = [
+        {'icon': 'images/Info_images/map_3753816.png',
+         'alt': 'Icon 1',
+         'title': '전시회 기획',
+         'description': '전시회 개최 편의를 위해 부스 배치도 자동 생성 기능을 제공하고 있습니다.'},
+        {'icon': 'images/Info_images/time-management_17048496.png',
+         'alt': 'Icon 2',
+         'title': '프로그램 관리 시스템',
+         'description': '프로그램 예약관리를 통해 효율적인 부스 운영이 가능합니다.'},
+        {'icon': 'images/Info_images/virtual-assistant_12692177.png',
+         'alt': 'Icon 3',
+         'title': '챗봇 서비스',
+         'description': '전시회에 관한 질문에 신속하게 응답해드립니다.'},
+        {'icon': 'images/Info_images/favourite_2374122.png',
+         'alt': 'Icon 4',
+         'title': '북마크 기능',
+         'description': '관람 편의 향상을 위해 방문하고 싶은 부스를 북마크를 통해 한눈에 확인할 수 있습니다.'},
+    ]
+    return render(request, 'about.html', {'items': items})
 
 def aivexhall(request):
     return render(request, 'aivexhall.html')
