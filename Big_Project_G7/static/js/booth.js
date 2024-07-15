@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
     var modal = document.getElementById("myModal");
     var closeButton = document.getElementsByClassName("close");
     var modalImage = document.getElementById("modalImage");
-    var modalText = document.getElementById("modalText");
+    var modalText0 = document.getElementById("modalText0");
+    var modalText1 = document.getElementById("modalText1");
+    var modalText2 = document.getElementById("modalText2");
     var suggestionsDiv = document.getElementById('suggestions');
     var categorySelect = document.querySelector('select[name="category"]');
     var rectangles = document.querySelectorAll('.rectangle');
@@ -142,11 +144,24 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        modalText.innerHTML = '<span class="modaltitle">기업명: </span>' + booth.fields.company_name +
-                              '<br><span class="modaltitle">부스명: </span>' + booth.fields.booth_name +
-                              '<br><span class="modaltitle">BM: </span>' + booth.fields.booth_category +
-                              '<br><span class="modaltitle">설명: </span>' + booth.fields.background +
-                              '<br><span class="modaltitle">서비스: </span>' + booth.fields.service;
+        // modalText.innerHTML = '<span class="modaltitle">기업명: </span>' + booth.fields.company_name +
+        //                       '<br><span class="modaltitle">부스명: </span>' + booth.fields.booth_name +
+        //                       '<br><span class="modaltitle">BM: </span>' + booth.fields.booth_category +
+        //                       '<br> -' + booth.fields.background +
+        //                       '<br> - ' + booth.fields.service;
+        // modal.style.display = "block";
+
+        modalText0.innerHTML = booth.fields.company_name;
+        // 부스명, 기업명, BM
+        modalText1.innerHTML ='<span class="modaltitle">' + booth.fields.booth_name + '</span>' +
+                       '<br>' + booth.fields.booth_category;
+                              
+        // 설명
+        modalText2.innerHTML = '<div>' +
+                                '<span class="modaltitle">설명/서비스: </span>' +
+                                '<br> - ' + booth.fields.background +
+                                '<br> - ' + booth.fields.service +
+                                '</div>';
         modal.style.display = "block";
 
         reservationButton.dataset.reservationUrl = `/booth_program/reserve/${boothId}/`;
@@ -176,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //예약기능
     function handleReservation(event) {
         event.preventDefault();
-        const companyName = encodeURIComponent(modalText.innerText.split('기업명: ')[1].split('\n')[0]);
+        const companyName = encodeURIComponent(modalText0.innerText);
         if (companyName) {
             fetch(`/booth_program/check_program/${companyName}/`)
                 .then(response => response.json())
