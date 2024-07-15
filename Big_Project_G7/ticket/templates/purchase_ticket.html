@@ -4,6 +4,7 @@
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
     <link rel="stylesheet" href="{% static 'css/layout2.css' %}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 {% endblock %}
 
 {% block title %}
@@ -30,17 +31,36 @@ AIVEX Ticket
             </div>
             <br>
             <small>10인 이상 단체 예매는 주최측으로 연락 주시기 바랍니다.</small>
-            <button class="btn-create" type="submit" onclick="return ticketconfirm()">예약</button>
+            <button class="btn-create btn btn-primary" type="button" data-toggle="modal" data-target="#confirmModal">예약</button>
         </form>
         <a href="{% url 'ticket:ticket_list' %}" ><button class ="header__title icon" style="cursor:pointer;">돌아가기</button></a>
     </div>
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">예약 확인</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    예약을 확정하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="submitForm()">확인</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        function ticketconfirm() {
-            if (confirm('예약을 확정하시겠습니까?')) {
-                document.getElementById('ticket_form').submit();
-            } else {
-                return false;
-            }
+        function submitForm() {
+            document.getElementById('ticket_form').submit();
         }
     </script>
 {% endblock %}
