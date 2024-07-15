@@ -401,12 +401,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     const drawLineButton = document.getElementById('draw-line-button');
-    if (drawLineButton) {
-        drawLineButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent form submission if inside a form
-            drawLinesBetweenBooths();
+    const eraseLineButton = document.getElementById('erase-route');
 
-            console.log('draw line!')
+    if (drawLineButton) {
+        drawLineButton.addEventListener('click', function() {
+            drawLinesBetweenBooths();
+        });
+    }
+
+    if (eraseLineButton) {
+        eraseLineButton.addEventListener('click', function() {     
+            clearLines();
         });
     }
 });
