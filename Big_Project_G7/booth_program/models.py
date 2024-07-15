@@ -12,6 +12,7 @@ class Program(models.Model):
         return self.name
 
 class BoothProgramReservation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     user_name = models.CharField(max_length=100)
     program_name = models.CharField(max_length=200)
     num_of_people = models.IntegerField()

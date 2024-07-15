@@ -32,6 +32,8 @@ def program_open(request):
                 selected_times=",".join(selected_times_list)
             )
 
+            print(f"Program created: {program}")
+
             return redirect('booth_program:program_choice')
         else:
             print("Form is not valid")
@@ -39,6 +41,7 @@ def program_open(request):
     else:
         form = ProgramForm()
     return render(request, 'program_open.html', {'form': form})
+
 
 
 @login_required
@@ -106,13 +109,14 @@ def check_program(request, company_name):
 @login_required
 def submit_reservation(request):
     if request.method == 'POST':
-        user_name = request.user.username
+        user = request.user
         program_name = request.POST.get('program_name')
         num_of_people = int(request.POST.get('num_of_people'))
         reserved_time = request.POST.get('reserved_time')
 
         reservation = BoothProgramReservation.objects.create(
-            user_name=user_name,
+            user=user,
+            user_name=user.username,
             program_name=program_name,
             num_of_people=num_of_people
         )

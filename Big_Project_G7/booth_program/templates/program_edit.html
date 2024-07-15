@@ -107,7 +107,7 @@
             const description = document.getElementById('id_description').value;
             const checkboxes = document.querySelectorAll('input.time-slot:checked');
             if (!name) {
-                alert("프로그램 명을 입력해주세요.");
+                alert("프로그램명을 입력해주세요.");
                 return false;
             }
             if (!description) {
@@ -122,9 +122,6 @@
             const selectedTimes = Array.from(checkboxes).map(checkbox => checkbox.value);
             const selectedTimesInput = document.getElementById('id_selected_times');
             selectedTimesInput.value = selectedTimes.join(',');
-
-            console.log("Selected Times:", selectedTimes);
-            console.log("Hidden Input Value:", selectedTimesInput.value);
 
             return true;
         }
