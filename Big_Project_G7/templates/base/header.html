@@ -137,7 +137,7 @@
                 <p class="sidebar__login--btn-pc"> 로그인 </p>
             </a>
         {% else %}
-            
+            <i class="fa-solid fa-circle-user" style="color: #a6a6a6; font-size:20px; margin-right:5px;" ></i>
             <p class="user-name-pc">{{user}}님!</p>
             <form class="logout-form-pc" method="post" action="{% url 'accounts:logout' %}?next={{request.path}}">
                 {% csrf_token %}
