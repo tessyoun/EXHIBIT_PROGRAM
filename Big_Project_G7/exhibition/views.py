@@ -56,14 +56,13 @@ def save_image_to_fileserver(img_data, img_name):
 # 전시회 객체 생성
 @login_required
 def create_exhibition(request):
-
-    # render generated image
+    # 전시회 레이아웃 생성
     def render_image(session_data):
         response, images = get_image_from_server(session_data)
         if response.status_code == 200:
             return render(request, 'layout2.html', {'image_url': images})
         else:
-            return response
+            return JsonResponse({'error': 'Image rendering failed'}, status=response.status_code, safe=False)
 
     if request.method == 'POST':
         if request.user.is_staff:
