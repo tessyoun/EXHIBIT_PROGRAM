@@ -12,7 +12,7 @@ AIVEX Ticket
     
 {% block main_content %}
     <div class="container">
-        <form method="post" class="form-create">
+        <form method="post" class="form-create" id="ticket_form">
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.exhibition_name.id_for_label }}">{{ form.exhibition_name.label }}</label>
@@ -30,9 +30,19 @@ AIVEX Ticket
             </div>
             <br>
             <small>10인 이상 단체 예매는 주최측으로 연락 주시기 바랍니다.</small>
-            <button class="btn-create" type="submit">예약</button>
+            <button class="btn-create" type="submit" onclick="return ticketconfirm()">예약</button>
         </form>
         <a href="{% url 'ticket:ticket_list' %}" ><button class ="header__title icon" style="cursor:pointer;">돌아가기</button></a>
     </div>
-    
+    <script>
+        function ticketconfirm() {
+            if (confirm('예약을 확정하시겠습니까?')) {
+                document.getElementById('ticket_form').submit();
+            } else {
+                return false;
+            }
+        }
+    </script>
 {% endblock %}
+
+
