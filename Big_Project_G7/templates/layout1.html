@@ -45,8 +45,9 @@
                     {% endif %}
                 </div>
 
-                <img id="modalImage" src="" alt="Modal Image" style="width:300px">
+                <img id="modalImage" src="" alt="Modal Image" style="width:100%; max-width:300px;">
                 <p id="modalText"></p>
+                
                 {% if not user.is_authenticated %}
                 <div id="r-btn">
                     <a href="{% url 'accounts:login' %}" class="button" id="reservation"><span>예약</span></a>

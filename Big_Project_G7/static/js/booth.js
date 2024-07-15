@@ -145,8 +145,8 @@ document.addEventListener("DOMContentLoaded", function() {
         modalText.innerHTML = '<span class="modaltitle">기업명: </span>' + booth.fields.company_name +
                               '<br><span class="modaltitle">부스명: </span>' + booth.fields.booth_name +
                               '<br><span class="modaltitle">BM: </span>' + booth.fields.booth_category +
-                              '<br><span class="modaltitle">설명: </span>' + booth.fields.background +
-                              '<br><span class="modaltitle">서비스: </span>' + booth.fields.service;
+                              '<br> - ' + booth.fields.background +
+                              '<br> - ' + booth.fields.service;
         modal.style.display = "block";
 
         reservationButton.dataset.reservationUrl = `/booth_program/reserve/${boothId}/`;
