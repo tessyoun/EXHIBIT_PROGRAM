@@ -61,9 +61,9 @@
             </div>
             <form action="" method="post" class="form-create" id="recreateForm">
                 {% csrf_token %}
-                <button id="submitButton" class="btn-create" type="submit">
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    <span id="btnText-re" role="status">생성</span>
+                <button class="btn-create" type="submit">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                    <span class="btnText-re" role="status">생성</span></span>
                 </button>
             </form>
         {% endif %}
@@ -106,9 +106,9 @@
                 <input type="text" name="layout" maxlength="100" required="" value="/" id="id_exhibition_name">
             </p>
                 
-            <button id="submitButton" class="btn-create" type="submit">
+            <button class="btn-create" type="submit">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                <span id="btnText" role="status">생성</span>
+                <span class="btnText" role="status">생성</span>
             </button>
 
         </form>
@@ -122,10 +122,11 @@
         // bootstrap spiner -> create layout
        $(document).ready(function() {
             $('#createForm').on('submit', function(event) {
-                var $button = $('#submitButton');
+                var $button = $(this).find('.btn-create');
                 var $spinner = $button.find('.spinner-border');
-                var $btnText = $button.find('#btnText');
+                var $btnText = $button.find('.btnText');
 
+                $spinner.css('display', 'inline-block')
                 $spinner.show();
                 $button.prop('disabled', true);
                 $btnText.text('생성 중...');
@@ -135,10 +136,11 @@
         // bootstrap spiner -> recreate layout
         $(document).ready(function() {
             $('#recreateForm').on('submit', function(event) {
-                var $button = $('#submitButton');
+                var $button = $(this).find('.btn-create');
                 var $spinner = $button.find('.spinner-border');
-                var $btnText = $button.find('#btnText-re');
-
+                var $btnText = $button.find('.btnText-re');
+                
+                $spinner.css('display', 'inline-block')
                 $spinner.show();
                 $button.prop('disabled', true);
                 $btnText.text('생성 중...');
