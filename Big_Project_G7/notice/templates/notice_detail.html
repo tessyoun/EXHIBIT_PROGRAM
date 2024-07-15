@@ -32,7 +32,12 @@
     <div class="notice-content">
         <p>{{ notice.content|linebreaks }}</p>
     </div>
-
+    {% if notice.upload_files %}
+        <div class="upload_files">
+            <span>첨부파일 :&nbsp;</span>
+            <a href="{% url 'notice:notice_download' notice.id %}" >{{ notice.filename|truncatechars:25 }}</a>
+        </div>
+    {% endif %}
 
     <div class="notice-footer">
         <a class="back_to_list" href="{% url 'notice:notice_list' %}">
