@@ -3,6 +3,8 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
+    <link rel="stylesheet" href="{% static 'css/layout2.css' %}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 {% endblock %}
 
 {% block title %}
@@ -11,19 +13,25 @@ AIVEX Ticket
 
 {% block main_content %} 
     <div class="container">
-        {{ user_form.as_p }}
-        {{ profile_form.as_p }}
-        {% if ticket_list %}
-            {% for ticket in ticket_list %}
-                <form action="{% url 'ticket:ticket_detail' ticket.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">{{ ticket.name }}</button>
-                </form>
-                <br>
-            {% endfor %}
-        {% endif %}
-        <form action="{% url 'ticket:purchase_ticket' %}" class="form-exhibition" >
-            <button type="submit" class="btn-exhibition">티켓 구매</button>
-        </form>
+        <div class="list-group">
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            {% if ticket_list %}
+                {% for ticket in ticket_list %}
+                    <form action="{% url 'ticket:ticket_detail' ticket.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="list-group-item list-group-item-action">{{ ticket.name }}</button>
+                    </form>
+                    <br>
+                {% endfor %}
+            {% endif %}
+            <form action="{% url 'ticket:purchase_ticket' %}" class="form-create" method="post">
+                <button type="submit" class="btn-create btn btn-primary">티켓 구매</button>
+            </form>
+        </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 {% endblock %}

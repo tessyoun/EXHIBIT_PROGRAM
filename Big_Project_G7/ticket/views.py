@@ -18,6 +18,7 @@ def get_ticket(userid) -> list:
         name = Exhibition_info.objects.get(exhibition_id=ticket.exhibitionid).exhibition_name
         key = ticket.ticketid
         tickets.append({'name':name, 'id':int(key)})
+    tickets = sorted(tickets, key=lambda x: x['id'])
     return tickets
 
 # 로그인된 사용자의 티켓 리스트
@@ -32,11 +33,16 @@ def ticket_detail(request, ticket_id):
     if request.method == 'POST':
         ticket = TicketBoughtInfo.objects.get(ticketid=ticket_id)
         exhibition = Exhibition_info.objects.get(exhibition_id=ticket.exhibitionid)
-        name = exhibition.exhibition_name
+        exhibition_name = exhibition.exhibition_name
         hall = ExhibitionHall.objects.get(ExhibitionHallID=exhibition.hall_id).ExhibitionHallDescription
-        img = generate_QR(json.dumps({'ticket_id':ticket_id, 'hall':hall, 'name':name}))
+        adult = ticket.adult
+        child = ticket.child
+        username = request.user.username
+        ticket_data = json.dumps({'ticket_id':ticket_id, 'hall':hall, 'exhibition_name':exhibition_name,
+                                  'username':username, 'adult':adult, 'child':child}, ensure_ascii=False)
+        img = generate_QR(ticket_data)
         
-        context = {'image':img, 'ticket_id':int(ticket_id), 'name':name, 'hall':hall}
+        context = {'image':img, 'ticket_id':int(ticket_id), 'name':exhibition_name, 'hall':hall}
         return render(request, 'ticket_detail.html', context)
     else:
         return redirect('ticket:ticket_list')

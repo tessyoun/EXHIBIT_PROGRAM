@@ -5,7 +5,9 @@ class TicketBoughtInfo(models.Model):
     user_id = models.IntegerField(blank=True, null=True)
     exhibitionid = models.IntegerField(db_column='ExhibitionID', blank=True, null=True)  # Field name made lowercase.
     ticketid = models.IntegerField(db_column='TicketID', blank=True, null=True)  # Field name made lowercase.
-
+    adult = models.IntegerField(db_column='adult')
+    child = models.IntegerField(db_column='child')
+    
     class Meta:
         managed = False
         db_table = 'ticket_bought_info'
