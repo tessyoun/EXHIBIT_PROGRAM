@@ -161,6 +161,10 @@
     margin-bottom: 50px;
     margin-top: 40px;
 }
+.upload_files {
+    padding: 10px;
+    font-size: 14px;
+}
 
 .notice-footer {
     display: flex;
@@ -197,7 +201,7 @@
 
 .notice-write-container {
     width: 100%;
-    height: 100vh;
+    height: 85vh;
     position: relative;
     align-items: center;
     justify-content: center;
@@ -223,7 +227,7 @@
 
 .notice_write_content--wrap {
     width: 100%;
-    height: calc(100vh - 210px);
+    height: calc(85vh - 210px);
     margin-bottom: 10px;
 }
 
@@ -237,6 +241,9 @@
     resize: none;
 }
 
+.file_upload {
+    padding: 8px;
+}
 .notice_write_submit--wrap.pc {
     display: none;
 }
@@ -297,6 +304,9 @@
 
     .notice-meta p {
         font-size: 17px;
+    }
+    .file_upload {
+        font-size:12px;
     }
 
     .back_to_list {
