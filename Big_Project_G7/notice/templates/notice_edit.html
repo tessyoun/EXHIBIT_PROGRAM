@@ -21,7 +21,7 @@
         {% csrf_token %}
         <div class="notice_write_submit--wrap pc">
             <h2> 글쓰기 </h2>
-            <input type="submit" value="작성" class="submit-button" />
+            <input type="submit" value="수정" class="submit-button" />
         </div>
 
         <div class = notice--wrap-pc>
@@ -38,7 +38,7 @@
             {% if form.upload_files.value %}
                 <label for="id_delete">삭제 </label>
                 <input type="checkbox" name="delete_file" id="id_delete">
-                <a href="{{ form.upload_files.value.url }}">{{ form.filename.value }}</a><br>
+                <a href="{{ form.upload_files.value.url }}">{{ form.upload_files.value.name }}</a><br>
             {% endif %}
     
             <!-- 새 파일 업로드 -->

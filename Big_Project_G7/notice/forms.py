@@ -4,4 +4,4 @@ from .models import Notice
 class NoticeForm(forms.ModelForm):
     class Meta:
         model = Notice
-        fields = ['title', 'content', 'upload_files', 'filename']
+        fields = ['title', 'content', 'upload_files']
