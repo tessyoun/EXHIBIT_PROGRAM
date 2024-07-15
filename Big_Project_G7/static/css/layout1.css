@@ -107,7 +107,7 @@
     margin:auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 70%;
     height: auto;
     min-height: 450px;
     min-width: 300px;
@@ -167,9 +167,9 @@
 }
 
 #modalText1{
+    word-break: keep-all;
     margin: 0;
     text-align: center;
-    border-radius: 30px;
     display:inline-block;
     height: auto; 
     overflow-y: auto; 
@@ -178,7 +178,6 @@
 }
 #modalText2{
     margin: 0;
-    border-radius: 30px;
     display:inline-block;
     height: auto; 
     overflow-y: auto; 
@@ -187,7 +186,6 @@
 }
 
 #r-btn{
-    margin-top:10px;
     text-align: center;
 }
 
