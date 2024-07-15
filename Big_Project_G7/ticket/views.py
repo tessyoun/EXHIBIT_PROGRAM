@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.urls import reverse
 
 from exhibition.models import Exhibition_info
 from mysite.models import ExhibitionHall
@@ -38,11 +39,15 @@ def ticket_detail(request, ticket_id):
         adult = ticket.adult
         child = ticket.child
         username = request.user.username
-        ticket_data = json.dumps({'ticket_id':ticket_id, 'hall':hall, 'exhibition_name':exhibition_name,
-                                  'username':username, 'adult':adult, 'child':child}, ensure_ascii=False)
+
+        context = {'ticket_id':int(ticket_id), 'hall':hall, 'exhibition_name':exhibition_name,
+                        'username':username, 'adult':adult, 'child':child}
+        
+        ticket_data = json.dumps(context, ensure_ascii=False)
         img = generate_QR(ticket_data)
         
-        context = {'image':img, 'ticket_id':int(ticket_id), 'name':exhibition_name, 'hall':hall}
+        context['image'] = img
+        print(context)
         return render(request, 'ticket_detail.html', context)
     else:
         return redirect('ticket:ticket_list')
@@ -55,10 +60,15 @@ def purchase_ticket(request):
             userid = request.user.id
             reservation = form.save(commit=False)
             reservation.user_id = userid
-            reservation.ticketid = int(''.join([str(userid),str(reservation.exhibitionid)]))
-            reservation.save()
+            ticketid = int(''.join([str(userid),str(reservation.exhibitionid)]))
+            reservation.ticketid = ticketid
 
-            return redirect('ticket:ticket_list')
+            if TicketBoughtInfo.objects.filter(ticketid=ticketid).exists():
+                return ticket_detail(request, ticket_id=ticketid)
+            else:
+                reservation.save()
+                return redirect('ticket:ticket_list')
+                
     else:
         form = TicketReservationForm()
 

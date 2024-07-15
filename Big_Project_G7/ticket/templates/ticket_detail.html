@@ -15,11 +15,16 @@ AIVEX Ticket
     <div class="container">
         {% if image %}
             <div class="card">
+                <img src="data:image/png;base64,{{ image }}" class="card-img-bottom" alt="Error!!!">
                 <div class="card-body">
-                  <h5 class="card-title">{{ name }}</h5>
+                  <h5 class="card-title">{{ exhibition_name }}</h5>
                   <p class="card-text">{{ hall }}</p>
                 </div>
-                <img src="data:image/png;base64,{{ image }}" class="card-img-bottom" alt="Error!!!">
+                <div class="list-group list-group=flush">
+                    <li class="list-group-item">예약자 : {{ username }}</li>
+                    <li class="list-group-item">성인 : {{ adult }} 인</li>
+                    <li class="list-group-item">청소년 : {{ child }} 인</li>
+                </div>
               </div>
             <br>
         {% endif %}
