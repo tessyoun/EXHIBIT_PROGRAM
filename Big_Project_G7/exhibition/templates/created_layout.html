@@ -1,0 +1,107 @@
+{% extends "base_layout.html" %}
+{% comment %} created_layout.html {% endcomment %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/layout1.css' %}" />   
+{% endblock %}
+
+{% block title %} 
+    Image with Clickable Rectangles
+{% endblock %}
+
+<!-- main body code -->
+{% block main_content %}
+    <div class="body--wrap">
+        <div id="booth-search">
+            <div>
+                <select id="category" name="category">
+                </select>
+                <input type="text" id="booth-name-input" placeholder="부스이름">
+                <button id="search-button">Search</button>
+            </div>
+            <div id="suggestions"></div>
+        </div>
+        <div class="image-container">
+            <img src="{% get_media_prefix %}{{ image_path }}" alt="Processed Image">
+            {% for i, rect in rectangles %}
+            <div class="rectangle" 
+                style="left: {{ rect.left }}px;
+                        top: {{ rect.top }}px; width: {{ rect.width }}px;
+                        height: {{ rect.height }}px;
+                        transform: rotate({{ rect.rotate }}deg);"
+                        data-index="{{ i }}"
+                        data-center-x="{{ rect.center_x }}"
+                        data-center-y="{{ rect.center_y }}">
+            </div>
+            {% endfor %}
+            <div class="lines-container"></div>   
+        </div>
+        <div class="modal" id="myModal">
+            <div class="modal-content">
+                <div class="top_button">
+                    <span class="close" id="close-button">&times;</span>
+                    <p id="modalText0"></p>
+                    {% if not user.is_authenticated %}
+                        <a href="{% url 'accounts:login' %}" class="bookmark"><i class="fa-regular fa-star fa-2x"> </i></a><br>
+                    {% else %}
+                        <a href="#" class="bookmark" id="bookmark-btn"><i class="fa-regular fa-star fa-2x"> </i></a><br>
+                    {% endif %}
+                </div>
+
+                <p id="modalText1"></p>
+                <img id="modalImage" src="" alt="Modal Image" style="width:100%; max-width:300px;">
+                
+                <p id="modalText2"></p>
+                
+                {% if not user.is_authenticated %}
+                <div id="r-btn">
+                    <a href="{% url 'accounts:login' %}" class="button" id="reservation"><span>예약</span></a>
+                </div>
+                {% else %}
+                <div id="r-btn">
+                    <a class="button" id="reservation"><span>예약</span></a>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+        <!-- 북마크 리스트 -->
+        <div class="modal" id="bookmarkModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="modal-header">
+                    <h5 class="modal-title">북마크 리스트</h5>
+                </div>
+                <div class="modal-body" id="bookmarkList"></div>
+            </div>
+        </div>
+        <div class="bookmarkfunc">
+            <button class="bookmarkbtn" id="show-bookmarks">북마크 리스트</button>
+            <button class="bookmarkbtn" id="reset-bookmarks">북마크 리셋</button>
+        </div>
+    </div>
+
+    <!-- 경로 입력 -->
+    <div id="route-form">
+        <label for="start_booth">Start Booth:</label>
+        <select id="start_booth" name="start_booth">
+        </select>
+        <label for="end_booth">End Booth:</label>
+        <select id="end_booth" name="end_booth">
+        </select>
+        <div>
+            <button id="draw-line-button">Find Route</button>
+            <button id="erase-route">Erase Route</button>
+        </div>
+    </div>
+{% endblock %}
+    
+{% block scripts %}
+    <script>
+        const imageBasePath = "{% static 'booth_thumbnail/1/' %}";      //1기 썸네일 가져오기
+        const boothsJsonString = '{{ booths|escapejs }}';
+        const booths = JSON.parse(boothsJsonString);                    //부스 정보 가져오기
+    </script>
+    <script src="{% static 'js/booth.js' %}"></script>
+{% endblock %}

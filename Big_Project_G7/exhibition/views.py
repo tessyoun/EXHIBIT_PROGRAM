@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import JsonResponse
-
+from django.conf import settings
+from django.core.serializers import serialize
 from .models import Booth_Info
 from .models import Exhibition_info, Exhibition
 from .forms import ExhibitionForm
@@ -16,6 +17,8 @@ import json
 import requests
 import os
 import base64
+import cv2
+import numpy as np
 from mysite.settings import MEDIA_ROOT
 
 PORT = 5000
@@ -219,3 +222,76 @@ def update_exhibition(request):
         exhi_form = ExhibForm(instance=exhi)
 
     return render(request, 'exhibinfo.html', {'exhi_form':exhi_form})
+
+
+# 배치도html 전처리, 생성
+def process_image(request):     
+    if 'data' not in request.session:
+        print("Error: No session data found.")
+        return None, []
+
+    formdata = json.loads(request.session['data'])
+    image_path = os.path.join(MEDIA_ROOT, formdata['exhibition_name'] +'.png')
+
+    image = cv2.imread(image_path)
+    if image is None:
+        print(f"Error: Unable to load the image file at {image_path}.")
+        return None, []
+    
+    scale_percent = 100  # 이미지 크기 줄이기 가능 %
+    width = int(image.shape[1] * scale_percent / 100)
+    height = int(image.shape[0] * scale_percent / 100)
+    dim = (width, height)
+    resized_image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
+
+    gray = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
+    edged = cv2.Canny(gray, 50, 100)
+
+    contours, _ = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    rectangles = []
+
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        if area > 100:
+            rect = cv2.minAreaRect(cnt)
+            box = cv2.boxPoints(rect)
+            box = np.int0(box)
+            cv2.drawContours(image, [box], 0, (0, 255, 0), 2)
+            rectangles.append((rect, box.tolist()))
+
+    processed_image_path = os.path.join(MEDIA_ROOT, 'proceeded_images/processed_image.png')
+    cv2.imwrite(processed_image_path, resized_image)
+
+    return 'proceeded_images/processed_image.png', rectangles
+
+def created_layout(request):
+    image_path, rectangles = process_image(request)
+    if image_path is None:
+        return render(request, 'created_layout.html', {'error': 'Image processing failed.'})
+    
+    rectangles_with_dimensions = []
+    for rect, box in rectangles:
+        (center_x, center_y), (width, height), angle = rect
+        if width < height:
+            width, height = height, width
+            angle += 90
+
+        left = center_x - (width / 2)
+        top = center_y - (height / 2)
+        
+        rectangles_with_dimensions.append({
+            'left': left,
+            'top': top,
+            'width': width,
+            'height': height,
+            'rotate': angle,
+            'center_x' : center_x,
+            'center_y' : center_y,
+        })
+
+    booth = serialize('json', Booth_Info.objects.filter(exhibition_id=1))
+    
+    return render(request, 'created_layout.html', {'image_path': image_path, 
+                                                    'rectangles': list(enumerate(rectangles_with_dimensions)),
+                                                    'booths': booth,
+                                                    })
