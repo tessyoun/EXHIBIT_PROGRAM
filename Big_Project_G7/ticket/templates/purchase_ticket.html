@@ -4,7 +4,7 @@
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
     <link rel="stylesheet" href="{% static 'css/layout2.css' %}" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> {% endcomment %}
 {% endblock %}
 
 {% block title %}
@@ -12,29 +12,35 @@ AIVEX Ticket
 {% endblock %}
     
 {% block main_content %}
-    <div class="container">
+<div class = "background-pc pc"></div>
+
+<div class="container-create">
+    <h2 class = "layout_create_title">티켓 구매</h2>
+
+    <div class="form-create--wrap">
         <form method="post" class="form-create" id="ticket_form">
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.exhibition_name.id_for_label }}">{{ form.exhibition_name.label }}</label>
                 {{ form.exhibition_name }}
             </div>
-            <br>
+           
             <div class="form-group">
                 <label for="{{ form.adult.id_for_label }}">{{ form.adult.label }}</label>
                 {{ form.adult }}
             </div>
-            <br>
+            
             <div class="form-group">
                 <label for="{{ form.child.id_for_label }}">{{ form.child.label }}</label>
                 {{ form.child }}
             </div>
-            <br>
-            <small>10인 이상 단체 예매는 주최측으로 연락 주시기 바랍니다.</small>
-            <button class="btn-create btn btn-primary" type="button" data-toggle="modal" data-target="#confirmModal">예약</button>
+            
+            <small style="color:red;">* 10인 이상 단체 예매는 주최측으로 연락 주시기 바랍니다.</small>
+            <button id="btn-purchase" class="btn-create" type="button" data-toggle="modal" data-target="#confirmModal">예약</button>
         </form>
-        <a href="{% url 'ticket:ticket_list' %}" ><button class ="header__title icon" style="cursor:pointer;">돌아가기</button></a>
+        {% comment %} <a href="{% url 'ticket:ticket_list' %}" ><button style="cursor:pointer;">돌아가기</button></a> {% endcomment %}
     </div>
+
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -54,6 +60,7 @@ AIVEX Ticket
             </div>
         </div>
     </div>
+</div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
