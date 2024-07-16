@@ -67,4 +67,12 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error fetching booth information:', error));
 
+    //배치도 생성하면 display:none에서 block으로 변경
+    if (localStorage.getItem('image_created') === 'true') {
+        var createdLayItems = document.getElementsByClassName('created_lay');
+        if (createdLayItems.length > 0) {
+            createdLayItems[0].style.display = 'block'; // Show the sidebar menu item
+        }
+    }
+
 });

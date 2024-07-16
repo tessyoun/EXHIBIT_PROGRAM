@@ -334,18 +334,28 @@ document.addEventListener("DOMContentLoaded", function() {
     function drawLinesBetweenBooths() {
         const startBoothId = document.getElementById('start_booth').value.trim();
         const endBoothId = document.getElementById('end_booth').value.trim();
-    
+        
         if (startBoothId === endBoothId) {
             alert('같은 부스를 선택하실 수 없습니다.');
             return; 
         }
-
         clearLines();
-    
+
+        let cnt = 1;
+        if (startBoothId > 165) {
+            cnt = 166;
+        } else if (startBoothId > 87) {
+            cnt = 88;
+        } else if (startBoothId > 37) {
+            cnt = 38;
+        }
+        
+        console.log(startBoothId)
+        console.log(cnt)
         linesContainer.innerHTML = ''; // Clear previous lines
 
-        const startBooth = document.querySelector(`.rectangle[data-index='${startBoothId -1}']`);
-        const endBooth = document.querySelector(`.rectangle[data-index='${endBoothId -1}']`);
+        const startBooth = document.querySelector(`.rectangle[data-index='${startBoothId - cnt}']`);
+        const endBooth = document.querySelector(`.rectangle[data-index='${endBoothId - cnt}']`);
 
         const startX = parseFloat(startBooth.dataset.centerX); 
         const startY = parseFloat(startBooth.dataset.centerY); 
