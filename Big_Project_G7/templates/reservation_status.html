@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/reservation_status.css' %}" />
+    <title>예약 확인</title>
+</head>
+<body>
+    <div class="container">
+        <h1>예약 확인</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>프로그램명</th>
+                    <th>사용자명</th>
+                    <th>인원수</th>
+                    <th>예약 시간</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                <tr>
+                    <td>{{ reservation.program.name }}</td>
+                    <td>{{ reservation.user.username }}</td>
+                    <td>{{ reservation.num_of_people }}</td>
+                    <td>{{ reservation.reservationtime_set.first.reserved_time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

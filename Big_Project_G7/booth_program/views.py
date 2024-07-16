@@ -114,10 +114,12 @@ def submit_reservation(request):
         num_of_people = int(request.POST.get('num_of_people'))
         reserved_time = request.POST.get('reserved_time')
 
+        program = get_object_or_404(Program, name=program_name)
+
         reservation = BoothProgramReservation.objects.create(
             user=user,
             user_name=user.username,
-            program_name=program_name,
+            program=program,
             num_of_people=num_of_people
         )
 
@@ -129,6 +131,7 @@ def submit_reservation(request):
         return JsonResponse({'status': 'success', 'message': 'Reservation completed successfully'})
 
     return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
+
 
 @login_required
 def reservation_check(request):
@@ -161,3 +164,10 @@ def edit_reservation(request, reservation_id):
 @login_required
 def program_choice(request):
     return render(request, 'program_choice.html')
+
+@login_required
+def reservation_status(request):
+    user = request.user
+    programs = Program.objects.filter(user=user)
+    reservations = BoothProgramReservation.objects.filter(program__in=programs)
+    return render(request, 'reservation_status.html', {'reservations': reservations})
