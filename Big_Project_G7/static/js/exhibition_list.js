@@ -1,97 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
-  let monthToday = (new Date().getMonth() + 1).toString();
-if (monthToday.length === 1) {
-  monthToday = "0" + monthToday.toString();
-}
-const newEventsData = eventsData.map((event) => {
-  event.start = event.start.split("");
-  event.start.splice(5, 2, monthToday);
-  event.start = event.start.join("");
-  event.end = event.end.split("");
-  event.end.splice(5, 2, monthToday);
-  event.end = event.end.join("");
-  return event;
-});
-
-// Creates calendar
-new Calendar({
-  id: "#color-calendar",
-  primaryColor: "#04AFDF",
-  theme: "glass",
-  border: "7px solid #04AFDF",
-  weekdayType: "long-upper",
-  monthDisplayType: "long",
-  headerBackgroundColor: "#04AFDF",
-  eventsData: newEventsData,
-  dateChanged: (currentDate, events) => {
-    const eventDisplay = document.getElementById("events-display");
-    let html = "";
-    events.forEach((event) => {
-      let from = new Date(event.start).toLocaleString([], {
-        dateStyle: "medium",
-        timeStyle: "short"
-      });
-      let to = new Date(event.end).toLocaleString([], {
-        dateStyle: "medium",
-        timeStyle: "short"
-      });
-      html += `
-        <div class="event">
-          <div class="event__name">${event.name}</div>
-          <div class="event__datestart">From: ${from}</div>
-          <div class="event__dateend">To: ${to}</div>
-        </div>
-      `;
-    });
-    eventDisplay.innerHTML = html;
-  }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   var calendarEl = document.getElementById("calendar");
-  console.log("calendarEl:", calendarEl);
-  
-  let test_calendar=new Calendar({
-    id: '#color-calendar',
-})
-console.log(test_calendar);
-
-  if (calendarEl) {
-    var calendar = new Calendar(calendarEl, {
-      id: '#color-calendar',
-      theme: "glass",
-      primaryColor: "#1a73e8",
-      headerBackgroundColor: "#ffffff",
-      weekdayType: "long",
-      locale: "ko",
-      selectable: true,
-      select: function (info) {
-        var selectedDate = info.startStr;
-        document.getElementById("selected-date").textContent =
-          "선택한 날짜: " + selectedDate;
-        fetchExhibitions(selectedDate);
-        toggleCalendar(); // Consider removing this call if not necessary
-      }
-    });
-
-    calendar.render();
-  } else {
-    console.error("Calendar element not found in the DOM.");
-  }
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: "dayGridMonth",
+    locale: "ko", // 한국어로 설정
+    selectable: true,
+    select: function (info) {
+      var selectedDate = info.startStr;
+      document.getElementById("selected-date").textContent =
+        "선택한 날짜: " + selectedDate;
+      fetchExhibitions(selectedDate);
+      toggleCalendar();
+    },
+  });
+  calendar.render();
 });
-
 
 // 달력 외의 영역 클릭 시 달력 숨기기
 window.addEventListener("click", function (e) {
@@ -132,11 +54,28 @@ function renderExhibitionList(exhibitionsData) {
 
 function toggleCalendar() {
   var calendarContainer = document.getElementById("calendar-container");
-  
-  if (!calendarContainer) return; // Ensure calendar container exists
-
-  if (calendarContainer.style.display === "none" || calendarContainer.style.display === "") {
+  if (
+    calendarContainer.style.display === "none" ||
+    calendarContainer.style.display === ""
+  ) {
     calendarContainer.style.display = "block";
+    // FullCalendar 초기화
+    var calendar = new FullCalendar.Calendar(
+      document.getElementById("calendar"),
+      {
+        initialView: "dayGridMonth",
+        locale: "ko",
+        selectable: true,
+        select: function (info) {
+          var selectedDate = info.startStr;
+          document.getElementById("selected-date").textContent =
+            "선택한 날짜: " + selectedDate;
+          fetchExhibitions(selectedDate);
+          toggleCalendar();
+        },
+      }
+    );
+    calendar.render();
   } else {
     calendarContainer.style.display = "none";
   }

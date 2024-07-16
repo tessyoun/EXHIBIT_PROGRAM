@@ -1,5 +1,5 @@
 #exh-section {
-  margin-top: 100px;
+  margin-top: 10px;
   width: 100%;
 }
 
@@ -7,6 +7,16 @@
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.list-section {
+  color:#000000;
+  margin: 0 5% 0 5%;
+}
+
+.exhibitions {
+  width: 95%; /* 전시회 영역 전체 너비 */
+  margin-top: 35px;
 }
 
 .exhibition-card {
@@ -19,14 +29,7 @@
   display: flex;
   flex-direction: column;
 }
-.toggle-calendar-button {
-  margin-left: auto;
-  cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-}
+
 .background-image {
   position: absolute;
   top: 0;
@@ -59,54 +62,50 @@
   margin: 5px 0;
 }
 
-/* Calendar header styles */
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ccc;
+.header-sub {
+  position: relative;
+  z-index: 1001; /* 헤더가 다른 요소들보다 위에 표시되도록 */
 }
 
-.calendar-header h3 {
-  margin: 0;
-  font-size: 1.5rem;
+.toggle-calendar-button {
+  margin-left: auto;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .calendar-container {
-  display: none;
-  /* Other styles as needed */
+  display: none; /* 기본적으로 숨김 */
+  position: fixed; /* 고정 위치 */
+  top: 12%; /* 상단 여백 */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; /* 다른 요소들보다 위에 표시 */
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 60%; /* 달력 컨테이너 너비 */
+  height: 80%; /* 달력 컨테이너 높이 */
 }
 
 #calendar {
   width: 100%;
   height: 100%;
 }
+
 .fc-day-today {
   /* 현 날짜 색변화 표시 */
   background-color: rgba(252, 247, 182, 1);
 }
 
-@media (min-width: 768px){
-  #exh-section {
-      width:75%;
-  }
-
-  .exh_title {
-      margin: 0;
-      padding: 0;
-  }
-
-  .search-section {
-      width: 100%;
-  }
-  
-}
 
 @media (min-width: 992px) { 
   #exh-section {
       width: 70%;
-      margin-top: 110px;
+      margin-top: 100px;
   }
 
   .exh_title {
@@ -116,9 +115,10 @@
       margin: 0;
       padding: 0;
   }
-  
-  .search-section {
-      width: 100%;
-      margin-top: 40px;
+  .list-section {
+    margin: 0 0 0 0;
+    color:#fffafa;
+    display: grid;
+    place-items: center;
   }
 } 

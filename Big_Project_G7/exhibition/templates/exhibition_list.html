@@ -4,10 +4,8 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/exhibition_list.css' %}" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/color-calendar/dist/css/theme-basic.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/color-calendar/dist/css/theme-glass.css" />
+<link rel="stylesheet" href="{% static 'css/calendar.css' %}" />
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/color-calendar@1.0.7/dist/bundle.min.js"></script>
 {% endblock %}
 
 {% block title %} 
@@ -17,16 +15,19 @@
     {% block main_content %}
     <div class="background-pc-list pc"></div>
     <div id="exh-section">
-    <h2 class="exh_title">AIVEX 전시회 목록</h2>
-    <div style=" display: flex; justify-content: space-between; align-items: center; width: 100%;">
-        <p id="selected-date">원하는 날짜를 선택해주세요.</p>
-        <div class="toggle-calendar-button" onclick="toggleCalendar()">
-            달력 보기
+      <h2 class="exh_title">AIVEX 전시회 목록</h2>
+      <div class=list-section>
+        <div style=" display: flex; justify-content: space-between; align-items: center; width: 100%;">
+          <p id="selected-date">원하는 날짜를 선택해주세요.</p>
+            <div class="toggle-calendar-button" onclick="toggleCalendar()">
+              달력 보기
+            </div>
         </div>
+      </div>
+      
+        <div id="exhibition-list"></div>
+      
     </div>
-
-    <div id="exhibition-list"></div>
-
     <!-- 전시회 부분 -->
     <div class="calendar-container" id="calendar-container">
         <div id="calendar"></div>
@@ -37,6 +38,11 @@
 {% block scripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="{% static 'js/exhibition_list.js' %}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
+<!-- 달력 한국어 -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/locales/ko.js"></script>
+
 <script>
   renderExhibitionList(`{{ exhibitions | safe }}`);
 </script>
