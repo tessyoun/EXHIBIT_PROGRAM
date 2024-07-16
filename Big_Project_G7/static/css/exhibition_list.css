@@ -21,7 +21,8 @@
 
 .exhibition-card {
   position: relative;
-  width: 100%;
+  width: 90%;
+  margin: 0 5% 0 5%;
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
@@ -70,11 +71,22 @@
 .toggle-calendar-button {
   margin-left: auto;
   cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #00d1d4;
+  color: black;
   padding: 10px;
   border-radius: 5px;
 }
+
+.toggle-calendar-button:hover {
+  background-color: #00a6a9;
+}
+
+.toggle-calendar-button span {
+  font-size: 19px;
+  color: black;
+}
+
+
 
 .calendar-container {
   display: none; /* 기본적으로 숨김 */
@@ -120,5 +132,12 @@
     color:#fffafa;
     display: grid;
     place-items: center;
+  }
+  .list_exhibition{
+    margin: 0 0 0 0;
+  }
+  .exhibition-card {
+    width: 100%;
+    margin: 0 0 0 0;
   }
 } 
