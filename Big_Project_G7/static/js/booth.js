@@ -266,16 +266,54 @@ document.addEventListener("DOMContentLoaded", function() {
             
             bookmarkNames.forEach(function(bookmark) {
                 let li = document.createElement('li');
-                li.textContent = bookmark;
+                
+                // Create checkbox
+                let checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = bookmark; // 체크박스의 값 설정 (북마크 이름)
+                checkbox.style.marginRight = '10px'; // 체크박스와 텍스트 사이 간격 설정
+                
+                // 북마크 상태 복원
+                let isChecked = JSON.parse(localStorage.getItem(bookmark)) || false;
+                checkbox.checked = isChecked;
+                
+                // 체크박스에 change 이벤트 리스너 추가
+                checkbox.addEventListener('change', function() {
+                    localStorage.setItem(bookmark, checkbox.checked); // 상태 저장
+                    updateTextDecoration(li, checkbox.checked); // 취소선 갱신
+                });
+                
+                // 리스트 아이템에 북마크 이름 추가
+                let label = document.createElement('label');
+                label.textContent = bookmark;
+                label.style.display = 'inline-block'; // 체크박스와 텍스트를 한 줄에 배치
+                label.style.verticalAlign = 'middle'; // 세로 정렬
+                label.style.textDecoration = isChecked ? 'line-through' : 'none'; // 초기 취소선 설정
+                
+                // 체크박스를 리스트 아이템에 추가
+                li.appendChild(checkbox);
+                li.appendChild(label);
+                
+                // 리스트 아이템을 modalBody에 추가
                 modalBody.appendChild(li);
             });
-
+    
             // Show modal
             bookmarkModal.style.display = 'block';
         } else {
             alert('북마크된 부스 없음.');
         }
     }
+    
+    // 텍스트에 취소선 스타일 적용/해제하는 함수
+    function updateTextDecoration(element, isChecked) {
+        if (isChecked) {
+            element.querySelector('label').style.textDecoration = 'line-through';
+        } else {
+            element.querySelector('label').style.textDecoration = 'none';
+        }
+    }
+    
 
     // Event listener for showing bookmarks in modal
     const showBookmarksButton = document.getElementById('show-bookmarks');

@@ -11,6 +11,10 @@
     scrollbar-width: thin;
 }
 
+li::marker {
+    content: none; /* 마커 콘텐츠 제거 */
+}
+
 #category{
     padding: 5px;
     width:20%;
