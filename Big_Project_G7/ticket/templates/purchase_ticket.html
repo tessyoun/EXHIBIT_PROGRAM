@@ -21,6 +21,11 @@ AIVEX Ticket
             </div>
             <br>
             <div class="form-group">
+                <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
+                {{ form.date }}
+            </div>
+            <br>
+            <div class="form-group">
                 <label for="{{ form.adult.id_for_label }}">{{ form.adult.label }}</label>
                 {{ form.adult }}
             </div>
@@ -61,7 +66,28 @@ AIVEX Ticket
     <script>
         function submitForm() {
             document.getElementById('ticket_form').submit();
-        }
+        };
+
+        document.getElementById('id_exhibition_name').addEventListener('change', function() {
+            const exhibitionId = Number(this.value);
+            const dateField = document.getElementById('id_date');
+
+            if (exhibitionId) {
+                fetch(`{% url 'ticket:check_availableDate' 0 %}`.replace(0, exhibitionId))
+                    .then(response => response.json())
+                    .then(data => {
+                        dateField.innerHTML = '';
+                        data.dates.forEach(date => {
+                            const option = document.createElement('option');
+                            option.value = date;
+                            option.text = date;
+                            dateField.appendChild(option);
+                        });
+                    });
+            } else {
+                dateField.innerHTML = '';
+            }
+        });
     </script>
 {% endblock %}
 

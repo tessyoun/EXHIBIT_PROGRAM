@@ -7,6 +7,7 @@ class TicketBoughtInfo(models.Model):
     ticketid = models.IntegerField(db_column='TicketID', unique=True)  # Field name made lowercase.
     adult = models.IntegerField(db_column='adult')
     child = models.IntegerField(db_column='child')
+    reservationDate = models.DateField(db_column='reservationDate')
     
     class Meta:
         managed = False

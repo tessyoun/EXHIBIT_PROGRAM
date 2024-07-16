@@ -8,17 +8,22 @@ class TicketReservationForm(forms.ModelForm):
         queryset=Exhibition_info.objects.filter(start_date__gt=timezone.now()),
         label="전시회 선택",
         widget=forms.Select(attrs={'class': 'form-control'}),
-        to_field_name='exhibition_name',
         empty_label= '전시회를 선택하세요.'
+    )
+
+    date = forms.ChoiceField(
+        label="예약일",
+        widget=forms.Select(choices= [], attrs={'class': 'form-control'}),
     )
 
     class Meta:
         model = TicketBoughtInfo
-        fields = ['exhibition_name', 'adult', 'child']
+        fields = ['exhibition_name', 'adult', 'child', 'date']
         labels = {
             'exhibition_name' : '전시회 명',
             'adult' : '성인',
-            'child' : '청소년'
+            'child' : '청소년',
+            'date' : '예약일'
         }
         widgets = {
             'adult' : forms.Select(choices=[(i, i) for i in range(10)], attrs={'class': 'form-control', 'value':0}),

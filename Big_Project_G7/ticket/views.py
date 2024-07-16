@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from django.urls import reverse
+from datetime import timedelta
+from django.http import JsonResponse
 
 from exhibition.models import Exhibition_info
 from mysite.models import ExhibitionHall
@@ -39,9 +40,10 @@ def ticket_detail(request, ticket_id):
         adult = ticket.adult
         child = ticket.child
         username = request.user.username
+        date = str(ticket.reservationDate)
 
         context = {'ticket_id':int(ticket_id), 'hall':hall, 'exhibition_name':exhibition_name,
-                        'username':username, 'adult':adult, 'child':child}
+                        'username':username, 'adult':adult, 'child':child, 'date':date}
         
         ticket_data = json.dumps(context, ensure_ascii=False)
         img = generate_QR(ticket_data)
@@ -80,3 +82,17 @@ def cancel_ticket(request, ticket_id):
         return redirect('ticket:ticket_list')
     else:
         return redirect('ticket:ticket_list')
+    
+def check_availableDate(request, exhibition_id):
+    try:
+        exhibition = Exhibition_info.objects.get(pk=exhibition_id)
+        start_date = exhibition.start_date
+        end_date = exhibition.end_date
+
+        date_available = [(start_date + timedelta(days=i)).strftime('%Y-%m-%d') 
+                        for i in range((end_date - start_date).days + 1)]
+
+        return JsonResponse({'dates':date_available})
+    
+    except:
+        return JsonResponse({'dates': []})
