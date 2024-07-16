@@ -126,7 +126,57 @@ def about(request):
     return render(request, 'about.html', {'items': items})
 
 def aivexhall(request):
-    return render(request, 'aivexhall.html')
+    floors = [
+        { 'floor_number': 'B1',
+            'image': 'images/info_images/KTWest_리모델링설계안_희림건축 (3).jpg',
+            'title': 'AIVEX MALL',
+            'description': 'Aivex의 지하에 자리한 Aivex Mall, 현대적인 쇼핑과 편의시설이 만난 최고의 공간입니다. 다채로운 매장과 식사 옵션을 즐길 수 있는 중심지로, 편리하고 현대적인 쇼핑 경험을 제공합니다.'
+        },
+        {
+            'floor_number': '1',
+            'image': 'images/info_images/KTWest_리모델링설계안_희림건축 (7).jpg',
+            'title': '만남의 광장',
+            'description': 'Aivex의 만남의 광장, 다양한 사람들이 모여 소통하고 아이디어를 공유하는 혁신적인 공간입니다. 이곳은 문화적 다양성을 존중하며, 편안하고 개방적인 분위기에서 다양한 이벤트와 활동을 즐길 수 있는 장소입니다.'
+        },
+        {
+            'floor_number': '2',
+            'image': 'images/info_images/expo_hall_perchance_org_ai_generated (3).jpeg',
+            'title': 'Hall A',
+            'description': '2층에 위치한 A홀은 10,368㎡의 면적으로 최대 520개의 부스 설치가 가능하며 접근이 용이한 최적의 전시공간입니다. 친환경 전시시설을 자랑하는 AIVEX는 전시장조명을 LED로 교체하여 에너지 절감에 앞장서고 있으며, 콘크리트 바닥은 파이텍스 없이도 전시가 가능하게 하여 전시 폐기물을 최소화시키고 있습니다.'
+        },
+        {
+            'floor_number': '2',
+            'image': 'images/info_images/expo_hall_perchance_org_ai_generated (4).jpeg',
+            'title': 'Hall B',
+            'description': '2층에 위치한 B홀은 9,368㎡의 면적으로 최대 480개의 부스 설치가 가능하며 접근이 용이한 최적의 전시공간입니다. 친환경 전시시설을 자랑하는 AIVEX는 전시장조명을 LED로 교체하여 에너지 절감에 앞장서고 있으며, 콘크리트 바닥은 파이텍스 없이도 전시가 가능하게 하여 전시 폐기물을 최소화시키고 있습니다.'
+        },
+        {
+            'floor_number': '3',
+            'image': 'images/info_images/expo_hall_perchance_org_ai_generated (2).jpeg',
+            'title': 'Hall C',
+            'description': '3층에 위치한 C홀은 8,368㎡의 면적으로 최대 370개의 부스 설치가 가능하며 접근이 용이한 최적의 전시공간입니다. 친환경 전시시설을 자랑하는 AIVEX는 전시장조명을 LED로 교체하여 에너지 절감에 앞장서고 있으며, 콘크리트 바닥은 파이텍스 없이도 전시가 가능하게 하여 전시 폐기물을 최소화시키고 있습니다.'
+        },
+        {
+            'floor_number': '3',
+            'image': 'images/info_images/expo_hall_perchance_org_ai_generated (1).jpeg',
+            'title': 'Hall D',
+            'description': '3층에 위치한 D홀은 8,368㎡의 면적으로 최대 370개의 부스 설치가 가능하며 접근이 용이한 최적의 전시공간입니다. 친환경 전시시설을 자랑하는 AIVEX는 전시장조명을 LED로 교체하여 에너지 절감에 앞장서고 있으며, 콘크리트 바닥은 파이텍스 없이도 전시가 가능하게 하여 전시 폐기물을 최소화시키고 있습니다.'
+        },
+        {
+            'floor_number': '4',
+            'image': 'images/info_images/KTWest_리모델링설계안_희림건축 (2).jpg',
+            'title': '회의실',
+            'description': '4층은 총 12개의 중소형 회의실로 구성되어 있습니다. 전시장과 인접하여 위치하여 전시 부대 세미나, 기자회견, 소형 회의 등 다양한 용도로 활용할 수 있습니다. 일부 회의실에서는 외부 전경을 조망할 수 있는 특별한 장점도 있습니다.'
+        },
+        {
+            'floor_number': '5',
+            'image': 'images/info_images/KTWest_리모델링설계안_희림건축 (4).jpg',
+            'title': '라운지',
+            'description': '5층 라운지, 도시의 소외되지 않는 오아시스입니다. 현대적 디자인과 편안한 분위기 속에서 새로운 아이디어를 창출하고 사람들과의 연결을 즐길 수 있는 공간입니다.'
+        }
+    ]
+    
+    return render(request, 'aivexhall.html', {'floors': floors })
 
 def layout4(request):
     return render(request, 'layout4.html')
