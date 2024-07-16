@@ -57,18 +57,33 @@ def ticket_detail(request, ticket_id):
 def purchase_ticket(request):
     if request.method == 'POST':
         form = TicketReservationForm(request.POST)
+        userid = request.user.id
         if form.is_valid():
-            userid = request.user.id
             reservation = form.save(commit=False)
             reservation.user_id = userid
             ticketid = int(''.join([str(userid),str(reservation.exhibitionid)]))
             reservation.ticketid = ticketid
-
-            if TicketBoughtInfo.objects.filter(ticketid=ticketid).exists():
-                return ticket_detail(request, ticket_id=ticketid)
+        else:
+            reservationdate = request.POST.get('reservationDate')
+            exhibitionid = request.POST.get('exhibition_name')
+            if exhibitionid is not None:
+                ticketid = int(''.join([str(userid),str(exhibitionid)]))
+                reservation = TicketBoughtInfo(
+                    exhibitionid=exhibitionid,
+                    user_id=userid,
+                    ticketid=ticketid,
+                    adult=request.POST.get('adult'),
+                    child=request.POST.get('child'),
+                    reservationDate=reservationdate
+                )
             else:
-                reservation.save()
-                return redirect('ticket:ticket_list')
+                return render(request, 'purchase_ticket.html', {'form': form})
+
+        if TicketBoughtInfo.objects.filter(ticketid=ticketid).exists():
+            return ticket_detail(request, ticket_id=ticketid)
+        else:
+            reservation.save()
+            return redirect('ticket:ticket_list')
                 
     else:
         form = TicketReservationForm()
@@ -89,10 +104,13 @@ def check_availableDate(request, exhibition_id):
         start_date = exhibition.start_date
         end_date = exhibition.end_date
 
-        date_available = [(start_date + timedelta(days=i)).strftime('%Y-%m-%d') 
-                        for i in range((end_date - start_date).days + 1)]
+        date_available = get_date_choice(start_date, end_date)
 
         return JsonResponse({'dates':date_available})
     
     except:
         return JsonResponse({'dates': []})
+    
+def get_date_choice(start_date, end_date):
+    return [(start_date + timedelta(days=i)).strftime('%Y-%m-%d')
+                for i in range((end_date - start_date).days + 1)]

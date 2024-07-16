@@ -21,8 +21,8 @@ AIVEX Ticket
             </div>
             <br>
             <div class="form-group">
-                <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
-                {{ form.date }}
+                <label for="{{ form.reservationDate.id_for_label }}">{{ form.reservationDate.label }}</label>
+                {{ form.reservationDate }}
             </div>
             <br>
             <div class="form-group">
@@ -70,22 +70,24 @@ AIVEX Ticket
 
         document.getElementById('id_exhibition_name').addEventListener('change', function() {
             const exhibitionId = Number(this.value);
-            const dateField = document.getElementById('id_date');
+            const dateField = document.getElementById('id_reservationDate');
 
             if (exhibitionId) {
                 fetch(`{% url 'ticket:check_availableDate' 0 %}`.replace(0, exhibitionId))
                     .then(response => response.json())
                     .then(data => {
-                        dateField.innerHTML = '';
+                        dateField.innerHTML = '<option value="" selected>예약일을 선택하세요.</option>';
                         data.dates.forEach(date => {
                             const option = document.createElement('option');
                             option.value = date;
                             option.text = date;
+                            option.selected = false;
                             dateField.appendChild(option);
                         });
                     });
-            } else {
-                dateField.innerHTML = '';
+            } 
+            else {
+                dateField.innerHTML = '<option value="" selected>전시회를 먼저 선택하세요.</option>';
             }
         });
     </script>
