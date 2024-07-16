@@ -1,4 +1,16 @@
 /* 메뉴바 css (대부분 파일에 적용)*/
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 
 body {
     height: 100vh;
