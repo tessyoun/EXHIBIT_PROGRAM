@@ -7,69 +7,72 @@
 {% endblock %}
 
 {% block main_content %}
-<div class="background-pc-list pc"></div>
+<div class = "background-pc pc"></div>
 
-<div class="main-section">
-    <div class="facility-guide">
-        <div class="image-container">
-            <img src="{% static 'images/Info_images/KTWest_리모델링설계안_희림건축 (13).jpg' %}" alt="aivex image">
-                <div class="overlay"><div class='inneroverlay'>
-                        <img src="{% static 'icons/AIVEX_icon_logo.png' %}" alt="Icon0">
-                        <div class="mobile-no-br">
-                        <p>AIVEX는 동북 아시아 대표 전시장이자
-                            <br>동아시아 산업교류의 메카로 발돋움하고 있으며,
-                            <br>대한민국을 전시∙컨벤션 강국으로 이끌어 나가고 있습니다.</p>
+<div class = "main-section--wrap">
+    <h2 class='about--title'> About </h2>
+    
+    <div class = "main-section--content">
+        <div class="main-section">
+            <div class="facility-guide">
+                <div class="image-container">
+                    <img src="{% static 'images/Info_images/KTWest_리모델링설계안_희림건축 (13).jpg' %}" alt="aivex image">
+                        <div class="overlay"><div class='inneroverlay'>
+                            <img src="{% static 'icons/AIVEX_icon_logo.png' %}" alt="Icon0">
+                            <div class="mobile-no-br">
+                            <p>AIVEX는 동북 아시아 대표 전시장이자
+                                <br>동아시아 산업교류의 메카로 발돋움하고 있으며,
+                                <br>대한민국을 전시∙컨벤션 강국으로 이끌어 나가고 있습니다.</p>
+                            </div>
                         </div></div>
-                </div></div></div>
-    </div>
+        </div></div></div>
 
-    <div class="facility-guide">
-        <div class="info">
-            {% for item in items %}
-            <div class="content">
-                <img src="{% static item.icon %}" alt="{{ item.alt }}" class="icon1">
-                <div class="content-description">
-                    <hr><h6><strong>{{ item.title }}</strong></h6>
-                    <p>{{ item.description }}</p>
+
+        <div class="facility-guide">
+            <div class="info">
+                {% for item in items %}
+                <div class="content">
+                    <img src="{% static item.icon %}" alt="{{ item.alt }}" class="icon1">
+                    <div class="content-description">
+                        <hr><h6><strong>{{ item.title }}</strong></h6>
+                        <p>{{ item.description }}</p>
+                    </div>
                 </div>
-                
+                {% endfor %}
             </div>
-            {% endfor %}
+        </div>
+    
+        <div class="facility-guide">
+            <div class="detail-info">
+                <h4><strong>오시는 길</strong></h4>
+                <p> <strong>주소</strong> : 경기도 성남시 분당구 불정로 90 (정자동) </p>
+                <p><strong>대표전화</strong> : 031-123-9876 </p>
+                <img src="{% static 'images/Info_images/KT본사약도.png' %}" alt="aivex map" class=map1>
+                
+
+                {% comment %} https://m.corp.kt.com/html/intro/info/locations_01.html {% endcomment %}
+                <ul class="transport-info">
+                    <li>
+                        <strong>지하철</strong>
+                        <ul>
+                            <li><em class="part bundang">분당선</em><span>정자역 2번 출구</span></li>
+                            <li><em class="part shinbundang">신분당선</em><span>정자역 6번 출구</span></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>버스</strong>
+                        <ul>
+                            <li><em class="part red">광역</em><span>9404, 9401, 9403, 9408</span></li>
+                            <li><em class="part direct">직행</em><span>9407, 9000, 1121, 1005-1, 3500, 7007-1, 9001, 9607, 9414, 102</span></li>
+                            <li><em class="part bus">일반</em><span>303, 101, 51, 2, 33-1, 310, 720-1, 220, 222, 720</span></li>
+                            <li><em class="part shuttle">마을</em><span>111, 109, 109-1, 1, 2</span></li>
+                            <li><em class="part express">급행</em><span>8131</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-    
-    <div class="facility-guide">
-        <div class="detail-info">
-            <h4><strong>오시는 길</strong></h4>
-            <p> <strong>주소</strong> : 경기도 성남시 분당구 불정로 90 (정자동) </p>
-            <p><strong>대표전화</strong> : 031-123-9876 </p>
-            <img src="{% static 'images/Info_images/KT본사약도.png' %}" alt="aivex map" class=map1>
-            
-
-            {% comment %} https://m.corp.kt.com/html/intro/info/locations_01.html {% endcomment %}
-            <ul class="transport-info">
-                <li>
-                    <strong>지하철</strong>
-                    <ul>
-                        <li><em class="part bundang">분당선</em><span>정자역 2번 출구</span></li>
-                        <li><em class="part shinbundang">신분당선</em><span>정자역 6번 출구</span></li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>버스</strong>
-                    <ul>
-                        <li><em class="part red">광역</em><span>9404, 9401, 9403, 9408</span></li>
-                        <li><em class="part direct">직행</em><span>9407, 9000, 1121, 1005-1, 3500, 7007-1, 9001, 9607, 9414, 102</span></li>
-                        <li><em class="part bus">일반</em><span>303, 101, 51, 2, 33-1, 310, 720-1, 220, 222, 720</span></li>
-                        <li><em class="part shuttle">마을</em><span>111, 109, 109-1, 1, 2</span></li>
-                        <li><em class="part express">급행</em><span>8131</span></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    
-
 </div>
+    
 {% endblock %}

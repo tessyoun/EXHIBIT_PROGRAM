@@ -1,137 +1,124 @@
-/* 기본 설정 */
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-}
-
-/* 컨테이너 */
-.container {
+#hall-section {
+    margin-top: 100px;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
 }
 
-/* 헤더 */
-header {
+.hall_title {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.floor-nav {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 60px;
-    background-color: #333;
-    padding: 10px 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-header h1 {
-    color: white;
-}
-
-.menu-btn {
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-}
-
-.logo {
-    height: 40px;
-    cursor: pointer;
-}
-
-/* 본문 */
-main {
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-h2 {
-    font-size: 36px;
-    color: #000;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
     margin-bottom: 20px;
 }
-
-.facility-guide {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background-color: #f8f8f8;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.facility-guide img {
-    width: 50%;
-    height: auto;
-    margin-right: 20px;
-}
-
-.facility-guide .info {
-    flex: 1;
-}
-
-.facility-guide .info h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.facility-guide .info p {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.facility-guide .more-info {
-    padding: 10px 20px;
-    background-color: #000;
-    color: #fff;
+.floor-button {
+    background-color: #c9c9c9;
+    color: black;
+    padding: 10px 15px;
+    margin: 5px;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
 }
 
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        height: auto;
-        padding: 20px;
+.floor-button:hover {
+    background-color: #b0b0b0;
+}
+
+.floor-button span {
+    font-size: 19px;
+    color: black;
+}
+
+.floor-button.on {
+    background-color: white;
+    border-top: 4px solid #01D1D5;
+    border-radius: 5px;
+}
+
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+
+.image-container img {
+    width:100%;
+    background-size: cover;
+    height: auto;
+    transition: transform 0.3s ease-out;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 7%;
+    left: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    padding: 5px 100px 5px 20px;
+}
+
+.overlay h3 {
+    margin: 0;
+}
+
+.descriptionevent {
+    padding:10px;
+    color: #000000;
+}
+.descriptionevent p{
+    margin: 0;
+    line-height: 1.5;
+}
+
+
+
+@media (min-width: 768px){
+    #hall-section {
+        width:75%;
+    }
+
+    .hall_title {
+        margin: 0;
+        padding: 0;
     }
 
     .facility-guide {
         flex-direction: column;
+        width: 90%;
     }
 
-    .facility-guide img {
+    .image-container {
         width: 100%;
-        margin-bottom: 20px;
+        height: 400px;
     }
+}
 
-    .facility-guide .info {
+@media (min-width: 992px) { 
+    #hall-section {
+        width: 70%;
+        margin-top: 110px;
+    }
+    .hall_title {
+        color: #fff;
+        font-size: 27px;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
+    }
+    .image-container {
         width: 100%;
+        height: auto 100%;
     }
-}
-
-.home-button {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background-color: #333;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.home-button:hover {
-    background-color: #555;
-}
+} 
