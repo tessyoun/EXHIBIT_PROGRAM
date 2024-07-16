@@ -32,7 +32,6 @@ booth_info = Booth_Info.objects.all()
 def save_layout(request):
     if request.method == 'POST':
         image_data = request.POST.get('image_data')
-        
         if 'data' in request.session:
             formdata = json.loads(request.session['data'])
             img_path = save_image_to_fileserver(image_data, formdata['exhibition_name'])
@@ -289,7 +288,7 @@ def created_layout(request):
             'center_y' : center_y,
         })
 
-    booth = serialize('json', Booth_Info.objects.filter(exhibition_id=1))
+    booth = serialize('json', Booth_Info.objects.filter(exhibition_id=4))
     
     return render(request, 'created_layout.html', {'image_path': image_path, 
                                                     'rectangles': list(enumerate(rectangles_with_dimensions)),

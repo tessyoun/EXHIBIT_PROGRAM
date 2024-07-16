@@ -166,6 +166,11 @@
                 success: function(response) {
                     if (response.img_path) {
                         alert('이미지가 성공적으로 저장되었습니다.');
+                        localStorage.setItem('image_created', 'true'); // Set the flag
+                        var createdLayItems = document.getElementsByClassName('created_lay');
+                        if (createdLayItems.length > 0) {
+                            createdLayItems[0].style.display = 'block'; // Show the sidebar menu item
+                        }
                         window.location.href = "{% url 'exhibition:created_layout' %}";
                     } else {
                         alert('이미지 전송에 실패하였습니다.');
