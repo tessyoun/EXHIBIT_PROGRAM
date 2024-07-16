@@ -4,7 +4,7 @@
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
     <link rel="stylesheet" href="{% static 'css/layout2.css' %}" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> {% endcomment %}
 {% endblock %}
 
 {% block title %}
@@ -12,7 +12,10 @@ AIVEX Ticket
 {% endblock %}
 
 {% block main_content %} 
+<div class = "background-pc pc"></div>
+
     <div class="container">
+        <h2 class = "layout_create_title">내 티켓 확인</h2>
         <div class="list-group">
             {{ user_form.as_p }}
             {{ profile_form.as_p }}

@@ -655,6 +655,10 @@ body {
         color: #38B8B2
     }
 
+    .dropdown-menu .dropdown-item:focus{
+        background-color: #38b8b25b;
+    }
+
     .header-menu-login{
         display: flex;
         flex-direction: row;
