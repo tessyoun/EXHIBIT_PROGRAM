@@ -78,7 +78,8 @@
 }
 
 .toggle-calendar-button:hover {
-  background-color: #00a6a9;
+  background-color: #7b7b7b;
+  color:white;
 }
 
 .toggle-calendar-button span {
@@ -86,21 +87,19 @@
   color: black;
 }
 
-
-
 .calendar-container {
   display: none; /* 기본적으로 숨김 */
   position: fixed; /* 고정 위치 */
-  top: 12%; /* 상단 여백 */
-  left: 50%;
+  top: 20%; /* 상단 여백 */
+  left: 67%;
   transform: translateX(-50%);
   z-index: 1000; /* 다른 요소들보다 위에 표시 */
   background-color: #fff;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 60%; /* 달력 컨테이너 너비 */
-  height: 80%; /* 달력 컨테이너 높이 */
+  width: 280px; /* 달력 컨테이너 너비 */
+  height: 340px; /* 달력 컨테이너 높이 */
 }
 
 #calendar {
@@ -140,4 +139,13 @@
     width: 100%;
     margin: 0 0 0 0;
   }
+  .toggle-calendar-button {
+    margin-left: auto;
+    cursor: pointer;
+    background-color: #fffafa;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
 } 
