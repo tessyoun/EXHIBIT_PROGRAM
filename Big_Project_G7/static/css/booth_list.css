@@ -12,7 +12,7 @@
 }
 
 #booth_list {
-    margin-top: 90px;
+    margin-top: 80px;
     width: 100%;
 }
 
@@ -31,6 +31,10 @@
     overflow-x: hidden;
     list-style-type: none;
     padding: 0;
+}
+
+#boothList{
+    margin-top: 15px;
 }
 
 .booth-item {
@@ -71,7 +75,7 @@
 #booth_detail {
     width: 93%;
     padding: 0;
-    margin-top: 90px;
+    margin-top: 80px;
 }
 
 #booth_detail--wrap{
@@ -85,8 +89,9 @@
 }
 
 .booth_info_title{
-    padding-bottom: 8px;
+    padding-bottom: 10px;
     border-bottom: 2px solid #333;
+    margin-bottom: 15px;
 }
 
 #booth_detail--btn{
@@ -153,8 +158,83 @@
 }
 
 
+
+/* 부스 정보 수정 */
+#booth_edit--wrap{
+    width: 93%;
+    padding: 0;
+    margin-top: 80px;
+}
+
+#booth_edit--content{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 2px solid #333;
+}
+
+#booth_edit--content div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 20px;
+}
+
+#booth_edit--content label {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#booth_edit--content input[type="text"],
+#booth_edit--content textarea{
+    box-sizing: border-box;
+    padding: 5px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    height: 35px; 
+}
+
+#booth_edit--content input[type="text"]:focus,
+#booth_edit--content textarea:focus {
+    border-bottom: 1px solid #38B8B2;
+}
+
+#booth_edit--content textarea{
+    width: 100%;
+    box-sizing: border-box; 
+    overflow: hidden; 
+    resize: none;
+}
+
+#booth_edit--content input[type="submit"] {
+    margin-top: 40px;
+    display: block;
+    padding: 10px;
+    background-color: #38B8B2;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    width: 100%;
+}
+
+#booth_edit--content input[type="submit"]:hover{
+    background-color:#33999bcd;
+    transform: scale(0.95);
+}
+
+
+
 @media (min-width: 768px){
-    #booth_list, #booth_detail{
+    #booth_list, #booth_detail, #booth_edit--wrap{
         width: 75%;
     }
     
@@ -164,7 +244,7 @@
 
 @media (min-width: 992px) {
 
-    #booth_list, #booth_detail{
+    #booth_list, #booth_detail, #booth_edit--wrap{
         width: 70%;
         margin-top: 110px;
     }
@@ -180,7 +260,7 @@
 
     }
 
-    .booth_info_title{
+    .booth_info_title, .booth_edit--title{
         margin: 0;
         padding: 0;
         color: #fff;
@@ -205,7 +285,7 @@
         width: 90%;
     }
 
-    #booth_detail--wrap{
+    #booth_detail--wrap, #booth_edit--content{
         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
         background-color: #fff;
         align-items: center;
@@ -244,4 +324,60 @@
         font-size: 17px;
         height: 42px;
     }
+
+    /* 부스 정보 수정 */
+    .booth_edit--form{
+        width: 450px;
+        margin: 0 auto;
+        padding: 15px 0;
+    }
+
+    #booth_edit--content{
+        border-top: none;
+    }
+
+    #booth_edit--content div {
+        flex-direction: row;
+        margin-bottom: 25px;
+        align-items: center;
+    }
+
+    #booth_edit--content label{
+        width: 52px;
+    }
+
+    #booth_edit--content input[type="text"],
+    #booth_edit--content textarea{
+        box-sizing: border-box;
+        padding: 5px 17px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        height: 35px; 
+        background-color: #f5f5f5;
+        margin-left: 15px;
+        width: calc((100% - 70px));
+    }
+
+    #booth_edit--content input[type="text"]:focus{
+        border-bottom: none;
+    }
+
+    #booth_edit--content input[type="submit"] {
+        margin: 0 auto;
+        margin-top: 40px;
+        display: block;
+        padding: 5px 10px;
+        background-color: #38B8B2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: 500;
+        transition: transform 0.3s ease;
+        width: 100px;
+    }
+
+  
 }

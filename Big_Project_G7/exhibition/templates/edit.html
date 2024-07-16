@@ -6,126 +6,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/layout1.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/booth_list.css' %}" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <title>부스 수정</title>
-    <style>
-      #booth_edit {
-        padding-top: 80px;
-        margin-left: 10%;
-        margin-right: 10%;
-        width: 80%;
-      }
-      #booth_edit form {
-        display: flex;
-        flex-direction: column;
-        margin-top: 10%;
-      }
-
-      #booth_edit label {
-        margin-bottom: 8px;
-        font-size: 12px;
-        color: #555;
-      }
-
-      #booth_edit input[type="text"] {
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 13px;
-      }
-
-      #booth_edit input[type="submit"] {
-        padding: 10px 20px;
-        background-color: #01d1d5;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 12px;
-        cursor: pointer;
-      }
-
-      #booth_edit input[type="submit"]:hover {
-        background-color: #008589;
-      }
-
-      #booth_edit hr {
-        margin: 5px 0;
-      }
-
-      #booth_edit a {
-        display: inline-block;
-        margin-top: 5px;
-        margin-right: 10px;
-        color: #333;
-        text-decoration: none;
-        font-size: 12px;
-        padding: 8px 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        transition: background-color 0.3s, color 0.3s;
-      }
-
-      #booth_edit a:hover {
-        text-decoration: underline;
-      }
-    </style>
+   
   </head>
   <body>
     <!--header/sidebar-->
     {% include 'base/header.html' %}
     {% include 'base/sidebar.html' %}
     <!--end header/sidebar-->
+    <div class = "background-pc pc"></div>
+    <div class = "background-pc-bottom pc"></div>
 
-    <div id="booth_edit">
-      {% block content %}
-      <form action="{% url 'exhibition:update' booths.pk %}" method="POST">
-        {% csrf_token %}
-        <label for="booth_name">부스명:</label>
-        <input
-          type="text"
-          name="booth_name"
-          value="{{booths.booth_name}}"
-        /><br />
-        <label for="company_name">회사명:</label>
-        <input
-          type="text"
-          name="company_name"
-          value="{{booths.company_name}}"
-        /><br />
-        <label for="booth_category">카테고리:</label>
-        <input
-          type="text"
-          name="booth_category"
-          value="{{booths.booth_category}}"
-        /><br />
-        <label for="background">배경:</label>
-        <input
-          type="text"
-          name="background"
-          value="{{booths.background}}"
-        /><br />
-        <label for="service">기능:</label>
-        <input type="text" name="service" value="{{booths.service}}" /><br />
-        <input type="submit" value="수정" />
-      </form>
-      <hr />
-      <a
-        href="{% url 'exhibition:detail' booths.pk %}"
-        style="text-decoration: none; color: black"
-        >BACK</a
-      >
+    <div id="booth_edit--wrap">
+        <h2 class='booth_edit--title'> 부스 정보 수정 </h2>
 
-      {% endblock content %}
+        <div id="booth_edit--content">
+            {% block content %}
+            <form action="{% url 'exhibition:update' booths.pk %}" method="POST" class = "booth_edit--form">
+                {% csrf_token %}
+                <div>
+                <label for="booth_name">부스명</label>
+                <input type="text" name="booth_name" value="{{booths.booth_name}}" placeholder="부스명"/>
+                </div>
+
+                <div>
+                <label for="company_name">회사명</label>
+                <input type="text" name="company_name" value="{{booths.company_name}}" placeholder="회사명"/>
+                </div>
+
+                <div>
+                <label for="booth_category">카테고리</label>
+                <input type="text" name="booth_category" value="{{booths.booth_category}}" placeholder="카테고리"/>
+                </div>
+
+                <div>
+                <label for="background">배경</label>
+                <textarea name="background" id="background" placeholder="배경">{{booths.background}}</textarea>
+                </div>
+            
+                <div>
+                <label for="service">기능</label>
+                <textarea name="service" id="service" placeholder="기능">{{booths.service}}</textarea>
+                </div>
+
+                <input type="submit" value="수정" />
+            </form>
+
+            {% comment %} <a href="{% url 'exhibition:detail' booths.pk %}" style="text-decoration: none; color: black">
+                BACK</a> {% endcomment %}
+            {% endblock content %}
+        </div>
+
+       
     </div>
+
+
+
     <script src="{% static 'js/uiSidebar.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-
+    <script> 
+        function autoResizeTextarea(textarea) {
+            textarea.style.height = 'auto'; 
+            textarea.style.height = textarea.scrollHeight + 'px'; 
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach(textarea => {
+                autoResizeTextarea(textarea);
+                textarea.addEventListener('input', () => autoResizeTextarea(textarea));
+            });
+        });
+    </script>
 </body>
 </html>
