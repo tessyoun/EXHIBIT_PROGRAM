@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from exhibition.models import Booth_Info
 
+# (기업) 프로그램 생성
 @login_required
 def program_open(request):
     if not request.user.profile.user_type == '기업회원' and not request.user.is_staff:
@@ -43,7 +44,7 @@ def program_open(request):
     return render(request, 'program_open.html', {'form': form})
 
 
-
+# (기업) 프로그램 > 프로그램 생성/관리 >  프로그램 관리
 @login_required
 def program_manage(request):
     programs = Program.objects.filter(user=request.user)
@@ -62,6 +63,7 @@ def program_manage(request):
 
     return render(request, 'program_manage.html', {'form': form, 'programs': programs})
 
+# (기업) 프로그램 > 프로그램 생성/관리 >  프로그램 관리 > 수정 및 삭제
 @login_required
 def program_edit(request, program_id):
     program = get_object_or_404(Program, id=program_id, user=request.user)
@@ -85,6 +87,7 @@ def program_edit(request, program_id):
     
     return render(request, 'program_edit.html', {'form': form, 'time_slots': time_slots, 'selected_times': selected_times})
 
+# (일반) 프로그램 예약
 @login_required
 def reserve_booth(request, booth_id):
     booth = get_object_or_404(Booth_Info, booth_id=booth_id)
@@ -98,6 +101,7 @@ def reserve_booth(request, booth_id):
     messages.success(request, '예약이 완료되었습니다.')
     return redirect('reservation', booth_id=booth_id)
 
+# 홈 > 전시회 목록 > 전시회 > 부스 클릭 > 예약 클릭 시 생성된 부스 있는지 체크
 def check_program(request, company_name):
     program_exists = Program.objects.filter(company_name=company_name).exists()
     if program_exists:
@@ -105,6 +109,7 @@ def check_program(request, company_name):
         return JsonResponse({'exists': True, 'booth_id': booth.booth_id})
     return JsonResponse({'exists': False})
 
+# (일반) 프로그램 예약 API / 예약 정보 생성 후 DB에 저장
 @csrf_exempt
 @login_required
 def submit_reservation(request):
@@ -113,38 +118,42 @@ def submit_reservation(request):
         program_name = request.POST.get('program_name')
         num_of_people = int(request.POST.get('num_of_people'))
         reserved_time = request.POST.get('reserved_time')
+        company_name = request.POST.get('company_name')
 
-        program = get_object_or_404(Program, name=program_name)
-
-        reservation = BoothProgramReservation.objects.create(
-            user=user,
-            user_name=user.username,
-            program=program,
-            num_of_people=num_of_people
-        )
-
-        ReservationTime.objects.create(
-            reservation=reservation,
-            reserved_time=reserved_time
-        )
-
-        return JsonResponse({'status': 'success', 'message': 'Reservation completed successfully'})
+        try:
+            program = get_object_or_404(Program, company_name=company_name)
+            reservation = BoothProgramReservation.objects.create(
+                            user=user,
+                            user_name=user.username,
+                            program=program,
+                            num_of_people=num_of_people
+                        )
+            
+            ReservationTime.objects.create(
+                reservation=reservation,
+                reserved_time=reserved_time
+            )
+            return JsonResponse({'status': 'success', 'message': 'Reservation completed successfully'})
+        except Exception as e:
+            return JsonResponse({'status':'error', 'message':e})
 
     return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
 
-
+# (일반) 마이페이지 > 내 예약 확인
 @login_required
 def reservation_check(request):
     user_name = request.user.username
-    reservations = BoothProgramReservation.objects.filter(user_name=user_name)
+    reservations = BoothProgramReservation.objects.filter(user_name=user_name).select_related('program')
     return render(request, 'reservation_check.html', {'reservations': reservations})
 
+# (일반) 마이페이지 > 내 예약 확인 > 예약 삭제 API
 @login_required
 def delete_reservation(request, reservation_id):
     reservation = get_object_or_404(BoothProgramReservation, id=reservation_id, user_name=request.user.username)
     reservation.delete()
     return redirect('booth_program:reservation_check')
 
+# (일반) 마이페이지 > 내 예약 확인 > 예약 수정 API
 @login_required
 @csrf_exempt
 def edit_reservation(request, reservation_id):
@@ -161,10 +170,12 @@ def edit_reservation(request, reservation_id):
     else:
         return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
 
+# (기업) 프로그램 > 프로그램 생성/관리
 @login_required
 def program_choice(request):
     return render(request, 'program_choice.html')
 
+# (기업) 프로그램 > 예약 현황
 @login_required
 def reservation_status(request):
     user = request.user
