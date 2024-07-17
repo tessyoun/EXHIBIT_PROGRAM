@@ -98,8 +98,11 @@ def reserve_booth(request, booth_id):
         messages.error(request, '기업에서 프로그램을 생성하지 않았습니다.')
         return redirect('layout1')
 
-    messages.success(request, '예약이 완료되었습니다.')
-    return redirect('reservation', booth_id=booth_id)
+    program = Program.objects.get(company_name=company_name)
+    available_times = program.selected_times.split(',')
+    all_times = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
+
+    return render(request, 'reservation.html', {'booth': booth, 'available_times': available_times, 'all_times': all_times})
 
 # 홈 > 전시회 목록 > 전시회 > 부스 클릭 > 예약 클릭 시 생성된 부스 있는지 체크
 def check_program(request, company_name):

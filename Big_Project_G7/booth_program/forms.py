@@ -23,8 +23,6 @@ class ProgramForm(forms.ModelForm):
             self.add_error('description', "프로그램 설명을 입력해주세요.")
         if not selected_times:
             self.add_error('selected_times', "오픈할 시간대를 선택해주세요.")
-        # elif len(selected_times.split(',')) > 1:
-        #     self.add_error('selected_times', "시간대는 하나만 선택할 수 있습니다.")   
 
 
 class ReservationForm(forms.ModelForm):

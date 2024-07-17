@@ -1,8 +1,8 @@
 .reservation-container {
     text-align: center;
     padding: 20px;
-    top:100px;
-    position:relative;
+    top: 100px;
+    position: relative;
 }
 
 .people-counter {
@@ -39,6 +39,11 @@
 
 .time-slot.selected {
     background-color: #0099ff;
+}
+
+.time-slot.disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
 }
 
 /* 버튼 */
