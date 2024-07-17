@@ -85,17 +85,17 @@
 
     <!-- 경로 입력 -->
     <div id="route-form" class="hidden">
-        <label for="start_booth">Start Booth:</label>
+        <label for="start_booth">출발 부스:</label>
         <select id="start_booth" name="start_booth">
             <!-- Options go here -->
         </select>
-        <label for="end_booth">End Booth:</label>
+        <label for="end_booth">도착 부스:</label>
         <select id="end_booth" name="end_booth">
             <!-- Options go here -->
         </select>
         <div>
-            <button id="draw-line-button">Find Route</button>
-            <button id="erase-route">Erase Route</button>
+            <button class="routebtn findroute-button" id="draw-line-button">경로 찾기</button>
+            <button class="routebtn eraseroute-button" id="erase-route">경로 지우기</button>
         </div>
     </div>
 {% endblock %}
