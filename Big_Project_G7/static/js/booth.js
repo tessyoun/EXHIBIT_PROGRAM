@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log('draw line!')
         });
     }
-    else if (eraseLineButton) {
+    if (eraseLineButton) {
         eraseLineButton.addEventListener('click', function() {     
             clearLines();
         });
