@@ -26,11 +26,6 @@ AIVEX Ticket
             </div>
            
             <div class="form-group">
-                <label for="{{ form.reservationDate.id_for_label }}">{{ form.reservationDate.label }}</label>
-                {{ form.reservationDate }}
-            </div>
-
-            <div class="form-group">
                 <label for="{{ form.adult.id_for_label }}">{{ form.adult.label }}</label>
                 {{ form.adult }}
             </div>
@@ -41,22 +36,22 @@ AIVEX Ticket
             </div>
             
             <small style="color:red;">* 10인 이상 단체 예매는 주최측으로 연락 주시기 바랍니다.</small>
-            <button id="btn-purchase" class="btn-create" type="button" data-toggle="modal" data-target="#confirmModal">예약</button>
+            <button id="btn-purchase" class="btn-create" type="button" data-toggle="modal" data-target="#confirmModal">예매</button>
         </form>
-        
+        {% comment %} <a href="{% url 'ticket:ticket_list' %}" ><button style="cursor:pointer;">돌아가기</button></a> {% endcomment %}
     </div>
 
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">예약 확인</h5>
+                    <h5 class="modal-title" id="confirmModalLabel">예매 확인</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    예약을 확정하시겠습니까?
+                    예매하시겠습니까?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" onclick="submitForm()">확인</button>
@@ -73,30 +68,7 @@ AIVEX Ticket
     <script>
         function submitForm() {
             document.getElementById('ticket_form').submit();
-        };
-
-        document.getElementById('id_exhibition_name').addEventListener('change', function() {
-            const exhibitionId = Number(this.value);
-            const dateField = document.getElementById('id_reservationDate');
-
-            if (exhibitionId) {
-                fetch(`{% url 'ticket:check_availableDate' 0 %}`.replace(0, exhibitionId))
-                    .then(response => response.json())
-                    .then(data => {
-                        dateField.innerHTML = '<option value="" selected>예약일을 선택하세요.</option>';
-                        data.dates.forEach(date => {
-                            const option = document.createElement('option');
-                            option.value = date;
-                            option.text = date;
-                            option.selected = false;
-                            dateField.appendChild(option);
-                        });
-                    });
-            } 
-            else {
-                dateField.innerHTML = '<option value="" selected>전시회를 먼저 선택하세요.</option>';
-            }
-        });
+        }
     </script>
 {% endblock %}
 

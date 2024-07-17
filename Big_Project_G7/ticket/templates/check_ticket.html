@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block styles %}
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
     <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
-    <link rel="stylesheet" href="{% static 'css/layout2.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/ticket.css' %}" />
     {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> {% endcomment %}
 {% endblock %}
 
@@ -15,23 +16,28 @@ AIVEX Ticket
 <div class = "background-pc pc"></div>
 
     <div class="container">
-        <h2 class = "layout_create_title">내 티켓 확인</h2>
-        <div class="list-group">
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            {% if ticket_list %}
-                {% for ticket in ticket_list %}
-                    <form action="{% url 'ticket:ticket_detail' ticket.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="list-group-item list-group-item-action">{{ ticket.name }}</button>
-                    </form>
-                    <br>
-                {% endfor %}
-            {% endif %}
-            <form action="{% url 'ticket:purchase_ticket' %}" class="form-create" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn-create btn btn-primary">티켓 구매</button>
-            </form>
+        <h2 class = "ticket_check_title ">내 티켓 확인</h2>
+        <div class = "content--wrap">
+            <div class = "content">
+                <div class="list-group">
+                    {{ user_form.as_p }}
+                    {{ profile_form.as_p }}
+                    {% if ticket_list %}
+                        {% for ticket in ticket_list %}
+                            <form action="{% url 'ticket:ticket_detail' ticket.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="list-group-item list-group-item-action">{{ ticket.name }}</button>
+                            </form>
+                            <br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <form action="{% url 'ticket:purchase_ticket' %}" class="form-create" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-create">티켓 구매하러 가기 > </button>
+                </form>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

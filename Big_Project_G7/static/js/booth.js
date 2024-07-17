@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var selectedCategory = '전체';
     var bookmarkModal = document.getElementById("bookmarkModal");
     const reservationButton = document.getElementById('reservation');
+    const showFormButton = document.getElementById('show-form-button');
+    const routeForm = document.getElementById('route-form');
 
 
     function populateCategories() {
@@ -361,6 +363,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     updateBookmarkIcons();
 
+    //경로 보이기 버튼
+    showFormButton.addEventListener('click', function() {
+        routeForm.classList.toggle('hidden');
+    });
 
     //경로 그리기
     const linesContainer = document.querySelector('.lines-container');
