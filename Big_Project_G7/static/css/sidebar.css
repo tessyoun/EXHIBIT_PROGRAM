@@ -273,3 +273,21 @@
     text-decoration: none;
     cursor: pointer;
 }
+.created_lay{
+    display:none;
+}
+
+#bookmarkli {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+}
+
+#bookmarkli li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Add some hover effects to list items */
+#bookmarkli li:hover {
+    background-color: #f1f1f1;
+}

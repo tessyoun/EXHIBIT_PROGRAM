@@ -24,19 +24,17 @@ AIVEX Ticket
                     <li class="list-group-item">예약자 : {{ username }}</li>
                     <li class="list-group-item">성인 : {{ adult }} 인</li>
                     <li class="list-group-item">청소년 : {{ child }} 인</li>
+                    <li class="list-group-item">입장일 : {{ date }}</li>
                 </div>
               </div>
-            <br>
         {% endif %}
         <form action="{% url 'ticket:cancel_ticket' ticket_id %}" method="post" id="ticket_cancel_form" class="form-create">
             {% csrf_token %}
             <button class="btn-create btn btn-primary" type="button" data-toggle="modal" data-target="#confirmModal">예매 취소</button>
         </form>
         <br>
-        <a href="{% url 'ticket:ticket_list' %}">
-            <button class="header__title icon" style="cursor: pointer">돌아가기</button>
-        </a>
     </div>
+
     <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -56,6 +54,7 @@ AIVEX Ticket
             </div>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,5 +1,6 @@
 # exhibition/models.py
 from django.db import models
+from datetime import timedelta
 
 # 전시회 부스 데이터 db.sqlite3
 class Booth_Info(models.Model):
@@ -71,3 +72,10 @@ class Exhibition_info(models.Model):
     def __str__(self):
         return f'{self.exhibition_name}'
     
+    def get_available_reservation_dates(self):
+        dates = []
+        while self.start_date <= self.end_date:
+            dates.append((self.start_date.strftime("%Y-%m-%d")))
+            self.start_date += timedelta(days=1)
+
+        return dates

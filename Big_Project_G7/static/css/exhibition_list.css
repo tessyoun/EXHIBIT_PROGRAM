@@ -1,7 +1,17 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* 모든 요소를 왼쪽 정렬 */
+#exh-section {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.exh_title {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.list-section {
+  color:#000000;
+  margin: 0 5% 0 5%;
 }
 
 .exhibitions {
@@ -11,7 +21,8 @@
 
 .exhibition-card {
   position: relative;
-  width: 100%;
+  width: 90%;
+  margin: 0 5% 0 5%;
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
@@ -60,25 +71,35 @@
 .toggle-calendar-button {
   margin-left: auto;
   cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #00d1d4;
+  color: black;
   padding: 10px;
   border-radius: 5px;
+}
+
+.toggle-calendar-button:hover {
+  background-color: #7b7b7b;
+  color:white;
+}
+
+.toggle-calendar-button span {
+  font-size: 19px;
+  color: black;
 }
 
 .calendar-container {
   display: none; /* 기본적으로 숨김 */
   position: fixed; /* 고정 위치 */
-  top: 12%; /* 상단 여백 */
-  left: 50%;
+  top: 20%; /* 상단 여백 */
+  left: 67%;
   transform: translateX(-50%);
   z-index: 1000; /* 다른 요소들보다 위에 표시 */
   background-color: #fff;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 60%; /* 달력 컨테이너 너비 */
-  height: 80%; /* 달력 컨테이너 높이 */
+  width: 280px; /* 달력 컨테이너 너비 */
+  height: 340px; /* 달력 컨테이너 높이 */
 }
 
 #calendar {
@@ -92,9 +113,39 @@
 }
 
 
-@media (min-width: 992px) {
-  .exhibitions{
+@media (min-width: 992px) { 
+  #exh-section {
       width: 70%;
-      margin-top: 110px;
+      margin-top: 100px;
   }
-}
+
+  .exh_title {
+      color: #fff;
+      font-size: 27px;
+      font-weight: 700;
+      margin: 0;
+      padding: 0;
+  }
+  .list-section {
+    margin: 0 0 0 0;
+    color:#fffafa;
+    display: grid;
+    place-items: center;
+  }
+  .list_exhibition{
+    margin: 0 0 0 0;
+  }
+  .exhibition-card {
+    width: 100%;
+    margin: 0 0 0 0;
+  }
+  .toggle-calendar-button {
+    margin-left: auto;
+    cursor: pointer;
+    background-color: #fffafa;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+} 

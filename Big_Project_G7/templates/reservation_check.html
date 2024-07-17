@@ -59,7 +59,8 @@
       <tbody>
         {% for reservation in reservations %}
           <tr>
-            <td>{{ reservation.program_name }}</td>
+            <!-- <td>{{ reservation.program_name }}</td> -->
+            <td>{{ reservation.program.name }}</td>
             <td>{{ reservation.num_of_people }}</td>
             <td>{{ reservation.reservationtime_set.first.reserved_time }}</td>
             <td>
