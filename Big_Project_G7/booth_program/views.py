@@ -181,4 +181,5 @@ def reservation_status(request):
     user = request.user
     programs = Program.objects.filter(user=user)
     reservations = BoothProgramReservation.objects.filter(program__in=programs)
-    return render(request, 'reservation_status.html', {'reservations': reservations})
+    sorted_reservations = sorted(reservations, key=lambda r: r.reservationtime_set.first().reserved_time)
+    return render(request, 'reservation_status.html', {'reservations': sorted_reservations})
