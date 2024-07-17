@@ -10,39 +10,49 @@
 {% endblock %}
 
 {% block main_content %}
-<div class="notice--wrap">
+<div class = "background-pc-list pc"></div>
+<div class="content--container">
 
-    <div class="notice-detail-card">
-        <div class="notice-header">
-            <h1>{{ notice.title }}</h1>
-            <div class="notice-meta">
-                <p>{{ notice.update_time|date:"Y-m-d"}}</p>
-                <p>작성자: {{ notice.author }}</p>
+<div class = "notice-first--wrap">
+
+    <div class="notice--wrap">
+        <div class="notice-detail-card">
+            <div class="notice-header">
+                <h1>{{ notice.title }}</h1>
+                <div class="notice-meta">
+                    <p>{{ notice.update_time|date:"Y-m-d"}}</p>
+                    <p>작성자: {{ notice.author }}</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    {% if request.user == notice.author %}
-        <div class="notice-actions">
-            <a href="{% url 'notice:notice_edit' notice.pk %}">수정</a>
-            <a href="{% url 'notice:notice_delete' notice.pk %}">삭제</a>
+        {% if request.user == notice.author %}
+            <div class="notice-actions">
+                <a href="{% url 'notice:notice_edit' notice.pk %}">수정</a>
+                <a href="{% url 'notice:notice_delete' notice.pk %}">삭제</a>
+            </div>
+        {% endif %}
+
+        <div class="notice-content">
+            <p>{{ notice.content|linebreaks }}</p>
         </div>
-    {% endif %}
 
-    <div class="notice-content">
-        <p>{{ notice.content|linebreaks }}</p>
-    </div>
-    {% if notice.upload_files %}
-        <div class="upload_files">
-            <span>첨부파일 :&nbsp;</span>
-            <a href="{% url 'notice:notice_download' notice.id %}" >{{ notice.filename|truncatechars:25 }}</a>
+        {% if notice.upload_files %}
+        <div class = "upload_files--wrap">
+            <div class="upload_files">
+                <span>첨부파일 :&nbsp;</span>
+                <a href="{% url 'notice:notice_download' notice.id %}" >{{ notice.filename|truncatechars:25 }}</a>
+            </div>
         </div>
-    {% endif %}
+        {% endif %}
 
-    <div class="notice-footer">
-        <a class="back_to_list" href="{% url 'notice:notice_list' %}">
-            목록보기
-        </a>
+        <div class="notice-footer">
+            <a class="back_to_list" href="{% url 'notice:notice_list' %}">
+                목록보기
+            </a>
+        </div>
     </div>
+
+</div>
 </div>
 {% endblock %}
