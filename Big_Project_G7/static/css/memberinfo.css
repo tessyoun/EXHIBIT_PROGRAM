@@ -1,13 +1,18 @@
 .container-update {
     width: 93%;
     padding: 0;
-    margin-top: 100px;
+    margin-top: 90px;
+}
+
+.profile_update_title{
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #333;
 }
 
 .form-update {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
 }
 
 .form-update  div {
@@ -74,8 +79,7 @@ form button.save:hover {
 @media (min-width:768px){
     .container-update {
         width: 75%;
-    }
-    
+    } 
 }
 
 
@@ -93,7 +97,7 @@ form button.save:hover {
         font-size: 27px;
         font-weight: 700;
         margin-bottom: 30px;
-
+        border: none;
     }
 
     .profile_update--wrap {
