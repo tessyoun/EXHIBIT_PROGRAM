@@ -102,29 +102,46 @@
     </div>
     <script src="{% static 'js/uiSidebar.js' %}"></script>
     <script>
-        function validateForm() {
-            const name = document.getElementById('id_name').value;
-            const description = document.getElementById('id_description').value;
-            const checkboxes = document.querySelectorAll('input.time-slot:checked');
-            if (!name) {
-                alert("프로그램명을 입력해주세요.");
-                return false;
-            }
-            if (!description) {
-                alert("프로그램 설명을 입력해주세요.");
-                return false;
-            }
-            if (checkboxes.length === 0) {
-                alert("오픈할 시간대를 선택해주세요.");
-                return false;
+        document.addEventListener('DOMContentLoaded', function() {
+            function validateForm() {
+                const name = document.getElementById('id_name').value;
+                const description = document.getElementById('id_description').value;
+                const checkboxes = document.querySelectorAll('input.time-slot:checked');
+                if (!name) {
+                    alert("프로그램명을 입력해주세요.");
+                    return false;
+                }
+                if (!description) {
+                    alert("프로그램 설명을 입력해주세요.");
+                    return false;
+                }
+                if (checkboxes.length === 0) {
+                    alert("오픈할 시간대를 선택해주세요.");
+                    return false;
+                }
+
+                const selectedTimes = Array.from(checkboxes).map(checkbox => checkbox.value);
+                const selectedTimesInput = document.getElementById('id_selected_times');
+                selectedTimesInput.value = selectedTimes.join(',');
+
+                return true;
             }
 
-            const selectedTimes = Array.from(checkboxes).map(checkbox => checkbox.value);
-            const selectedTimesInput = document.getElementById('id_selected_times');
-            selectedTimesInput.value = selectedTimes.join(',');
+            // 삭제 버튼에 alert 메시지 추가함
+            const deleteButtons = document.querySelectorAll('button.delete-button');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    const confirmDelete = confirm('정말로 삭제하시겠습니까?');
+                    if (!confirmDelete) {
+                        event.preventDefault();
+                    }
+                });
+            });
 
-            return true;
-        }
+            // Attach validateForm function to the form's submit event
+            const form = document.querySelector('form');
+            form.onsubmit = validateForm;
+        });
     </script>
 </body>
 </html>

@@ -4,41 +4,6 @@
 
 {% block styles %}
   <link rel="stylesheet" href="{% static 'css/reservation_check.css' %}" />
-  <style>
-    .reservation-check-container {
-      text-align: center;
-      margin-top: 100px;  /* Adjust the margin to avoid overlapping */
-    }
-    .reservation-table {
-      margin: 0 auto;
-    }
-    .submit-button {
-      background: #28a745;
-      color: white;
-      font-size: 16px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin: 5px;
-    }
-    .submit-button:hover {
-      background: #218838; /* Darker green */
-    }
-    .delete-button {
-      background-color: #ff6666;
-      color: white;
-      font-size: 16px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin: 5px;
-    }
-    .delete-button:hover {
-      background-color: #cc5555; /* Darker red */
-    }
-  </style>
 {% endblock %}
 
 {% block title %} 내 예약 확인 {% endblock %}
@@ -117,5 +82,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'js/reservation_edit.js' %}"></script>
+<script src="{% static 'js/reservation_check.js' %}"></script>
 {% endblock %}

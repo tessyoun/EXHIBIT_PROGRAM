@@ -101,5 +101,19 @@
         </div>
     </div>
     <script src="{% static 'js/uiSidebar.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 삭제 버튼에 alert 메시지 추가함
+            const deleteButtons = document.querySelectorAll('button.delete-button');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    const confirmDelete = confirm('정말로 삭제하시겠습니까?');
+                    if (!confirmDelete) {
+                        event.preventDefault();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

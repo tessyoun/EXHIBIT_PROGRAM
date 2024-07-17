@@ -65,4 +65,15 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error:', error);
         });
     });
+
+    // 삭제 버튼에 alert 메시지 추가함
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            const confirmDelete = confirm('정말로 삭제하시겠습니까?');
+            if (!confirmDelete) {
+                event.preventDefault();
+            }
+        });
+    });
 });
