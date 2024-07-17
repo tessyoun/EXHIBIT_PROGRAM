@@ -144,7 +144,13 @@ def submit_reservation(request):
 def reservation_check(request):
     user_name = request.user.username
     reservations = BoothProgramReservation.objects.filter(user_name=user_name).select_related('program')
-    return render(request, 'reservation_check.html', {'reservations': reservations})
+    reserv_list = []
+    for reservation in reservations:
+        comp_name = reservation.program.company_name
+        booth_name = Booth_Info.objects.get(company_name = comp_name).booth_name
+        reserv_list.append({"com":comp_name, "boo":booth_name})
+    tmp = zip(reservations, reserv_list)
+    return render(request, 'reservation_check.html', {'reservations': tmp})
 
 # (일반) 마이페이지 > 내 예약 확인 > 예약 삭제 API
 @login_required
