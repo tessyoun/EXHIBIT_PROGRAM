@@ -202,7 +202,29 @@ li::marker {
 }
 .bookmarkbtn{
     padding: 8px 10px;
-    font-size: auto;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.manage-button {
+    background: #28a745;
+    color: white;
+}
+
+.manage-button:hover {
+    background: #218838;
+}
+
+.delete-button {
+    background-color: #ff6666;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #cc5555;
 }
 
 /* button css */
@@ -289,19 +311,30 @@ li::marker {
 }
 /* Button styles */
 #route-form button {
-    display:inline;
-    padding: 10px 20px;
     font-size: 16px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
-    background-color: #38B8B2;
-    color: #fff;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin: 5px;
 }
 
-#route-form button:hover {
-    background-color: #2e9a96;
+#route-form button.manage-button {
+    background: #7d24c7;
+    color: white;
+}
+
+#route-form button.manage-button:hover {
+    background: #6b1fa9;
+}
+
+#route-form button.delete-button {
+    background-color: #ff6666;
+    color: white;
+}
+
+#route-form button.delete-button:hover {
+    background-color: #cc5555;
 }
 
 /* Responsive adjustments */
