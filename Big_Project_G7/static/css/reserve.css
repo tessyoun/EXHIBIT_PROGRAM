@@ -58,6 +58,41 @@ tr:hover {
 }
 
 
+/* 프로그램  */
+
+.program-button--container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+.manage-button img{
+    width: 70%;
+}
+
+.manage-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+    margin: 10px 10px;
+    padding: 10px 10px;
+    width: 50%;
+    aspect-ratio: 1;
+    border-radius: 30px;
+    text-decoration: none;
+    color:#333;
+}
+
+.manage-button:hover{
+    transform: scale(0.93);
+    color: #38b8b2;
+}
+
+
 
 @media (min-width:768px){
     .content--container {
@@ -97,5 +132,12 @@ tr:hover {
     .content--content{
         width: 70%;
         padding: 20px 0px;
+    }
+
+    .manage-button{
+        font-size: 17px;
+        width: 40%;
+        padding: 0;
+        margin: 10px 20px;
     }
 }
