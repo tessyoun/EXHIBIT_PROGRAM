@@ -365,7 +365,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //경로 보이기 버튼
     showFormButton.addEventListener('click', function() {
-        routeForm.classList.toggle('hidden');
+        routeForm.classList.toggle('hidden');    
+        if (routeForm.classList.contains('hidden')) {
+            showFormButton.innerText = "경로 생성 툴 보이기"; // "Show Route Form"
+        } else {
+            showFormButton.innerText = "경로 생성 툴 숨기기"; // "Hide Route Form"
+        }
     });
 
     //경로 그리기
