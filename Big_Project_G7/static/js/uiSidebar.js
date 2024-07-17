@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             const boothlist = JSON.parse(data);
-            
             const sidebarShowBookmarksButton = document.getElementById('bookMlist');
             if (sidebarShowBookmarksButton) {
                 sidebarShowBookmarksButton.addEventListener('click',  function() {
@@ -102,14 +101,6 @@ document.addEventListener("DOMContentLoaded", function() {
             element.querySelector('label').style.textDecoration = 'line-through';
         } else {
             element.querySelector('label').style.textDecoration = 'none';
-        }
-    }
-    
-    //배치도 생성하면 display:none에서 block으로 변경
-    if (localStorage.getItem('image_created') === 'true') {
-        var createdLayItems = document.getElementsByClassName('created_lay');
-        if (createdLayItems.length > 0) {
-            createdLayItems[0].style.display = 'block'; // Show the sidebar menu item
         }
     }
 
