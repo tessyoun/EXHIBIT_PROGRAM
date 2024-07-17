@@ -79,16 +79,21 @@
         <div class="bookmarkfunc">
             <button class="bookmarkbtn" id="show-bookmarks">북마크 리스트</button>
             <button class="bookmarkbtn" id="reset-bookmarks">북마크 리셋</button>
+            <button id="show-form-button">경로 생성</button>
         </div>
     </div>
 
     <!-- 경로 입력 -->
-    <div id="route-form">
+    
+
+    <div id="route-form" class="hidden">
         <label for="start_booth">Start Booth:</label>
         <select id="start_booth" name="start_booth">
+            <!-- Options go here -->
         </select>
         <label for="end_booth">End Booth:</label>
         <select id="end_booth" name="end_booth">
+            <!-- Options go here -->
         </select>
         <div>
             <button id="draw-line-button">Find Route</button>
