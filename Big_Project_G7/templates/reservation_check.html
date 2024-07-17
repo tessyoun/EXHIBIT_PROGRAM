@@ -11,10 +11,12 @@
 {% block main_content %}
 <div class="reservation-check-container">
   <h1>내 예약 확인</h1>
-  {% if reservations.exists %}
+  {% if reservations %}
     <table class="reservation-table">
       <thead>
         <tr>
+          <th>기업 이름</th>
+          <th>부스 이름</th>
           <th>프로그램 이름</th>
           <th>예약 인원</th>
           <th>예약 시간</th>
@@ -22,9 +24,11 @@
         </tr>
       </thead>
       <tbody>
-        {% for reservation in reservations %}
+        {% for reservation, lis in reservations %}
           <tr>
             <!-- <td>{{ reservation.program_name }}</td> -->
+            <td>{{ lis.com }}</td>
+            <td>{{ lis.boo }}</td>
             <td>{{ reservation.program.name }}</td>
             <td>{{ reservation.num_of_people }}</td>
             <td>{{ reservation.reservationtime_set.first.reserved_time }}</td>
