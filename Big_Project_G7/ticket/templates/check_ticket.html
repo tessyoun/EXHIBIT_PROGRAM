@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
     <link rel="stylesheet" href="{% static 'css/ticket.css' %}" />
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />   
-    {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> {% endcomment %}
 {% endblock %}
 
 {% block title %}
@@ -20,36 +19,28 @@ AIVEX Ticket
         <h2 class = "ticket_check_title ">내 티켓 확인</h2>
         <div class = "content--wrap">
             <div class = "content">
-                <div class="card-group">
                     {{ user_form.as_p }}
                     {{ profile_form.as_p }}
                     {% if ticket_list %}
                         {% for ticket in ticket_list %}
-                        <div class="card mb-3" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
+                        <div class="card mb-4" onclick="location.href=`{% url 'ticket:ticket_detail' ticket.id %}`">
+                            <div class="row g-0 d-flex">
+                                <div class="col-4">
                                     <img src="../static/{{ ticket.img }}" class="img-fluid rounded-start" alt="No Image!">
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-8">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ ticket.name }}</h5>
-                                        <p class="card-text">{{ ticket.date }}</p>
-
-                                        <p class="card-text"><small class="text-body-secondary">성인 {{ ticket.adult }} / 아동 {{ ticket.child }}</small></p>
+                                        <p class="card-text">{{ ticket.hall }}</p>
+                                        <p class="card-text">입장일 : {{ ticket.date }}</p>
+                                        <p class="card-text">성인 {{ ticket.adult }} / 아동 {{ ticket.child }}</p>
                                     </div>
                                 </div>
-                                </div>
                             </div>
-                            {% comment %} <form action="{% url 'ticket:ticket_detail' ticket.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="list-group-item list-group-item-action">{{ ticket.name }}</button>
-                            </form>
-                            <br> {% endcomment %}
+                        </div>
                         {% endfor %}
                     {% endif %}
-                </div>
-
-                <form action="{% url 'ticket:purchase_ticket' %}" class="form-create" method="post">
+                <form action="{% url 'ticket:purchase_ticket' %}" class="form-create" method="get">
                     {% csrf_token %}
                     <button type="submit" class="btn-create">티켓 구매하러 가기 > </button>
                 </form>
