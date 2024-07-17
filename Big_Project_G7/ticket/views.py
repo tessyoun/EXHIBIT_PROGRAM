@@ -4,8 +4,8 @@ from django.utils import timezone
 from datetime import timedelta
 from django.http import JsonResponse
 
-from exhibition.models import Exhibition_info
-from mysite.models import ExhibitionHall
+# from exhibition.models import Exhibition_info
+from mysite.models import ExhibitionHall, ExhibitionInfo
 from .models import TicketBoughtInfo
 from .functions import *
 from .forms import *
@@ -17,9 +17,16 @@ def get_ticket(userid) -> list:
     ticket_list = TicketBoughtInfo.objects.filter(user_id=userid)
     tickets = []
     for ticket in ticket_list:
-        name = Exhibition_info.objects.get(exhibition_id=ticket.exhibitionid).exhibition_name
+        obj = ExhibitionInfo.objects.get(pk=ticket.exhibitionid)
+        print(obj)
+        name = obj.ExhibitionName
+        img = obj.ExhibitionImageURL
+        adult = ticket.adult
+        child = ticket.child
+        date = ticket.reservationDate
         key = ticket.ticketid
-        tickets.append({'name':name, 'id':int(key)})
+        tickets.append({'name':name, 'id':int(key), 'img':img, 'adult':adult,
+                        'child':child, 'date':date})
     tickets = sorted(tickets, key=lambda x: x['id'])
     return tickets
 
@@ -34,7 +41,7 @@ def ticket_list(request):
 def ticket_detail(request, ticket_id):
     if request.method == 'POST':
         ticket = TicketBoughtInfo.objects.get(ticketid=ticket_id)
-        exhibition = Exhibition_info.objects.get(exhibition_id=ticket.exhibitionid)
+        exhibition = ExhibitionInfo.objects.get(pk=ticket.exhibitionid)
         exhibition_name = exhibition.exhibition_name
         hall = ExhibitionHall.objects.get(ExhibitionHallID=exhibition.hall_id).ExhibitionHallDescription
         adult = ticket.adult
@@ -100,10 +107,11 @@ def cancel_ticket(request, ticket_id):
     
 def check_availableDate(request, exhibition_id):
     try:
-        exhibition = Exhibition_info.objects.get(pk=exhibition_id)
-        start_date = exhibition.start_date
-        end_date = exhibition.end_date
-
+        exhibition = ExhibitionInfo.objects.get(pk=exhibition_id)
+        print(exhibition)
+        start_date = exhibition.ExhibitionRegistrationDate
+        end_date = exhibition.ExhibitionClosedDate
+        print(start_date, end_date)
         date_available = get_date_choice(start_date, end_date)
 
         return JsonResponse({'dates':date_available})

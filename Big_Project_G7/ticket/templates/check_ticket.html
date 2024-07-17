@@ -5,6 +5,7 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
     <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
     <link rel="stylesheet" href="{% static 'css/ticket.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />   
     {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> {% endcomment %}
 {% endblock %}
 
@@ -19,16 +20,31 @@ AIVEX Ticket
         <h2 class = "ticket_check_title ">내 티켓 확인</h2>
         <div class = "content--wrap">
             <div class = "content">
-                <div class="list-group">
+                <div class="card-group">
                     {{ user_form.as_p }}
                     {{ profile_form.as_p }}
                     {% if ticket_list %}
                         {% for ticket in ticket_list %}
-                            <form action="{% url 'ticket:ticket_detail' ticket.id %}" method="post">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="../static/{{ ticket.img }}" class="img-fluid rounded-start" alt="No Image!">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ ticket.name }}</h5>
+                                        <p class="card-text">{{ ticket.date }}</p>
+
+                                        <p class="card-text"><small class="text-body-secondary">성인 {{ ticket.adult }} / 아동 {{ ticket.child }}</small></p>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            {% comment %} <form action="{% url 'ticket:ticket_detail' ticket.id %}" method="post">
                                 {% csrf_token %}
                                 <button type="submit" class="list-group-item list-group-item-action">{{ ticket.name }}</button>
                             </form>
-                            <br>
+                            <br> {% endcomment %}
                         {% endfor %}
                     {% endif %}
                 </div>
