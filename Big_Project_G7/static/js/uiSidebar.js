@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             const boothlist = JSON.parse(data);
-            
             const sidebarShowBookmarksButton = document.getElementById('bookMlist');
             if (sidebarShowBookmarksButton) {
                 sidebarShowBookmarksButton.addEventListener('click',  function() {
