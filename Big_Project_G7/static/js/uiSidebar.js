@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         // 리스트 아이템을 modalBody에 추가
                         modalBody.appendChild(li);
                     });
-            
 
                     bookMModal.style.display = 'block'; // Show modal
                 });
@@ -96,6 +95,16 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error fetching booth information:', error));
 
+            
+    // 텍스트에 취소선 스타일 적용/해제하는 함수
+    function updateTextDecoration(element, isChecked) {
+        if (isChecked) {
+            element.querySelector('label').style.textDecoration = 'line-through';
+        } else {
+            element.querySelector('label').style.textDecoration = 'none';
+        }
+    }
+    
     //배치도 생성하면 display:none에서 block으로 변경
     if (localStorage.getItem('image_created') === 'true') {
         var createdLayItems = document.getElementsByClassName('created_lay');
