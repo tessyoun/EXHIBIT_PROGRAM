@@ -199,19 +199,23 @@
     height: 35px; 
 }
 
+#booth_edit--content textarea{
+    resize: none;
+}
+
+.background textarea,
+.service textarea {
+    min-height: 50px; /* 초기 최소 높이 */
+    max-height: 90px; /* 최대 높이 설정 */
+}
+
 #booth_edit--content input[type="text"]:focus,
 #booth_edit--content textarea:focus {
     border-bottom: 1px solid #38B8B2;
 }
 
-#booth_edit--content textarea{
-    width: 100%;
-    box-sizing: border-box; 
-    overflow: hidden; 
-    resize: none;
-}
-
-#booth_edit--content input[type="submit"] {
+#booth_edit--content input[type="submit"],
+#booth_edit--content button[type="submit"] {
     margin-top: 40px;
     display: block;
     padding: 10px;
@@ -226,10 +230,12 @@
     width: 100%;
 }
 
-#booth_edit--content input[type="submit"]:hover{
+#booth_edit--content input[type="submit"]:hover,
+#booth_edit--content button[type="submit"]:hover{
     background-color:#33999bcd;
     transform: scale(0.95);
 }
+
 
 
 
@@ -237,12 +243,14 @@
     #booth_list, #booth_detail, #booth_edit--wrap{
         width: 75%;
     }
-    
 }
 
 
-
 @media (min-width: 992px) {
+
+    body{
+        background-color: #eee;
+    }
 
     #booth_list, #booth_detail, #booth_edit--wrap{
         width: 70%;
@@ -359,11 +367,19 @@
         width: calc((100% - 70px));
     }
 
-    #booth_edit--content input[type="text"]:focus{
+    #booth_edit--content input[type="text"]:focus,
+    #booth_edit--content textarea:focus{
         border-bottom: none;
     }
 
-    #booth_edit--content input[type="submit"] {
+    .background textarea,
+    .service textarea {
+        min-height: 50px; /* 초기 최소 높이 */
+        max-height: 100px; /* 최대 높이 설정 */
+    }
+
+    #booth_edit--content input[type="submit"],
+    #booth_edit--content button[type="submit"] {
         margin: 0 auto;
         margin-top: 40px;
         display: block;
