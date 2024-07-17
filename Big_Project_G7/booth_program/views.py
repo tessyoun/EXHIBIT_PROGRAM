@@ -57,7 +57,7 @@ def program_manage(request):
             program_id = request.POST.get('program_id')
             program = get_object_or_404(Program, id=program_id, user=request.user)
             program.delete()
-            return redirect('index')
+            return redirect('booth_program:program_manage')
     else:
         form = ProgramForm()
 
@@ -81,7 +81,7 @@ def program_edit(request, program_id):
             return redirect('booth_program:program_manage')
         elif 'delete' in request.POST:
             program.delete()
-            return redirect('booth_program:program_manage')
+            # return redirect('program_manage.html')
     else:
         form = ProgramForm(instance=program)
     
