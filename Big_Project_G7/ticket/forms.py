@@ -1,12 +1,12 @@
 from django import forms
 from .models import *
-from exhibition.models import Exhibition_info
+from mysite.models import ExhibitionInfo
 from django.utils import timezone
 from datetime import timedelta
 
 class TicketReservationForm(forms.ModelForm):
     exhibition_name = forms.ModelChoiceField(
-        queryset=Exhibition_info.objects.filter(start_date__gt=timezone.now()),
+        queryset=ExhibitionInfo.objects.filter(ExhibitionRegistrationDate__gt=timezone.now()),
         label="전시회 선택",
         widget=forms.Select(attrs={'class': 'form-control',}),
         empty_label= '전시회를 선택하세요.'
@@ -46,7 +46,7 @@ class TicketReservationForm(forms.ModelForm):
         reservation_date = self.cleaned_data.get('reservationDate')
 
         if exhibition_name and reservation_date and reservation_date != ' ':
-            exhibition = Exhibition_info.objects.get(exhibition_name=exhibition_name)
+            exhibition = ExhibitionInfo.objects.get(exhibition_name=exhibition_name)
             available_dates = dict(exhibition.get_available_reservation_dates())
 
             if reservation_date not in available_dates:
@@ -57,7 +57,7 @@ class TicketReservationForm(forms.ModelForm):
     def save(self, commit=True):
         reservation = super(TicketBoughtInfo, self).save(commit=False)
         name = self.cleaned_data['exhibition_name']
-        exhibition = Exhibition_info.objects.get(exhibition_name=name)
+        exhibition = ExhibitionInfo.objects.get(exhibition_name=name)
         reservation.exhibitionid = exhibition.exhibition_id
         reservation_date = self.data.get('reservationDate')
         if reservation_date:

@@ -3,6 +3,7 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/ticket.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
     {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> {% endcomment %}
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
 {% endblock %}
@@ -25,6 +26,7 @@ AIVEX Ticket
                 </div>
                 <div class="list-group list-group=flush">
                     <li class="list-group-item">예약자 : {{ username }}</li>
+                    <li class="list-group-item">입장일 : {{ date }}</li>
                     <li class="list-group-item">성인 : {{ adult }} 인</li>
                     <li class="list-group-item">청소년 : {{ child }} 인</li>
                 </div>

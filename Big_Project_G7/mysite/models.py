@@ -43,7 +43,7 @@ class ExhibitionHall(models.Model):
 class ExhibitionInfo(models.Model):
     ExhibitionID = models.AutoField(primary_key=True, db_column='ExhibitionID')
     ExhibitionName = models.CharField(max_length=255, db_column='ExhibitionName')
-    ExhibitionDescription = models.TextField(blank=True, null=True, db_column='ExhibiionDescription')
+    ExhibitionDescription = models.TextField(blank=True, null=True, db_column='ExhibitionDescription')
     ExhibitionRegistrationDate = models.DateField(blank=True, null=True, db_column='ExhibitionRegistrationDate')
     OrganizationID = models.FloatField(blank=True, null=True, db_column='OrganizationID')
     Hall_ID = models.ForeignKey(ExhibitionHall, on_delete=models.CASCADE, blank=True, null=True, db_column='Hall_ID')
