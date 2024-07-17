@@ -337,6 +337,33 @@ li::marker {
     background-color: #cc5555;
 }
 
+.routebtn{
+    padding: 5px 8px;
+    font-size: 16px;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+#route-form button.findroute-button {
+    background-color: #28a745;
+    color: white;
+}
+
+#route-form button.findroute-button:hover {
+    background-color: #218838;
+}
+
+#route-form button.eraseroute-button {
+    background-color: #ff6666;
+    color: white;
+}
+
+#route-form button.eraseroute-button:hover {
+    background-color: #cc5555;
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
     #route-form {
