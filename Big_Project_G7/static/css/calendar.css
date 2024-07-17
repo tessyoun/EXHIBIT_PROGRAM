@@ -136,3 +136,23 @@
   color: #ffffff;
   text-decoration: none;
 }
+
+/* 캘린더 너비 조정 */
+.fc-scrollgrid-sync-inner {
+  width: 35px;
+  text-align: center;
+}
+
+.fc-col-header-cell {
+  width: 35px;
+}
+
+.fc-daygrid-day {
+  width: 35px;
+}
+
+.fc-scrollgrid-sync-table th,
+.fc-scrollgrid-sync-table td {
+  width: 35px;
+  text-align: center;
+}

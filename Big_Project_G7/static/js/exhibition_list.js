@@ -1,28 +1,3 @@
-var calendar = new FullCalendar.Calendar(
-    document.getElementById("calendar"),
-    {
-      headerToolbar: {
-        left: 'prev',
-        center: 'title today',
-        right: 'next'
-      },
-      initialView: "dayGridMonth",
-      locale: "ko",
-      selectable: true,
-      dayHeaderFormat: { weekday: 'short' },
-      dayCellContent: function(e) {
-        e.dayNumberText = e.dayNumberText.replace('일', ''); // 숫자 뒤에 '일' 제거
-      },
-      select: function (info) {
-        var selectedDate = info.startStr;
-        document.getElementById("selected-date").textContent =
-          "선택한 날짜: " + selectedDate;
-        fetchExhibitions(selectedDate);
-        toggleCalendar();
-      },
-    }
-  );
-  
 // 달력 외의 영역 클릭 시 달력 숨기기
 window.addEventListener("click", function (e) {
   var calendarContainer = document.getElementById("calendar-container");
