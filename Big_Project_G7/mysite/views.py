@@ -9,6 +9,7 @@ from django.core.serializers import serialize
 from accounts.models import Profile
 from .models import Booth_Info
 from django.http import JsonResponse
+import json
 
 def process_image():
     image_path = os.path.join(settings.BASE_DIR, 'static/images/test1.png')
@@ -31,6 +32,17 @@ def process_image():
     gray = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
     edged = cv2.Canny(gray, 50, 100)
 
+   # 지도 grid용 2d array// grayscale 이미지를 0(white) 1(black) 2d array로 변환
+    _, bw_image = cv2.threshold(gray, 200, 1, cv2.THRESH_BINARY_INV)
+    bw_width = width // 10 #픽셀 갯수 줄이기 // 근데 이 부분은 이것보다 좋은 방식이 있을 것 같아요 pooling이라던가
+    bw_height = height // 10
+    bw_dim = (bw_width, bw_height)
+    resized_bw_image = cv2.resize(bw_image, bw_dim, interpolation=cv2.INTER_AREA)
+    
+    bw_array = resized_bw_image.tolist()
+    bw_array = [[1 - pixel for pixel in row] for row in bw_array]
+    #
+
     contours, _ = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     rectangles = []
 
@@ -46,7 +58,7 @@ def process_image():
     processed_image_path = os.path.join(settings.BASE_DIR, 'static/proceeded_images/processed_image.jpg')
     cv2.imwrite(processed_image_path, resized_image)
 
-    return 'proceeded_images/processed_image.jpg', rectangles
+    return 'proceeded_images/processed_image.jpg', rectangles, bw_array
 
 
 def login_view(request):
@@ -66,7 +78,7 @@ def reveal_QR(request):
     return render(request, 'reveal_QR.html')
 
 def layout1(request):
-    image_path, rectangles = process_image()
+    image_path, rectangles, bw_array = process_image()
     if image_path is None:
         return render(request, 'layout1.html', {'error': 'Image processing failed.'})
     
@@ -95,6 +107,7 @@ def layout1(request):
     return render(request, 'layout1.html', {'image_path': image_path, 
                                             'rectangles': list(enumerate(rectangles_with_dimensions)),
                                             'booths': booth,
+                                            'bw_array': json.dumps(bw_array),  # Add this line
                                             })
 
 def get_booth_info(request):

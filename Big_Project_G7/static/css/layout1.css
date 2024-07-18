@@ -364,6 +364,23 @@ li::marker {
     background-color: #cc5555;
 }
 
+.grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    pointer-events: none;
+}
+.grid div {
+    border: 1px solid transparent; /* 경계선 투명 */
+}
+.path {
+    background-color: red;
+}
+
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
     #route-form {

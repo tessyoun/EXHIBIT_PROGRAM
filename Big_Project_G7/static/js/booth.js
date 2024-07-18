@@ -16,6 +16,40 @@ document.addEventListener("DOMContentLoaded", function() {
     const showFormButton = document.getElementById('show-form-button');
     const routeForm = document.getElementById('route-form');
 
+    // 이미지 위에 그리드 그리기
+    const rows = bwArray.length;
+    const cols = bwArray[0].length;
+    const imgWidth = processedImage.clientWidth;
+    const imgHeight = processedImage.clientHeight;
+    const cellWidth = imgWidth / cols;
+    const cellHeight = imgHeight / rows;
+
+    gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${cellWidth}px)`;
+    gridContainer.style.gridTemplateRows = `repeat(${rows}, ${cellHeight}px)`;
+
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            if (bwArray[i][j] === 0) {
+                cell.style.backgroundColor = 'black';
+            }
+            gridContainer.appendChild(cell);
+        }
+    }
+
+    // A* algorithm 경로
+    const graph = new Graph(bwArray);
+    const start = graph.grid[0][0]; //시작 좌표
+    const end = graph.grid[30][50]; //도착 좌표
+    const result = astar.search(graph, start, end);
+
+    result.forEach(node => {
+        const cellIndex = node.y * cols + node.x;
+        gridContainer.children[cellIndex].classList.add('path');
+    });
+
+    //
 
     function populateCategories() {
         var categories = ['전체'];
