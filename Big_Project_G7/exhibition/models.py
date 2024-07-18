@@ -32,7 +32,8 @@ class Exhibition(models.Model):
         ('', '선택'),
         ('A홀', 'A홀'),
         ('B홀', 'B홀'),
-        ('C홀', 'C홀')
+        ('C홀', 'C홀'),
+        ('D홀', 'D홀'),
     )
     exhibition_name = models.CharField(primary_key=True, max_length=50)
     host_id = models.CharField(max_length=50)
