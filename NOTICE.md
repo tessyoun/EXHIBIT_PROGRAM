@@ -11,11 +11,14 @@
 ## 3. 기업 ( id : lgid / pw : admin123456 )
     - 프로그램 > * UI 수정
 
-
 ## 4. 일반 ( id : ktid / pw : admin123456 ) 
     - 전시회목록 > 레이아웃 > 부스 > 예약
         -> UI 옛날거...
 
+    - 10조 기업 프로그램 3개 생성됨
+    배치도 > 10조 예약 시도 하면 오류남
+    MultipleObjectsReturned at /booth_program/reserve/10/
+    get() returned more than one Program -- it returned 3!
 
 ## 추가하고 싶은 것?
     - 공지사항 페이지 이전/이후 글 왔다갔다?
