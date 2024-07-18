@@ -1,3 +1,4 @@
 *.pyc
 *.bin
 /Big_Project_G7/database
+.env

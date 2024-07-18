@@ -20,9 +20,9 @@ import base64
 import cv2
 import numpy as np
 from mysite.settings import MEDIA_ROOT
+import environ
 
-PORT = 5000
-AI_API_URL = 'https://8rgyr184rzf1v9-' + str(PORT) + '.proxy.runpod.net/generate'
+AI_API_URL = os.environ.get('AI_API_URL')
 
 # def getExhidb
 booth_info = Booth_Info.objects.all()
