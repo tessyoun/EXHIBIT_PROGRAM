@@ -1,7 +1,10 @@
 .container{
-    width: 93%;
+    width: 90%;
     padding: 0;
-    margin-top: 80px;
+}
+.container-create{
+    margin-top: 70px;
+    padding: 0 5% 0 5%;
 }
 
 .ticket-container--content{
@@ -15,16 +18,27 @@
 }
 
 .ticket_check_title  {
+    width:100%;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 2px solid #333;
+}
+
+.layout_create_title {
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    border-bottom: none;
 }
 
 .form-create .btn-create{
     border: none;
     outline: none;
     background-color: transparent;
-    margin-top: 40px;
+    margin-top: 20px;
     float: right;
     transition: transform 0.3s ease;
 }
@@ -34,10 +48,96 @@
     transform: scale(1.03);
 }
 
+/* ticket */
+.ticket-container {
+    position: relative;
+    width:100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+}
+.ticket-container img {
+    width: 100%;
+    display: block;
+}
+.ticket-container:hover {
+    transform: scale(1.1); /* 호버 시 크기 조정 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 그림자 추가 */
+}
+.ticket-innercontext{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+}
+
+.qrholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.qrblur{
+    background-color: white;
+    width:50px;
+    border-radius: 5px;
+}
+.qrblur img{
+    opacity: 0.7;
+    padding:3.5px;
+}
+.qrtext{
+    font-size: 0.7em;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
+    color:rgb(78, 78, 78);
+}
+
+
+.ticket-info {
+    color: white;
+    margin-top: 7%;
+    margin-left:5%;
+}
+
+.ticket-title {
+    font-weight:bold;
+    margin-bottom: 7%;
+}
+.ticket-text {
+    font-size: 1em;
+    margin-top: 3%;
+}
+.ticket-id {
+    font-size: 0.7em;
+    font-weight: bold;
+    right:0;
+    text-orientation: mixed;
+    writing-mode: vertical-rl;
+    position: absolute;
+    color:rgb(0,0,0,0.3)
+}
+
+/* form */
+.card{
+    width:80%;
+    margin: 0 10% 0 10%;
+    align-items: center;
+}
+
 .card img{
-    width: 60%;
-    max-width: 207px;
-    margin: auto;
+    width: 200px;
+}
+.list-group {
+    width:100%
 }
 
 #bottom-btn--container{
@@ -100,18 +200,19 @@ button {
 }
 
 @media (min-width: 992px){
-    body{
-        background-color: #eee;
-    }
-
     .container {
-        width: 70%;
-        margin-top: 110px;
+        width:100%;
         margin-bottom: 40px;
     }
-
+    .container-create{
+        width: 70%;
+        margin-top: 100px;
+        padding:0;
+    }
+    .layout_create_title {
+        color: #fff;
+    }
     .ticket_check_title {
-        margin: 0;
         padding: 0;
         color: #fff;
         font-size: 27px;
@@ -119,7 +220,13 @@ button {
         margin-bottom: 30px;
         border: none;
     }
-
+    .form-create .btn-create{
+        color:white;
+    }
+    .form-create .btn-create:hover{
+        color: #f5ffff;
+        transform: scale(1.03);
+    }
     .content--wrap {
         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
         background-color: #fff;
@@ -129,7 +236,22 @@ button {
     }
 
     .content{
-        width: 500px;
-        max-width: 600px;
+        max-width:1000px;
+        margin:0;
+        padding:0;
     }
+    .ticket-list-container {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px; /* Adjust the gap as needed */
+    }
+    
+    .ticket-container {
+        flex: 1 1 calc(50% - 20px); /* Half width minus gap on larger screens */
+        max-width: calc(50% - 20px);
+        min-width:350px;
+        margin-bottom: 0;
+    }
+
 }

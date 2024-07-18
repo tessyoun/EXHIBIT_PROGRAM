@@ -2,3 +2,6 @@
 *.bin
 /Big_Project_G7/database
 .env
+Big_Project_G7/D2Coding.ttf
+Big_Project_G7/mysql.sh
+Big_Project_G7/pyenv.sh

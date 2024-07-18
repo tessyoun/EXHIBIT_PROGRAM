@@ -24,8 +24,9 @@ def get_ticket(userid) -> list:
         child = ticket.child
         date = ticket.reservationDate
         key = ticket.ticketid
+        hall = ExhibitionHall.objects.get(pk=ticket.exhibitionid).ExhibitionHallDescription
         tickets.append({'name':name, 'id':int(key), 'img':img, 'adult':adult,
-                        'child':child, 'date':date})
+                        'child':child, 'date':date, 'hall':hall})
     tickets = sorted(tickets, key=lambda x: x['id'])
     return tickets
 
