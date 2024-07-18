@@ -63,7 +63,11 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-    // 기업이 오픈한 시간만 찾기
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('id_program_name').dispatchEvent(new Event('change'));
+    });
+    
+    // 프로그램이 오픈된 시간만 찾기 (동적 요청)
     document.getElementById('id_program_name').addEventListener('change', function() {
         const programID = Number(this.value);
         console.log(programID)

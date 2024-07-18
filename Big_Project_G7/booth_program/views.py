@@ -7,6 +7,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from exhibition.models import Booth_Info
 
+# 홈 > 전시회 목록 > 전시회 > 부스 클릭 > 예약 클릭 시 생성된 부스 있는지 체크
+def check_program(request, company_name):
+    program_exists = Program.objects.filter(company_name=company_name).exists()
+    if program_exists:
+        booth = get_object_or_404(Booth_Info, company_name=company_name)
+        return JsonResponse({'exists': True, 'booth_id': booth.booth_id})
+    return JsonResponse({'exists': False})
+
+# ----------------------------------------------------------------------------------------------------------------------------------
 # (기업) 프로그램 생성
 @login_required
 def program_open(request):
@@ -43,6 +52,19 @@ def program_open(request):
         form = ProgramForm()
     return render(request, 'program_open.html', {'form': form})
 
+# (기업) 프로그램 > 프로그램 생성/관리
+@login_required
+def program_choice(request):
+    return render(request, 'program_choice.html')
+
+# (기업) 프로그램 > 예약 현황
+@login_required
+def reservation_status(request):
+    user = request.user
+    programs = Program.objects.filter(user=user)
+    reservations = BoothProgramReservation.objects.filter(program__in=programs)
+    sorted_reservations = sorted(reservations, key=lambda r: r.reservationtime_set.first().reserved_time)
+    return render(request, 'reservation_status.html', {'reservations': sorted_reservations})
 
 # (기업) 프로그램 > 프로그램 생성/관리 >  프로그램 관리
 @login_required
@@ -72,10 +94,13 @@ def program_edit(request, program_id):
 
     if request.method == 'POST':
         form = ProgramForm(request.POST, instance=program)
+        print(form)
+        print(form.is_valid(), form.has_changed())
         if form.is_valid():
             program = form.save(commit=False)
             new_selected_times = request.POST.get('selected_times', '')
             new_selected_times_list = sorted(list(set(new_selected_times.split(','))))
+            print(new_selected_times_list)
             program.selected_times = ",".join(new_selected_times_list)
             program.save()
             return redirect('booth_program:program_manage')
@@ -87,15 +112,17 @@ def program_edit(request, program_id):
     
     return render(request, 'program_edit.html', {'form': form, 'time_slots': time_slots, 'selected_times': selected_times})
 
+# ----------------------------------------------------------------------------------------------------------------------------------
+# 부스에서 생성된 프로그램의 예약 가능한 시간 찾기
+def get_availableTime(programID):
+    timelist = Program.objects.get(id=programID).selected_times
+    timetable = timelist.split(',')
+    times = [(time, time) for time in timetable]
+    return times
+
 # (일반) 프로그램 예약
 @login_required
 def reserve_booth(request, booth_id):
-    def get_availableTime(programID):
-        timelist = Program.objects.get(id=programID).selected_times
-        timetable = timelist.split(',')
-        times = [(time, time) for time in timetable]
-        return times
-
     booth = get_object_or_404(Booth_Info, booth_id=booth_id)
     company_name = booth.company_name
     program_list = Program.objects.filter(company_name=company_name)
@@ -113,22 +140,14 @@ def reserve_booth(request, booth_id):
             reservation.user = request.user
             reservation.user_name = request.user.username
             reservation.save()
-            redirect('layout1')
+            return redirect('booth_program:reservation_check')
         else:
             form = ReservationForm(programs = program_list)
     else:
         form = ReservationForm(programs = program_list)
     return render(request, 'reservation.html', {'form' : form, 'booth_id':booth_id})
 
-# 홈 > 전시회 목록 > 전시회 > 부스 클릭 > 예약 클릭 시 생성된 부스 있는지 체크
-def check_program(request, company_name):
-    program_exists = Program.objects.filter(company_name=company_name).exists()
-    if program_exists:
-        booth = get_object_or_404(Booth_Info, company_name=company_name)
-        return JsonResponse({'exists': True, 'booth_id': booth.booth_id})
-    return JsonResponse({'exists': False})
-
-# NEW (일반) 프로그램 예약 시 기업이 오픈 한 시간만 return
+# (일반) 프로그램 예약 시 기업이 오픈 한 시간만 리턴하는 API
 def check_availableTime(request, program_id):
     if request.method == 'GET':
         try:
@@ -139,7 +158,6 @@ def check_availableTime(request, program_id):
 
         except:
             return JsonResponse({'times': []})
-
 
 # (일반) 마이페이지 > 내 예약 확인
 @login_required
@@ -165,29 +183,24 @@ def delete_reservation(request, reservation_id):
 @login_required
 @csrf_exempt
 def edit_reservation(request, reservation_id):
-    reservation = get_object_or_404(BoothProgramReservation, id=reservation_id, user_name=request.user.username)
+    # reservation = get_object_or_404(BoothProgramReservation, id=reservation_id, user_name=request.user.username)
+    # if request.method == 'POST':
+    #     num_of_people = request.POST.get('num_of_people')
+    #     reserved_time = request.POST.get('reserved_time')
+
+    #     reservation.num_of_people = num_of_people
+    #     reservation.reservationtime_set.update(reserved_time=reserved_time)
+    #     reservation.save()
+
+    #     return JsonResponse({'status': 'success'})
+    # else:
+    #     return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
+    reservation = get_object_or_404(BoothProgramReservation, pk=reservation_id, user_name=request.user.username)
     if request.method == 'POST':
-        num_of_people = request.POST.get('num_of_people')
-        reserved_time = request.POST.get('reserved_time')
-
-        reservation.num_of_people = num_of_people
-        reservation.reservationtime_set.update(reserved_time=reserved_time)
-        reservation.save()
-
-        return JsonResponse({'status': 'success'})
+        form = ReservationForm(request.POST, instance=reservation)
+        if form.is_valid():
+            form.save()
+            return redirect('booth_program:reservation_check')
     else:
-        return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
-
-# (기업) 프로그램 > 프로그램 생성/관리
-@login_required
-def program_choice(request):
-    return render(request, 'program_choice.html')
-
-# (기업) 프로그램 > 예약 현황
-@login_required
-def reservation_status(request):
-    user = request.user
-    programs = Program.objects.filter(user=user)
-    reservations = BoothProgramReservation.objects.filter(program__in=programs)
-    sorted_reservations = sorted(reservations, key=lambda r: r.reservationtime_set.first().reserved_time)
-    return render(request, 'reservation_status.html', {'reservations': sorted_reservations})
+        form = ReservationForm(instance=reservation)
+    return render(request, 'test.html', {'form': form})

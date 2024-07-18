@@ -35,7 +35,7 @@ class ReservationForm(forms.ModelForm):
     reservationtime = forms.ChoiceField(
         label="예약 시간",
         widget=forms.Select(attrs={'class': 'form-control',  'id': 'id_reservationtime'}),
-        choices= [(' ', '프로그램을 먼저 선택하세요.')],
+        choices= [('', '프로그램을 먼저 선택하세요.')],
         required=True
     )
 
@@ -50,11 +50,11 @@ class ReservationForm(forms.ModelForm):
         } 
 
         widgets = {
-            'num_of_people' : forms.Select(choices=[(i, i) for i in range(10)], attrs={'class': 'form-control', 'value':0}),
+            'num_of_people' : forms.Select(choices=[(i, i) for i in range(1, 10)], attrs={'class': 'form-control'}),
         }
     
     def __init__(self, *args, **kwargs):
-        programs = kwargs.pop('programs', None)
+        programs = kwargs.pop('programs',None)
         reservation_time = kwargs.pop('reservation_times', [(' ', '프로그램을 먼저 선택하세요.')])
         super().__init__(*args, **kwargs)
         if programs:

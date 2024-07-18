@@ -51,6 +51,7 @@
                 const name = document.getElementById('id_name').value;
                 const description = document.getElementById('id_description').value;
                 const checkboxes = document.querySelectorAll('input.time-slot:checked');
+                console.log(checkboxes);
                 if (!name) {
                     alert("프로그램명을 입력해주세요.");
                     return false;
@@ -67,6 +68,7 @@
                 const selectedTimes = Array.from(checkboxes).map(checkbox => checkbox.value);
                 const selectedTimesInput = document.getElementById('id_selected_times');
                 selectedTimesInput.value = selectedTimes.join(',');
+                console.log(selectedTimesInput);
 
                 return true;
             }
