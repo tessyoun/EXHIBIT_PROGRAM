@@ -31,7 +31,7 @@
             <td>{{ lis.boo }}</td>
             <td>{{ reservation.program.name }}</td>
             <td>{{ reservation.num_of_people }}</td>
-            <td>{{ reservation.reservationtime_set.first.reserved_time }}</td>
+            <td>{{ reservation.reservationtime }}</td>
             <td>
               <button class="submit-button edit-button" data-reservation-id="{{ reservation.id }}">예약 수정</button>
               <form method="post" action="{% url 'booth_program:delete_reservation' reservation.id %}" style="display:inline;">
