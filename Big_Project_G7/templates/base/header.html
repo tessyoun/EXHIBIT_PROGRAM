@@ -12,15 +12,6 @@
         <a href="/" ><button class ="header__title-black icon" style="cursor:pointer;"></button></a>
     </div>
 
-    <div class="BMmodal" id="bookMModal">
-        <div class="BMmodal-content">
-            <span class="BMclose">&times;</span>
-            <div class="modal-header">
-                <h5 class="modal-title">북마크 리스트</h5>
-            </div>
-            <div class="modal-body" id="bookmarkli"></div>
-        </div>
-    </div>
 
     <div class ="header-menu-pc">
         <div class="dropdown">
@@ -67,7 +58,7 @@
                 <li><a class="dropdown-item" href="{% url 'exhibition:update_exhibition' %}">전시회 정보 수정</a></li>
                 <li><a class="dropdown-item" href="{% url 'exhibition:booth_list' %}">부스 목록</a></li>
                 <li><a class="dropdown-item" href="{% url 'exhibition:create_exhibition' %}">배치도 생성</a></li>
-                <li><a class="dropdown-item" href="{% url 'exhibition:created_layout' %}">생성된 배치도</a></li>
+                <li><a class="dropdown-item created_lay" href="{% url 'exhibition:created_layout' %}">생성된 배치도</a></li>
                 </ul>
             </div>
 
@@ -119,7 +110,7 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="{% url 'accounts:update' %}">회원 정보 수정</a></li>
                 <li><a class="dropdown-item" href="{% url 'booth_program:reservation_check' %}">내 예약 확인</a></li>
-                <li><a class="dropdown-item" id="bookMlist">북마크 확인</a></li>
+                <li><a class="dropdown-item bookMlist">북마크 확인</a></li>
                 </ul>
             </div>
 
