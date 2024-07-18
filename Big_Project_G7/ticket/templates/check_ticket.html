@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block styles %}
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
     <link rel="stylesheet" href="{% static 'css/reveal_QR.css' %}" /> 
     <link rel="stylesheet" href="{% static 'css/ticket.css' %}" />
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />   
@@ -15,40 +14,86 @@ AIVEX Ticket
 {% block main_content %} 
 <div class = "background-pc pc"></div>
 
-    <div class="container">
-        <h2 class = "ticket_check_title ">내 티켓 확인</h2>
-        <div class = "content--wrap">
-            <div class = "content">
-                    {{ user_form.as_p }}
-                    {{ profile_form.as_p }}
-                    {% if ticket_list %}
-                        {% for ticket in ticket_list %}
-                        <div class="card mb-4" onclick="location.href=`{% url 'ticket:ticket_detail' ticket.id %}`">
-                            <div class="row g-0 d-flex">
-                                <div class="col-4">
-                                    <img src="../static/{{ ticket.img }}" class="img-fluid rounded-start" alt="No Image!">
-                                </div>
-                                <div class="col-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ ticket.name }}</h5>
-                                        <p class="card-text">{{ ticket.hall }}</p>
-                                        <p class="card-text">입장일 : {{ ticket.date }}</p>
-                                        <p class="card-text">성인 {{ ticket.adult }} / 아동 {{ ticket.child }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    {% endif %}
-                <form action="{% url 'ticket:purchase_ticket' %}" class="form-create" method="get">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-create">티켓 구매하러 가기 > </button>
-                </form>
-            </div>
+<div class="container-create">
+    <div class = "ticket_check_title">
+        <div style="display: flex; justify-content: space-between; align-items: center; width:100%;">
+            <h2 class="layout_create_title">내 티켓 확인</h2>
+            <form action="{% url 'ticket:purchase_ticket' %}" class="form-create" method="get">
+                {% csrf_token %}
+                <button type="submit" class="btn-create"><p>티켓 구매하러 가기 ></p> </button>
+            </form>
         </div>
     </div>
+    <div class = "content">
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+
+            {% if ticket_list %}
+            <div class="ticket-list-container">
+                {% for ticket in ticket_list %}
+                <div class="ticket-container" onclick="location.href=`{% url 'ticket:ticket_detail' ticket.id %}`">  
+                    <img src="../static/icons/forticket.png" class="customcard" >
+                            {% comment %} <div class="col-4">
+                                <img src="../static/{{ ticket.img }}" class="img-fluid rounded-start" alt="No Image!">
+                            </div> {% endcomment %}
+                    <div class="ticket-innercontext">
+                        <div class='ticket-info'>
+                            <h5 class="ticket-title">{{ ticket.name }}</h5>
+                            <p class="ticket-text">입장일 : {{ ticket.date }}</p>
+                            <p class="ticket-text">성인 {{ ticket.adult }} / 아동 {{ ticket.child }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ticket.hall}}</p>
+                        </div>
+                        <div class='qrholder'>
+                            <p class="qrtext">DAY PASS </p>
+                            <div class='qrblur'>
+                                <img src="../static/icons/qr-scan.svg" class=qricon>
+                            </div>
+                        </div>
+                        <p class="ticket-id">{{ ticket.id }} </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}                
+        
+        </div>
+
+                
+
+</div>
+    
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const colorGradients = [
+                //https://bennettfeely.com/scales/
+                
+                
+                ['rgba(136, 194, 130, 0.1);', 'linear-gradient(90deg, rgba(3, 96, 52, 0.5), rgba(21, 121, 63, 0.5), rgba(47, 148, 78, 0.5), rgba(78, 175, 99, 0.5), rgba(120, 197, 120, 0.5), rgba(162, 216, 138, 0.5), rgba(199, 232, 155, 0.5), rgba(228, 244, 172, 0.5), rgba(247, 252, 196, 0.5)'],
+                ['rgba(148, 70, 100, 0.1)','linear-gradient(90deg, rgba(20, 14, 54, 0.5), rgba(59, 15, 112, 0.5), rgba(100, 26, 128, 0.5), rgba(140, 41, 129, 0.5), rgba(181, 54, 122, 0.5), rgba(222, 73, 104, 0.5), rgba(246, 110, 92, 0.5), rgba(254, 159, 109, 0.5)'],
+                
+                ['rgba(219, 121, 173, 0.1)', 'linear-gradient(90deg, rgba(113, 1, 116, 0.5), rgba(113, 1, 116, 0.5), rgba(153, 3, 124, 0.5), rgba(193, 24, 137, 0.5), rgba(224, 63, 152, 0.5), rgba(243, 105, 163, 0.5), rgba(249, 147, 176, 0.5), rgba(251, 181, 188, 0.5), rgba(252, 207, 204, 0.5), rgba(253, 228, 225, 0.5), rgba(255, 247, 243, 0.5))'],
+                ['rgba(230, 162, 87, 0.1)','linear-gradient(90deg, rgba(143, 50, 4, 0.5), rgba(143, 50, 4, 0.5), rgba(183, 67, 4, 0.5), rgba(216, 91, 10, 0.5), rgba(238, 121, 25, 0.5), rgba(251, 154, 44, 0.5), rgba(254, 187, 74, 0.5), rgba(254, 214, 118, 0.5), rgba(254, 235, 162, 0.5), rgba(255, 248, 196, 0.5), rgba(255, 255, 229, 0.5))'],
+                ['rgba(184, 137, 135, 0.1)', 'linear-gradient(90deg, rgba(78, 78, 78, 0.5), rgba(78, 78, 78, 0.5), rgba(134, 134, 134, 0.5), rgba(184, 184, 184, 0.5), rgba(223, 223, 223, 0.5), rgba(240, 244, 250, 0.5)'],
+                ['rgba(135, 195, 199, 0.1)','linear-gradient(90deg, rgba(11, 96, 161, 0.5), rgba(11, 96, 161, 0.5), rgba(30, 126, 183, 0.5), rgba(88, 183, 205, 0.5), rgba(88, 183, 205, 0.5), rgba(123, 203, 196, 0.5), rgba(159, 217, 187, 0.5), rgba(189, 229, 191, 0.5), rgba(212, 238, 206, 0.5), rgba(229, 245, 223, 0.5)'],
+                
+                ['rgba(114, 115, 116, 0.1)', 'linear-gradient(90deg, rgb(208, 126, 147, 0.5), rgba(208, 126, 147, 0.5), rgba(208, 156, 217, 0.5), rgba(193, 202, 243, 0.5), rgba(210, 238, 239, 0.5))'],
+                
+                ];
+            
+            const ticketInfos = document.querySelectorAll('.ticket-innercontext');
+            ticketInfos.forEach(ticketInfo => {
+                var ticketDate = ticketInfo.innerText;
+                var match = ticketDate.match(/입장일 : (\d{4})년 (\d{1,2})월 (\d{1,2})일/);
+                var date = new Date(match[1]+'-'+match[2]+'-'+match[3]);
+                const randomIndex = date.getDay();
+                const randomColor = colorGradients[randomIndex][0];
+                const randomGradient = colorGradients[randomIndex][1];
+                ticketInfo.style.backgroundColor = randomColor;
+                ticketInfo.style.backgroundImage = randomGradient;
+            });
+        });
+    </script>
 {% endblock %}

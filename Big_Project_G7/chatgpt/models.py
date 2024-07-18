@@ -3,6 +3,7 @@ from django.db import models
 #채팅 기록 저장
 
 class ChatHistory(models.Model):
+    id = models.BigAutoField(primary_key=True) #warning
     question = models.TextField()
     answer = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
