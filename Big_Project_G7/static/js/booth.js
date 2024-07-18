@@ -15,41 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const reservationButton = document.getElementById('reservation');
     const showFormButton = document.getElementById('show-form-button');
     const routeForm = document.getElementById('route-form');
-
-    // 이미지 위에 그리드 그리기
-    const rows = bwArray.length;
-    const cols = bwArray[0].length;
-    const imgWidth = processedImage.clientWidth;
-    const imgHeight = processedImage.clientHeight;
-    const cellWidth = imgWidth / cols;
-    const cellHeight = imgHeight / rows;
-
-    gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${cellWidth}px)`;
-    gridContainer.style.gridTemplateRows = `repeat(${rows}, ${cellHeight}px)`;
-
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            if (bwArray[i][j] === 0) {
-                cell.style.backgroundColor = 'black';
-            }
-            gridContainer.appendChild(cell);
-        }
-    }
-
-    // A* algorithm 경로
-    const graph = new Graph(bwArray);
-    const start = graph.grid[0][0]; //시작 좌표
-    const end = graph.grid[30][50]; //도착 좌표
-    const result = astar.search(graph, start, end);
-
-    result.forEach(node => {
-        const cellIndex = node.y * cols + node.x;
-        gridContainer.children[cellIndex].classList.add('path');
-    });
-
-    //
+    
+    
 
     function populateCategories() {
         var categories = ['전체'];
@@ -408,10 +375,33 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     //경로 그리기
-    const linesContainer = document.querySelector('.lines-container');
+    const gridContainer = document.getElementById('grid-container');
+    const processedImage = document.getElementById('processed-image');
+    const rows = bwArray.length;
+    const cols = bwArray[0].length;
+    const imgWidth = processedImage.clientWidth;
+    const imgHeight = processedImage.clientHeight;
+    const cellWidth = imgWidth / cols;
+    const cellHeight = imgHeight / rows;
 
     function clearLines() {
-        linesContainer.innerHTML = ''; // Clear lines by removing all child elements
+        gridContainer.innerHTML = ''; // Clear lines by removing all child elements
+    }
+
+    function createGrid(cols, rows, cellWidth, cellHeight) {
+        gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${cellWidth}px)`;
+        gridContainer.style.gridTemplateRows = `repeat(${rows}, ${cellHeight}px)`;
+    
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                // if (bwArray[i][j] === 0) {
+                //     cell.style.backgroundColor = 'black';
+                // }
+                gridContainer.appendChild(cell);
+            }
+        }
     }
 
     function drawLinesBetweenBooths() {
@@ -432,40 +422,62 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (startBoothId > 37) {
             cnt = 38;
         }
+
+        const rows = bwArray.length;
+        const cols = bwArray[0].length;
+        const imgWidth = processedImage.clientWidth;
+        const imgHeight = processedImage.clientHeight;
+        const cellWidth = imgWidth / cols;
+        const cellHeight = imgHeight / rows;
+
+        createGrid(cols, rows, cellWidth, cellHeight);
         
-        console.log(startBoothId)
-        console.log(cnt)
-        linesContainer.innerHTML = ''; // Clear previous lines
-
+        // A* algorithm 경로
+        const graph = new Graph(bwArray);
         const startBooth = document.querySelector(`.rectangle[data-index='${startBoothId - cnt}']`);
-        const endBooth = document.querySelector(`.rectangle[data-index='${endBoothId - cnt}']`);
+        const endBooth = document.querySelector(`.rectangle[data-index='${endBoothId - cnt}']`); 
+        let startX = parseFloat(startBooth.dataset.centerX); 
+        let startY = parseFloat(startBooth.dataset.centerY); 
+        let endX = parseFloat(endBooth.dataset.centerX);  
+        let endY = parseFloat(endBooth.dataset.centerY);   
+        
+        // Adjust coordinates based on the booth dimensions
+        if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
+            if (endX < startX) {
+                startX -= parseFloat(startBooth.style.width) / 2;
+                endX += parseFloat(endBooth.style.width) / 2;
+            } else {
+                startX += parseFloat(startBooth.style.width) / 2;
+                endX -= parseFloat(endBooth.style.width) / 2;
+            }
+        } else {
+            if (endY < startY) {
+                startY -= parseFloat(startBooth.style.height) / 2;
+                endY += parseFloat(endBooth.style.height) / 2;
+            } else {
+                startY += parseFloat(startBooth.style.height) / 2;
+                endY -= parseFloat(endBooth.style.height) / 2;
+            }
+        }
+        
+        // Convert coordinates to grid indices
+        const startNode = graph.grid[Math.round(startX / 10)][Math.round(startY / 10)];
+        const endNode = graph.grid[Math.round(endX / 10)][Math.round(endY / 10)];
+        
+        console.log(startNode);
+        console.log(endNode);
+        const result = astar.search(graph, startNode, endNode);
 
-        const startX = parseFloat(startBooth.dataset.centerX); 
-        const startY = parseFloat(startBooth.dataset.centerY); 
-        const endX = parseFloat(endBooth.dataset.centerX);  
-        const endY = parseFloat(endBooth.dataset.centerY);   
-    
-        drawLine(startX, startY, endX, endY);
+        result.forEach(node => {
+            const cellIndex = node.y * cols + node.x;
+            gridContainer.children[cellIndex].classList.add('path');
+        });
+
+        if (result.length === 0) {
+            alert('경로를 찾을 수 없습니다.');
+            return;
+        }
         startBooth.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-
-    function drawLine(startX, startY, endX, endY) {
-        const line = document.createElement('div');
-        line.classList.add('line');
-
-        const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
-        const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
-
-        line.style.width = `${length}px`;
-        line.style.height = '2px';
-        line.style.left = `${startX}px`;
-        line.style.top = `${startY}px`;
-        line.style.position = 'absolute';
-        line.style.transformOrigin = '0 0';
-        line.style.transform = `rotate(${angle}deg)`;
-        line.style.backgroundColor = 'black';
-    
-        linesContainer.appendChild(line);
     }
     
     //북마크 옵션 생성

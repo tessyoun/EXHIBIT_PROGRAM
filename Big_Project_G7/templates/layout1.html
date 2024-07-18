@@ -35,7 +35,6 @@
                         data-center-y="{{ rect.center_y }}">
             </div>
             {% endfor %}
-            <div class="lines-container"></div>
             <div id="grid-container" class="grid"></div> <!--경로 그리드-->>
         </div>
         <div class="modal" id="myModal">
@@ -107,8 +106,6 @@
         const boothsJsonString = '{{ booths|escapejs }}';
         const booths = JSON.parse(boothsJsonString);
         const bwArray = JSON.parse('{{ bw_array|escapejs }}'); //지도
-        const gridContainer = document.getElementById('grid-container');
-        const processedImage = document.getElementById('processed-image');
     </script>
     <script type='text/javascript' src="{% static 'js/astar.js' %}"></script>
     <script src="{% static 'js/booth.js' %}"></script>
