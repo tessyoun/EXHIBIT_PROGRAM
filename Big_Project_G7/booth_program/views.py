@@ -63,7 +63,8 @@ def reservation_status(request):
     user = request.user
     programs = Program.objects.filter(user=user)
     reservations = BoothProgramReservation.objects.filter(program__in=programs)
-    sorted_reservations = sorted(reservations, key=lambda r: r.reservationtime_set.first().reserved_time)
+    sorted_reservations = sorted(reservations, key=lambda r: r.reservationtime)
+    # sorted_reservations = sorted(reservations, key=lambda r: r.reservationtime.first().reserved_time)
     return render(request, 'reservation_status.html', {'reservations': sorted_reservations})
 
 # (기업) 프로그램 > 프로그램 생성/관리 >  프로그램 관리
