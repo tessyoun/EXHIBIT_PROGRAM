@@ -33,7 +33,11 @@
             <td>{{ reservation.num_of_people }}</td>
             <td>{{ reservation.reservationtime }}</td>
             <td>
-              <button class="submit-button edit-button" data-reservation-id="{{ reservation.id }}">예약 수정</button>
+              <!-- <button class="submit-button edit-button" data-reservation-id="{{ reservation.id }}">예약 수정</button> -->
+              <form method="get" action="{% url 'booth_program:edit_reservation' reservation.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="submit-button edit-button">예약 수정</button>
+              </form>
               <form method="post" action="{% url 'booth_program:delete_reservation' reservation.id %}" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit" class="delete-button">예약 취소</button>
@@ -48,7 +52,7 @@
   {% endif %}
 </div>
 
-<div id="edit-modal" class="modal">
+<!-- <div id="edit-modal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
     <h2>예약 수정</h2>
@@ -82,7 +86,7 @@
       <button type="submit" class="submit-button">수정하기</button>
     </form>
   </div>
-</div>
+</div> -->
 {% endblock %}
 
 {% block scripts %}

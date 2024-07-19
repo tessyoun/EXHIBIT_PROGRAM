@@ -16,6 +16,11 @@ def check_program(request, company_name):
     return JsonResponse({'exists': False})
 
 # ----------------------------------------------------------------------------------------------------------------------------------
+# (기업) 프로그램 > 프로그램 생성/관리
+@login_required
+def program_choice(request):
+    return render(request, 'program_choice.html')
+
 # (기업) 프로그램 생성
 @login_required
 def program_open(request):
@@ -25,37 +30,19 @@ def program_open(request):
     if request.method == 'POST':
         form = ProgramForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data['name']
-            description = form.cleaned_data['description']
-            company_name = request.user.profile.name
-            selected_times = form.cleaned_data['selected_times']
-
-            print(f"Name: {name}, Description: {description}, Company: {company_name}, Selected Times: {selected_times}")
-
-            selected_times_list = sorted(set(selected_times.split(',')))
-
-            program = Program.objects.create(
-                user=request.user,
-                name=name,
-                description=description,
-                company_name=company_name,
-                selected_times=",".join(selected_times_list)
-            )
-
-            print(f"Program created: {program}")
-
+            program = form.save(commit=False)
+            new_selected_times = request.POST.get('selected_times', '')
+            new_selected_times_list = sorted(list(set(new_selected_times.split(','))))
+            program.selected_times = ",".join(new_selected_times_list)
+            program.user = request.user
+            program.company_name = request.user.profile.name
+            program.save()
             return redirect('booth_program:program_choice')
         else:
-            print("Form is not valid")
             print(form.errors)
     else:
         form = ProgramForm()
     return render(request, 'program_open.html', {'form': form})
-
-# (기업) 프로그램 > 프로그램 생성/관리
-@login_required
-def program_choice(request):
-    return render(request, 'program_choice.html')
 
 # (기업) 프로그램 > 예약 현황
 @login_required
@@ -64,7 +51,6 @@ def reservation_status(request):
     programs = Program.objects.filter(user=user)
     reservations = BoothProgramReservation.objects.filter(program__in=programs)
     sorted_reservations = sorted(reservations, key=lambda r: r.reservationtime)
-    # sorted_reservations = sorted(reservations, key=lambda r: r.reservationtime.first().reserved_time)
     return render(request, 'reservation_status.html', {'reservations': sorted_reservations})
 
 # (기업) 프로그램 > 프로그램 생성/관리 >  프로그램 관리
@@ -95,22 +81,18 @@ def program_edit(request, program_id):
 
     if request.method == 'POST':
         form = ProgramForm(request.POST, instance=program)
-        print(form)
-        print(form.is_valid(), form.has_changed())
         if form.is_valid():
             program = form.save(commit=False)
             new_selected_times = request.POST.get('selected_times', '')
             new_selected_times_list = sorted(list(set(new_selected_times.split(','))))
-            print(new_selected_times_list)
             program.selected_times = ",".join(new_selected_times_list)
             program.save()
             return redirect('booth_program:program_manage')
+        
         elif 'delete' in request.POST:
             program.delete()
-            # return redirect('program_manage.html')
     else:
         form = ProgramForm(instance=program)
-    
     return render(request, 'program_edit.html', {'form': form, 'time_slots': time_slots, 'selected_times': selected_times})
 
 # ----------------------------------------------------------------------------------------------------------------------------------
@@ -151,14 +133,10 @@ def reserve_booth(request, booth_id):
 # (일반) 프로그램 예약 시 기업이 오픈 한 시간만 리턴하는 API
 def check_availableTime(request, program_id):
     if request.method == 'GET':
-        try:
-            program = Program.objects.get(id=program_id).selected_times
-            timetable = program.split(',')
-            times = [(time, time) for time in timetable]
+        times = get_availableTime(program_id)
+        if times:
             return JsonResponse({'times':times})
-
-        except:
-            return JsonResponse({'times': []})
+        return JsonResponse({'times': []})
 
 # (일반) 마이페이지 > 내 예약 확인
 @login_required
@@ -182,26 +160,22 @@ def delete_reservation(request, reservation_id):
 
 # (일반) 마이페이지 > 내 예약 확인 > 예약 수정 API
 @login_required
-@csrf_exempt
 def edit_reservation(request, reservation_id):
-    # reservation = get_object_or_404(BoothProgramReservation, id=reservation_id, user_name=request.user.username)
-    # if request.method == 'POST':
-    #     num_of_people = request.POST.get('num_of_people')
-    #     reserved_time = request.POST.get('reserved_time')
-
-    #     reservation.num_of_people = num_of_people
-    #     reservation.reservationtime_set.update(reserved_time=reserved_time)
-    #     reservation.save()
-
-    #     return JsonResponse({'status': 'success'})
-    # else:
-    #     return JsonResponse({'status': 'fail', 'message': 'Invalid request method'})
-    reservation = get_object_or_404(BoothProgramReservation, pk=reservation_id, user_name=request.user.username)
+    reservation = BoothProgramReservation.objects.get(pk=reservation_id)
+    program = Program.objects.filter(id=reservation.program.pk)
+    timetable = reservation.program.selected_times.split(',')
+    times = [(time, time) for time in timetable]
+    
     if request.method == 'POST':
-        form = ReservationForm(request.POST, instance=reservation)
+        form = ReservationForm(request.POST, instance=reservation, programs=program, reservation_times=times)
         if form.is_valid():
-            form.save()
+            reservation = form.save(commit=False)
+            reservation.user = request.user
+            reservation.user_name = request.user.username
+            reservation.save()
             return redirect('booth_program:reservation_check')
+        else:
+            print(form.errors)
     else:
-        form = ReservationForm(instance=reservation)
+        form = ReservationForm(instance=reservation, programs=program, reservation_times=times)
     return render(request, 'test.html', {'form': form})

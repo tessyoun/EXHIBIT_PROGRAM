@@ -46,33 +46,31 @@
 </div>
  
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function validateForm() {
-                const name = document.getElementById('id_name').value;
-                const description = document.getElementById('id_description').value;
-                const checkboxes = document.querySelectorAll('input.time-slot:checked');
-                console.log(checkboxes);
-                if (!name) {
-                    alert("프로그램명을 입력해주세요.");
-                    return false;
-                }
-                if (!description) {
-                    alert("프로그램 설명을 입력해주세요.");
-                    return false;
-                }
-                if (checkboxes.length === 0) {
-                    alert("오픈할 시간대를 선택해주세요.");
-                    return false;
-                }
-
-                const selectedTimes = Array.from(checkboxes).map(checkbox => checkbox.value);
-                const selectedTimesInput = document.getElementById('id_selected_times');
-                selectedTimesInput.value = selectedTimes.join(',');
-                console.log(selectedTimesInput);
-
-                return true;
+        function validateForm() {
+            const name = document.getElementById('id_name').value;
+            const description = document.getElementById('id_description').value;
+            const checkboxes = document.querySelectorAll('input.time-slot:checked');
+            console.log(checkboxes);
+            if (!name) {
+                alert("프로그램명을 입력해주세요.");
+                return false;
             }
-
+            if (!description) {
+                alert("프로그램 설명을 입력해주세요.");
+                return false;
+            }
+            if (checkboxes.length === 0) {
+                alert("오픈할 시간대를 선택해주세요.");
+                return false;
+            }
+            const selectedTimes = Array.from(checkboxes).map(checkbox => checkbox.value);
+            const selectedTimesInput = document.getElementById('id_selected_times');
+            selectedTimesInput.value = selectedTimes.join(',');
+            console.log(selectedTimesInput);
+            return true;
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
             // 삭제 버튼에 alert 메시지 추가함
             const deleteButtons = document.querySelectorAll('button.delete-button');
             deleteButtons.forEach(button => {

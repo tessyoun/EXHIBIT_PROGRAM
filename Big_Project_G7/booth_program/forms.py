@@ -23,6 +23,14 @@ class ProgramForm(forms.ModelForm):
             self.add_error('description', "프로그램 설명을 입력해주세요.")
         if not selected_times:
             self.add_error('selected_times', "오픈할 시간대를 선택해주세요.")
+    
+    def save(self, commit=True, user=None):
+        program = super().save(commit=False)
+        if user:
+            program.user = user
+        if commit:
+            program.save()
+        return program
 
 
 class ReservationForm(forms.ModelForm):
@@ -54,14 +62,13 @@ class ReservationForm(forms.ModelForm):
         }
     
     def __init__(self, *args, **kwargs):
-        programs = kwargs.pop('programs',None)
+        programs = kwargs.pop('programs', None)
         reservation_time = kwargs.pop('reservation_times', [(' ', '프로그램을 먼저 선택하세요.')])
         super().__init__(*args, **kwargs)
         if programs:
             self.fields['program_name'].choices = [
                 (program.id, program.name) for program in programs
             ]
-            self.fields['program_name'].choices.insert(0, ('', '프로그램을 선택하세요.'))
 
         if reservation_time:
             self.fields['reservationtime'].choices = reservation_time
@@ -72,7 +79,7 @@ class ReservationForm(forms.ModelForm):
         if program_id:
             reservation.program = Program.objects.get(id=program_id)
         if user:
-            reservation.user_name = user
+            reservation.user = user
         if commit:
             reservation.save()
         return reservation
