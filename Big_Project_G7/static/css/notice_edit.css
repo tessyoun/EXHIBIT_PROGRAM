@@ -1,0 +1,141 @@
+
+.notice_write_title--wrap {
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.notice_write_title {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-size: 24px;
+    padding: 10px;
+    border-bottom: 1px solid #afafaf;
+    resize: none;
+    line-height: 1.5;
+    min-height: 40px;
+    overflow: hidden;
+    height: auto;
+}
+
+::placeholder {
+    color:#afafaf;
+}
+
+.notice_write_content--wrap {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 350px);
+    margin-bottom: 10px;
+}
+
+.notice_write_content {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    padding: 10px;
+    resize: none;
+}
+
+.notice_write_submit--wrap.pc {
+    display: none;
+}
+
+.notice_write_submit--wrap{
+    width: 100%;
+}
+
+.notice_write_submit--wrap.mobile{
+    margin-bottom: 30px;
+}
+
+.notice_write_submit--wrap input {
+    width: 100%;
+    background-color: #38B8B2;
+    color: white;
+    border: none;
+    font-size: 18px;
+    padding: 8px 0px;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+}
+
+.notice_write_submit--wrap input:hover {
+    transform: scale(0.98);
+    background-color: #33999bcd;
+}
+
+.upload_files{
+    width: 100%;
+    margin: 0 auto;
+    font-size: 15px;
+    margin:10px 0;
+    padding: 10px 0;
+    border-top: 1px dashed #bbb;
+    border-bottom: 1px solid #bbb;
+}
+
+.upload_files a{
+    display: inline-block;
+    max-width: 230px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.content--content,.content--content form{
+    width: 98%;
+}
+
+@media (min-width:768px){
+    .content--container {
+        width: 75%;
+    } 
+}
+
+@media (min-width: 992px) {
+    .content--container {
+        width: 70%;
+    } 
+    
+    .notice_write_submit--wrap.mobile{
+        display: none;
+    }
+
+    .notice_write_submit--wrap.pc {
+        width: 100%;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        border: none;
+        margin-top: 20px;
+    }
+
+    .notice_write_submit--wrap input{
+        width: 70px;
+        padding: 3px 5px;
+        border-color: #38B8B2;
+        background-color: #38B8B2;
+        color: white;
+        margin-right: 1px;
+        font-size: 18px;
+    }
+
+    .notice_write_submit--wrap input:hover{
+        background-color: #33999bcd;
+        transform: scale(0.98);
+    }
+
+    .content--content{
+        width: 90%;
+        padding: 0;
+    }
+
+    .content--content form{
+        width: 100%;
+    }
+}

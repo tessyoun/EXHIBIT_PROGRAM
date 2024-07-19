@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -46,6 +47,132 @@ body {
 
 /* end 헤더 부분 */
 
+/* .signup_content--wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+} */
+
+/* 개인정보 동의 창 */
+.popup {
+    display: flex; 
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); 
+    align-items: center;
+    z-index: 1000;
+    justify-content: center;
+}
+
+.popup-content {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 450px;
+    width: 70%;
+    height: 80%;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+}
+
+.checkbox-group {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: flex-start; 
+    font-size: 16px; 
+}
+
+.agreement-text {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.agreement-text table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.agreement-text th, .agreement-text td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.agreement-text th {
+    background-color: #f4f4f4;
+}
+
+.popup-content button {
+    margin-top: 20px;
+    padding: 8px 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: white;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.popup-content button a{
+    text-decoration: none;
+    color: #333;
+}
+
+.info_collect_bt--wrap{
+    display: flex; /* Flexbox를 사용하여 레이아웃을 설정 */
+    justify-content: space-between;
+}
+
+#close_button:hover{
+    background-color: #858585;
+    border-color: #858585;
+    transform: scale(0.98);
+}
+
+#close_button:hover a{
+    color: white;
+}
+
+#agree-button{
+    border: 1px solid #38B8B2;
+    background-color: #38B8B2;
+}
+
+#agree-button:disabled {
+    border-color: #ccc;
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#agree-button:hover{
+    transform: scale(0.98);
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 15px; 
+    height: 15px; 
+}
+
+/* end 개인정보동의 창 */
+
+
 
 form {
     background-color: #fff;
@@ -55,20 +182,20 @@ form {
     min-width: 300px;
 }
 
-table {
+.signup-form--wrap table {
     width: 100%;
     margin-bottom: 20px;
 }
 
-table tr { 
+.signup-form--wrap table tr { 
     width: 100%;
 }
 
-table tr th {
+.signup-form--wrap table tr th {
     display: none;
 }
 
-table tr td {
+.signup-form--wrap table tr td {
     padding: 10px;
 }
 

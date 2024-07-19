@@ -1,14 +1,25 @@
-
+.content--container{
+    width: 100%;
+    padding: 0;
+    margin-top: 90px;
+}
 
 #faq-section {
-    margin-top: 100px;
+    margin-top: 0px;
     width: 100%;
 }
 
 .faq_title {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 93%;
+    margin: auto;
+    padding-bottom: 10px;
+}
+
+.content--wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .search-section {
@@ -143,7 +154,7 @@
 }
 
 @media (min-width: 768px){
-    #faq-section {
+    .content--container {
         width:75%;
     }
 
@@ -159,21 +170,40 @@
 }
 
 @media (min-width: 992px) { 
-    #faq-section {
+    body{
+        background-color: #eee;
+    }
+
+    .content--container{
         width: 70%;
         margin-top: 110px;
     }
 
+    .content--wrap{
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        align-items: center;
+        display: flex;
+        height: 100%;
+    }
+
+    #faq-section {
+        width: 85%;
+        margin-top: 0px;
+    }
+
     .faq_title {
+        margin: 0;
+        padding: 0;
         color: #fff;
         font-size: 27px;
         font-weight: 700;
-        margin: 0;
-        padding: 0;
+        margin-bottom: 30px;
+        border: none;
     }
     
     .search-section {
         width: 100%;
-        margin-top: 40px;
+        margin-top: 0px;
     }
 } 
