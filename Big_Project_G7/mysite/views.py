@@ -11,8 +11,15 @@ from .models import Booth_Info
 from django.http import JsonResponse
 import json
 
+
+def max_pooling(image, pool_size):
+    pooled_image = image[:image.shape[0] // pool_size * pool_size, :image.shape[1] // pool_size * pool_size]
+    pooled_image = pooled_image.reshape(image.shape[0] // pool_size, pool_size, image.shape[1] // pool_size, pool_size)
+    pooled_image = pooled_image.max(axis=(1, 3))
+    return pooled_image
+
 def process_image():
-    image_path = os.path.join(settings.BASE_DIR, 'static/images/test1.png')
+    image_path = os.path.join(settings.BASE_DIR, 'static/images/main.jpg')
     
     if not os.path.exists(image_path):
         print(f"Error: The image file at {image_path} does not exist.")
@@ -34,12 +41,10 @@ def process_image():
 
    # 지도 grid용 2d array// grayscale 이미지를 0(white) 1(black) 2d array로 변환
     _, bw_image = cv2.threshold(gray, 200, 1, cv2.THRESH_BINARY_INV)
-    bw_width = width // 10 #픽셀 갯수 줄이기 // 근데 이 부분은 이것보다 좋은 방식이 있을 것 같아요 pooling이라던가
-    bw_height = height // 10
-    bw_dim = (bw_width, bw_height)
-    resized_bw_image = cv2.resize(bw_image, bw_dim, interpolation=cv2.INTER_AREA)
+    pool_size = 20
+    pooled_image = max_pooling(bw_image, pool_size)
     
-    bw_array = resized_bw_image.tolist()
+    bw_array = pooled_image.tolist()
     bw_array = [[1 - pixel for pixel in row] for row in bw_array]
     #
 

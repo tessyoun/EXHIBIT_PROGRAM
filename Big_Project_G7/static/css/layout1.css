@@ -365,6 +365,27 @@ li::marker {
 }
 
 
+#grid-container {
+    display: grid;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    pointer-events: none;
+}
+
+.cell {
+    border: 1px solid transparent;  /*transparent*/
+    box-sizing: border-box;
+}
+
+.path {
+    background-color: red;
+}
+
+
 /* create_layout */
 .content--content{
     display: flex;
