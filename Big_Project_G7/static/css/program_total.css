@@ -1,0 +1,256 @@
+
+/* 프로그램  */
+
+.program-button--container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+.manage-button img{
+    width: 75%;
+}
+
+.manage-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+    margin: 10px 20px;
+    padding: 10px 10px;
+    width: 40%;
+    aspect-ratio: 1;
+    border-radius: 40px;
+    text-decoration: none;
+    color:#333;
+    font-weight: bold;
+}
+
+.manage-button.plus{
+    background-color: rgb(115, 175, 239);
+}
+
+.manage-button.setting{
+    background-color: rgb(235, 235, 235);
+}
+
+.manage-button.plus:hover{
+    transform: scale(0.93);
+    color: #333;   
+}
+
+.manage-button.setting:hover{
+    transform: scale(0.93);
+    color: #333;   
+}
+
+
+
+/* 프로그램 오픈 */
+.content-form--wrap{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-open{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 20px;
+}
+
+.form-group-open label {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.form-group-open input[type="text"]{
+    box-sizing: border-box;
+    padding: 5px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    height: 35px; 
+}
+
+.form-group-open input[type="text"]:focus {
+    border-bottom: 1px solid #38B8B2;
+}
+
+.form-group-open textarea{
+    box-sizing: border-box;
+    resize: none;
+    padding: 5px;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group-open textarea:focus{
+    border: 1px solid #38B8B2;
+}
+
+#open-time{
+    margin-bottom: 5px;
+}
+
+.time-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+    font-size: 18px;
+    padding: none;
+}
+
+.time-slot-label {
+    display: flex;
+    align-items: center;
+    width: 100px;
+    border: 1px solid #f5f5f5;
+    padding: 7px 10px;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.time-slot-label input[type="checkbox"] {
+    margin-left: 5px;
+    margin-right: 7px;  
+    appearance: none;
+    width: 23px; 
+    height: 23px; 
+    border-radius: 50%;
+    border: 1px solid #38B8B2;
+}
+
+.time-slot-label input[type="checkbox"]:checked {
+    background-color: #38B8B2; 
+}
+
+.time-slot-label:hover input[type="checkbox"]{
+    background-color: #38B8B2;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #38B8B2;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color:#33999bcd;
+    transform: scale(0.95);
+}
+
+
+
+.manage-button{
+    font-size: 17px;
+    width: 35%;
+    padding: 0;
+    margin: 10px 20px;
+}
+
+.manage-button img{
+    width: 60%;
+    margin-bottom: 15px;
+}
+
+
+@media (min-width: 992px) {
+    /* 프로그램 오픈 */
+    .form-group-open{
+        flex-direction: row;
+        margin-bottom: 25px;
+        align-items: center;
+    }
+
+    .form-group-open label{
+        width: 100px;
+    }
+
+    .form-group-open.open-time--wrap label{
+        width: 100px;
+        
+    }
+
+    .form-group-open input[type="text"]{
+        box-sizing: border-box;
+        padding: 5px 17px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        height: 35px; 
+        background-color: #f5f5f5;
+        margin-left: 15px;
+    }
+
+    .form-group-open input[type="text"]:focus{
+        border-bottom: none;
+    }
+
+    .form-group-open textarea{
+        box-sizing: border-box;
+        padding: 5px 17px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        background-color: #f5f5f5;
+        margin-left: 15px;
+    }
+
+    .form-group-open textarea:focus{
+        border: none;
+    }
+
+    #open-time{
+        width: 100px;
+        margin-bottom: 0;
+    }
+
+    .time-slots {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, auto);
+        gap: 10px; 
+        font-size: 18px;
+        margin-left: 15px; 
+    }
+
+    .submit-button{
+        width: 180px;
+        margin: 0 auto;
+        margin-top: 0px;
+        display: block;
+        padding: 5px 10px;
+        background-color: #38B8B2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 17px;
+        font-weight: 500;
+    }
+}

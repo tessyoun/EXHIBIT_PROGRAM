@@ -11,14 +11,13 @@
 
 {% block main_content %}
 <div class = "background-pc-list pc"></div>
+
 <div class="content--container">
-
 <div class = "notice-first--wrap">
-
-    <div class="notice--wrap">
+    <div class="notice--wrap detail">
         <div class="notice-detail-card">
             <div class="notice-header">
-                <h1>{{ notice.title }}</h1>
+                <h2>{{ notice.title }}</h2>
                 <div class="notice-meta">
                     <p>{{ notice.update_time|date:"Y-m-d"}}</p>
                     <p>작성자: {{ notice.author }}</p>
@@ -28,8 +27,8 @@
 
         {% if request.user == notice.author %}
             <div class="notice-actions">
-                <a href="{% url 'notice:notice_edit' notice.pk %}">수정</a>
-                <a href="{% url 'notice:notice_delete' notice.pk %}">삭제</a>
+                <a class ="notice-actions-edit" href="{% url 'notice:notice_edit' notice.pk %}">수정</a>
+                <a class ="notice-actions-delete" href="{% url 'notice:notice_delete' notice.pk %}">삭제</a>
             </div>
         {% endif %}
 
@@ -39,7 +38,7 @@
 
         {% if notice.upload_files %}
         <div class = "upload_files--wrap">
-            <div class="upload_files">
+            <div class="upload_files--detail">
                 <span>첨부파일 :&nbsp;</span>
                 <a href="{% url 'notice:notice_download' notice.id %}" >{{ notice.filename|truncatechars:25 }}</a>
             </div>

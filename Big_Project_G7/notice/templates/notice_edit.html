@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block styles %}
-  <link rel="stylesheet" href="{% static 'css/notice_list.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/pc_mob_lay.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/notice_edit.css' %}" />
 {% endblock %}
 
 {% block title %}  
@@ -10,51 +11,68 @@
 {% endblock %}
 
 {% block main_content %}
+<div class = "background-pc pc"></div>
 
-<div class="notice-write--wrap">
-    <div class="notice-write-container">
-        {% comment %} <div class = "notice-write-header">
-            <h2> 글쓰기 </h2>
-        </div> {% endcomment %}
-        {% block content %}
+<div class="content--container">
+    <h2 class ="content--title">글 수정</h2>
+
+<div class = "content--wrap">
+    <div class="content--content">
+        
         <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="notice_write_submit--wrap pc">
-            <h2> 글쓰기 </h2>
-            <input type="submit" value="수정" class="submit-button" />
-        </div>
+            {% csrf_token %}
+            <div class = notice--wrap-pc>
+                <div class="notice_write_title--wrap">
+                    <input class="notice_write_title" type="text" name="title" maxlength="200" required="" id="id_title" placeholder = "제목" value="{{form.title.value}}"></input>
+                </div>
 
-        <div class = notice--wrap-pc>
-        <div class="notice_write_title--wrap">
-            <input class="notice_write_title" type="text" name="title" maxlength="200" required="" id="id_title" value ="{{form.title.value}}" >
-        </div>
+                <div class="notice_write_content--wrap">
+                    {% comment %} <label for="content">Content:</label> {% endcomment %}
+                    <textarea class="notice_write_content" name="content" cols="20" rows="5" required="" id="id_content"  placeholder = "내용을 입력하세요.">{{ form.content.value}}</textarea>
+                </div>
 
-        <div class="notice_write_content--wrap">
-            {% comment %} <label for="content">Content:</label> {% endcomment %}
-            <textarea class="notice_write_content" name="content" cols="40" rows="10" required="" id="id_content" >{{ form.content.value}}</textarea>
-        </div>
-        <div class="upload_files">
-            {% comment %} {{ form.upload_files }}<br> {% endcomment %}
-            {% if form.upload_files.value %}
-                <label for="id_delete">삭제 </label>
-                <input type="checkbox" name="delete_file" id="id_delete">
-                <a href="{{ form.upload_files.value.url }}">{{ form.upload_files.value.name }}</a><br>
-            {% endif %}
-    
-            <!-- 새 파일 업로드 -->
-            <input type="file" name="upload_files" id="id_upload_files">
-    
-        </div>
-        </div>
-        <div class="notice_write_submit--wrap mobile">
-            <input type="submit" value="수정" class="submit-button" />
-        </div>
+                <div class="upload_files">
+                    {% comment %} {{ form.upload_files }}<br> {% endcomment %}
+                    {% if form.upload_files.value %}
+                        <label for="id_delete">삭제 </label>
+                        <input type="checkbox" name="delete_file" id="id_delete">
+                        <a href="{{ form.upload_files.value.url }}">{{ form.upload_files.value.name }}</a>
+                    {% endif %}
+            
+                    <!-- 새 파일 업로드 -->
+                    <input type="file" name="upload_files" id="id_upload_files">
+            
+                </div>
+                
+            </div>
+            <div class="notice_write_submit--wrap mobile">
+                <input type="submit" value="수정" class="submit-button" />
+            </div>
+
+            <div class="notice_write_submit--wrap pc">
+                <input type="submit" value="수정" class="submit-button" />
+            </div>
         </form>
+    </div>
         {% comment %} <a href="{% url 'notice:notice_list' %}" class="back-to-list"
         >Back to list</a
         > {% endcomment %}
-        {% endblock %}
-    </div>
+</div>
 </div>
 
+<script>
+    function adjustTextareaHeight(textarea) {
+        textarea.style.height = 'auto';  // 기존 높이를 초기화
+        textarea.style.height = (textarea.scrollHeight) + 'px';  // 새 높이 설정
+    }
+    
+    // 페이지 로드 시 초기 높이 조정
+    document.addEventListener('DOMContentLoaded', function () {
+        const textarea = document.getElementById('id_title');
+        adjustTextareaHeight(textarea);
+        textarea.addEventListener('input', function () {
+            adjustTextareaHeight(textarea);
+        });
+    });
+</script>
 {% endblock %}
