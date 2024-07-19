@@ -273,3 +273,6 @@
     text-decoration: none;
     cursor: pointer;
 }
+li::marker {
+    content: none; /* 마커 콘텐츠 제거 */
+}
