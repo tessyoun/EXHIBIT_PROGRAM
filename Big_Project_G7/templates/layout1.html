@@ -23,7 +23,7 @@
             <div id="suggestions"></div>
         </div>
         <div class="image-container">
-            <img src="{% static image_path %}" id='processed-image' alt="Processed Image">
+            <img src="{% static image_path %}" id='processed-image' alt="Processed Image">    
             {% for i, rect in rectangles %}
             <div class="rectangle" 
                 style="left: {{ rect.left }}px;
@@ -35,7 +35,7 @@
                         data-center-y="{{ rect.center_y }}">
             </div>
             {% endfor %}
-            <div id="grid-container" class="grid"></div> <!--경로 그리드-->>
+            <div id="grid-container"></div>
         </div>
         <div class="modal" id="myModal">
             <div class="modal-content">

@@ -385,20 +385,21 @@ document.addEventListener("DOMContentLoaded", function() {
     const cellHeight = imgHeight / rows;
 
     function clearLines() {
-        gridContainer.innerHTML = ''; // Clear lines by removing all child elements
+        gridContainer.innerHTML = '';  // Clear existing content
     }
 
     function createGrid(cols, rows, cellWidth, cellHeight) {
+        gridContainer.innerHTML = '';  // Clear existing content
+        gridContainer.style.display = 'grid';
         gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${cellWidth}px)`;
         gridContainer.style.gridTemplateRows = `repeat(${rows}, ${cellHeight}px)`;
+        gridContainer.style.width = `${cols * cellWidth}px`;
+        gridContainer.style.height = `${rows * cellHeight}px`;
     
         for (let i = 0; i < rows; i++) {
             for (let j = 0; j < cols; j++) {
                 const cell = document.createElement('div');
                 cell.classList.add('cell');
-                // if (bwArray[i][j] === 0) {
-                //     cell.style.backgroundColor = 'black';
-                // }
                 gridContainer.appendChild(cell);
             }
         }
@@ -407,13 +408,14 @@ document.addEventListener("DOMContentLoaded", function() {
     function drawLinesBetweenBooths() {
         const startBoothId = document.getElementById('start_booth').value.trim();
         const endBoothId = document.getElementById('end_booth').value.trim();
-        
+    
         if (startBoothId === endBoothId) {
             alert('같은 부스를 선택하실 수 없습니다.');
-            return; 
+            return;
         }
+    
         clearLines();
-
+    
         let cnt = 1;
         if (startBoothId > 165) {
             cnt = 166;
@@ -422,61 +424,62 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (startBoothId > 37) {
             cnt = 38;
         }
-
+    
         const rows = bwArray.length;
         const cols = bwArray[0].length;
-        const imgWidth = processedImage.clientWidth;
-        const imgHeight = processedImage.clientHeight;
-        const cellWidth = imgWidth / cols;
-        const cellHeight = imgHeight / rows;
+    
+        createGrid(cols, rows, cellWidth, cellHeight);  // Ensure consistent cell dimensions
 
-        createGrid(cols, rows, cellWidth, cellHeight);
-        
-        // A* algorithm 경로
         const graph = new Graph(bwArray);
         const startBooth = document.querySelector(`.rectangle[data-index='${startBoothId - cnt}']`);
-        const endBooth = document.querySelector(`.rectangle[data-index='${endBoothId - cnt}']`); 
-        let startX = parseFloat(startBooth.dataset.centerX); 
-        let startY = parseFloat(startBooth.dataset.centerY); 
-        let endX = parseFloat(endBooth.dataset.centerX);  
-        let endY = parseFloat(endBooth.dataset.centerY);   
-        
-        // Adjust coordinates based on the booth dimensions
-        if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
-            if (endX < startX) {
-                startX -= parseFloat(startBooth.style.width) / 2;
-                endX += parseFloat(endBooth.style.width) / 2;
-            } else {
-                startX += parseFloat(startBooth.style.width) / 2;
-                endX -= parseFloat(endBooth.style.width) / 2;
-            }
-        } else {
-            if (endY < startY) {
-                startY -= parseFloat(startBooth.style.height) / 2;
-                endY += parseFloat(endBooth.style.height) / 2;
-            } else {
-                startY += parseFloat(startBooth.style.height) / 2;
-                endY -= parseFloat(endBooth.style.height) / 2;
-            }
+        const endBooth = document.querySelector(`.rectangle[data-index='${endBoothId - cnt}']`);
+    
+        const boothWidth = parseFloat(startBooth.style.width);
+        const boothHeight = parseFloat(startBooth.style.height);
+    
+        let startX = parseFloat(startBooth.dataset.centerX);
+        let startY = parseFloat(startBooth.dataset.centerY);
+        let endX = parseFloat(endBooth.dataset.centerX);
+        let endY = parseFloat(endBooth.dataset.centerY);
+    
+        const buffer = 10;
+    
+        if (bwArray[Math.round(startY / cellHeight)][Math.round(startX / cellWidth)] === 1) {
+            startX = startX > boothWidth / 2 ? startX - boothWidth / 2 - buffer : startX + boothWidth / 2 + buffer;
+            startY = startY > boothHeight / 2 ? startY - boothHeight / 2 - buffer : startY + boothHeight / 2 + buffer;
         }
-        
-        // Convert coordinates to grid indices
-        const startNode = graph.grid[Math.round(startX / 10)][Math.round(startY / 10)];
-        const endNode = graph.grid[Math.round(endX / 10)][Math.round(endY / 10)];
-        
-        console.log(startNode);
-        console.log(endNode);
+    
+        if (bwArray[Math.round(endY / cellHeight)][Math.round(endX / cellWidth)] === 1) {
+            endX = endX > boothWidth / 2 ? endX - boothWidth / 2 - buffer : endX + boothWidth / 2 + buffer;
+            endY = endY > boothHeight / 2 ? endY - boothHeight / 2 - buffer : endY + boothHeight / 2 + buffer;
+        }
+    
+        const startNodeX = Math.round(startX / cellWidth);
+        const startNodeY = Math.round(startY / cellHeight);
+        const endNodeX = Math.round(endX / cellWidth);
+        const endNodeY = Math.round(endY / cellHeight);
+    
+        const startNode = graph.grid[startNodeX][startNodeY];
+        const endNode = graph.grid[endNodeX][endNodeY];
+    
+        console.log('Start Node:', startNode);
+        console.log('End Node:', endNode);
+    
         const result = astar.search(graph, startNode, endNode);
-
-        result.forEach(node => {
-            const cellIndex = node.y * cols + node.x;
-            gridContainer.children[cellIndex].classList.add('path');
-        });
-
+    
         if (result.length === 0) {
             alert('경로를 찾을 수 없습니다.');
             return;
         }
+    
+        result.forEach(node => {
+            const cellIndex = node.y * cols + node.x;
+            const cell = gridContainer.children[cellIndex];
+            if (cell) {
+                cell.classList.add('path');
+            }
+        });
+    
         startBooth.scrollIntoView({ behavior: "smooth", block: "center" });
     }
     

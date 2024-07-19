@@ -364,7 +364,8 @@ li::marker {
     background-color: #cc5555;
 }
 
-.grid {
+#grid-container {
+    display: grid;
     position: absolute;
     top: 0;
     left: 0;
@@ -373,9 +374,12 @@ li::marker {
     display: grid;
     pointer-events: none;
 }
-.grid div {
-    border: 1px solid transparent; /* 경계선 투명 */
+
+.cell {
+    border: 1px solid transparent;  /*transparent*/
+    box-sizing: border-box;
 }
+
 .path {
     background-color: red;
 }
