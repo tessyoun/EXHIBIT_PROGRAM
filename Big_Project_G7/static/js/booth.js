@@ -368,9 +368,9 @@ document.addEventListener("DOMContentLoaded", function() {
     showFormButton.addEventListener('click', function() {
         routeForm.classList.toggle('hidden');    
         if (routeForm.classList.contains('hidden')) {
-            showFormButton.innerText = "경로 생성 툴 보이기"; // "Show Route Form"
+            showFormButton.innerText = "경로 생성 툴 보이기(DEMO)"; // "Show Route Form"
         } else {
-            showFormButton.innerText = "경로 생성 툴 숨기기"; // "Hide Route Form"
+            showFormButton.innerText = "경로 생성 툴 숨기기(DEMO)"; // "Hide Route Form"
         }
     });
 
@@ -400,6 +400,9 @@ document.addEventListener("DOMContentLoaded", function() {
             for (let j = 0; j < cols; j++) {
                 const cell = document.createElement('div');
                 cell.classList.add('cell');
+                // if (bwArray[i][j] === 0) {
+                //     cell.style.backgroundColor = 'black';
+                // }
                 gridContainer.appendChild(cell);
             }
         }
@@ -442,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let endX = parseFloat(endBooth.dataset.centerX);
         let endY = parseFloat(endBooth.dataset.centerY);
     
-        const buffer = 10;
+        const buffer = 15;
     
         if (bwArray[Math.round(startY / cellHeight)][Math.round(startX / cellWidth)] === 1) {
             startX = startX > boothWidth / 2 ? startX - boothWidth / 2 - buffer : startX + boothWidth / 2 + buffer;
