@@ -122,10 +122,18 @@ def reserve_booth(request, booth_id):
             reservation = form.save(commit=False)
             reservation.user = request.user
             reservation.user_name = request.user.username
-            reservation.save()
-            return redirect('booth_program:reservation_check')
+            reservationID = int(''.join([str(request.user.id), str(programID),
+                                        form.cleaned_data['reservationtime'].split(':')[0]]))
+            reservation.reservationID = reservationID
+        
+            if BoothProgramReservation.objects.filter(reservationID=reservationID).exists():
+                return redirect('booth_program:reservation_check')
+            else:
+                reservation.save()
+                return redirect('booth_program:reservation_check')
         else:
-            form = ReservationForm(programs = program_list)
+            # form = ReservationForm(programs = program_list) 
+            print(form.errors)
     else:
         form = ReservationForm(programs = program_list)
     return render(request, 'reservation.html', {'form' : form, 'booth_id':booth_id})

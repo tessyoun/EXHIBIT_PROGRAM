@@ -69,6 +69,7 @@ class ReservationForm(forms.ModelForm):
             self.fields['program_name'].choices = [
                 (program.id, program.name) for program in programs
             ]
+            self.fields['program_name'].choices.insert(0,('','프로그램을 선택하세요.'))
 
         if reservation_time:
             self.fields['reservationtime'].choices = reservation_time
