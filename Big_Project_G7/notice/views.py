@@ -4,14 +4,41 @@ from django.core.exceptions import PermissionDenied
 from django.conf import settings
 from .models import Notice
 from .forms import NoticeForm
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def notice_list(request):
-    notice_list = Notice.objects.all().order_by("-update_time")
-    return render(request, 'notice_list.html', {'notice_list' : notice_list})
+    notice_list = Notice.objects.all().order_by("-create_time")
+    page = request.GET.get('page')
+    
+    paginator = Paginator(notice_list, 10)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        page_obj = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        page_obj = paginator.page(page)
+        
+    leftIndex = (int(page)-2)
+    if leftIndex < 1:
+        leftIndex = 1
+    
+    rightIndex = (int(page)+2)
+    if rightIndex > paginator.num_pages:
+        rightIndex = paginator.num_pages
+        
+    custom_range = range(leftIndex, rightIndex+1)
+    return render(request, 'notice_list.html', {'notice_list' : notice_list, 'page_obj':page_obj, 
+                                                'paginator':paginator, 'custom_range':custom_range})
 
 def notice_detail(request, pk):
     notice = Notice.objects.get(pk=pk)
-    return render(request, 'notice_detail.html', {'notice':notice})
+    # 이전글
+    previous_notice = Notice.objects.filter(create_time__lt=notice.create_time).order_by('-create_time').first()
+    # 다음글
+    next_notice = Notice.objects.filter(create_time__gt=notice.create_time).order_by('create_time').first()
+    return render(request, 'notice_detail.html', {'notice':notice, 'previous_notice':previous_notice, 'next_notice':next_notice})
 
 
 @login_required

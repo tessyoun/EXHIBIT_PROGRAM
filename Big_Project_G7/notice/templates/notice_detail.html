@@ -45,6 +45,15 @@
         </div>
         {% endif %}
 
+        <div class="notice-navigation">
+            {% if previous_notice %}
+                <p>이전: <a href="{% url 'notice:notice_detail' previous_notice.pk %}" class="prev-notice" style="text-decoration:none;color:black">{{previous_notice.title}}</a><br>
+            {% endif %}
+            {% if next_notice %}
+                <p>다음: <a href="{% url 'notice:notice_detail' next_notice.pk %}" class="next-notice" style="text-decoration:none;color:black" >{{next_notice.title}}</a>
+            {% endif %}
+        </div>
+
         <div class="notice-footer">
             <a class="back_to_list" href="{% url 'notice:notice_list' %}">
                 목록보기
