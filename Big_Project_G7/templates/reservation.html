@@ -1,72 +1,99 @@
-<!DOCTYPE html>
+{% extends "base_layout.html" %}
 {% load static %}
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/reservation.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>예약하기</title>
-    <meta name="csrf-token" content="{{ csrf_token }}">
-</head>
-<body>
-    <div class="header-sub">      
-        <a class="back-button" href="{% url 'layout1' %}"><i class="fa-solid fa-arrow-left fa-xl" style="color: #ffffff;"> </i></a>
-        <div class="header__title--wrap">
-            <a href="{% url 'index' %}"><button class="header__title icon" style="cursor:pointer;"></button></a>
-        </div>
-    </div>
-    <div class="reservation-container">
-        <h1>예약하기</h1>
-        <div class="booth-info">
-            <p>기업명: {{ booth.company_name }}</p>
-            <p>부스명: {{ booth.booth_name }}</p>
-        </div>
-        <div class="people-counter">
-            <button class="pm-btn" id="decrease" aria-label="감소">-</button>
-            <div id="people">1</div>
-            <button class="pm-btn" id="increase" aria-label="증가">+</button>
-        </div>
-        <div class="time-slots">
-            {% for time_slot in all_times %}
-                <div class="time-slot {% if time_slot not in available_times %}disabled{% endif %}" data-time="{{ time_slot }}">{{ time_slot }}</div>
-            {% endfor %}
-        </div>
-        <button id="reserve-button" onclick='make_reservation()'>예약하기</button>
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/layout2.css' %}" />
+{% endblock %}
+
+{% block title %}
+프로그램 예약
+{% endblock %}
+
+{% block main_content %}
+<div class = "background-pc pc"></div>
+
+<div class="container-create">
+    <h2 class = "layout_create_title">프로그램 예약</h2>
+
+    <div class="form-create--wrap">
+        <form method="post" class="form-create" id="reservation_form">
+            {% csrf_token %}
+            <div class="form-group-open">
+                <label for="{{ form.program_name.id_for_label }}">{{ form.program_name.label }}</label>
+                {{ form.program_name }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.reservationtime.id_for_label }}">{{ form.reservationtime.label }}</label>
+                {{ form.reservationtime }}
+            </div>
+
+            <div class="form-group-open">
+                <label for="{{ form.num_of_people.id_for_label }}">{{ form.num_of_people.label }}</label>
+                {{ form.num_of_people }}
+            </div>
+            <br>
+
+            <button id="btn-purchase" class="btn-create" type="button" data-toggle="modal" data-target="#confirmModal">예약</button>
+        </form>
     </div>
 
-    <script src="{% static 'js/reservation.js' %}"></script>
-    <script>
-        function make_reservation() {
-            const selectedTime = document.querySelector('.time-slot.selected').dataset.time;
-            const people = document.getElementById('people').textContent;
-            const boothCompanyName = '{{ booth.company_name }}';
-            const boothName = '{{ booth.booth_name }}';
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'booth_program:submit_reservation' %}",
-                data: {
-                    reserved_time: selectedTime,
-                    num_of_people: people,
-                    company_name: boothCompanyName,
-                    program_name: boothName,
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        alert('예약 완료! 시간: ' + selectedTime + ', 인원수: ' + people);
-                        window.location.href = "{% url 'booth_program:reservation_check' %}";
-                    } else {
-                        alert('예약에 실패하였습니다.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert('AJAX 요청 실패: ' + error);
-                }
-            });
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">예약 확인</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    예약하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="submitForm()">확인</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('id_program_name').dispatchEvent(new Event('change'));
+    });
+    
+    // 프로그램이 오픈된 시간만 찾기 (동적 요청)
+    document.getElementById('id_program_name').addEventListener('change', function() {
+        const programID = Number(this.value);
+        console.log(programID)
+        const timeField = document.getElementById('id_reservationtime');
+        if (programID) {
+            fetch(`{% url 'booth_program:check_availableTime' 0 %}`.replace(0, programID))
+                .then(response => response.json())
+                .then(data => {
+                    timeField.innerHTML = '<option value="" selected>예약 시간을 선택하세요.</option>';
+                    data.times.forEach(time => {
+                        const option = document.createElement('option');
+                        option.value = time[0];
+                        option.text = time[1];
+                        option.selected = false;
+                        timeField.appendChild(option);
+                    });
+                });
+        } 
+        else {
+            dateField.innerHTML = '<option value="" selected>프로그램을 먼저 선택하세요.</option>';
         }
-    </script>
-</body>
-</html>
+    });
+
+    // 최종 폼 제출
+    function submitForm() {
+            document.getElementById('reservation_form').submit();
+    };
+</script>
+{% endblock %}

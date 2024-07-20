@@ -1,0 +1,99 @@
+{% extends "base_layout.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/layout2.css' %}" />
+{% endblock %}
+
+{% block title %}
+프로그램 예약 수정
+{% endblock %}
+
+{% block main_content %}
+<div class = "background-pc pc"></div>
+
+<div class="container-create">
+    <h2 class = "layout_create_title">프로그램 예약 수정</h2>
+
+    <div class="form-create--wrap">
+        <form method="post" class="form-create" id="reservation_form">
+            {% csrf_token %}
+            <div class="form-group-open">
+                <label for="{{ form.program_name.id_for_label }}">{{ form.program_name.label }}</label>
+                {{ form.program_name }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.reservationtime.id_for_label }}">{{ form.reservationtime.label }}</label>
+                {{ form.reservationtime }}
+            </div>
+
+            <div class="form-group-open">
+                <label for="{{ form.num_of_people.id_for_label }}">{{ form.num_of_people.label }}</label>
+                {{ form.num_of_people }}
+            </div>
+            <br>
+
+            <button id="btn-purchase" class="btn-create" type="button" data-toggle="modal" data-target="#confirmModal">수정</button>
+        </form>
+    </div>
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">수정 확인</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    수정하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="submitForm()">확인</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('id_program_name').dispatchEvent(new Event('change'));
+    });
+    
+    // 프로그램이 오픈된 시간만 찾기 (동적 요청)
+    document.getElementById('id_program_name').addEventListener('change', function() {
+        const programID = Number(this.value);
+        console.log(programID)
+        const timeField = document.getElementById('id_reservationtime');
+        if (programID) {
+            fetch(`{% url 'booth_program:check_availableTime' 0 %}`.replace(0, programID))
+                .then(response => response.json())
+                .then(data => {
+                    timeField.innerHTML = '<option value="" selected>예약 시간을 선택하세요.</option>';
+                    data.times.forEach(time => {
+                        const option = document.createElement('option');
+                        option.value = time[0];
+                        option.text = time[1];
+                        option.selected = false;
+                        timeField.appendChild(option);
+                    });
+                });
+        } 
+        else {
+            timeField.innerHTML = '<option value="" selected>프로그램을 먼저 선택하세요.</option>';
+        }
+    });
+
+    // 최종 폼 제출
+    function submitForm() {
+            document.getElementById('reservation_form').submit();
+    };
+</script>
+{% endblock %}

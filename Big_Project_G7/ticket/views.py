@@ -58,33 +58,30 @@ def ticket_detail(request, ticket_id):
     context['image'] = img
     return render(request, 'ticket_detail.html', context)
 
-# 티켓 구매 -> refactoring 필수
+# 티켓 구매
 @login_required
 def purchase_ticket(request):
+    # 폼의 동적 업데이트를 위해 예약 가능한 일자 리턴하는 함수
+    def get_availableDate(exhibition_id):
+        exhibition = ExhibitionInfo.objects.get(ExhibitionID=exhibition_id)
+        dates = get_date_choice(exhibition.ExhibitionRegistrationDate, exhibition.ExhibitionClosedDate)
+        availabledates = [(date, date) for date in dates]
+        return availabledates
+
     if request.method == 'POST':
-        form = TicketReservationForm(request.POST)
-        userid = request.user.id
-        reservationdate = request.POST.get('reservationDate')
-        dateKey = ''.join(reservationdate.split('-'))
+        exhibitionid = request.POST.get('exhibition_name')
+        availableDates = get_availableDate(exhibitionid)
+        form = TicketReservationForm(request.POST, reservationable_dates=availableDates)
         if form.is_valid():
+            reservationdate = form.cleaned_data['reservationDate']
             reservation = form.save(commit=False)
-            reservation.user_id = userid
-            ticketid = int(''.join([str(userid),str(reservation.exhibitionid), dateKey]))
+            reservation.user_id = request.user.id
+            ticketid = int(''.join([str(request.user.id),
+                                    str(reservation.exhibitionid),
+                                    ''.join(reservationdate.split('-'))]))
             reservation.ticketid = ticketid
         else:
-            exhibitionid = request.POST.get('exhibition_name')
-            if exhibitionid is not None:
-                ticketid = int(''.join([str(userid),str(exhibitionid), dateKey]))
-                reservation = TicketBoughtInfo(
-                    exhibitionid=int(exhibitionid),
-                    user_id=userid,
-                    ticketid=ticketid,
-                    adult=request.POST.get('adult'),
-                    child=request.POST.get('child'),
-                    reservationDate=reservationdate
-                )
-            else:
-                return render(request, 'purchase_ticket.html', {'form': form})
+            return render(request, 'purchase_ticket.html', {'form': form})
 
         if TicketBoughtInfo.objects.filter(ticketid=ticketid).exists():
             return ticket_detail(request, ticket_id=ticketid)
