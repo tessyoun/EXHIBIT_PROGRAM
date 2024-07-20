@@ -132,7 +132,6 @@ def reserve_booth(request, booth_id):
                 reservation.save()
                 return redirect('booth_program:reservation_check')
         else:
-            # form = ReservationForm(programs = program_list) 
             print(form.errors)
     else:
         form = ReservationForm(programs = program_list)
@@ -157,7 +156,7 @@ def reservation_check(request):
         booth_name = Booth_Info.objects.get(company_name = comp_name).booth_name
         reserv_list.append({"com":comp_name, "boo":booth_name})
     content = zip(reservations, reserv_list)
-    return render(request, 'reservation_check.html', {'reservations': content})
+    return render(request, 'user_program_check.html', {'reservations': content})
 
 # (일반) 마이페이지 > 내 예약 확인 > 예약 삭제 API
 @login_required
@@ -186,4 +185,4 @@ def edit_reservation(request, reservation_id):
             print(form.errors)
     else:
         form = ReservationForm(instance=reservation, programs=program, reservation_times=times)
-    return render(request, 'test.html', {'form': form})
+    return render(request, 'program_reservation_edit.html', {'form': form})

@@ -1,0 +1,89 @@
+{% extends "base_layout.html" %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/ticket.css' %}" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
+    <link rel="stylesheet" href="{% static 'css/reservation_check.css' %}">
+{% endblock %}
+
+{% block title %}
+내 예약 확인
+{% endblock %}
+    
+{% block main_content %}
+<div class = "background-pc pc"></div>
+    <div class="reservation-check-container">
+        <h1>내 예약 확인</h1>
+        {% if reservations %}
+          <table class="reservation-table">
+            <thead>
+              <tr>
+                <th>기업 이름</th>
+                <th>부스 이름</th>
+                <th>프로그램 이름</th>
+                <th>예약 인원</th>
+                <th>예약 시간</th>
+                <th>수정 및 취소</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for reservation, lis in reservations %}
+                <tr>
+                  <td>{{ lis.com }}</td>
+                  <td>{{ lis.boo }}</td>
+                  <td>{{ reservation.program.name }}</td>
+                  <td>{{ reservation.num_of_people }}</td>
+                  <td>{{ reservation.reservationtime }}</td>
+                  <td>
+                    <!-- <form method="get" action="{% url 'booth_program:edit_reservation' reservation.id %}" style="display:inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="submit-button edit-button">예약 수정</button>
+                    </form> -->
+                    <form method="post" action="{% url 'booth_program:edit_reservation' reservation.id %}" id="reservation_cancel_form" class="form-create" style="display:inline;">
+                      {% csrf_token %}
+                      <button class="submit-button edit-button" type="button" style="white-space: nowrap;">예약 수정</button>
+                    </form>
+                    <form method="post" action="{% url 'booth_program:delete_reservation' reservation.id %}" id="reservation_cancel_form" class="form-create" style="display:inline;">
+                      {% csrf_token %}
+                      <button class="cancel--btn" type="button" data-toggle="modal" data-target="#confirmModal"  style="white-space: nowrap;">예약 취소</button>
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>예약 항목이 없습니다.</p>
+        {% endif %}
+    </div>
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">예매 취소</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    예매를 취소하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="submitForm()">예</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">아니요</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function submitForm() {
+            document.getElementById('reservation_cancel_form').submit();
+        }
+    </script>
+{% endblock %}
