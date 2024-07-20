@@ -22,7 +22,7 @@
     <div class="content-wrap">
         <div class = "content-content">
             <ul class="notice-list">
-                {% for notice in notice_list %}
+                {% for notice in page_obj %}
                 <li class="notice-item {% if forloop.first %}first-item{% endif %}">
                     <a href="{% url 'notice:notice_detail' notice.pk %}">
                     <div class="notice-card">
@@ -34,7 +34,7 @@
                                 {% endif %} {% endcomment %}
                             </h2>
                             <p class = "notice-list-date">
-                                {{ notice.update_time|date:"Y-m-d" }}
+                                {{ notice.create_time|date:"Y-m-d" }}
                             </p>
                         </div>
 
@@ -43,7 +43,24 @@
                     </a>
                 </li>
                 {% endfor %}
-            </ul>    
+            </ul>
+            <div class='pagination'> 
+                <ul style="display:flex; list-style:none">
+                    {% if page_obj.has_previous %}
+                        <li style="margin:3px;"><a style="text-decoration:none; color:black;" href="?page={{page_obj.previous_page_number}}">&#10094;</a></li>
+                    {% endif %}
+                    {% for page in paginator.page_range %}
+                        {% if page == page_obj.number %}
+                            <li style="margin:3px;"><a style="text-decoration:none; color:#38B8B2;" href="?page={{page}}">{{page}}</a></li>
+                        {% else %}
+                            <li style="margin:3px;"><a style="text-decoration:none; color:black;" href="?page={{page}}">{{page}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li style="margin:3px;"><a style="text-decoration:none; color:black;" href="?page={{page_obj.next_page_number}}">&#10095;</a></li>
+                    {% endif %}
+                </ul>
+            </div>   
         </div>
     </div>
 </div>
