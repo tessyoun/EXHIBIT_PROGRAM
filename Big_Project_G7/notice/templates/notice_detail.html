@@ -45,19 +45,19 @@
         </div>
         {% endif %}
 
-        <div class="notice-navigation">
-            {% if previous_notice %}
-                <div class="prev-notice"><p>이전: <a href="{% url 'notice:notice_detail' previous_notice.pk %}" style="text-decoration:none;color:black">{{previous_notice.title}}</a></div>
-            {% endif %}
-            {% if next_notice %}
-                <div class="next-notice"><p>다음: <a href="{% url 'notice:notice_detail' next_notice.pk %}" style="text-decoration:none;color:black" >{{next_notice.title}}</a></div>
-            {% endif %}
-        </div>
-
         <div class="notice-footer">
             <a class="back_to_list" href="{% url 'notice:notice_list' %}">
                 목록보기
             </a>
+        </div>
+
+        <div class="notice-navigation">
+            {% if previous_notice %}
+            <div class="prev-notice"><p>이전: <a href="{% url 'notice:notice_detail' previous_notice.pk %}" style="text-decoration:none;color:black">{{previous_notice.title}}</a></div>
+            {% endif %}
+            {% if next_notice %}
+                <div class="next-notice"><p>다음: <a href="{% url 'notice:notice_detail' next_notice.pk %}" style="text-decoration:none;color:black" >{{next_notice.title}}</a></div>
+            {% endif %}
         </div>
     </div>
 
