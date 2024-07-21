@@ -47,10 +47,10 @@
 
         <div class="notice-navigation">
             {% if previous_notice %}
-                <p>이전: <a href="{% url 'notice:notice_detail' previous_notice.pk %}" class="prev-notice" style="text-decoration:none;color:black">{{previous_notice.title}}</a><br>
+                <div class="prev-notice"><p>이전: <a href="{% url 'notice:notice_detail' previous_notice.pk %}" style="text-decoration:none;color:black">{{previous_notice.title}}</a></div>
             {% endif %}
             {% if next_notice %}
-                <p>다음: <a href="{% url 'notice:notice_detail' next_notice.pk %}" class="next-notice" style="text-decoration:none;color:black" >{{next_notice.title}}</a>
+                <div class="next-notice"><p>다음: <a href="{% url 'notice:notice_detail' next_notice.pk %}" style="text-decoration:none;color:black" >{{next_notice.title}}</a></div>
             {% endif %}
         </div>
 

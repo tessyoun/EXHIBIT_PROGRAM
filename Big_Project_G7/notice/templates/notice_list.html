@@ -44,8 +44,8 @@
                 </li>
                 {% endfor %}
             </ul>
-            <div class='pagination'> 
-                <ul style="display:flex; list-style:none">
+            <div class='pagination' style="display: flex; justify-content: center;"> 
+                <ul style="display:flex; list-style:none;padding: 0; margin: 0;">
                     {% if page_obj.has_previous %}
                         <li style="margin:3px;"><a style="text-decoration:none; color:black;" href="?page={{page_obj.previous_page_number}}">&#10094;</a></li>
                     {% endif %}
