@@ -18,21 +18,12 @@ body {
     height: 80px;
 }
 
-.back-button {
-    position: absolute;
-    margin-left:10px;
-    margin-top: 14px;
-    font-size: 18px;
-    text-decoration: none;
-    padding: 5px 10px;
-}
-
 .header__title-black {
     display: inline-block;
-    width: 95px;
-    height: 32px;    
+    width: 110px;
+    height: 40px;    
     background-image: url("../icons/AIVEX_icon_black.png");
-    margin-top: 17px;
+    margin-top: 20px;
 }
 
 .icon {
@@ -176,9 +167,10 @@ body {
 
 form {
     background-color: #fff;
-    padding: 30px;
+    padding: 20px;
+    padding-top: 10px;
     width: 40vw;
-    max-width: 500px;
+    max-width: 450px;
     min-width: 300px;
 }
 
@@ -237,7 +229,7 @@ form {
     position: relative;   
     cursor: pointer; 
     margin-right: 10px;  
-    line-height: 1.3;
+    line-height: 1.1;
 }
 
 .user_type_list .radio_item input[type="radio"] {
@@ -248,7 +240,7 @@ form {
 
 .user_type_list .radio_item label {
     display: inline-block;
-    padding: 10px 20px;   
+    padding: 10px 15px;   
     background-color: transparent;
     border: 1px solid rgb(185, 185, 185); 
     border-radius: 5px;
@@ -263,10 +255,10 @@ input[type="submit"], .btn-3d {
     width: 100%;
     padding: 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     background-color: #38B8B2;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -283,11 +275,15 @@ input[type="submit"]:hover, .btn-3d:hover {
 input[type="text"], input[type="password"], input[type="email"] {
     padding: 10px;
     width: calc(100% - 100px);
-    height: 25px;
+    height: 22px;
     font-size: 16px;
     border: none;
     outline: none;
     border-radius: 10px;
+}
+
+.helptext{
+    font-size: 14px;
 }
 
 .helptext_pw {

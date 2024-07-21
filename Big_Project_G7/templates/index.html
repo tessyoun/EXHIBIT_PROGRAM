@@ -17,6 +17,7 @@
     />
 
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />   
+    <link rel="stylesheet" href="{% static 'css/base_pc.css' %}" />  
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}" />     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
@@ -143,6 +144,78 @@
         <!-- 사이드바 -->
         {% include 'base/sidebar.html' %}
     </div>
+
+
+    <div class = "main_screen--pc">
+        {% include 'base/header_main_pc.html' %}
+
+        <div class = "not_header--wrap">
+
+            <div class = "main_left--wrap">
+                <div class = "slider--background">
+                    <div class = "slider--background--img"></div>
+                    <div class = "slider_black--filter"></div>                  
+                    <div id="carousel">                  
+                        <div class="prevLeftSecond">
+                            <img src="../static/icons/1기_전시포스터.jpg">
+                        </div>
+                
+                        <div class="prev">
+                            <img src="../static/icons/2기_전시포스터.jpg">
+                        </div>
+                
+                        <div class="selected">
+                            <img src="../static/icons/3기_전시포스터.jpg">
+                        </div>
+                
+                        <div class="next">
+                            <img src="../static/icons/4기_전시포스터.jpg">
+                        </div>
+                
+                        <div class="nextRightSecond">
+                            <img src="../static/icons/5기_전시포스터.png">
+                        </div>
+                    </div>  
+                    <div class="buttons">
+                        <button id="prev">Prev</button>
+                        <button id="next">Next</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class = "main_right--wrap">
+                <div class="chatbot--wrapper">
+                    <button class="chatbot__icon icon" id="chatbotToggle"> </button>
+                    <div class="chatbot__window" id="chatbotWindow">
+                        <div id="chatbot__title">
+                            <span><img class="chatbot__header__profile"></span>
+                            <h4 style="display: inline-block; vertical-align: middle;">AIVEX</h4>
+                        </div>
+                        <div id="chatbot__body">
+                            <div class="message bot-message">
+                                <img class="bot-profile">
+                                <div class="message-content">안녕하세요! 무엇을 도와드릴까요?</div>
+                            </div>
+                            
+                            <div id="options-container" class="options">
+                                <button class="option-button">AIVEX가 뭐죠?</button>
+                                <button class="option-button">AIVEX의 기능은 무엇인가요?</button>
+                                <button class="option-button">AIVEX의 장점은 무엇인가요?</button>
+                                <button class="option-button">AIVEX는 어떻게 사용할 수 있나요?</button>
+                            </div>
+                        </div>
+                        <div id="chatbot--footer">
+                            <div id="chatbot__text">
+                                <textarea id="message--input" placeholder="메세지를 입력해주세요."></textarea>
+                                <button id="send-button" class="icon"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script>
         const boothsJsonString = '{{ booths|escapejs }}';
         const booths = JSON.parse(boothsJsonString);
@@ -155,6 +228,6 @@
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>       
 </body>
 </html>

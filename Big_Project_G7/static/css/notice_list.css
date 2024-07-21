@@ -187,6 +187,23 @@
     font-size: 15px;
 }
 
+.notice-navigation{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.notice-navigation p{
+    margin: 0;
+    padding: 10px 8px;
+    border-bottom: 1px solid #333;
+}
+
+.pre_notice{
+    border: none;
+    border-top: 1px solid #333;
+}
+
 .notice_write_submit--wrap.mobile{
     margin-bottom: 30px;
 }

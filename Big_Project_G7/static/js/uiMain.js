@@ -100,4 +100,72 @@ document.addEventListener('DOMContentLoaded', function() {
              window.location.href = "/edit_booth/";
          });
      }
+
+    
+
+     
+
+    //  pc 포스터 슬라이드
+    function moveToSelected(element) {
+        var selected;
+
+        if (element == "next") {
+            selected = $(".selected").next();
+            if (selected.length === 0) {
+                selected = $("#carousel div").first();
+            }
+        } else if (element == "prev") {
+            selected = $(".selected").prev();
+            if (selected.length === 0) {
+                selected = $("#carousel div").last();
+            }
+        } else {
+            selected = element;
+        }
+
+        var next = $(selected).next();
+        var prev = $(selected).prev();
+        var prevSecond = $(prev).prev();
+        var nextSecond = $(next).next();
+
+        $(selected).removeClass().addClass("selected");
+        $(prev).removeClass().addClass("prev");
+        $(next).removeClass().addClass("next");
+        $(nextSecond).removeClass().addClass("nextRightSecond");
+        $(prevSecond).removeClass().addClass("prevLeftSecond");
+        $(nextSecond).nextAll().removeClass().addClass('hideRight');
+        $(prevSecond).prevAll().removeClass().addClass('hideLeft');
+        
+    }
+
+
+    $(document).keydown(function(e) {
+        switch (e.which) {
+            case 37: // left
+                moveToSelected('prev');
+                break;
+            case 39: // right
+                moveToSelected('next');
+                break;
+            default:
+                return;
+        }
+        e.preventDefault();
+    });
+
+    $('#carousel div').click(function() {
+        moveToSelected($(this));
+    });
+
+    $('#prev').click(function() {
+        moveToSelected('prev');
+    });
+
+    $('#next').click(function() {
+        moveToSelected('next');
+    });
+
+    setInterval(function() {
+        moveToSelected('next');
+    }, 4000);
 });
