@@ -73,8 +73,8 @@ def notice_edit(request, pk):
             if request.POST.get('delete_file') and notice.upload_files:
                 notice.upload_files.delete()
                 notice.upload_files = None
-                notice.file_name = None
-            if 'upload_files' in request.FILES:
+                notice.filename = None
+            if 'upload_files' in request.FILES.keys():
                 notice.filename = request.FILES['upload_files'].name
                 notice.upload_files = request.FILES['upload_files']
             notice.save()
