@@ -7,20 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />   
     <link rel="stylesheet" href="{% static 'css/pc_mob_lay.css' %}" />
     <style>
-      .container {
-        margin-top: 80px;
-      }
-      .submit-button {
-        border-color: #28a745;
-        background-color: #28a745;
-        color: #f5f5f5;
-        border-radius: 5px;
-        padding: 4px 9px;
-      }
-
-      .submit-button:hover {
-          background: #218838;
-      }
+      
     </style>
 {% endblock %}
 
@@ -42,9 +29,9 @@
                 <th>기업명</th>
                 <th>부스명</th>
                 <th>프로그램</th>
-                <th>예약인원</th>
-                <th>예약시간</th>
-                <th>수정/취소</th>
+                <th>예약 인원</th>
+                <th>예약 시간</th>
+                <th>수정 / 취소</th>
               </tr>
             </thead>
             <tbody>
@@ -58,7 +45,7 @@
                   <td>
                     <form method="get" action="{% url 'booth_program:edit_reservation' reservation.id %}" style="display:inline;">
                       {% csrf_token %}
-                      <button type="submit" class="submit-button edit-button">예약 수정</button>
+                      <button type="submit" class="edit-button">예약 수정</button>
                     </form>
                     <form method="post" action="{% url 'booth_program:delete_reservation' reservation.id %}" id="reservation_cancel_form" class="form-create" style="display:inline;">
                       {% csrf_token %}

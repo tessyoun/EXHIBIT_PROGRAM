@@ -31,7 +31,8 @@
 .content--content th, td {
     border: 1px solid #ddd; 
     padding: 8px;
-    text-align: left; 
+    text-align: left;
+    word-break: keep-all;
 }
 
 .content--content th {
