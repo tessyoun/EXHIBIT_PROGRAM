@@ -65,7 +65,7 @@ body {
     min-width: 300px;
     max-width: 450px;
     width: 70%;
-    height: 80%;
+    height: 75%;
     text-align: center;
     justify-content: center;
     position: relative;
@@ -76,6 +76,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height:75%;
 }
 
 .checkbox-group label {
@@ -85,7 +86,6 @@ body {
 }
 
 .agreement-text {
-    max-height: 150px;
     overflow-y: auto;
     border: 1px solid #ddd;
     padding: 10px;
@@ -110,8 +110,11 @@ body {
     background-color: #f4f4f4;
 }
 
+.agreement-text .second-agree{
+    min-height: 150px;
+}
+
 .popup-content button {
-    margin-top: 20px;
     padding: 8px 10px;
     border: 1px solid #333;
     border-radius: 5px;
@@ -312,4 +315,13 @@ input[type="text"], input[type="password"], input[type="email"] {
 .error-message li {
     margin: 0;       
     padding: 0;    
-}    
+} 
+
+@media (max-width: 992px) {
+    .checkbox-group {
+        height:80%;
+    }
+    .popup-content {
+        height: 70%;
+    }
+}
