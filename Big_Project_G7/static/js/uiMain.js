@@ -101,71 +101,122 @@ document.addEventListener('DOMContentLoaded', function() {
          });
      }
 
-    
-
      
 
     //  pc 포스터 슬라이드
-    function moveToSelected(element) {
-        var selected;
-
-        if (element == "next") {
-            selected = $(".selected").next();
-            if (selected.length === 0) {
-                selected = $("#carousel div").first();
+    $(document).ready(function() {
+        function moveToSelected(element) {
+            var selected;
+    
+            if (element == "next") {
+                selected = $(".selected").next();
+                if (selected.length === 0) {
+                    selected = $("#carousel div").first();
+                }
+            } else if (element == "prev") {
+                selected = $(".selected").prev();
+                if (selected.length === 0) {
+                    selected = $("#carousel div").last();
+                }
+            } else {
+                selected = element;
             }
-        } else if (element == "prev") {
-            selected = $(".selected").prev();
-            if (selected.length === 0) {
-                selected = $("#carousel div").last();
-            }
-        } else {
-            selected = element;
+    
+            var next = $(selected).next();
+            var prev = $(selected).prev();
+            var prevSecond = $(prev).prev();
+            var nextSecond = $(next).next();
+    
+            $("#carousel div").removeClass().addClass('hide'); // 기본적으로 모든 슬라이드를 숨김
+            $(selected).removeClass('hide').addClass("selected");
+            $(prev).removeClass('hide').addClass("prev");
+            $(next).removeClass('hide').addClass("next");
+            $(nextSecond).removeClass('hide').addClass("nextRightSecond");
+            $(prevSecond).removeClass('hide').addClass("prevLeftSecond");
+            $(nextSecond).nextAll().removeClass().addClass('hideRight');
+            $(prevSecond).prevAll().removeClass().addClass('hideLeft');
+    
+            var slideText = $(selected).data("text");
+            updateSlideText(slideText);
         }
+    
+        function updateSlideText(text) {
+            var slideTextDiv = $("#slide-text");
+            slideTextDiv.removeClass('show'); // 텍스트 숨기기
+    
+            // 잠시 대기 후 텍스트 업데이트
+            setTimeout(function() {
+                slideTextDiv.html(text); // 텍스트 설정
+                slideTextDiv.addClass('show'); // 텍스트 보이기
+            }, 500); // 페이드 아웃 후 500ms 대기
+        }
+    
+        $(document).keydown(function(e) {
+            switch (e.which) {
+                case 37: // Left arrow key
+                    moveToSelected('prev');
+                    break;
+                case 39: // Right arrow key
+                    moveToSelected('next');
+                    break;
+                default:
+                    return;
+            }
+            e.preventDefault();
+        });
+    
+        $('#carousel div').click(function() {
+            moveToSelected($(this));
+        });
+    
+        $('#prev').click(function() {
+            moveToSelected('prev');
+        });
+    
+        $('#next').click(function() {
+            moveToSelected('next');
+        });
+    
+        setInterval(function() {
+            moveToSelected('next');
+        }, 4000); // 4초마다 자동 슬라이드
+    });
+    
+    
+    
 
-        var next = $(selected).next();
-        var prev = $(selected).prev();
-        var prevSecond = $(prev).prev();
-        var nextSecond = $(next).next();
 
-        $(selected).removeClass().addClass("selected");
-        $(prev).removeClass().addClass("prev");
-        $(next).removeClass().addClass("next");
-        $(nextSecond).removeClass().addClass("nextRightSecond");
-        $(prevSecond).removeClass().addClass("prevLeftSecond");
-        $(nextSecond).nextAll().removeClass().addClass('hideRight');
-        $(prevSecond).prevAll().removeClass().addClass('hideLeft');
-        
+
+    var btn1PC = document.getElementById('btn1-pc');
+     var btn2PC = document.getElementById('btn2-pc');
+     var btn3PC = document.getElementById('btn3-pc');
+     var btn4PC = document.getElementById('btn4-pc');
+     var btn5PC = document.getElementById('btn5-pc');
+
+     
+    if (btn1PC) {
+        btn1PC.addEventListener('click', function() {
+            window.location.href = "/exhibition/list/";
+        });
     }
-
-
-    $(document).keydown(function(e) {
-        switch (e.which) {
-            case 37: // left
-                moveToSelected('prev');
-                break;
-            case 39: // right
-                moveToSelected('next');
-                break;
-            default:
-                return;
-        }
-        e.preventDefault();
-    });
-
-    $('#carousel div').click(function() {
-        moveToSelected($(this));
-    });
-
-    $('#prev').click(function() {
-        moveToSelected('prev');
-    });
-
-    $('#next').click(function() {
-        moveToSelected('next');
-    });
-
-    setInterval(function() {
-        moveToSelected('next');
-    }, 4000);
+    if (btn2PC) {
+        btn2PC.addEventListener('click', function() {
+            window.location.href = "/notice/";
+        });
+    }
+    if (btn3PC) {
+        btn3PC.addEventListener('click', function() {
+            window.location.href = "/AIVEX/about/";
+        });
+    }
+    if (btn4PC) {
+        btn4PC.addEventListener('click', function() {
+            window.location.href = "/FAQ/";
+        });
+    }
+    if (btn5PC) {
+        btn5PC.addEventListener('click', function() {
+            window.location.href = "/exhibition/create_exhibition/";
+        });
+    }
 });
