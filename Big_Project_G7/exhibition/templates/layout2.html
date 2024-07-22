@@ -116,6 +116,7 @@
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 <span class="btnText" role="status">생성</span>
             </button>
+            <button class="btn">00</button>
 
         </form>
         </div>
@@ -166,6 +167,7 @@
                 success: function(response) {
                     if (response.img_path) {
                         alert('이미지가 성공적으로 저장되었습니다.');
+                        localStorage.setItem('createdLayDisplayState', 'block');
                         window.location.href = "{% url 'exhibition:created_layout' %}";
                     } else {
                         alert('이미지 전송에 실패하였습니다.');

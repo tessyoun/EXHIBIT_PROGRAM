@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     if (btn2) {
         btn2.addEventListener('click', function() {
+            localStorage.removeItem('createdLayDisplayState');
             window.location.href = "/layout2/";
         });
     }
