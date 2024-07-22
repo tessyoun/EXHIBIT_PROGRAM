@@ -1,14 +1,14 @@
 .card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1rem;
     justify-content: center;
+    margin-bottom:1rem;
 }
 
 .card {
     flex: 1 1 100%;
     box-sizing: border-box;
-    margin-bottom: 1rem;
     max-width: 17rem;
 }
 
@@ -75,6 +75,7 @@
     }
 
     .card {
+        margin-top: 1rem;
         flex: 1 1 calc(50% - 1rem); 
     }
 }

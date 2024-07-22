@@ -73,15 +73,15 @@
     bottom: 0;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: 7fr 3fr;
+    grid-template-columns: 7.5fr 2.5fr;
 }
 
 .qrholder {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    padding: 10px;
+    align-items: left;
+    padding: 10%;
 }
 
 .qrblur{
@@ -104,13 +104,15 @@
 
 .ticket-info {
     color: white;
-    margin-top: 7%;
     margin-left:5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .ticket-title {
     font-weight:bold;
-    margin-bottom: 7%;
+    margin: 3% 0;
 }
 .ticket-text {
     font-size: 1em;
