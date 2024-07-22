@@ -233,6 +233,9 @@
 .content-content{
     width: 100%;
 }
+.notice-navigation{
+    margin-bottom:30px;
+}
 
 @media (min-width: 768px){
 

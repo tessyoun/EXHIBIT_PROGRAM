@@ -27,13 +27,12 @@
 .notice_write_content--wrap {
     width: 100%;
     height: auto;
-    min-height: calc(100vh - 350px);
     margin-bottom: 10px;
 }
 
 .notice_write_content {
     width: 100%;
-    height: auto;
+    min-height: calc(100vh - 350px);
     border: none;
     outline: none;
     font-size: 17px;
