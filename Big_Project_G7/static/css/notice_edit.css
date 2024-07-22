@@ -33,6 +33,7 @@
 
 .notice_write_content {
     width: 100%;
+    height: auto;
     border: none;
     outline: none;
     font-size: 17px;
