@@ -1,8 +1,8 @@
 # 💥수정해야 할 사항 💥
 
 ## 0. BUG 🦟
-Main – duplicate form field id in the same form: chatgpt 관련 오류(F12)
-메인 및 몇몇페이지 Favicon.ico 오류(F12)
+    - 회원가입 개인정보동의서 확인중
+    The label's for attribute doesn't match any element id.
 
 ## 1. 전시회장 ( id : user / pw : admin123 )
 
@@ -16,7 +16,7 @@ Main – duplicate form field id in the same form: chatgpt 관련 오류(F12)
 ## 4. 일반 ( id : ktid / pw : admin123456 ) 
 
 
-
+    
 ## 추가하고 싶은 것?
 
     - 개인정보 보호
