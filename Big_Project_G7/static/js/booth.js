@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
             if (!found) {
-                alert("No matching booth found.");
+                alert("검색어에 맞는 부스가 없습니다.");
             }
         });
     }
@@ -147,13 +147,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        // modalText.innerHTML = '<span class="modaltitle">기업명: </span>' + booth.fields.company_name +
-        //                       '<br><span class="modaltitle">부스명: </span>' + booth.fields.booth_name +
-        //                       '<br><span class="modaltitle">BM: </span>' + booth.fields.booth_category +
-        //                       '<br> -' + booth.fields.background +
-        //                       '<br> - ' + booth.fields.service;
-        // modal.style.display = "block";
-
         modalText0.innerHTML = booth.fields.company_name;
         // 부스명, 기업명, BM
         modalText1.innerHTML ='<span class="modaltitle">' + booth.fields.booth_name + '</span>' +
@@ -172,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function() {
         reservationButton.removeEventListener('click', handleReservation);
         reservationButton.addEventListener('click', handleReservation);
                // 북마크 버튼 클릭 시 처리
-        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];                     // #1 db로 저장경로 수정해야할 부분
+        let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];             
         const bookmarkBtn = document.getElementById('bookmark-btn');
         bookmarkBtn.innerHTML = bookmarks.includes(boothId) ? '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"> </i>' : '<i class="fa-regular fa-star fa-2x"> </i>';
 
@@ -186,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 bookmarks.push(boothId);
                 bookmarkBtn.innerHTML = '<i class="fa-solid fa-star fa-2x" style="color: #FFD43B;"> </i>';
             }
-            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));                       // #1 db로 저장경로 수정해야할 부분
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));          
             updateBookmarkIcons();
         });
     }
@@ -266,7 +259,6 @@ document.addEventListener("DOMContentLoaded", function() {
             let bookmarkNames = booths.filter(booth => bookmarks.includes(booth.pk)).map(booth => booth.fields.booth_name);
             let modalBody = document.getElementById('bookmarkList');
             modalBody.innerHTML = ''; // Clear previous content
-            
             bookmarkNames.forEach(function(bookmark) {
                 let li = document.createElement('li');
                 
@@ -328,13 +320,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 북마크 리셋
     const resetButton = document.getElementById('reset-bookmarks');
-    resetButton.addEventListener('click', function() {
-        bookmarks = [];
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-        alert('북마크 리셋.');
-        updateBookmarkIcons();
-        clearLines();
-    });
+    if (resetButton) {
+        resetButton.addEventListener('click', function() {
+            bookmarks = [];
+            localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+            alert('북마크 리셋.');
+            updateBookmarkIcons();
+            clearLines();
+        });
+    }
     
     //창 닫기 기능
     function closeModal() {
@@ -365,14 +359,16 @@ document.addEventListener("DOMContentLoaded", function() {
     updateBookmarkIcons();
 
     //경로 보이기 버튼
-    showFormButton.addEventListener('click', function() {
-        routeForm.classList.toggle('hidden');    
-        if (routeForm.classList.contains('hidden')) {
-            showFormButton.innerText = "경로 생성 툴 보이기(DEMO)"; // "Show Route Form"
-        } else {
-            showFormButton.innerText = "경로 생성 툴 숨기기(DEMO)"; // "Hide Route Form"
-        }
-    });
+    if (showFormButton) { 
+        showFormButton.addEventListener('click', function() {
+            routeForm.classList.toggle('hidden');    
+            if (routeForm.classList.contains('hidden')) {
+                showFormButton.innerText = "경로 생성 툴 보이기(DEMO)"; // "Show Route Form"
+            } else {
+                showFormButton.innerText = "경로 생성 툴 숨기기(DEMO)"; // "Hide Route Form"
+            }
+        });
+    }
 
     //경로 그리기
     const gridContainer = document.getElementById('grid-container');

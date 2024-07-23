@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'booth_program',
     'rest_framework',
     'notice',
-    "reserve_hall",
     'ticket',
 ]
 

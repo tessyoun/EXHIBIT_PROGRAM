@@ -15,6 +15,9 @@ class SignupForm(UserCreationForm):
         fields = UserCreationForm.Meta.fields + ('user_type', 'name', 'phone_number')
         labels = {
             'username': '아이디',
+            'user_type': '회원가입',
+            'name': '이름',
+            'phone_number':'전화번호'
         }
 
     def save(self, commit=True):

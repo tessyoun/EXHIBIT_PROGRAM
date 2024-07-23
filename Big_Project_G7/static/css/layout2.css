@@ -207,7 +207,7 @@
     #ticket_form{
         width: 350px;
         margin: 0 auto;
-        padding: 15px 0;
+        padding: 2rem 0;
     }
 
     #ticket_form label{

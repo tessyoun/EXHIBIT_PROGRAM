@@ -13,7 +13,7 @@
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -521,6 +521,15 @@ body {
 
 .main_screen--pc{
     display: none;
+}
+
+
+
+
+footer {
+    background-color: #f1f1f1; /* 배경색 설정 */
+    padding: 10px; /* 여백 설정 */
+    text-align: center; /* 가운데 정렬 */
 }
 
 /* 미디어쿼리 */

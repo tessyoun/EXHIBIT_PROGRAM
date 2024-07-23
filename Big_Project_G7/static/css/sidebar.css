@@ -276,3 +276,9 @@
 li::marker {
     content: none; /* 마커 콘텐츠 제거 */
 }
+.created_lay {
+    display: none;
+}
+.created_lay.block {
+    display: block;
+}

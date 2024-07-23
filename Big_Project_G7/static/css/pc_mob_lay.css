@@ -31,7 +31,8 @@
 .content--content th, td {
     border: 1px solid #ddd; 
     padding: 8px;
-    text-align: left; 
+    text-align: left;
+    word-break: keep-all;
 }
 
 .content--content th {
@@ -78,6 +79,7 @@ tr:hover {
 
     .content--wrap{
         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        padding-top: 1rem;
         background-color: #fff;
         align-items: center;
         display: flex;

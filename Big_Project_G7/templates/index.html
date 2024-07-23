@@ -23,199 +23,222 @@
 </head>
 
 <body>
-    <div class="app__size">
-        <!-- 헤더 부분 -->
-        <div class="header--fixed">
-            <button class="header__button--menu icon" style="cursor:pointer; opacity:1;"></button>
-            <div class="header__title--wrap">
-                <a href="{% url 'index' %}" ><button class="header__title icon" style="cursor:pointer;"></button></a>
-            </div>
-            <button class="for_loc_center icon"></button>
-        </div>
-        <!-- end 헤더 부분 -->
-    
-        <!-- 본문 부분 -->
-        <div class="body--wrap">
-            <div class="swiper--container">
-                <div class="blurred--background"></div>
-                <div class="black--layered"></div>
-                <div class="swiper--wrapper">       
-                    <div class="exhibit__content">
-                        <a href="{% url 'layout1' %}" class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
-                            <img class="poster__image" src="../static/icons/1기_전시포스터.jpg">
-                        </a>
-                        <div class="exhibit__about">
-                            <div class="exhibit__title"> 에이블 1기 빅프로젝트 전시회 </div>
-                            <div class="exhibit__date"> 2024.08.10 ~ 2024.08.12 </div>
-                        </div>
-                    </div>
-    
-                    <div class="exhibit__content">
-                        <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
-                            <img class="poster__image" src="../static/icons/2기_전시포스터.jpg">
-                        </a>
-                        <div class="exhibit__about">
-                            <div class="exhibit__title"> 에이블 2기 빅프로젝트 전시회 </div>
-                            <div class="exhibit__date"> 2024.08.13 ~ 2024.08.15 </div>
-                        </div>
-                    </div>
-    
-                    <div class="exhibit__content">
-                        <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
-                            <img class="poster__image" src="../static/icons/3기_전시포스터.jpg">
-                        </a>
-                        <div class="exhibit__about">
-                            <div class="exhibit__title"> 에이블 3기 빅프로젝트 전시회 </div>
-                            <div class="exhibit__date"> 2024.08.18 ~ 2024.08.20 </div>
-                        </div>
-                    </div>
-    
-                    <div class="exhibit__content">
-                        <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
-                            <img class="poster__image" src="../static/icons/4기_전시포스터.jpg">
-                        </a>
-                        <div class="exhibit__about">
-                            <div class="exhibit__title"> 에이블 4기 빅프로젝트 전시회 </div>
-                            <div class="exhibit__date"> 2024.08.21 ~ 2024.08.23 </div>
-                        </div>
-                    </div>
-    
-                    <div class="exhibit__content">
-                        <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
-                            <img class="poster__image" src="../static/icons/1기_전시포스터.jpg">
-                        </a>
-                        <div class="exhibit__about">
-                            <div class="exhibit__title"> 에이블 1기 빅프로젝트 전시회 </div>
-                            <div class="exhibit__date"> 2024.08.10 ~ 2024.08.12 </div>
-                        </div>
-                    </div>                
-    
+    <div class = "main-page--main">
+        <div class="app__size">
+            <!-- 헤더 부분 -->
+            <div class="header--fixed">
+                <button class="header__button--menu icon" style="cursor:pointer; opacity:1;"></button>
+                <div class="header__title--wrap">
+                    <a href="{% url 'index' %}" ><button class="header__title icon" style="cursor:pointer;"></button></a>
                 </div>
+                <button class="for_loc_center icon"></button>
             </div>
-            
-            <!-- 중간에 있는 메뉴바 -->
-            <div class="main__menu--wrap">
-                <div class="main__menu--icons">
-                    <button class="main__menu--item" id="btn1"><span>전시회 목록</span></button> 
-                    <button class="main__menu--item" id="btn2"><span>공지사항</span></button> 
-                    <button class="main__menu--item" id="btn3"><span>About</span></button>
-                    <button class="main__menu--item" id="btn4"><span>FAQ</span></button>
-                    {% if user.is_authenticated %}
-                        {% if user.profile.user_type == '기업회원' %} 
-                            <button class="main__menu--item" id="btn5"><span>배치도 생성</span></button>
+            <!-- end 헤더 부분 -->
+        
+            <!-- 본문 부분 -->
+            <div class="body--wrap">
+                <div class="swiper--container">
+                    <div class="blurred--background"></div>
+                    <div class="black--layered"></div>
+                    <div class="swiper--wrapper">       
+                        <div class="exhibit__content">
+                            <a href="{% url 'layout1' %}" class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                                <img class="poster__image" src="../static/icons/1기_전시포스터.jpg">
+                            </a>
+                            <div class="exhibit__about">
+                                <div class="exhibit__title"> 에이블 1기 빅프로젝트 전시회 </div>
+                                <div class="exhibit__date"> 2024.07.23 ~ 2024.07.31 </div>
+                            </div>
+                        </div>
+        
+                        <div class="exhibit__content">
+                            <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                                <img class="poster__image" src="../static/icons/2기_전시포스터.jpg">
+                            </a>
+                            <div class="exhibit__about">
+                                <div class="exhibit__title"> 에이블 2기 빅프로젝트 전시회 </div>
+                                <div class="exhibit__date"> 2024.07.24 ~ 2024.08.03 </div>
+                            </div>
+                        </div>
+        
+                        <div class="exhibit__content">
+                            <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                                <img class="poster__image" src="../static/icons/3기_전시포스터.jpg">
+                            </a>
+                            <div class="exhibit__about">
+                                <div class="exhibit__title"> 에이블 3기 빅프로젝트 전시회 </div>
+                                <div class="exhibit__date"> 2024.07.25 ~ 2024.08.05 </div>
+                            </div>
+                        </div>
+        
+                        <div class="exhibit__content">
+                            <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                                <img class="poster__image" src="../static/icons/4기_전시포스터.jpg">
+                            </a>
+                            <div class="exhibit__about">
+                                <div class="exhibit__title"> 에이블 4기 빅프로젝트 전시회 </div>
+                                <div class="exhibit__date"> 2024.07.28 ~ 2024.08.05 </div>
+                            </div>
+                        </div>
+
+                        <div class="exhibit__content">
+                            <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                                <img class="poster__image" src="../static/icons/5기_전시포스터.png">
+                            </a>
+                            <div class="exhibit__about">
+                                <div class="exhibit__title"> 에이블 5기 빅프로젝트 전시회 </div>
+                                <div class="exhibit__date"> 오픈 예정 </div>
+                            </div>
+                        </div>
+        
+                        <div class="exhibit__content">
+                            <a class="exhibit__poster"> <!-- 각 전시회장으로의 링크 걸기-->
+                                <img class="poster__image" src="../static/icons/1기_전시포스터.jpg">
+                            </a>
+                            <div class="exhibit__about">
+                                <div class="exhibit__title"> 에이블 1기 빅프로젝트 전시회 </div>
+                                <div class="exhibit__date"> 2024.07.23 ~ 2024.07.31 </div>
+                            </div>
+                        </div>                
+        
+                    </div>
+                </div>
+                
+                <!-- 중간에 있는 메뉴바 -->
+                <div class="main__menu--wrap">
+                    <div class="main__menu--icons">
+                        <button class="main__menu--item" id="btn1"><span>전시회 목록</span></button> 
+                        <button class="main__menu--item" id="btn2"><span>공지사항</span></button> 
+                        <button class="main__menu--item" id="btn3"><span>About</span></button>
+                        <button class="main__menu--item" id="btn4"><span>FAQ</span></button>
+                        {% if user.is_authenticated %}
+                            {% if user.profile.user_type == '기업회원' %} 
+                                <button class="main__menu--item" id="btn5"><span>배치도 생성</span></button>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
+                    </div> 
                 </div> 
-            </div> 
-            
-    
-            <!-- 챗봇 -->
-            <div class="chatbot--wrapper">
-                <button class="chatbot__icon icon" id="chatbotToggle"> </button>
-                <div class="chatbot__window" id="chatbotWindow">
-                    <div id="chatbot__title">
-                        <span><img class="chatbot__header__profile"></span>
-                        <h4 style="display: inline-block; vertical-align: middle;">AIVEX</h4>
+                
+            </div>
+            <!-- end 본문 부분 -->
+        
+            <!-- 사이드바 -->
+            {% include 'base/sidebar.html' %}
+        </div>
+
+        <!-- 챗봇 -->
+        <div class="chatbot--wrapper">
+            <button class="chatbot__icon icon" id="chatbotToggle"> </button>
+            <div class="chatbot__window" id="chatbotWindow">
+                <div id="chatbot__title">
+                    <span><img class="chatbot__header__profile"></span>
+                    <h4 style="display: inline-block; vertical-align: middle;">AIVEX</h4>
+                </div>
+                <div id="chatbot__body">
+                    <div class="message bot-message">
+                        <img class="bot-profile">
+                        <div class="message-content">안녕하세요! 무엇을 도와드릴까요?</div>
                     </div>
-                    <div id="chatbot__body">
-                        <div class="message bot-message">
-                            <img class="bot-profile">
-                            <div class="message-content">안녕하세요! 무엇을 도와드릴까요?</div>
-                        </div>
-                        
-                        <div id="options-container" class="options">
-                            <button class="option-button">AIVEX가 뭐죠?</button>
-                            <button class="option-button">AIVEX의 기능은 무엇인가요?</button>
-                            <button class="option-button">AIVEX의 장점은 무엇인가요?</button>
-                            <button class="option-button">AIVEX는 어떻게 사용할 수 있나요?</button>
-                        </div>
+                    
+                    <div id="options-container" class="options">
+                        <button class="option-button">AIVEX가 뭐죠?</button>
+                        <button class="option-button">AIVEX의 기능은 무엇인가요?</button>
+                        <button class="option-button">AIVEX의 장점은 무엇인가요?</button>
+                        <button class="option-button">AIVEX는 어떻게 사용할 수 있나요?</button>
                     </div>
-                    <div id="chatbot--footer">
-                        <div id="chatbot__text">
-                            <textarea id="message--input" placeholder="메세지를 입력해주세요."></textarea>
-                            <button id="send-button" class="icon"></button>
-                        </div>
+                </div>
+                <div id="chatbot--footer">
+                    <div id="chatbot__text">
+                        <textarea id="message--input" placeholder="메세지를 입력해주세요."></textarea>
+                        <button id="send-button" class="icon"></button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end 본문 부분 -->
-    
-        <!-- 사이드바 -->
-        {% include 'base/sidebar.html' %}
-    </div>
 
+        <div class = "main_screen--pc">
+            {% include 'base/header_main_pc.html' %}
 
-    <div class = "main_screen--pc">
-        {% include 'base/header_main_pc.html' %}
+            <div class = "not_header--wrap">
 
-        <div class = "not_header--wrap">
-
-            <div class = "main_left--wrap">
-                <div class = "slider--background">
-                    <div class = "slider--background--img"></div>
-                    <div class = "slider_black--filter"></div>                  
-                    <div id="carousel">                  
-                        <div class="prevLeftSecond">
-                            <img src="../static/icons/1기_전시포스터.jpg">
+                <div class = "main_left--wrap">
+                    <div class = "slider--background">
+                        <div class = "slider--background--img"></div>
+                        <div class = "slider_black--filter"></div>                  
+                        <div id="carousel">                  
+                            <div class="prevLeftSecond" data-text="<h2><b> 에이블 1기 빅프로젝트 전시회</b> </h2> <p> 2024.07.23~2024.07.31">
+                                <img src="../static/icons/1기_전시포스터.jpg">
+                            </div>
+                    
+                            <div class="prev" data-text="<h2><b> 에이블 2기 빅프로젝트 전시회 </b></h2> <p> 2024.07.23~2024.07.31">
+                                <img src="../static/icons/2기_전시포스터.jpg">
+                            </div>
+                    
+                            <div class="selected" data-text="<h2> <b>에이블 3기 빅프로젝트 전시회 </b></h2> <p> 2024.07.23~2024.07.31">
+                                <img src="../static/icons/3기_전시포스터.jpg">
+                            </div>
+                    
+                            <div class="next" data-text="<h2><b> 에이블 4기 빅프로젝트 전시회</b> </h2> <p> 2024.07.23~2024.07.31">
+                                <img src="../static/icons/4기_전시포스터.jpg">
+                            </div>
+                    
+                            <div class="nextRightSecond" data-text="<h2><b>에이블 5기 빅프로젝트 전시회 </b></h2> <p> 2024.07.23~2024.07.31">
+                                <img src="../static/icons/5기_전시포스터.png">
+                            </div>
+                        </div>  
+                        <div class="buttons">
+                            <button id="prev">Prev</button>
+                            <button id="next">Next</button>
                         </div>
+                    </div>
+                </div>
                 
-                        <div class="prev">
-                            <img src="../static/icons/2기_전시포스터.jpg">
+                <div class = "main_right--wrap">
+                    <div id="slide-text" class="show">
+                        <h2><b>에이블 3기 빅프로젝트 전시회</b> </h2> <p> 2024.07.23~2024.07.31 </p>
+                    </div>
+                    <div class ="pc-menu--wrap">
+                        <div class = "pc-menu--container">
+                            <button class="pc-menu--item" id="btn1-pc"><span>전시회 목록</span></button> 
+                            <button class="pc-menu--item" id="btn2-pc"><span>공지사항</span></button> 
+                            <button class="pc-menu--item" id="btn3-pc"><span>About</span></button>
+                            <button class="pc-menu--item" id="btn4-pc"><span>FAQ</span></button>
+                            {% if user.is_authenticated %}
+                                {% if user.profile.user_type == '기업회원' %} 
+                                    <button class="pc-menu--item" id="btn5-pc"><span>배치도 생성</span></button>
+                            {% endif %}
+                        {% endif %}
                         </div>
-                
-                        <div class="selected">
-                            <img src="../static/icons/3기_전시포스터.jpg">
-                        </div>
-                
-                        <div class="next">
-                            <img src="../static/icons/4기_전시포스터.jpg">
-                        </div>
-                
-                        <div class="nextRightSecond">
-                            <img src="../static/icons/5기_전시포스터.png">
-                        </div>
-                    </div>  
-                    <div class="buttons">
-                        <button id="prev">Prev</button>
-                        <button id="next">Next</button>
                     </div>
                 </div>
             </div>
-            
-            <div class = "main_right--wrap">
-                <div class="chatbot--wrapper">
-                    <button class="chatbot__icon icon" id="chatbotToggle"> </button>
-                    <div class="chatbot__window" id="chatbotWindow">
-                        <div id="chatbot__title">
-                            <span><img class="chatbot__header__profile"></span>
-                            <h4 style="display: inline-block; vertical-align: middle;">AIVEX</h4>
-                        </div>
-                        <div id="chatbot__body">
-                            <div class="message bot-message">
-                                <img class="bot-profile">
-                                <div class="message-content">안녕하세요! 무엇을 도와드릴까요?</div>
-                            </div>
-                            
-                            <div id="options-container" class="options">
-                                <button class="option-button">AIVEX가 뭐죠?</button>
-                                <button class="option-button">AIVEX의 기능은 무엇인가요?</button>
-                                <button class="option-button">AIVEX의 장점은 무엇인가요?</button>
-                                <button class="option-button">AIVEX는 어떻게 사용할 수 있나요?</button>
-                            </div>
-                        </div>
-                        <div id="chatbot--footer">
-                            <div id="chatbot__text">
-                                <textarea id="message--input" placeholder="메세지를 입력해주세요."></textarea>
-                                <button id="send-button" class="icon"></button>
-                            </div>
-                        </div>
-                    </div>
+
+        </div>
+
+    </div>
+
+    <div class = "main-pc--footer">
+        <!-- Footer content goes here -->
+        <div class ="main-footer--wrap">
+            <div class = "footer-right">
+                <div class="sec">
+                    <p>
+                        <a href="javascript:goTermsOfService();" style="font-weight:bold;color:black;padding-right:5px;">개인정보 처리방침</a>
+                        <a href="javascript:goPrivacy();" style="color:gray;">이용약관</a>
+                    </p>
                 </div>
+                <ul class="info">
+                    <li>㈜에이벡스&nbsp;&nbsp;</li>
+                    <li>경기도 성남시 분당구 불정로 90 (정자동)&nbsp;&nbsp;</li>
+                    <li>대표자명 : 김대표 &nbsp;&nbsp;</li>
+                    <li>사업자등록번호 : 123-34-67890&nbsp;&nbsp;</li>
+                    <li>통신판매업신고 : 2024-경기성남-9999&nbsp;&nbsp;</li>
+                </ul>
+                <p class="copyright" style ="margin:0;">© 2024 AIVEX Corp. All rights reserved.</p>
             </div>
         </div>
     </div>
-    
+
     <script>
         const boothsJsonString = '{{ booths|escapejs }}';
         const booths = JSON.parse(boothsJsonString);
@@ -228,6 +251,15 @@
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>       
+    <script type="text/javascript">			 
+        function goPrivacy(){
+            window.open('https://aivle.edu.kt.co.kr/home/main/policySvcMain', 'AIVLE', 'width=800, height=600, resizable=0, scrollbars=no, status=0, titlebar=0, toolbar=0, left=435, top=250' );
+        }
+    
+        function goTermsOfService(){
+            window.open('https://aivle.edu.kt.co.kr/home/main/privateMain', 'AIVLE', 'width=800, height=600, resizable=0, scrollbars=no, status=0, titlebar=0, toolbar=0, left=435, top=250' );
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
 </html>

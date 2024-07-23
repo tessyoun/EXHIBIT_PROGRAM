@@ -40,7 +40,6 @@ urlpatterns = [
     
     # etc
     path('mypage/', views.mypage, name='mypage'), #마이페이지 사용하는지?
-    path('reserve/', include('reserve_hall.urls', namespace='reserve_hall')), #사용유무 확실x
     path('reserve_exhib/', views.reserve_exhib, name='reserve_exhib'), #예약하기 버튼 어디로 매핑되는지?
     path('edit_booth/', views.edit_booth_view, name='edit_booth'), #template x
     path('layout5/', views.create_exhibition, name='layout5'), #template x

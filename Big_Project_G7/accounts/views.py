@@ -65,31 +65,6 @@ def update_profile(request):
         'profile_form': profile_form,
     }
     return render(request, 'memberinfo.html', context)
-
-def info(request):
-    profile = Profile.objects.all()
-    return render(request, 'registration/profile_list.html', {'profile':profile})
-
-def detail(request, pk):
-    profile = Profile.objects.get(pk=pk)
-    return render(request, 'registration/detail.html', {'profile':profile})
-    
-def edit(request, pk):
-    profile = Profile.objects.get(pk=pk)
-    return render(request, 'registration/edit.html', {'profile':profile})
-
-def delete(request, pk):
-    profile = Profile.objects.get(pk=pk)
-    profile.delete()
-    return render(request, 'registration/profile_list.html')
-
-def update(request, pk):
-    profile = Profile.objects.get(pk=pk)
-    profile.name = request.POST.get('name')
-    profile.phone_number = request.POST.get('phone_number')
-    profile.user_type = request.POST.get('user_type')
-    profile.save()
-    return redirect('detail', profile.pk)
     
 @login_required
 def password_check(request):
@@ -103,3 +78,4 @@ def password_check(request):
             messages.error(request, '비밀번호가 올바르지 않습니다.')
     
     return render(request, 'password_check.html')
+

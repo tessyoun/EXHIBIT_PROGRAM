@@ -29,6 +29,25 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error('One or more elements not found.');
     }
 
+    //생성된 배치도 표시
+    const createdLayElements = document.getElementsByClassName('created_lay');
+    const removeLayElements = document.getElementsByClassName('remove_lay');
+    
+    if (createdLayElements.length > 0) {
+        // Load the saved display state from LocalStorage
+        const displayState = localStorage.getItem('createdLayDisplayState');
+        if (displayState === 'block') {
+            for (const element of createdLayElements) {
+                element.classList.add('block');
+            }
+        }
+    }
+    for (const element of removeLayElements) {
+        element.addEventListener('click', () => {
+            localStorage.removeItem('createdLayDisplayState');
+        });
+    }
+
     // Modal close functionality
     const closeButtons = document.getElementsByClassName('BMclose');
     const bookMModal = document.getElementById('bookMModal');
