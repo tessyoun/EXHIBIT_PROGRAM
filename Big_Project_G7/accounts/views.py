@@ -43,6 +43,9 @@ def mypage_view(request):
 
 @login_required
 def update_profile(request):
+    if not request.session.get('password_checked', False):
+        return redirect('accounts:password_check')
+    
     profile, created = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
@@ -51,6 +54,7 @@ def update_profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, '프로필이 업데이트되었습니다.')
+            request.session['password_checked'] = False
             return redirect('index')
     else:
         user_form = UserUpdateForm(instance=request.user)
@@ -61,3 +65,17 @@ def update_profile(request):
         'profile_form': profile_form,
     }
     return render(request, 'memberinfo.html', context)
+    
+@login_required
+def password_check(request):
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        user = authenticate(username=request.user.username, password=password)
+        if user is not None:
+            request.session['password_checked'] = True
+            return redirect('accounts:update')
+        else:
+            messages.error(request, '비밀번호가 올바르지 않습니다.')
+    
+    return render(request, 'password_check.html')
+
