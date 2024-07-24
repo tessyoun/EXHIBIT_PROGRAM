@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var prevSecond = $(prev).prev();
             var nextSecond = $(next).next();
     
-            $("#carousel div").removeClass().addClass('hide'); // 기본적으로 모든 슬라이드를 숨김
+            $("#carousel div").removeClass().addClass('hide'); 
             $(selected).removeClass('hide').addClass("selected");
             $(prev).removeClass('hide').addClass("prev");
             $(next).removeClass('hide').addClass("next");
@@ -144,13 +144,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
         function updateSlideText(text) {
             var slideTextDiv = $("#slide-text");
-            slideTextDiv.removeClass('show'); // 텍스트 숨기기
+            slideTextDiv.removeClass('show'); 
     
-            // 잠시 대기 후 텍스트 업데이트
             setTimeout(function() {
-                slideTextDiv.html(text); // 텍스트 설정
-                slideTextDiv.addClass('show'); // 텍스트 보이기
-            }, 500); // 페이드 아웃 후 500ms 대기
+                slideTextDiv.html(text); 
+                slideTextDiv.addClass('show'); 
+            }, 500); 
         }
     
         $(document).keydown(function(e) {
@@ -181,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         setInterval(function() {
             moveToSelected('next');
-        }, 4000); // 4초마다 자동 슬라이드
+        }, 4000); 
     });
     
     
