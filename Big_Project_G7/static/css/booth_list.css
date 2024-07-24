@@ -260,12 +260,11 @@
 
     .booth-list--title{
         margin: 0;
+        margin-bottom: 30px;
         padding: 0;
         color: #fff;
         font-size: 27px;
         font-weight: 700;
-        margin-bottom: 50px;
-
     }
 
     .booth_info_title, .booth_edit--title{
@@ -279,8 +278,18 @@
     }
 
     .boothList--wrap{
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        align-items: center;
+        display: flex;
         height: 100%;
         width: 100%;
+        margin-top: 20px;
+        justify-content: center;
+    }
+
+    #boothList{
+        width: 90%;
     }
 
     .booth-item.first-item{
@@ -291,6 +300,7 @@
         display: flex;
         flex-direction: column;
         width: 90%;
+        margin-top: 30px;
     }
 
     #booth_detail--wrap, #booth_edit--content{
@@ -315,6 +325,7 @@
     #booth_detail--btn{
         width: 90%;
         margin-top: 20px;
+        margin-bottom: 30px;
     }
 
     .back--btn{
