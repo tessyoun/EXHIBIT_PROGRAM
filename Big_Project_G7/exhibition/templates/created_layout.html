@@ -112,6 +112,7 @@
         const imageBasePath = "{% static 'booth_thumbnail/4/' %}";      //4기 썸네일 가져오기
         const boothsJsonString = '{{ booths|escapejs }}';
         const booths = JSON.parse(boothsJsonString);                    //부스 정보 가져오기
+        const bwArray = JSON.parse('{{ bw_array|escapejs }}'); //지도
     </script>
     <script src="{% static 'js/booth.js' %}"></script>
 {% endblock %}
