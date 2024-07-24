@@ -258,10 +258,10 @@ def process_image(request):
             cv2.drawContours(image, [box], 0, (0, 255, 0), 2)
             rectangles.append((rect, box.tolist()))
 
-    processed_image_path = os.path.join(MEDIA_ROOT, 'proceeded_images/processed_image.png')
+    processed_image_path = os.path.join(settings.BASE_DIR, 'static/proceeded_images/processed_image2.jpg')
     cv2.imwrite(processed_image_path, resized_image)
 
-    return 'proceeded_images/processed_image.png', rectangles
+    return 'proceeded_images/processed_image2.jpg', rectangles
 
 def created_layout(request):
     image_path, rectangles = process_image(request)
