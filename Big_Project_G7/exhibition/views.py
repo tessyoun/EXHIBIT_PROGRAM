@@ -242,7 +242,8 @@ def process_image(request):
         print(f"Error: Unable to load the image file at {image_path}.")
         return None, []
     
-    scale_percent = 100  # 이미지 크기 줄이기 가능 %
+    #scale_percent = 100  # 이미지 크기 줄이기 가능 %
+    scale_percent = 180
     width = int(image.shape[1] * scale_percent / 100)
     height = int(image.shape[0] * scale_percent / 100)
     dim = (width, height)
