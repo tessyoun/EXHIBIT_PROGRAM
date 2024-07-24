@@ -222,6 +222,11 @@ def update_exhibition(request):
 
     return render(request, 'exhibinfo.html', {'exhi_form':exhi_form})
 
+def max_pooling(image, pool_size):
+    pooled_image = image[:image.shape[0] // pool_size * pool_size, :image.shape[1] // pool_size * pool_size]
+    pooled_image = pooled_image.reshape(image.shape[0] // pool_size, pool_size, image.shape[1] // pool_size, pool_size)
+    pooled_image = pooled_image.max(axis=(1, 3))
+    return pooled_image
 
 # 배치도html 전처리, 생성
 def process_image(request):     
@@ -246,6 +251,14 @@ def process_image(request):
     gray = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
     edged = cv2.Canny(gray, 50, 100)
 
+   # 지도 grid용 2d array// grayscale 이미지를 0(white) 1(black) 2d array로 변환
+    _, bw_image = cv2.threshold(gray, 200, 1, cv2.THRESH_BINARY_INV)
+    pool_size = 20
+    pooled_image = max_pooling(bw_image, pool_size)
+    
+    bw_array = pooled_image.tolist()
+    bw_array = [[1 - pixel for pixel in row] for row in bw_array]
+    #
     contours, _ = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     rectangles = []
 
@@ -261,10 +274,10 @@ def process_image(request):
     processed_image_path = os.path.join(settings.BASE_DIR, 'static/proceeded_images/processed_image2.jpg')
     cv2.imwrite(processed_image_path, resized_image)
 
-    return 'proceeded_images/processed_image2.jpg', rectangles
+    return 'proceeded_images/processed_image2.jpg', rectangles, bw_array
 
 def created_layout(request):
-    image_path, rectangles = process_image(request)
+    image_path, rectangles, bw_array = process_image(request)
     if image_path is None:
         return render(request, 'created_layout.html', {'error': 'Image processing failed.'})
     
@@ -291,6 +304,7 @@ def created_layout(request):
     booth = serialize('json', Booth_Info.objects.filter(exhibition_id=4))
     
     return render(request, 'created_layout.html', {'image_path': image_path, 
-                                                    'rectangles': list(enumerate(rectangles_with_dimensions)),
-                                                    'booths': booth,
-                                                    })
+                                                'rectangles': list(enumerate(rectangles_with_dimensions)),
+                                                'booths': booth,
+                                                'bw_array': json.dumps(bw_array),
+                                                })
