@@ -54,6 +54,10 @@ li::marker {
     background-color: transparent;
 }
 
+#search-button i{
+    font-size: 20px;
+}
+
 .lay1-search--wrap{
     border: 2px solid #c6c6c6;
     border-radius: 20px;
@@ -63,25 +67,19 @@ li::marker {
     position:relative;
     margin:0px 0px 10px 0px;
     padding:10px;
-    gap: 10px;
+
     height:70px;
-    width:100%;
+    width:90%;
     max-width: 800px;
     text-align: center;
 }
 
 #booth-search input {
-    width: 50%;
+    width: 60%;
     padding: 8px;
     margin-left: 3px;
     height: 40px;
     font-size: auto;
-}
-
-#booth-search button {
-    padding: 8px 10px;
-    font-size: auto;
-    width:20%;
 }
 
 #suggestions {
@@ -245,12 +243,14 @@ li::marker {
 }
 
 .manage-button {
-    background: #28a745;
+    background: #38B8B2;
     color: white;
 }
 
 .manage-button:hover {
-    background: #218838;
+    background: #32a09a;
+    color: white;
+    transform: scale(0.97);
 }
 
 .delete-button {
@@ -260,6 +260,8 @@ li::marker {
 
 .delete-button:hover {
     background-color: #cc5555;
+    color: white;
+    transform: scale(0.97);
 }
 
 /* button css */
@@ -271,7 +273,7 @@ li::marker {
     color: #FFFFFF;
     text-align: center;
     font-size: 20px;
-    padding: 15px 20px 15px 20px;
+    padding: 8px 20px;
     width: auto;
     transition: all 0.5s;
     cursor: pointer;
@@ -296,6 +298,7 @@ li::marker {
   
 .button:hover span {
     padding-right: 25px;
+    color: white;
 }
   
 .button:hover span:after {
@@ -426,6 +429,10 @@ li::marker {
     display: flex;
     flex-direction: column;
     padding: 0;
+}
+
+.fa-star{
+    color:#FFD43B;
 }
 
 /* Responsive adjustments */
