@@ -13,18 +13,20 @@
 {% endblock %}
 <!-- main body code -->
 {% block main_content %}
-<div class="background-pc-list pc"></div>
+<div class="background-pc pc"></div>
 <div id="exh-section">
   <h2 class="exh_title">AIVEX 전시회 목록</h2>
   <div class="list-section">
     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
       <p id="selected-date">원하는 날짜를 선택해주세요.</p>
       <div class="toggle-calendar-button" onclick="toggleCalendar()">
-        달력 보기
+        <i class="fa-solid fa-calendar-days" style="color: #ffffff;"></i> 달력 보기
       </div>
     </div>
   </div>
-  <div id="exhibition-list"></div>
+  <div class = "exhibition-list--wrap">
+    <div id="exhibition-list"></div>
+  </div>
 </div>
 <!-- 전시회 부분 -->
 <div class="calendar-container" id="calendar-container">

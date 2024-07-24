@@ -1,5 +1,5 @@
 #exh-section {
-  margin-top: 10px;
+  margin-top: 30px;
   width: 100%;
 }
 
@@ -7,6 +7,11 @@
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+}
+
+#exhibition-list{
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .list-section {
@@ -29,6 +34,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  margin-bottom: 8px;
 }
 
 .background-image {
@@ -40,8 +46,8 @@
   background-image: inherit;
   background-size: cover;
   background-position: center;
-  filter: blur(8px); /* Apply blur effect only to the background image */
-  z-index: -1; /* Push behind content */
+  filter: blur(8px); 
+  z-index: 0; 
   opacity: 0.6;
   border-radius: 5px;
 }
@@ -71,20 +77,20 @@
 .toggle-calendar-button {
   margin-left: auto;
   cursor: pointer;
-  background-color: #00d1d4;
-  color: black;
-  padding: 10px;
+  background-color: #38b8b2;
+  color: white;
+  padding: 8px 10px;
   border-radius: 5px;
+  font-weight: 600;
 }
 
 .toggle-calendar-button:hover {
-  background-color: #7b7b7b;
-  color:white;
+  transform: scale(0.97);
+  background-color: #309994;
 }
 
 .toggle-calendar-button span {
   font-size: 19px;
-  color: black;
 }
 
 .calendar-container {
@@ -114,38 +120,96 @@
 
 
 @media (min-width: 992px) { 
-  #exh-section {
-      width: 70%;
-      margin-top: 100px;
-  }
+    #exh-section {
+        width: 70%;
+        margin-top: 100px;
+    }
 
-  .exh_title {
-      color: #fff;
-      font-size: 27px;
-      font-weight: 700;
-      margin: 0;
-      padding: 0;
-  }
-  .list-section {
-    margin: 0 0 0 0;
-    color:#fffafa;
-    display: grid;
-    place-items: center;
-  }
-  .list_exhibition{
-    margin: 0 0 0 0;
-  }
-  .exhibition-card {
-    width: 100%;
-    margin: 0 0 0 0;
-  }
-  .toggle-calendar-button {
-    margin-left: auto;
-    cursor: pointer;
-    background-color: #fffafa;
-    color: black;
-    padding: 10px;
-    border-radius: 5px;
-  }
+    .exh_title {
+        color: #fff;
+        font-size: 27px;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
+    }
+    .list-section {
+        margin: 0 0 0 0;
+        color:#fffafa;
+        display: grid;
+        place-items: center;
+    }
+
+    .list_exhibition{
+        margin: 0 0 0 0;
+    }
+
+    .toggle-calendar-button {
+        margin-left: auto;
+        cursor: pointer;
+        background-color: transparent;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .toggle-calendar-button:hover{
+        background-color: transparent;
+        color: black;
+        transform: scale(1.05);
+    }
+
+    .toggle-calendar-button:hover .fa-calendar-days{
+        color: #000000 !important;
+    }
+
+
+    .exhibition-list--wrap{
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        height: 100%;
+        margin: 0;
+    }
+
+    #exhibition-list{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 10px;
+        width: 95%;
+        justify-content: center; 
+    }
+
+    .exhibition-card {
+        width: 270px;
+        height: 360px;
+        margin-bottom: 16px;
+        margin: 8px auto;
+        transition: transform 0.3s ease;
+        border: 1px solid gray;
+    }
+
   
+    .exhibition-card:hover{
+        transform: scale(1.04);
+        border: none;
+    }
+
+    .exhibition-card:hover .exhibition-details{
+        display: none;
+    }
+
+    .background-image {
+        filter: blur(0px); 
+        opacity: 1;
+        border-radius: 5px;
+    }
+
+    .exhibition-details {
+        position: absolute;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        bottom: 0;
+    }
 } 
