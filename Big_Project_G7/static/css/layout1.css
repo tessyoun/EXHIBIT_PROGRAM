@@ -67,9 +67,8 @@ li::marker {
     position:relative;
     margin:0px 0px 10px 0px;
     padding:10px;
-
     height:70px;
-    width:90%;
+    width:95%;
     max-width: 800px;
     text-align: center;
 }
@@ -117,16 +116,19 @@ li::marker {
     border: 1px solid #ccc;
     overflow: scroll; /* 스크롤 기능 활성화 */
 }
+
 .image-container img {
     position: absolute;
     left: 0;
     top: 0;
     pointer-events: none;
 }
+
 .rectangle {
     position: absolute;
     border: 2px solid green;
 }
+
 .modal {
     display: none;
     position: fixed;
@@ -140,6 +142,7 @@ li::marker {
     background-color: rgba(0, 0, 0, 0.4);
     padding-top: 60px;
 }
+
 .modal-content {
     background-color: #fefefe;
     margin:auto;
@@ -151,6 +154,7 @@ li::marker {
     min-width: 300px;
     max-width: 600px;
 }
+
 .top_button {
     display: flex;
     align-items: center; /* 세로 가운데 정렬 */
@@ -473,5 +477,6 @@ li::marker {
         display: flex;
         height: 100%;
         margin-top: 30px;
+        flex-direction: column;
     }
 }
