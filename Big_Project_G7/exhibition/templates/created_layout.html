@@ -7,18 +7,24 @@
 {% endblock %}
 
 {% block title %} 
-    Image with Clickable Rectangles
+    생성된 배치도
 {% endblock %}
 
 <!-- main body code -->
 {% block main_content %}
+<div class = "background-pc pc"></div>
+
+<div class ="lay1-whole--wrap">
+    <h2 class = "lay1--title">생성된 배치도</h2>
+    <div class="lay1-container--wrap">
+
     <div class="body--wrap">
         <div id="booth-search">
-            <div>
+            <div class="lay1-search--wrap">
                 <select id="category" name="category">
                 </select>
                 <input type="text" id="booth-name-input" placeholder="부스이름">
-                <button id="search-button">검색</button>
+                <button id="search-button"><i class="fa-solid fa-magnifying-glass" style="color: #c6c6c6;"></i></button>
             </div>
             <div id="suggestions"></div>
         </div>

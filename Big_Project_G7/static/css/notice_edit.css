@@ -113,6 +113,7 @@
         justify-content: space-between;
         border: none;
         margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     .notice_write_submit--wrap input{
